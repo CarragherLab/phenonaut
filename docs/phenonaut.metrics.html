@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.metrics package &mdash; Phenonaut 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.output package" href="phenonaut.output.html" />
+    <link rel="prev" title="phenonaut.data package" href="phenonaut.data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">phenonaut.metrics package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="phenonaut.html">phenonaut package</a> &raquo;</li>
+      <li>phenonaut.metrics package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.metrics.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-metrics-package">
+<h1>phenonaut.metrics package<a class="headerlink" href="#phenonaut-metrics-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-phenonaut.metrics.distances">
+<span id="phenonaut-metrics-distances-module"></span><h2>phenonaut.metrics.distances module<a class="headerlink" href="#module-phenonaut.metrics.distances" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distances.euclidean">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distances.euclidean" title="Permalink to this definition"></a></dt>
+<dd><p>Measure the euclidean distance between 2 points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point1</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>,</em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – Multidimensional point, can be a simple list of [x,y,z], or a 2d M*N
+list where M are multiple points to be individually measured of N
+features and returning an array of measurmenents for each point.</p></li>
+<li><p><strong>point2</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>, </em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – List of N features, must have 1 dimension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array (if point is 2D) of distances. If 1D, then single float value is
+returned indicating the euclidean distance between point1 and point2.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>[np.ndarray, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – Point1 can be 2D, but not 3D, and point2 must be 1D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distances.mahalanobis">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">mahalanobis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloud</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MinCovDet()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distances.mahalanobis" title="Permalink to this definition"></a></dt>
+<dd><p>Measure the Mahalanobis distance between a point and a cloud</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>,</em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – Multidimensional point, can be a simple list of [x,y,z], or a 2d M*N
+list where M are multiple points to be individually measured of N
+features and returning an array of measurmenents for each point.</p></li>
+<li><p><strong>cloud</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>, </em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – 2D M*N array-like set of M points, with N features from which the
+underlying target distribution will be measured.</p></li>
+<li><p><strong>covariance_estimator</strong> (<em>Optional</em><em>[</em><em>object</em><em>]</em><em>, </em><em>optional</em>) – Instantiated object with fit and mahalanobis methods used for covariance
+estimation. MinCovDet is used by default from sklearn.covariance.
+Another option is sklearn.covariance.EmpiricalCovariance().</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array (if point is 2D) of distances. If 1D, then single float value is
+returned indicating the Mahalanobis distance of the point to the
+cloud.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>[np.ndarray, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – Point can be 2D, but not 3D.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distances.manhattan">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">manhattan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distances.manhattan" title="Permalink to this definition"></a></dt>
+<dd><p>Measure the Manhattan distance between 2 points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point1</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>,</em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – Multidimensional point, can be a simple list of [x,y,z], or a 2d M*N
+list where M are multiple points to be individually measured of N
+features and returning an array of measurmenents for each point.</p></li>
+<li><p><strong>point2</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>, </em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – List of N features, must have 1 dimension.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array (if point is 2D) of distances. If 1D, then single float value is
+returned indicating the euclidean distance between point1 and point2.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>[np.ndarray, float]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – Point1 can be 2D, but not 3D, and point2 must be 1D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distances.treatment_spread_euclidean">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">treatment_spread_euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict[slice(&lt;class</span> <span class="pre">'str'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;,</span> <span class="pre">None)]</span></span></span><a class="headerlink" href="#phenonaut.metrics.distances.treatment_spread_euclidean" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the euclidean spreat of perturbation repeats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict[str</strong> – Dictionary with perturbations as keys and euclidean distances as values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float]</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>DataError</strong> – Perturbation column was not set for the given Dataset and was not
+    supplied via the perturbation_column argument to
+    treatment_spread_euclidean.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.metrics.measures">
+<span id="phenonaut-metrics-measures-module"></span><h2>phenonaut.metrics.measures module<a class="headerlink" href="#module-phenonaut.metrics.measures" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.measures.feature_correlation_to_target">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.measures.</span></span><span class="sig-name descname"><span class="pre">feature_correlation_to_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_feature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pearson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.measures.feature_correlation_to_target" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate correlation coefficients for features to a column</p>
+<p>Sometimes we may wish to identify highly correlated features with a given
+property.</p>
+<p>In this example, we use a subset of the Iris dataset:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>sepal length (cm)</p></th>
+<th class="head"><p>sepal width (cm)</p></th>
+<th class="head"><p>petal length (cm)</p></th>
+<th class="head"><p>petal width (cm)</p></th>
+<th class="head"><p>target</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>5.4</p></td>
+<td><p>3.4</p></td>
+<td><p>1.7</p></td>
+<td><p>0.2</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>7.2</p></td>
+<td><p>3.0</p></td>
+<td><p>5.8</p></td>
+<td><p>1.6</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>6.4</p></td>
+<td><p>2.8</p></td>
+<td><p>5.6</p></td>
+<td><p>2.1</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-odd"><td><p>4.8</p></td>
+<td><p>3.1</p></td>
+<td><p>1.60</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>5.6</p></td>
+<td><p>2.5</p></td>
+<td><p>3.9</p></td>
+<td><p>1.1</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+<p>We may wish to determine which feature is correlated with the
+“petal length (cm)” which can be achieved through calling this
+feature_correlation_to_target function, alowing the return of a pd.DataFrame
+or simple dictionary containing features names as keys, and the coefficients
+as values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">phenonaut</span> <span class="kn">import</span> <span class="n">Phenonaut</span>
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;sepal length (cm),sepal width (cm),petal length (cm),petal width (cm),target</span><span class="se">\n</span><span class="s2">5.4,3.4,1.7,0.2,0</span><span class="se">\n</span><span class="s2">7.2,3.0,5.8,1.6,2</span><span class="se">\n</span><span class="s2">6.4,2.8,5.6,2.1,2</span><span class="se">\n</span><span class="s2">4.8,3.1,1.60,2,0</span><span class="se">\n</span><span class="s2">5.6,2.5,3.9,1.1,1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">tmp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+    <span class="n">phe</span><span class="o">=</span><span class="n">Phenonaut</span><span class="p">()</span>
+    <span class="n">phe</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;Flowers&quot;</span><span class="p">,</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;features_regex&#39;</span><span class="p">:</span><span class="s2">&quot;.*(width|length).*&quot;</span><span class="p">})</span>
+
+<span class="kn">from</span> <span class="nn">phenonaut.metrics</span> <span class="kn">import</span> <span class="n">feature_correlation_to_target</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature_correlation_to_target</span><span class="p">(</span><span class="n">phe</span><span class="p">,</span> <span class="s1">&#39;petal length (cm)&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Returns a pd.DataFrame containing correlation coefficients:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>index</p></th>
+<th class="head"><p>correlation_to_petal length (cm)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sepal length (cm)</p></td>
+<td><p>0.914639</p></td>
+</tr>
+<tr class="row-odd"><td><p>petal width (cm)</p></td>
+<td><p>0.448289</p></td>
+</tr>
+<tr class="row-even"><td><p>sepal width (cm)</p></td>
+<td><p>-0.544665</p></td>
+</tr>
+</tbody>
+</table>
+<p>The optional dictionary, returned by calling the function with the additional return_dataframe parameter set to False:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">feature_correlation_to_target</span><span class="p">(</span><span class="n">phe</span><span class="p">,</span> <span class="s1">&#39;petal length (cm)&#39;</span><span class="p">),</span> <span class="n">return_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>has the form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;petal width (cm)&#39;</span><span class="p">:</span> <span class="mf">0.448289248746271</span><span class="p">,</span> <span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">:</span> <span class="mf">0.9146393603234955</span><span class="p">,</span> <span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5446646166252519</span><span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>DataFrame</em><em>]</em>) – The Phenonaut Dataset, pd.DataFrame, or Phenonaut object (containing only
+one dataset) on which to perform correlation calculations.</p></li>
+<li><p><strong>target_feature</strong> (<em>str</em>) – The feature, or metadata column that all correlations should be calculated against.</p></li>
+<li><p><strong>features</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of features to include in the correlation calculations. If None,
+and a Dataset is supplied then those features are used. In the case where
+a pd.DataFrame is supplied, then features must be supplied. By default None.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – Method used to calculate the correlation coefficient. Can be ‘pearson’,
+‘kendall’ for the Kendall Tau correlation coefficient, or ‘spearman’ for
+the Spearman rank correlation. By default “pearson”.</p></li>
+<li><p><strong>return_dataframe</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then a pd.DataFrame containing correlations is returned. If False,
+then a dictionary is returned, containing features names as keys, and
+the coefficients as values. By default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return a pd.DataFrame with calculated correlation coefficients, or
+alternatively, a dictionary containing features names as keys, and the
+coefficients as values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[pd.Datframe, dict]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Phenonaut objects must contain only one dataset if passed to this
+    function.</p></li>
+<li><p><strong>ValueError</strong> – Target feature not found in the supplied dataset.</p></li>
+<li><p><strong>ValueError</strong> – DataFrame supplied, but no features.</p></li>
+<li><p><strong>ValueError</strong> – target_feature not found in the dataset.</p></li>
+<li><p><strong>TypeError</strong> – Supplied dataset was not of type Phenonaut, Dataset, or pd.DataFrame</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.measures.scalar_projection">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.measures.</span></span><span class="sig-name descname"><span class="pre">scalar_projection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_perturbation_column_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'control'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_perturbation_column_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_column_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pos'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.measures.scalar_projection" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Calculates the scalar projection and scalar rejection, quantifying on and</dt><dd><p>off target phenotypes, as used in:
+Heiser, Katie, et al. “Identification of potential treatments for
+COVID-19 through artificial intelligence-enabled phenomic analysis of
+human cells infected with SARS-CoV-2.” BioRxiv (2020).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – Phenonaut dataset being queries</p></li>
+<li><p><strong>target_TreatmentID</strong> (<em>[</em><em>type</em><em>]</em>) – TreatmentID of target phenotype. The median of all features across wells
+containing this phenotype is used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.metrics">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.metrics" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.data.html" class="btn btn-neutral float-left" title="phenonaut.data package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.output.html" class="btn btn-neutral float-right" title="phenonaut.output package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

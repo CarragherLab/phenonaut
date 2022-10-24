@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut package &mdash; Phenonaut 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.data package" href="phenonaut.data.html" />
+    <link rel="prev" title="Welcome to the Phenonaut documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>phenonaut package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-package">
+<h1>phenonaut package<a class="headerlink" href="#phenonaut-package" title="Permalink to this headline"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.data.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.dataset">phenonaut.data.dataset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.platemap_querier">phenonaut.data.platemap_querier module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.recipes">phenonaut.data.recipes module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.metrics.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.boxplot">phenonaut.output.boxplot module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.heatmap">phenonaut.output.heatmap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.pair_plot">phenonaut.output.pair_plot module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.pptx">phenonaut.output.pptx module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.scatter">phenonaut.output.scatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.spreadsheet">phenonaut.output.spreadsheet module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.visualisation_base">phenonaut.output.visualisation_base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.base">phenonaut.packaged_datasets.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.breast_cancer">phenonaut.packaged_datasets.breast_cancer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.cmap">phenonaut.packaged_datasets.cmap module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.iris">phenonaut.packaged_datasets.iris module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.lincs">phenonaut.packaged_datasets.lincs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.tcga">phenonaut.packaged_datasets.tcga module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.optuna_functions">phenonaut.predict.optuna_functions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.predict_utils">phenonaut.predict.predict_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.predictor_dataclasses">phenonaut.predict.predictor_dataclasses module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.profile">phenonaut.predict.profile module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.dimensionality_reduction">phenonaut.transforms.dimensionality_reduction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.generic_transformations">phenonaut.transforms.generic_transformations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.preparative">phenonaut.transforms.preparative module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.supervised_transformer">phenonaut.transforms.supervised_transformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.transformer">phenonaut.transforms.transformer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-phenonaut.phenonaut">
+<span id="phenonaut-phenonaut-module"></span><h2>phenonaut.phenonaut module<a class="headerlink" href="#module-phenonaut.phenonaut" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.phenonaut.</span></span><span class="sig-name descname"><span class="pre">Phenonaut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><span class="pre">phenonaut.packaged_datasets.base.PackagedDataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">sklearn.utils.Bunch</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Phenonaut</span> <span class="pre">object'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packaged_dataset_name_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataframe_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_hash</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Phenonaut object constructor</p>
+<p>Holds multiple datasets of different type, applys transforms, load and
+tracking operations.</p>
+<p>May be initialised with:</p>
+<ul class="simple">
+<li><p>Phenonaut Datasets</p></li>
+<li><p>Phenonaut PackageDataset</p></li>
+<li><p>Scikit Bunch</p></li>
+<li><p>pd.DataFrame</p></li>
+</ul>
+<p>by passing the object as an optional dataset argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><em>list</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>]</em><em>, </em><a class="reference internal" href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><em>PackagedDataset</em></a><em>, </em><em>Bunch</em><em>,</em>) – pd.DataFrame, Path, str]], optional
+Initialise Phenonaut object with a Dataset, list of datasets, or
+PackagedDataset, by default None.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – A name may be given to the phenonaut object. This is useful in
+naming collections of datasets. For example, The Cancer Genome Atlas
+contains 4 different views on tumors - mRNA, miRNA, methylation and
+RPPA, collectively, these 4 datasets loaded into a phenonaut object
+may be named ‘TCGA’ - or ‘The Cancer Genome Atlas dataset’. If set
+to None, then the phenonaut object takes the name “Phenonaut data”,
+however, not in the case where construction of the object occurs
+with a phenonaut packaged dataset or already named phenonaut object,
+where it takes the name of the passed object/dataset.</p></li>
+<li><p><strong>kind</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Instead of providing metadata, some presets are available, which make reading
+in things like DRUG-Seq easier. This argument only has an effect when reading
+in a raw data file, like CSV or H5 and directs Phenonaut to use a predefind set
+of parameters/transforms. If used as well as metadata, then the preset metadata
+dictionary from the kind argument is first loaded, then updated with anything in
+the metadata dictionary, this therefore allows overriding specific presets present
+in kind dictionaries. Available ‘kind’ dictionaries may be listed by examining:
+phenonaut.data.recipes.recipes.keys()</p></li>
+<li><p><strong>packaged_dataset_name_filter</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If a PackagedDataset is supplied for the data argument, then import
+only datasets from it named in the name_filter argument. If None,
+then all PackagedDataset datasets are imported.  Can be a single
+string or list of strings. If None, and PackagedDataset is supplied,
+then all Datasets are loaded. Has no effect if data is not a
+PackagedDataset, by default None.</p></li>
+<li><p><strong>metadata</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>dict</em><em>, </em><em>list</em><em>[</em><em>dict</em><em>]</em><em>]</em><em>]</em>) – Used when a pandas DataFrame is passed to the constructor of the
+phenonaut object. Metadata typically contains features or
+feature_prefix keys telling Phenonaut which columns should be
+treated as Dataset features. Can also be a list of metadata
+dicitonaries if a list of pandas DataFrames are supplied to the
+constructor. Has no effect if the type of dataset passed is not a
+pandas DataFrame or list of pandas DataFrames. If a list of pandas
+DataFrames is passed to data but only one metadata dictionary is
+given, then this dictionary is applied to all DataFrames. By default
+None.</p></li>
+<li><p><strong>dataframe_name</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>dict</em><em>, </em><em>list</em><em>[</em><em>dict</em><em>]</em><em>]</em><em>]</em>) – Used when a pandas DataFrame, or str, or Path to a CSV file is passed to
+the constructor of the phenonaut object. Optional name to give to the
+dataset object constructed from the pandas DataFrame. If multiple
+DataFrames are given in a list, then this dataframe_name argument can be
+a list of strings as names to assign to the new Dataset objects.</p></li>
+<li><p><strong>init_hash</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>bytes</em><em>]</em><em>]</em>) – Cryptographic hashing within Phenonaut can be initialised with a
+starting/seed hash. This is useful in the creation of
+blockchain-like chains of hashes. In environments where timestamping
+is unavailable, hashes may be published and then used as input to
+subsequent experiments. Building up a provable chain along the way.
+By default None, implying an empty bytes array.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.add_well_id">
+<span class="sig-name descname"><span class="pre">add_well_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numerical_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'COLUMN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numerical_row_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ROW'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plate_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">384</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_well_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Well'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_empty_wells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plate_barcode_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_sort</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.add_well_id" title="Permalink to this definition"></a></dt>
+<dd><p>Add standard well IDs - such as A1, A2, etc to ALL loaded Datasets.</p>
+<p>If a dataset contains numerical row and column names, then they may be
+translated into standard letter-number well IDs. This is applied to all
+loaded Datasets.  If you wish only one to be annotated, then call
+add_well_id on that individual dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>numerical_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of column containing numeric column number, by default
+“COLUMN”.</p></li>
+<li><p><strong>numerical_row_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of column containing numeric column number, by default “ROW”.</p></li>
+<li><p><strong>plate_type</strong> (<em>int</em><em>, </em><em>optional</em>) – Plate type - note, at present, only 384 well plate format is
+supported, by default 384.</p></li>
+<li><p><strong>new_well_column_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of new column containing letter-number well ID, by default
+“Well”.</p></li>
+<li><p><strong>add_empty_wells</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should all wells from a plate be inserted, even when missing from
+the data, by default False.</p></li>
+<li><p><strong>plate_barcode_column</strong> (<em>str</em><em>, </em><em>optional</em>) – Multiple plates may be in a dataset, this column contains their
+unique ID, by default None.</p></li>
+<li><p><strong>no_sort</strong> (<em>bool</em><em>, </em><em>optional</em>) – Do not resort the dataset by well ID, by default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.aggregate_dataset">
+<span class="sig-name descname"><span class="pre">aggregate_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">composite_identifier_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_names_or_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Aggregated_'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformation_lookup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tranformation_lookup_default_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.aggregate_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Aggregate multiple or single phenonaut dataset rows</p>
+<p>If we have a Phenonaut object containing data derived from 2 fields of
+view from a microscopy image, a sensible approach is averaging features.
+If we have the DataFrame below, we may merge FOV 1 and FOV 2, taking the
+mean of all features.  As strings such as filenames should be kept, they
+are concatenated together, separated by a comma, unless the strings are
+the same, in which case just one is used.</p>
+<p>Here we test a df as follows:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ROW</p></th>
+<th class="head"><p>COLUMN</p></th>
+<th class="head"><p>BARCODE</p></th>
+<th class="head"><p>feat_1</p></th>
+<th class="head"><p>feat_2</p></th>
+<th class="head"><p>feat_3</p></th>
+<th class="head"><p>filename</p></th>
+<th class="head"><p>FOV</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate1</p></td>
+<td><p>1.2</p></td>
+<td><p>1.2</p></td>
+<td><p>1.3</p></td>
+<td><p>FileA.png</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate1</p></td>
+<td><p>1.3</p></td>
+<td><p>1.4</p></td>
+<td><p>1.5</p></td>
+<td><p>FileB.png</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate2</p></td>
+<td><p>5.2</p></td>
+<td><p>5.1</p></td>
+<td><p>5</p></td>
+<td><p>FileC.png</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate2</p></td>
+<td><p>6.2</p></td>
+<td><p>6.1</p></td>
+<td><p>6.8</p></td>
+<td><p>FileD.png</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>Plate1</p></td>
+<td><p>0.1</p></td>
+<td><p>0.2</p></td>
+<td><p>0.3</p></td>
+<td><p>FileE.png</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>Plate1</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+<td><p>0.38</p></td>
+<td><p>FileF.png</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>With just this loaded into a phenonaut object, we can call:</p>
+<p>phe.aggregate_dataset([‘ROW’,’COLUMN’,’BARCODE’])</p>
+<p>Will merge and proeduce another, secondary dataset in the phe object
+containing:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ROW</p></th>
+<th class="head"><p>COLUMN</p></th>
+<th class="head"><p>BARCODE</p></th>
+<th class="head"><p>feat_1</p></th>
+<th class="head"><p>feat_2</p></th>
+<th class="head"><p>feat_3</p></th>
+<th class="head"><p>filename</p></th>
+<th class="head"><p>FOV</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate1</p></td>
+<td><p>1.25</p></td>
+<td><p>1.3</p></td>
+<td><p>1.40</p></td>
+<td><p>fileA.png,FileB.png</p></td>
+<td><p>1.5</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>Plate2</p></td>
+<td><p>5.70</p></td>
+<td><p>5.6</p></td>
+<td><p>5.90</p></td>
+<td><p>FileC.png,FileD.png</p></td>
+<td><p>1.5</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>Plate1</p></td>
+<td><p>0.15</p></td>
+<td><p>0.2</p></td>
+<td><p>0.34</p></td>
+<td><p>FileF.png,fileE.png</p></td>
+<td><p>1.5</p></td>
+</tr>
+</tbody>
+</table>
+<p>if inplace=True is passed in the call to aggregate_dataset, then the
+phenonaut object will contain just one dataset, the new aggregated
+dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>composite_identifier_columns</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – If a biochemical assay evaluated through imaging is identified by a
+row, column, and barcode (for the plate) but multiple images taken
+from a well, then these multiple fields of view can be merged,
+creating averaged features using row, column and barcode as the
+composite identifier on which to merge fields of view.</p></li>
+<li><p><strong>datasets</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>int</em><em>, </em><em>str</em><em>]</em>) – Which datasets to apply the aggregation to.  If int, then the
+dataset with that index undergoes aggregation. If a string, then the
+dataset with that name undergoes aggregation. It may also be a list
+or tuple of mixed int and string types, with ints specifying dataset
+indexes and strings indicating dataset names. By default, this value is -1,
+indicating that the last added dataset should undergo aggregation.</p></li>
+<li><p><strong>new_names_or_prefix</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>tuple</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – If a list or tuple of strings is passed, then use them as the names
+for the new datasets after aggregation. If a single string is
+passed, then use this as a prefix for the new dataset.
+By default “Aggregated_”.</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – Perform the aggregation in place, overwriting the origianl
+dataframes. By default False.</p></li>
+<li><p><strong>transformation_lookup</strong> (<em>dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>Callable</em><em>, </em><em>str</em><em>]</em><em>]</em>) – Dictionary mapping data types to aggregations. When None, it is as
+if the dictionary:
+{np.dtype(“O”): lambda x: “,”.join([f”{item}” for item in set(x)])}
+was provided, concatenating strings together (separated by a comma)
+if they are different and just using one if they are the same across
+rows. If a type not present in the dictionary is encountered (such
+as int, or float) in the above example, then the default specified
+by transformation_lookup_default_value is returned.
+By default, None.</p></li>
+<li><p><strong>tranformation_lookup_default_value</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em>) – Transformation to apply if the data type is not found in the
+transformation_lookup_dictionary, can be a callable or string to
+pandas defined string to function shortcut mappings.
+By default “mean”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.clone_dataset">
+<span class="sig-name descname"><span class="pre">clone_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">existing_dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_existing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.clone_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Clone a dataset into a new dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>existing_dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><em>str</em><em>, </em><em>int</em><em>]</em>) – The name or index of an existing Phenonaut Dataset held in the
+Phenonaut object. Can also be a Phenonaut.Dataset object passed
+directly.</p></li>
+<li><p><strong>new_dataset_name</strong> (<em>str</em>) – A name for the new cloned Dataset.</p></li>
+<li><p><strong>overwrite_existing</strong> (<em>bool</em><em>, </em><em>optional</em>) – If a dataset by this name exists, then overwrite it, otherwise, an
+exception is raised, by default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Dataset by the name given already exists and overwrite_existing was
+    False.</p></li>
+<li><p><strong>ValueError</strong> – The existing_dataset argument should be a str, int or
+    Phenonaut.Dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.combine_datasets">
+<span class="sig-name descname"><span class="pre">combine_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_ids_to_combine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.combine_datasets" title="Permalink to this definition"></a></dt>
+<dd><p>Combine multiple datasets into a single dataset</p>
+<p>Often, large datasets are split across multiple CSV files. For example,
+one CSV file per screening plate.  In this instance, it is prudent to
+combine the datasets into one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_ids_to_combine</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>list</em><em>[</em><em>int</em><em>]</em><em>]</em><em>]</em>) – List of dataset indexes, or list of names of datasets to combine.
+For example, after loading in 2 datasets, the list [0,1] would be given,
+or a list of their names resulting in a new third dataset in datasets[2].
+If None, then all present datasets are used for the merge. By default, None.</p></li>
+<li><p><strong>new_name</strong> (<em>new_name:Optional</em><em>[</em><em>str</em><em>]</em>) – Name that should be given to the newly created dataset. If None, then it is
+assigned as: “Combined_dataset from datasets[DS_INDEX_LIST]”, where DS_INDEX_LIST
+is a list of combined dataset indexes.</p></li>
+<li><p><strong>features</strong> (<em>list</em><em>, </em><em>optional</em>) – List of new features which should used by the newly created dataset
+if None, then features of combined datasets are used. By default
+None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – Error raised if the combined datasets do not have the same features.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.df">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">df</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span></em><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.df" title="Permalink to this definition"></a></dt>
+<dd><p>Return the pd.DataFrame of the last added/highest indexed Dataset</p>
+<p>Returns the internal pd.Dataframe of the Dataset contained within the
+Phenonaut instance’s datasets list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.ds">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ds</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></em><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.ds" title="Permalink to this definition"></a></dt>
+<dd><p>Return the dataset with the highest index in phenonaut.datasets</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Last added/highest indexed Dataset</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>DataError</strong> – No datasets loaded</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.get_dataset_combinations">
+<span class="sig-name descname"><span class="pre">get_dataset_combinations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_indexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.get_dataset_combinations" title="Permalink to this definition"></a></dt>
+<dd><p>Get tuple of all dataset name combinations, picking 1 to n datasets</p>
+<p>The function to return all combinations from 1 to n dataset names in
+combination, where n is the number of loaded datasets. This is useful
+in multiomics settings where we test A,B, and C alone, A&amp;B, A&amp;C, B&amp;C,
+and finally A&amp;B&amp;C.</p>
+<p>A limit on the number of datasets in a combination can be imposed
+using the max_datasets argument. In the example above with datasets
+A, B and C, passing max_datasets=2 would return the following tuple:
+((A), (B), (C), (A, B), (A, C), (B, C))
+leaving out the tripple length combination (A, B, C).</p>
+<p>Similarly, the argument min_datasets can specify a lower limit on
+the number of dataset combinations.</p>
+<p>Using the example with datasets A, B, and C, and setting min_datasets=2
+with no limit on max_datasets on the above example would return the
+following tuple:
+((A, B), (A, C), (B, C), (A, B, C))</p>
+<p>If return_indexes is True, then the indexes of Datasets are returned.
+As directly above, datasets A, B, and C, setting min_datasets=2
+with no limit on max_datasets and passing return_indexes=True would
+return the following tuple:
+((0, 1), (0, 2), (1, 2), (0, 1, 2))</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_datasets</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Minimum number of datasets to return in a combination. If None,
+then it behaves as if 1 is given, by default None.</p></li>
+<li><p><strong>max_datasets</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Maximum number of datasets to return in a combination. If None,
+then it behaves as if len(datasets) is given, by default None.</p></li>
+<li><p><strong>return_indexes</strong> (<em>bool</em>) – Return indexes of Datasets, instead of their names,
+by default False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.get_dataset_index_from_name">
+<span class="sig-name descname"><span class="pre">get_dataset_index_from_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.get_dataset_index_from_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get dataset index from name</p>
+<p>Given the name of a dataset, return the index of it in datasets list.
+Accepts single string query, or a list/tuple of names to return lists
+of indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>tuple</em><em>[</em><em>str</em><em>]</em><em>]</em>) – If string, then this is the dataset name being searched for. Its
+index in the datasets list will be returned. If a list or tuple
+of names, then the index of each is searched and an index list
+returned.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If name argument is a string, then the dataset index is returned.
+If name argument is a list or tuple, then a list of indexes for
+each dataset name index is returned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[int, list[int]]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Error raised if no datasets were found to match a requested name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.get_hash_dictionary">
+<span class="sig-name descname"><span class="pre">get_hash_dictionary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.get_hash_dictionary" title="Permalink to this definition"></a></dt>
+<dd><p>Returns dictionary containing SHA256 hashes</p>
+<p>Returns a dictionary of base64 encoded UTF-8 strings representing the
+SHA256 hashes of datasets (along with names), combined datasets, and
+the Phenonaut object (including name).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of base64 encoded SHA256 representing datasets and
+the Phenonaut object which created them.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.keys" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of all dataset names</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dataset names, empty list if no datasets are loaded.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list(str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.load" title="Permalink to this definition"></a></dt>
+<dd><p>Class method to load a compressed Phenonaut object</p>
+<p>Loads a gzipped Python pickle containing a Phenonaut object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – Location of gzipped Phenonaut object pickle</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Loaded Phenonaut object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut">phenonaut.Phenonaut</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – File not found, unable to load pickled Phenonaut object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.load_dataset">
+<span class="sig-name descname"><span class="pre">load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h5_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.load_dataset" title="Permalink to this definition"></a></dt>
+<dd><p>Load a dataset from a CSV, optionally suppying metadata and a name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_name</strong> (<em>str</em>) – Name to be assigned to the dataset</p></li>
+<li><p><strong>input_file_path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – CSV/TSV/H5 file location</p></li>
+<li><p><strong>metadata</strong> (<em>dict</em><em>, </em><em>optional</em>) – Metadata dictionary describing the CSV data format, by default None</p></li>
+<li><p><strong>h5_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – If input_file_path is an h5 file, then a key to access the target
+DataFrame must be supplied.</p></li>
+<li><p><strong>features</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Optionally supply a list of features here. If None, then the
+features/feature finding related keys in metadata are used. You may
+also explicitly supply an empty list to explicitly specify that the
+dataset has no features. This is not recommended.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.merge_datasets">
+<span class="sig-name descname"><span class="pre">merge_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">common_merge_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'merged_dataset'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.merge_datasets" title="Permalink to this definition"></a></dt>
+<dd><p>Merge Datasets within a Phenonaut object</p>
+<p>With multiple views of an underlying biological system, it is often
+useful to merge different datasets, for example, DRUG-seq with
+CellProfiler or similar imaging data. This function merges Datasets
+and adds the resultant Dataset to the Phenonaut object.  DataFrames are
+assumed to have common columns which allow the merge to proceed.</p>
+<p>Underneath the hood, Phenonaut uses Panda’s pd.merge function, and then
+handles features and other Phenonaut specific data like features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>, </em><em>tuple</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – A list or tuple containing two indexes, or dataset names contained
+within the Phenonaut object which should be merged. If None, then
+it is assumed that the Phenonaut object contains only 2 datasets,
+and their indexes are then used.  If more than 2 datasets are found
+and ids is None, then an error is raised. By default None.</p></li>
+<li><p><strong>common_merge_columns</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Merge datasets on common columns, found within each dataset. This may
+be things like a treatment ID, WellID, PlateID, etc. If None, then
+both Datasets are looked at and common columns identified. By
+default None.</p></li>
+<li><p><strong>new_dataset_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name for the new dataset, by default “merged_dataset”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – The ids argument was None, but more than 2 datasets were found in
+    the Phenonaut object, please specify which Datasets should be
+    merged.</p></li>
+<li><p><strong>ValueError</strong> – The ids argument contained more than 2 elements.</p></li>
+<li><p><strong>ValueError</strong> – Datasets contain common feature columns, cannot merge.</p></li>
+<li><p><strong>ValueError</strong> – No common columns found to perform merge.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.new_dataset_from_query">
+<span class="sig-name descname"><span class="pre">new_dataset_from_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_dataset_name_or_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error_on_empty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_existing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.new_dataset_from_query" title="Permalink to this definition"></a></dt>
+<dd><p>Add new dataset through a pandas query of existing dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em>) – The pandas query used to select the new dataset</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – A name for the new dataset</p></li>
+<li><p><strong>query_dataset_name_or_index</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – The dataset to be queried, can be an int index, or the name of an
+existing dataset. List indexing can also be used, such that -1 uses
+the last dataset in Phenonaut.datasets list, by default -1.</p></li>
+<li><p><strong>raise_error_on_empty</strong> (<em>bool</em>) – Raise a ValueError is the query returns an empty dataset.  By
+default True.</p></li>
+<li><p><strong>overwrite_existing</strong> (<em>bool</em>) – If a dataset already exists with the name given in the name
+argument, then this argument can be used to overwrite it, by
+default False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_existing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save Phenonaut object and contained Data to a pickle</p>
+<p>Writes a gzipped Python pickle file. If no compression, or another
+compressison format is required, then the user should use a custom
+pickle.dump and not rely on this helper function.  Warning, SHA256
+‘_hashlib.HASH’ objects are not serialisable, so crytographic hashes
+and proof of manipulations are lost upon saving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_filename</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – Output filename for the gzipped pickle</p></li>
+<li><p><strong>overwrite_existing</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True and the file exists, overwrite it. By default False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.Phenonaut.subtract_median_perturbation">
+<span class="sig-name descname"><span class="pre">subtract_median_perturbation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">perturbation_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_column_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_features_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'SMP_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.phenonaut.Phenonaut.subtract_median_perturbation" title="Permalink to this definition"></a></dt>
+<dd><p>Subtract the median perturbation from all features for all datasets.</p>
+<p>Useful for normalisation within a well/plate format. The median feature
+may be identified through the per_column_name variable, and perturbation
+label. Newly generated features may have their prefixes controled via
+the new_features_prefix argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>perturbation_label</strong> (<em>str</em>) – The perturbation label which should be used to calculate the median</p></li>
+<li><p><strong>per_column_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – The perturbation column name.  This is optional and can be None, as
+the Dataset may already have perturbation column set. By
+default, None.</p></li>
+<li><p><strong>new_features_prefix</strong> (<em>str</em>) – Prefix for new features, each with the median perturbation
+subtracted. By default ‘SMP_’ (for subtracted median perturbation).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.phenonaut.random">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.phenonaut.</span></span><span class="sig-name descname"><span class="pre">random</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">x</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">interval</span> <span class="pre">[0,</span> <span class="pre">1).</span></span></span><a class="headerlink" href="#phenonaut.phenonaut.random" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-phenonaut.utils">
+<span id="phenonaut-utils-module"></span><h2>phenonaut.utils module<a class="headerlink" href="#module-phenonaut.utils" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.utils.check_path">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.utils.</span></span><span class="sig-name descname"><span class="pre">check_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_parents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_dir_if_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pathlib.Path</span></span></span><a class="headerlink" href="#phenonaut.utils.check_path" title="Permalink to this definition"></a></dt>
+<dd><p>Check a user supplied path (str or Path), ensuring parents exist etc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – File or directory path supplied by user</p></li>
+<li><p><strong>is_dir</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the path supplied by the user should be a directory, then set it as such by assigning is_dir to true, by default False</p></li>
+<li><p><strong>make_parents</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the parent directories of the supplied path do not exist, the make them, by default True</p></li>
+<li><p><strong>make_dir_if_dir</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the supplied path is a directory, but it does not exist, the make it, by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path object pointing to the user supplied path, with parents made (if requested), and the directory itself made (if a directory and requested)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Parent does not exist, and make_parents was False</p></li>
+<li><p><strong>ValueError</strong> – Passed path was not a string or pathlib.Path</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.utils.load_dict">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.utils.</span></span><span class="sig-name descname"><span class="pre">load_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cast_none_to_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.utils.load_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-phenonaut.workflow">
+<span id="phenonaut-workflow-module"></span><h2>phenonaut.workflow module<a class="headerlink" href="#module-phenonaut.workflow" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.workflow.</span></span><span class="sig-name descname"><span class="pre">Workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">workflow_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Phenonaut Workflows allow operation through simple YAML workflows.</p>
+<p>Workflows may be defined in Phenonaut, and the module executed directly,
+rather than imported and used by a Python program. Workflows are
+defined using the simple YAML file format. However, due to the way in
+which they are read in, JSON files may also be used. As YAML files can
+contain multiple YAML entries, we build on this concept, allowing
+multiple workflows to be defined in a single YAML (or JSON) file. Once
+read in, workflows are dictionaries. From Python 3.6 onwards,
+dictionaries are ordered. We can therefore define our workflows in order
+and guarantee that they will be executed in the defined order. A
+dictionary defining workflows have the following structure:
+{job_name: task_list}, where job_name is a string, and task list is a
+list defining callable functions, or tasks required to complete the job.</p>
+<p>The job list takes the form of a list of dictionaries, each containning
+only one key which is the name of the task to be peformed. The value
+indexed by this key is a dictionary of argument:value pairs to be passed
+to the function responsible for performing the task. The structure is
+best understood with an example. Here, we see a simple workflow
+contained within a YAML file for calculation of the scalar projection
+phenotypic metric. YAML files start with 3 dashes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">---</span>
+<span class="go">scalar_projection_example:</span>
+<span class="go">- load:</span>
+<span class="go">    file: screening_data.csv</span>
+<span class="go">    metadata:</span>
+<span class="go">        features_prefix:</span>
+<span class="go">            - feat_</span>
+<span class="go">- scalar_projection:</span>
+<span class="go">    target_treatment_column_name: control</span>
+<span class="go">    target_treatment_column_value: pos</span>
+<span class="go">    output_column_label: target_phenotype</span>
+<span class="go">- write_multiple_csvs:</span>
+<span class="go">    split_by_column: PlateID</span>
+<span class="go">    output_dir: scalar_projection_output</span>
+</pre></div>
+</div>
+<p>The equivalent JSON with clearer (for Python programmers) formatting for the above is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;scalar_projection_example&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;load&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="s2">&quot;screening_data.csv&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;features_prefix&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;feat_&quot;</span><span class="p">]}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;scalar_projection&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;target_treatment_column_name&quot;</span><span class="p">:</span> <span class="s2">&quot;control&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;target_treatment_column_value&quot;</span><span class="p">:</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;output_column_label&quot;</span><span class="p">:</span> <span class="s2">&quot;target_phenotype&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;write_multiple_csvs&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;split_by_column&quot;</span><span class="p">:</span> <span class="s2">&quot;PlateID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;output_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;scalar_projection_output/&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The workflow define above in the example YAML and JSON formats, has the
+name “scalar_projection_example”, and consists of 3 commands.</p>
+<ol class="arabic simple">
+<li><p>load</p></li>
+<li><p>scalar_projection</p></li>
+<li><p>write_multiple_csvs</p></li>
+</ol>
+<p>See the user guide for a full listing of commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>workflow_path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>, </em><em>dict</em><em>]</em>) – Workflows can be defined in YML or JSON files with their locations
+supplied or jobs passed as dictionaries. Dictionary keys denote the
+job names. Values under these keys should be lists of dictionaries.
+Each dictionary should have one key, denoting the name of the task
+and values under this key contain options for the called functions/
+tasks.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – Supplied Path or str to file location does not appear to be a YAML or JSON
+    file.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.VIF_filter_features">
+<span class="sig-name descname"><span class="pre">VIF_filter_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.VIF_filter_features" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Perform VIF feature filter</p>
+<p>Designed to be called from a workflow, performs variance inflation
+factor (VIF) filtering on a dataset, removing features which are not
+detrimental to capturing variance.
+More information available:
+<a class="reference external" href="https://en.wikipedia.org/wiki/Variance_inflation_factor">https://en.wikipedia.org/wiki/Variance_inflation_factor</a></p>
+<p>This can be a computationally expensive process as the number of
+linear regressions required to be run is almost N^2 with features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <ul class="simple">
+<li><dl class="simple">
+<dt>target_dataset:</dt><dd><p>Index or name of dataset which should have variance
+inflation filter applied. If absent, then behaviour is as if -1
+is supplied, indicating the last added dataset.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>vif_cutoff:</dt><dd><p>float or int indicating the VIF cutoff to apply. A good
+balance and value often used is 5.0.  If this key:value pair is
+absent, then behaviour is as if 5.0 was supplied.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>min_features:</dt><dd><p>removal of too many features can be detrimental.
+Setting this value sets a lower limit on the number of features
+which must remain.  If absent, then behaviour is as if a value
+of 2 was given.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>drop_columns:</dt><dd><p>value is a boolean, denoting if columns should be
+dropped from the data table, as well as being removed from
+features. If not supplied, then the behaviour is as if False was
+supplied.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.add_well_id">
+<span class="sig-name descname"><span class="pre">add_well_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.add_well_id" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add well IDs</p>
+<p>Designed to be called from a workflow. Often, we would like to use well
+and column numbers to resolve a more traditional alpha-numeric WellID
+notation, such as A1, A2, etc. This can be achieved through calling this
+workflow function.</p>
+<p>If a dataset contains numerical row and column names, then they may be
+translated into standard letter-number well IDs. The arguments
+dictionary may contain the following keys, with their values denoted
+as bellow:</p>
+<dl class="simple">
+<dt>numerical_column_name<span class="classifier">str, optional</span></dt><dd><p>Name of column containing numeric column number, if not supplied,
+then behaves as if “COLUMN”.</p>
+</dd>
+<dt>numerical_row_name<span class="classifier">str, optional</span></dt><dd><p>Name of column containing numeric column number, if not supplied,
+then behaves as if “ROW”.</p>
+</dd>
+<dt>plate_type<span class="classifier">int, optional</span></dt><dd><p>Plate type - note, at present, only 384 well plate format is
+supported, if not supplied, then behaves as if 384.</p>
+</dd>
+<dt>new_well_column_name<span class="classifier">str, optional</span></dt><dd><p>Name of new column containing letter-number well ID, if not
+supplied, then behaves as if default “Well”.</p>
+</dd>
+<dt>add_empty_wells<span class="classifier">bool, optional</span></dt><dd><p>Should all wells from a plate be inserted, even when missing from
+the data, if not supplied, then behaves as if False.</p>
+</dd>
+<dt>plate_barcode_column<span class="classifier">str, optional</span></dt><dd><p>Multiple plates may be in a dataset, this column contains their
+unique ID, if not supplied, then bahaves as if None.</p>
+</dd>
+<dt>no_sort<span class="classifier">bool, optional</span></dt><dd><p>Do not resort the dataset by well ID, if not supplied, then behaves
+as if False</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary containing arguments to the Dataset.add_well_id function,
+see API documentation for further details, or function help.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.cityblock_distance">
+<span class="sig-name descname"><span class="pre">cityblock_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.cityblock_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add a column for the cityblock distance to a target perturbation.</p>
+<p>Designed to be called from a workflow, calculates the cityblock distance
+in feature space. Also known as the Manhattan distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em><em>, </em><em>should contain:</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should be used in the measurment. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt>target_perturbation_column_name</dt><dd><p>normally a ‘control’ column</p>
+</dd>
+<dt>target_perturbation_column_value:</dt><dd><p>value to be found in the column defined previously.</p>
+</dd>
+<dt>output_column_label:</dt><dd><p>Output column for the measurement. If this is missing, then it is set to target_perturbation_column_value.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.copy_column">
+<span class="sig-name descname"><span class="pre">copy_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.copy_column" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: copy a dataset column</p>
+<p>Designed to be called from a workflow, copys the values of one column
+within a dataset to another. The arguments dictionary can contain ‘to’
+and ‘from’ keys with values for column names, or alternatively, simply
+from:to key-value pairs denoting how to perform the copy operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl>
+<dt>Options for the command. Should include either:</dt><dd><p>1.  dictionary with keys “to” and “from”, with item names related to the
+columns that should be used.</p>
+<p>2.dictionary with the form {from_column:to_column}, which will copy the
+column with title from_column to to_column</p>
+</dd>
+</dl>
+<p>Note, if any dictionary items (to) are lists, then multiple copies will
+be made.</p>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – Column was not found in the Pandas DataFrame.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.euclidean_distance">
+<span class="sig-name descname"><span class="pre">euclidean_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.euclidean_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add a column for the euclidean distance to a target perturbation.</p>
+<p>Designed to be called from a workflow, calculates the euclidean distance
+in feature space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em><em>, </em><em>should contain:</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should be used in the measurment.
+If absent, then behaviour is as if -1 is supplied, indicating
+the last added dataset.</p>
+</dd>
+<dt>target_perturbation_column_name</dt><dd><p>normally a ‘control’ column</p>
+</dd>
+<dt>target_perturbation_column_value:</dt><dd><p>value to be found in the column defined previously.</p>
+</dd>
+<dt>output_column_label:</dt><dd><p>Output column for the measurement. If this is missing, then it is set to target_perturbation_column_value.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.filter_columns">
+<span class="sig-name descname"><span class="pre">filter_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.filter_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: filter columns</p>
+<p>Designed to be called from a workflow, Datasets may have columns
+defined for keeping or removal. This function also provides a convenient
+way to reorder dataframe columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl class="simple">
+<dt>Dictionary of options, can include the following keys:</dt><dd><dl class="simple">
+<dt>keep: bool, optional, by default True</dt><dd><p>Only matching columns are kept if true.  If false, they are
+removed.</p>
+</dd>
+<dt>column_names: [list, str]</dt><dd><p>List of columns to keep (or regular expressions to match)</p>
+</dd>
+<dt>column_name: str</dt><dd><p>Singular column to keep (or regular expressions to match)</p>
+</dd>
+<dt>regex: bool, optional, by default False.</dt><dd><p>perform regular expression matching</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.filter_correlated_and_VIF_features">
+<span class="sig-name descname"><span class="pre">filter_correlated_and_VIF_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.filter_correlated_and_VIF_features" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Filter features by highly correlated then VIF.</p>
+<p>Designed to be called from a workflow, Ideally, VIF would be applied to
+very large datasets.  Due to the almost n^2 number of linear regression
+required as features increase, this is not possible on datasets with a
+large number of features - such as methylation datasets.  We therefore
+must use other methods to reduce the features to a comfortable level
+allowing VIF to be performed. This class calculates correlations between
+all features and iteratively (Pearson correlation coefficient), removing
+features with the highest R^2 against another feature. Once the number
+of featurs is reduced to a level suitable for VIF, VIF is performed.</p>
+<p>More information available:
+<a class="reference external" href="https://en.wikipedia.org/wiki/Variance_inflation_factor">https://en.wikipedia.org/wiki/Variance_inflation_factor</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <ul class="simple">
+<li><dl class="simple">
+<dt>target_dataset:</dt><dd><p>Index or name of dataset which should have features
+filtered. If absent, then behaviour is as if -1 is supplied,
+indicating the last added dataset.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>n_before_vif :</dt><dd><p>Number of features to remove before applying VIF.
+This is required when dealing with large datasets which would be
+too time consuming to process entirely with VIF.
+Features are removed iteratively, selecting the most correlated
+features and removing them. If this key:value pair is absent,
+then it is as if the value of 1000 has been supplied.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>vif_cutoff :</dt><dd><p>The VIF cutoff value, above which features are
+removed. Features with VIF scores above 5.0 are considered
+highly correlated. If not supplied, then behaviour is as if a
+value of 5.0 was supplied.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>drop_columns :</dt><dd><p>If drop columns is True, then not only will features
+be removed from the dataset features list, but the columns for
+these features will be removed from the dataframe. If absent,
+then behaviour is as if False was supplied.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.filter_correlated_features">
+<span class="sig-name descname"><span class="pre">filter_correlated_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.filter_correlated_features" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Perform filter of highly correlated features</p>
+<p>Designed to be called from a workflow, performs filtering of highly
+correlated features (as calculated by Pearson correlation coefficient)
+by either by removal of features correlated above a given theshold, or
+uses the iterative removal of features with the highest R^2 against
+another feature.  The arguments dictionary should contain a threshold or
+n key:value pair, not both.  A key of threshold and float value defines
+the correlation above which, features should be removed. If the n key is
+present, then features are iteratively removeduntil n features remain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should have features
+filtered. If absent, then behaviour is as if -1 is supplied,
+indicating the last added dataset.</p>
+</dd>
+<dt>threshold</dt><dd><p>If this key is present, then it activates threshold
+mode, where by calculated correlations, above which should be
+removed. A good value for this threshold is 0.9.</p>
+</dd>
+<dt>n</dt><dd><p>If this key is present, then the number of features to keep is
+defined this way. The process works through iteratively removing
+features ordered by the most correlated until the number of
+features is equal to n. If threshold is also present, then n
+acts as a minimum number of features and feature removal will
+stop, no matter the correlations present in the dataset.</p>
+</dd>
+<dt>drop_columns<span class="classifier">bool, optional</span></dt><dd><p>If drop columns is True, then not only will features be removed
+from the dataset features list, but the columns for these
+features will be removed from the dataframe. If absent, then the
+behaviour is as if False was supplied as a value to this
+key:value pair.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.filter_rows">
+<span class="sig-name descname"><span class="pre">filter_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.filter_rows" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Filter rows</p>
+<p>Designed to be called from a workflow, filter_rows alows keeping of only
+rows with a certain value in a certain column. Takes as arguments a
+dictionary containing query_column key:value pair and one of
+query_value, query_values or values key:value pairs:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>query_column</dt><dd><p>name of the column that should match the value below</p>
+</dd>
+<dt>query_value</dt><dd><p>value to match</p>
+</dd>
+<dt>query_values</dt><dd><p>values to match (as a list)</p>
+</dd>
+<dt>values</dt><dd><p>values to match (as a list)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Additionally, a key “keep” with a boolean value may be included. If True
+then rows matching the query are kept, if False, then rows matching are
+discarded, and non-matching rows kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary containing query_column key and value defining the column
+name, and one of the following keys: query_value, query_values,
+values. If plural, then values under the key should be a list
+containing  values to perform matching on, otherwise, singular
+value.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – [description]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.if_blank_also_blank">
+<span class="sig-name descname"><span class="pre">if_blank_also_blank</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.if_blank_also_blank" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: if column is empty, also blank</p>
+<p>Designed to be called from a workflow, often it is required to clean or
+remove rows not needed for inclusion into further established pipelines/
+workflows. This workflow function allows the ability to remove values
+from a column on the condition that onther column is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <p>Dictionary containing the following key:value pairs:</p>
+<dl class="simple">
+<dt>query_column</dt><dd><p>value is the name of the column to perform the query on.</p>
+</dd>
+<dt>regex_query</dt><dd><p>value is a boolean denoting if the query column value
+should be matched using a regular expression. If omitted, then
+behaves as if present and False.</p>
+</dd>
+<dt>target_column</dt><dd><p>value is a string, denoting the name of the column
+which should be blanked.</p>
+</dd>
+<dt>target_columns</dt><dd><p>value is a list of strings, denoting the names of columns which should be blanked.</p>
+</dd>
+<dt>regex_targets</dt><dd><p>value is a boolean denoting if the target column or multiple target columns defined in target_columns should be matched using a regular expression. If absent, then behaves as if False was supplied.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – ‘query_column’ not found in arguments dictionary</p></li>
+<li><p><strong>IndexError</strong> – Multiple columns matched query_column using the regex</p></li>
+<li><p><strong>KeyError</strong> – No target columns found for if_blank_also_blank, use target_column
+    keys</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.load" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: load a dataset (CSV or PakcagedDataset)</p>
+<p>Workflow runnable function allowing loading of dataset from CSV or a
+PackagedDataset. As with all workflow runnable functions, this is
+designed to be called from a worflow.</p>
+<p>There are 2 possible options for loading in a dataset.</p>
+<p>Firstly, loading a user supplied CSV file.
+This option is initiated through inclusion of the ‘file’ key within
+arguments. The value under the ‘file’ key should be a string or Path to
+the CSV file.  In addition, a ‘metadata’ key is also required to be
+present in arguments, with a dictionary as the value. Within this
+dictionary under ‘metadata’, special keywords allow the reading of data
+in different formats. Special keys for the metadata dictionary are
+listed below (See Pandas documentation for read_csv for more in-depth
+information):</p>
+<dl class="simple">
+<dt>sep</dt><dd><p>define separator for fields within the file (by default ‘,’)</p>
+</dd>
+<dt>skiprows</dt><dd><p>define a number of rows to skip at the beginning of a file</p>
+</dd>
+<dt>header_row_number</dt><dd><p>may be a single number, or list of numbers denoting header rows.</p>
+</dd>
+<dt>transpose</dt><dd><p>In the case of some transcriptomics raw data,
+transposition is required to have samples row-wise. Therefore the
+table must be transposed.  Set to True to transpose.</p>
+</dd>
+<dt>index_col</dt><dd><p>Column to use as the row labels of the CSV given as either
+the column names or as numerical indexes. Note: index_col=False can
+be used to force pandas to not use the first column as the index,
+e.g. when you have a malformed file with delimiters at the end of
+each line.</p>
+</dd>
+<dt>key</dt><dd><p>If an h5 file is supplied, then this is the key to the underlying pandas
+dataframe.</p>
+</dd>
+</dl>
+<p>Secondly, we may load a packaged dataset, by including the ‘dataset’ key
+within the arguments dictionary. The value under this key should be one
+of the current packaged datasets supported by workflow mode - currently
+TCGA, CMAP, Iris, Iris_2_views, BreastCancer. An additional key in the
+dictionary can be ‘working_dir’ with the value being a string denoting
+the location of the file data on a local filesystem, or the location
+that it should be downloaded to and stored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary containing file and metadata keys, see function
+description/help/docstring.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.mahalanobis_distance">
+<span class="sig-name descname"><span class="pre">mahalanobis_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.mahalanobis_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add a column for the Mahalanobis distance to target perturbations.</p>
+<p>Designed to be called from a workflow, calculates the Mahalanobis distance
+in feature space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em><em>, </em><em>should contain:</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should be used in the measurment.
+If absent, then behaviour is as if -1 is supplied, indicating
+the last added dataset.</p>
+</dd>
+<dt>target_perturbation_column_name</dt><dd><p>normally a ‘control’ column</p>
+</dd>
+<dt>target_perturbation_column_value:</dt><dd><p>value to be found in the column defined previously.</p>
+</dd>
+<dt>output_column_label:</dt><dd><p>Output column for the measurement. If this is missing, then it is set to target_perturbation_column_value.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.manhattan_distance">
+<span class="sig-name descname"><span class="pre">manhattan_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.manhattan_distance" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add a column for the Manhattan distance to target perturbation.</p>
+<p>Designed to be called from a workflow, calculates the Manhattan distance
+in feature space. Also known as the cityblock distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em><em>, </em><em>should contain:</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should be used in the measurment.
+If absent, then behaviour is as if -1 is supplied, indicating
+the last added dataset.</p>
+</dd>
+<dt>target_perturbation_column_name</dt><dd><p>normally a ‘control’ column</p>
+</dd>
+<dt>target_perturbation_column_value:</dt><dd><p>value to be found in the column defined previously.</p>
+</dd>
+<dt>output_column_label:</dt><dd><p>Output column for the measurement. If this is missing, then it is set to target_perturbation_column_value.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.pca">
+<span class="sig-name descname"><span class="pre">pca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.pca" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Perform PCA dimensionality reduction technique.</p>
+<p>Designed to be called from a workflow, performs the principal component
+dimensionality reduction technique. If no arguments are given or the
+arguments dictionary is empty, then 2D PCA is applied to the dataset
+with the highest index, equivalent of phe[-1], which is usually the last
+inserted dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <p>Dictionary of arguments to used to direct the PCA process, can
+contain the following keys and values</p>
+<dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should have the
+dimensionality reduction applied. If absent, then
+behaviour is as if -1 is supplied, indicating the last added
+dataset.</p>
+</dd>
+<dt>ndims</dt><dd><p>Number of dimensions to which the PCA should reduce the
+features. If absent, then defaults to 2.</p>
+</dd>
+<dt>center_on_perturbation_id</dt><dd><p>PCA should be recentered on the
+perturbation with ID. If absent, then defaults to None, and
+no centering is performed.</p>
+</dd>
+<dt>center_by_median</dt><dd><p>If true, then median of center_on_perturbation
+is used, if False, then the mean is used.</p>
+</dd>
+<dt>fit_perturbation_ids</dt><dd><p>PCA may be fit to only the included IDs,
+before the transform is applied to the whole dataset.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.rename_column">
+<span class="sig-name descname"><span class="pre">rename_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.rename_column" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Rename column</p>
+<p>Designed to be called from a workflow, ranames a single, or multiple
+columns. The arguments dictionary should contain key:value pairs, where
+the key is the old column name and the value is the new column name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary containing name_from:name_to key value pairs, which will
+cause the column named ‘name_from’ to be renamed ‘name_to’.
+Multiple columns can be renamed in a single call, using multiple
+dictionary entries.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – ‘arguments’ was not a dictionary of type: str:str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.rename_columns">
+<span class="sig-name descname"><span class="pre">rename_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.rename_columns" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Rename columns</p>
+<p>Designed to be called from a workflow, ranames a single, or multiple
+columns. The arguments dictionary should contain key:value pairs, where
+the key is the old column name and the value is the new column name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary containing name_from:name_to key value pairs, which will
+cause the column named ‘name_from’ to be renamed ‘name_to’.
+Multiple columns can be renamed in a single call, using multiple
+dictionary entries.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – ‘arguments’ was not a dictionary of type: str:str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.run_workflow">
+<span class="sig-name descname"><span class="pre">run_workflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.run_workflow" title="Permalink to this definition"></a></dt>
+<dd><p>Run the workflow defined in the workflow object instance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.scalar_projection">
+<span class="sig-name descname"><span class="pre">scalar_projection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.scalar_projection" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Add a column for the scalar projection to a target perturbation.</p>
+<p>Designed to be called from a workflow, calculates the scalar projection
+and scalar rejection, quantifying on and off target phenotypes, as
+used in:
+Heiser, Katie, et al. “Identification of potential treatments for
+COVID-19 through artificial intelligence-enabled phenomic analysis
+of human cells infected with SARS-CoV-2.” BioRxiv (2020).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em><em>, </em><em>should contain:</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should be used in the measurment.
+If absent, then behaviour is as if -1 is supplied, indicating
+the last added dataset.</p>
+</dd>
+<dt>target_perturbation_column_name</dt><dd><p>normally a ‘control’ column</p>
+</dd>
+<dt>target_perturbation_column_value:</dt><dd><p>value to be found in the column defined previously.</p>
+</dd>
+<dt>output_column_label:</dt><dd><p>Output from the scalar projection will have the form: on_target_&lt;output_column_label&gt; and off_target_&lt;output_column_label&gt;
+if this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.scatter">
+<span class="sig-name descname"><span class="pre">scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.scatter" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Make scatter plot.</p>
+<p>Designed to be called from a workflow, produce a scatter plot from a
+dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should have features
+plotted. If absent, then behaviour is as if -1 is supplied,
+indicating the last added dataset.</p>
+</dd>
+<dt>figsize</dt><dd><p>A tuple denoting the target output size in inches (!), if
+absent, then the default of (8,6) is used.</p>
+</dd>
+<dt>title</dt><dd><p>Title for the plot, if absent, then the default “2D scatter”
+is used.</p>
+</dd>
+<dt>peturbations</dt><dd><p>Can be a list of peturbations - as denoted in the
+perturbations column of the dataframe to include in the plot.
+If absent, then all perturbations are included.</p>
+</dd>
+<dt>destination</dt><dd><p>Output location for the PNG - required field.  An error
+will be thrown if omitted.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.set_perturbation_column">
+<span class="sig-name descname"><span class="pre">set_perturbation_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.set_perturbation_column" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Set the perturbation column</p>
+<p>Designed to be called from a workflow, the perturbation column can be
+set on a dataset to help with plotting/scatters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl class="simple">
+<dt>target_dataset:</dt><dd><p>Index or name of dataset within which we wish to set the perturbation
+column. If absent, then behaviour is as if -1 is supplied, indicating
+the last added dataset.</p>
+</dd>
+<dt>column:</dt><dd><p>str type giving the new column name which will be set to mark
+perturbations.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.tsne">
+<span class="sig-name descname"><span class="pre">tsne</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.tsne" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Perform t-SNE dimensionality reduction technique.</p>
+<p>Designed to be called from a workflow, performs the t-SNE dimensionality
+reduction technique. If no arguments are given or the arguments
+dictionary is empty, then 2D t-SNE is applied to the dataset with the
+highest index, equivalent of phe[-1], which is usually the last inserted
+dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <p>Dictionary of arguments to used to direct the t-SNE process, can
+contain the following keys and values:</p>
+<dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should have the
+dimensionality reduction applied. If absent, then
+behaviour is as if -1 is supplied, indicating the last added
+dataset.</p>
+</dd>
+<dt>ndims</dt><dd><p>number of dimensions to which the t-SNE should reduce
+the features. If absent, then defaults to 2.</p>
+</dd>
+<dt>center_on_perturbation_id</dt><dd><p>tSNE should be recentered on the
+perturbation with ID.If absent, then defaults to None, and
+no centering is performed.</p>
+</dd>
+<dt>center_by_median</dt><dd><p>If true, then median of center_on_perturbation
+is used, if False, then the mean is used.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.umap">
+<span class="sig-name descname"><span class="pre">umap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.umap" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Perform UMAP dimensionality reduction technique.</p>
+<p>Designed to be called from a workflow, performs the UMAP dimensionality
+reduction technique. If no arguments are given or the arguments
+dictionary is empty, then 2D UMAP is applied to the dataset with the
+highest index, equivalent of phe[-1], which is usually the last inserted
+dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <p>Dictionary of arguments used to direct the UMAP transform function.
+Can contain the following keys and values.</p>
+<dl class="simple">
+<dt>target_dataset</dt><dd><p>Index or name of dataset which should have the
+dimensionality reduction applied. If absent, then
+behaviour is as if -1 is supplied, indicating the last added
+dataset.</p>
+</dd>
+<dt>ndims</dt><dd><p>Number of dimensions to which the UMAP should reduce the
+features. If absent, then defaults to 2.</p>
+</dd>
+<dt>center_on_perturbation_id</dt><dd><p>UMAP should be recentered on the
+perturbation with ID. If absent, then defaults to None, and
+no centering is performed.</p>
+</dd>
+<dt>center_by_median</dt><dd><p>If true, then median of center_on_perturbation
+is used, if False, then the mean is used.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.write_csv">
+<span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.write_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Write dataframe to CSV file.</p>
+<p>Designed to be called from a workflow, writes a CSV file using the
+Pandas.DataFrame.to_csv function.  Expects a dictionary as arguments
+containing a ‘path’ key, with a string value pointing at the destination
+location of the CSV file. Additional keys within the supplied dictionary
+are supplied to Pandas.DataFrame.to_csv as kwargs, allowing fully
+flexible output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – Dictionary should contain a ‘path’ key, may also contain a target_dataset key
+which if absent, defaults to -1 (usually the last added dataset).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.workflow.Workflow.write_multiple_csvs">
+<span class="sig-name descname"><span class="pre">write_multiple_csvs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.Workflow.write_multiple_csvs" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: Write multiple CSV files</p>
+<p>Designed to be called from a workflow. Often it is useful to write a CSV
+file per plate within the dataset, or group the data by some other
+identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <p>Dictionary, should contain:</p>
+<dl class="simple">
+<dt>split_by_column: str</dt><dd><p>the column to be split on</p>
+</dd>
+<dt>output_dir: str</dt><dd><p>the target output directory</p>
+</dd>
+<dt>file_prefix: str</dt><dd><p>optional prefix for each file.</p>
+</dd>
+<dt>file suffix: str</dt><dd><p>optional suffix for each file.</p>
+</dd>
+<dt>file_extension: str</dt><dd><p>optional file extension, by default ‘.csv’</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.workflow.predict">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.workflow.</span></span><span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.workflow.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Workflow function: predict</p>
+<p>Profile predictors in their ability to predict a given target.</p>
+<p>Phenonaut provides functionality to profile the performance of multiple predictors against
+multiple views of data. This is exemplified in the TCGA example used in the Phenonaut paper -
+see Example 1 - TCGA for a full walkthrough of applying this functionality to The Cancer Genome Atlas.
+With a given ‘target’ for prediction which is in the dataset, predict selects all appropriate predictors
+(classifiers for classification, regressors for regression and multiregressors for multi regression/view targets).
+Then, enumerating all views of the data and all predictors, hyperparameter optimisation coupled with 5-fold cross
+validation using Optuna is employed, before finally testing the best hyperparameter sets with retained test sets.
+This process is automatic and requires the data, and a prediction target. Output from this process is extensive
+and it may take a long time to complete, depending on the characteristics of your input data. Writen output from
+the profiling process consists of performance heatmaps highlighting best view/predictor combinations in bold,
+boxplots for each view combination and a PPTX presentation file allowing easy sharing of data, along with machine
+readable CSV and JSON results.</p>
+<p>For each unique view combination and predictor, perform the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Merge views and remove samples which do not have features across currently needed views.</p></li>
+<li><p>Shuffle the samples.</p></li>
+<li><p>Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.</p></li>
+<li><p>Split the data using 5-fold cross validation into train and validation sets.</p></li>
+<li><p>For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arguments</strong> (<em>dict</em>) – <dl class="simple">
+<dt>output_directory</dt><dd><p>Directory into which profiling output (boxplots, heatmaps, CSV, JSON and PPTX should be written).</p>
+</dd>
+<dt>dataset_combinations</dt><dd><p>If multiple datasets are already loaded, then lists of ‘views’ may be specified for exploration. If None, or this argument is absent, then all combinations of available views/Datasets are enumerated and used.</p>
+</dd>
+<dt>target</dt><dd><p>The prediction target, denoted by a column name given here which exists in loaded datasets.</p>
+</dd>
+<dt>n_splits</dt><dd><p>Number of splits to use in the N-fold cross validation, if absent, then the default of 5 is used.</p>
+</dd>
+<dt>n_optuna_trials</dt><dd><p>Number of Optuna trials for hyperparameter optimisation, by default 20. This drastically impacts runtime, so if things are taking too long, you may wish to lower this number. For a more thorough exploration of hyperparameter space, increase this number.</p>
+</dd>
+<dt>optuna_merge_folds</dt><dd><p>By default, each fold has hyperparameters optimised and the trained predictor with parameters reported. If this optuna_merge_folds is true, then each fold is trained on and and hyperparameters optimised across folds (not per-fold). Setting this to False may be useful depending on the intended use of the predictor. It is believed that when False, and parameters are not optimised across folds, then more accurate prediction variance/accuracy estimates are produced. If absent, behaves as if false.</p>
+</dd>
+<dt>test_set_fraction</dt><dd><p>When optimising a predictor, by default a fraction of the total data is held back for testing, separate from the train-validation splits. This test_set_fraction controls the size of this split. If absent, then the default value of 0.2 is used.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the Phenonaut documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.data.html" class="btn btn-neutral float-right" title="phenonaut.data package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

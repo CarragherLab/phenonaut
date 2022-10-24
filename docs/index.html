@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Phenonaut documentation! &mdash; Phenonaut 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut package" href="phenonaut.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to the Phenonaut documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <img alt="_images/phenonaut.png" class="align-right" src="_images/phenonaut.png" />
+<section id="welcome-to-the-phenonaut-documentation">
+<h1>Welcome to the Phenonaut documentation!<a class="headerlink" href="#welcome-to-the-phenonaut-documentation" title="Permalink to this headline"></a></h1>
+<p>Phenonaut is a framework for applying workflows to multi-omics data. Originally
+targeting high-content imaging and the exploration of phenotypic space, with
+different visualisations and metrics, Phenonaut allows now operates in a data
+agnostic manner, allowing users to describe their data (potentially
+multi-view/multi-omics) and apply a series of generic or specialised
+data-centric transforms and measures.</p>
+<p>Phenonaut operates in 2 modes:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>As a Python package, importable and callable within custom scripts.</p></li>
+<li><p>Operating on a workflow defined in either YAML, or JSON, allowing integration of complex chains of Phenonaut instructions to be integrated into existing workflows and pipelines. When built as a package and installed, workflows can be executed with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python -m phenonaut workflow.yml
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="user-guide">
+<h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+<p>Alongside the API documentation a crash-course userguide is available here:
+<a class="reference internal" href="userguide.html"><span class="doc">User guide</span></a>.</p>
+<p>A breakdown and guide to workflow mode and commands can be found here:
+<a class="reference internal" href="workflow_guide.html"><span class="doc">Workflow mode</span></a>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.html">API documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.dataset">phenonaut.data.dataset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.platemap_querier">phenonaut.data.platemap_querier module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data.recipes">phenonaut.data.recipes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.boxplot">phenonaut.output.boxplot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.heatmap">phenonaut.output.heatmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.pair_plot">phenonaut.output.pair_plot module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.pptx">phenonaut.output.pptx module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.scatter">phenonaut.output.scatter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.spreadsheet">phenonaut.output.spreadsheet module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output.visualisation_base">phenonaut.output.visualisation_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.output.html#module-phenonaut.output">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.base">phenonaut.packaged_datasets.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.breast_cancer">phenonaut.packaged_datasets.breast_cancer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.cmap">phenonaut.packaged_datasets.cmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.iris">phenonaut.packaged_datasets.iris module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.lincs">phenonaut.packaged_datasets.lincs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.tcga">phenonaut.packaged_datasets.tcga module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.optuna_functions">phenonaut.predict.optuna_functions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.predict_utils">phenonaut.predict.predict_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.predictor_dataclasses">phenonaut.predict.predictor_dataclasses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict.profile">phenonaut.predict.profile module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.html#module-phenonaut.predict">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.dimensionality_reduction">phenonaut.transforms.dimensionality_reduction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.generic_transformations">phenonaut.transforms.generic_transformations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.preparative">phenonaut.transforms.preparative module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.supervised_transformer">phenonaut.transforms.supervised_transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms.transformer">phenonaut.transforms.transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.transforms.html#module-phenonaut.transforms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userguide.html#phenonaut">Phenonaut</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#phenonaut-class">Phenonaut class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#datasets-class">Datasets class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#datasets-containing-one-feature-per-row">Datasets containing one feature per-row</a></li>
+<li class="toctree-l3"><a class="reference internal" href="userguide.html#packaged-datasets">Packaged datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#removing-highly-correlated-features">Removing highly correlated features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#applying-umap">Applying UMAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="userguide.html#plotting-the-results">Plotting the results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="publication_examples.html#tcga-example">TCGA Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="publication_examples.html#cmap-example">CMAP Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#i-o">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#load">load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#write-csv">write_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#write-multiple-csvs">write_multiple_csvs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#transforms">Transforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#add-well-id">add_well_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#copy-column">copy_column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#rename-column-and-rename-columns">rename_column and rename_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#filtering">Filtering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#filter-columns">filter_columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#filter-rows">filter_rows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#filter-correlated-features">filter_correlated_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#vif-filter-features">VIF_filter_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#filter-correlated-and-vif-features">filter_correlated_and_VIF_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#if-blank-also-blank">if_blank_also_blank</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#dimensionality-reduction">Dimensionality reduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#pca">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#tnse">tnse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#umap">umap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#measurements">Measurements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#scalar-projection">scalar projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#euclidean-distance">euclidean_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#manhattan-distance">manhattan_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#cityblock-distance">cityblock_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#mahalanobis-distance">mahalanobis_distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#plotting">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#set-perturbation-column">set_perturbation_column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#scatter">scatter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workflow_guide.html#prediction">Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="workflow_guide.html#predict">predict</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.html" class="btn btn-neutral float-right" title="phenonaut package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

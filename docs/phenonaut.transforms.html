@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.transforms package &mdash; Phenonaut 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User guide" href="userguide.html" />
+    <link rel="prev" title="phenonaut.predict package" href="phenonaut.predict.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">phenonaut.transforms package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.dimensionality_reduction">phenonaut.transforms.dimensionality_reduction module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.generic_transformations">phenonaut.transforms.generic_transformations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.preparative">phenonaut.transforms.preparative module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.supervised_transformer">phenonaut.transforms.supervised_transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.transformer">phenonaut.transforms.transformer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="phenonaut.html">phenonaut package</a> &raquo;</li>
+      <li>phenonaut.transforms package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.transforms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-transforms-package">
+<h1>phenonaut.transforms package<a class="headerlink" href="#phenonaut-transforms-package" title="Permalink to this headline"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+</section>
+<section id="module-phenonaut.transforms.dimensionality_reduction">
+<span id="phenonaut-transforms-dimensionality-reduction-module"></span><h2>phenonaut.transforms.dimensionality_reduction module<a class="headerlink" href="#module-phenonaut.transforms.dimensionality_reduction" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.LDA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.dimensionality_reduction.</span></span><span class="sig-name descname"><span class="pre">LDA</span></span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.LDA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>LDA dimensionality reduction</p>
+<p>Once instantiated, can be called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lda</span><span class="o">=</span><span class="n">LDA</span><span class="p">()</span>
+<span class="n">lda</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply the transformation.</p></li>
+<li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the embedding space on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>center_by_median</strong> (<em>bool</em><em>, </em><em>optional</em>) – By default, any dataset centering will be performed on the median
+of controls or perturbations. If this argument is False, then
+centering is performed on the mean, by default True.</p></li>
+<li><p><strong>predict_proba</strong> (<em>bool</em>) – If True, then probabilities of each datapoint belonging to every
+other class is calculated and used in place of output features.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.LDA.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_on_perturbation_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_by_median</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_proba</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.LDA.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>LDA dimensionality reduction</p>
+<p>Once instantiated, can be called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lda</span><span class="o">=</span><span class="n">LDA</span><span class="p">()</span>
+<span class="n">lda</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply the transformation.</p></li>
+<li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the embedding space on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>center_by_median</strong> (<em>bool</em><em>, </em><em>optional</em>) – By default, any dataset centering will be performed on the median
+of controls or perturbations. If this argument is False, then
+centering is performed on the mean, by default True.</p></li>
+<li><p><strong>predict_proba</strong> (<em>bool</em>) – If True, then probabilities of each datapoint belonging to every
+other class is calculated and used in place of output features.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.LDA.make_scree_plot">
+<span class="sig-name descname"><span class="pre">make_scree_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Scree</span> <span class="pre">plot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.LDA.make_scree_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Produce a Scree plot showing ndims vs explained variance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_filename</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em><em>]</em>) – Output filename (ending in .png) indicating where the Scree plot should
+be saved. If None, then the plot is displayed interactively. By default, None.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Plot title, by default “Scree plot”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – LDA must have been fitted before a Scree plot can be made.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.PCA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.dimensionality_reduction.</span></span><span class="sig-name descname"><span class="pre">PCA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'PC'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.PCA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.transformer.Transformer</span></code></a></p>
+<p>Principal Component Analysis (PCA) dimensionality reduction.</p>
+<p>Can be instantiated and called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pca</span><span class="o">=</span><span class="n">PCA</span><span class="p">()</span>
+<span class="n">pca</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The Phenonaut dataset on which to apply PCA</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “PCA”</p></li>
+<li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.PCA.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">typing.Union[phenonaut.data.dataset.Dataset,</span> <span class="pre">phenonaut.phenonaut.Phenonaut],</span> <span class="pre">ndims:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2,</span> <span class="pre">new_feature_names:</span> <span class="pre">typing.Union[list[str],</span> <span class="pre">str]</span> <span class="pre">=</span> <span class="pre">'PC',</span> <span class="pre">group_by:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">center_on_perturbation_id:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">centering_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;,</span> <span class="pre">fit_perturbation_ids:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">fit_query:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">explain_variance_in_features:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.PCA.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Principal Component Analysis (PCA) dimensionality reduction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply PCA.</p></li>
+<li><p><strong>ndims</strong> (<em>int</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “PCA”</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the PCA on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>centering_function</strong> (<em>Callable</em>) – Used with center_on_perturbation, this function is applied to
+all data for matching perturbations. By default, we use the median
+of perturbations. This behavior can be overridden by supplying a
+different function here. By default np.median.</p></li>
+<li><p><strong>fit_perturbation_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If only a subset of the data should be used for fitting, then
+pertubations for fitting may be listed here. If none, then
+every datapoint is used for fitting, by default None.</p></li>
+<li><p><strong>fit_query</strong> (<em>str</em><em>, </em><em>optional</em>) – A pandas style query may be supplied to perform fitting. By default
+None.</p></li>
+<li><p><strong>explain_variance_in_features</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then the percentage explained variance of each PCA
+dimension is included in the new PCA descriptor feature name.
+Overrides new_feature_names. By default False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.PCA.save_scree_plot">
+<span class="sig-name descname"><span class="pre">save_scree_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Scree</span> <span class="pre">plot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.PCA.save_scree_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Produce a Scree plot showing ndims vs explained variance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_filename</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em><em>]</em>) – Output filename (ending in .png) indicating where the Scree plot should
+be saved. If None, then the plot is displayed interactively. By default, None.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Plot title, by default “Scree plot”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DataError</strong> – PCA must have been fitted before a Scree plot can be made.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.TSNE">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.dimensionality_reduction.</span></span><span class="sig-name descname"><span class="pre">TSNE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TSNE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.TSNE" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.transformer.Transformer</span></code></a></p>
+<p>t-SNE dimensionality reduction</p>
+<p>Can be instantiated and called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tsne</span><span class="o">=</span><span class="n">TSNE</span><span class="p">()</span>
+<span class="n">tsne</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The Phenonaut dataset on which to apply the transformation</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “TSNE”</p></li>
+<li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.TSNE.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">typing.Union[phenonaut.data.dataset.Dataset,</span> <span class="pre">phenonaut.phenonaut.Phenonaut],</span> <span class="pre">ndims:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2,</span> <span class="pre">new_feature_names:</span> <span class="pre">typing.Union[list[str],</span> <span class="pre">str]</span> <span class="pre">=</span> <span class="pre">'tSNE',</span> <span class="pre">group_by:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">center_on_perturbation_id:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">centering_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.TSNE.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>t-SNE dimensionality reduction</p>
+<p>Once instantiated, can be called directly, like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tsne</span><span class="o">=</span><span class="n">TSNE</span><span class="p">()</span>
+<span class="n">tsne</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply t-SNE.</p></li>
+<li><p><strong>ndims</strong> (<em>int</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “tSNE”</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the t-SNE on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>centering_function</strong> (<em>Callable</em>) – Used with center_on_perturbation, this function is applied to
+all data for matching perturbations. By default, we use the median
+of perturbations. This behavior can be overridden by supplying a
+different function here. By default np.median.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.UMAP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.dimensionality_reduction.</span></span><span class="sig-name descname"><span class="pre">UMAP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'UMAP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.UMAP" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.transformer.Transformer</span></code></a></p>
+<p>UMAP dimensionality reduction</p>
+<p>Can be instantiated and called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">umap</span><span class="o">=</span><span class="n">UMAP</span><span class="p">()</span>
+<span class="n">umap</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The Phenonaut dataset on which to apply the transformation</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “UMAP”</p></li>
+<li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.dimensionality_reduction.UMAP.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">typing.Union[phenonaut.data.dataset.Dataset,</span> <span class="pre">phenonaut.phenonaut.Phenonaut],</span> <span class="pre">ndims:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">2,</span> <span class="pre">new_feature_names:</span> <span class="pre">typing.Union[list[str],</span> <span class="pre">str]</span> <span class="pre">=</span> <span class="pre">'UMAP',</span> <span class="pre">group_by:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">center_on_perturbation_id:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">centering_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.dimensionality_reduction.UMAP.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>UMAP dimensionality reduction</p>
+<p>Once instantiated, can be called directly, like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">uamp</span><span class="o">=</span><span class="n">UMAP</span><span class="p">()</span>
+<span class="n">umap</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply UMAP.</p></li>
+<li><p><strong>ndims</strong> (<em>int</em>) – Number of dimensions to embed the data into, by default 2</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “UMAP”</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the UMAP on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>centering_function</strong> (<em>Callable</em>) – Used with center_on_perturbation, this function is applied to
+all data for matching perturbations. By default, we use the median
+of perturbations. This behavior can be overridden by supplying a
+different function here. By default np.median.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms.generic_transformations">
+<span id="phenonaut-transforms-generic-transformations-module"></span><h2>phenonaut.transforms.generic_transformations module<a class="headerlink" href="#module-phenonaut.transforms.generic_transformations" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.GenericTransform">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.generic_transformations.</span></span><span class="sig-name descname"><span class="pre">GenericTransform</span></span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.GenericTransform" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.GenericTransform.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.GenericTransform.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.Log2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.generic_transformations.</span></span><span class="sig-name descname"><span class="pre">Log2</span></span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.Log2" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.generic_transformations.GenericTransform" title="phenonaut.transforms.generic_transformations.GenericTransform"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.generic_transformations.GenericTransform</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.Log2.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.Log2.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.RobustMAD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.generic_transformations.</span></span><span class="sig-name descname"><span class="pre">RobustMAD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mad_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.RobustMAD" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.generic_transformations.GenericTransform" title="phenonaut.transforms.generic_transformations.GenericTransform"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.generic_transformations.GenericTransform</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.RobustMAD.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.RobustMAD.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Perform RobustMAD</p>
+<p>Object may be called directly to perform fit and then transform.
+:param dataset: The dataset upon which the transformation should be applied.
+:type dataset: Dataset
+:param query: Pandas query which may be used to select rows, by default None
+:type query: Optional[str], optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.RobustMAD.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.RobustMAD.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit the RobustMAD scaler to a dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – Dataset upon which the fit is to be performed</p></li>
+<li><p><strong>query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Pandas query which may be used to select rows, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a reference to itself as an object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenonaut.transforms.generic_transformations.RobustMAD" title="phenonaut.transforms.generic_transformations.RobustMAD">RobustMAD</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.RobustMAD.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.RobustMAD.transform" title="Permalink to this definition"></a></dt>
+<dd><p>Perform transform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset upon which the transformation should be applied.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.StandardScaler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.generic_transformations.</span></span><span class="sig-name descname"><span class="pre">StandardScaler</span></span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.StandardScaler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.generic_transformations.GenericTransform" title="phenonaut.transforms.generic_transformations.GenericTransform"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.generic_transformations.GenericTransform</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.StandardScaler.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.StandardScaler.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Perform StandardScaler</p>
+<p>Object may be called directly to perform fit and then transform.
+:param dataset: The dataset upon which the transformation should be applied.
+:type dataset: Dataset
+:param query: Pandas query which may be used to select rows, by default None
+:type query: Optional[str], optional</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.StandardScaler.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.StandardScaler.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit the standard scaler to a dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – Dataset upon which the fit is to be performed</p></li>
+<li><p><strong>query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Pandas query which may be used to select rows, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a reference to itself as an object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenonaut.transforms.generic_transformations.StandardScaler" title="phenonaut.transforms.generic_transformations.StandardScaler">StandardScaler</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.StandardScaler.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.StandardScaler.transform" title="Permalink to this definition"></a></dt>
+<dd><p>Perform transform</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset upon which the transformation should be applied.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms.preparative">
+<span id="phenonaut-transforms-preparative-module"></span><h2>phenonaut.transforms.preparative module<a class="headerlink" href="#module-phenonaut.transforms.preparative" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.preparative.</span></span><span class="sig-name descname"><span class="pre">RemoveHighestCorrelatedThenVIF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_before_vif</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vif_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">corr_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Run RemoveHighestCorrelatedThenVIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset from which features are to be removed</p></li>
+<li><p><strong>n_before_vif</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of features to remove before applying VIF. This is required when
+dealing with large datasets which would be too time consuming to process entirely
+with VIF.  Features are removed iteratively, selecting the most correlated
+features and removing them, by default 1000</p></li>
+<li><p><strong>vif_cutoff</strong> (<em>float</em><em>, </em><em>optional</em>) – The VIF cutoff value, above which features are removed. Features with VIF scores
+above 5.0 are considered highly correlated, by default 5.0.</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – Remove features by VIF score all the way down to a minimum given by this
+argument, by default 2</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+<li><p><strong>corr_kwargs</strong> (<em>dict</em>) – Keyword arguments which may be passed to the pd.Dataframe.corr function, allowing
+chaniging of the correlation calculation method from pearson to otheres.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_before_vif</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vif_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">corr_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF.filter" title="Permalink to this definition"></a></dt>
+<dd><p>Run RemoveHighestCorrelatedThenVIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset from which features are to be removed</p></li>
+<li><p><strong>n_before_vif</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of features to remove before applying VIF. This is required when
+dealing with large datasets which would be too time consuming to process entirely
+with VIF.  Features are removed iteratively, selecting the most correlated
+features and removing them, by default 1000</p></li>
+<li><p><strong>vif_cutoff</strong> (<em>float</em><em>, </em><em>optional</em>) – The VIF cutoff value, above which features are removed. Features with VIF scores
+above 5.0 are considered highly correlated, by default 5.0.</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – Remove features by VIF score all the way down to a minimum given by this
+argument, by default 2</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+<li><p><strong>corr_kwargs</strong> (<em>dict</em>) – Keyword arguments which may be passed to the pd.Dataframe.corr function, allowing
+chaniging of the correlation calculation method from pearson to otheres.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighlyCorrelated">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.preparative.</span></span><span class="sig-name descname"><span class="pre">RemoveHighlyCorrelated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighlyCorrelated" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighlyCorrelated.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">corr_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighlyCorrelated.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Run RemoveHighlyCorrelated - identical to calling the filter function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset from which features are to be removed</p></li>
+<li><p><strong>threshold</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>None</em><em>]</em>) – The threshold value for calculated correlations, above which, a feature should
+be removed. If None, then it is expected that the n argument is given and features
+with the highest correlation are then iteratively removed. By default 0.9</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of features to keep. If the threshold argument is None, then features
+are iteratively removed, ordered by the most correlated until the number of features
+is equal to n. If threshold is not None, and is a float, then n acts as a minimum
+number of features and feature removal will stop, no matter the correlations present
+in the dataset.</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+<li><p><strong>corr_kwargs</strong> (<em>dict</em>) – Keyword arguments which may be passed to the pd.Dataframe.corr function, allowing
+chaniging of the correlation calculation method from pearson to otheres.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.RemoveHighlyCorrelated.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">corr_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.RemoveHighlyCorrelated.filter" title="Permalink to this definition"></a></dt>
+<dd><p>Run the RemoveHighlyCorrelated filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset from which features are to be removed</p></li>
+<li><p><strong>threshold</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>None</em><em>]</em>) – The threshold value for calculated correlations, above which, a features should
+be removed. If None, then it is expected that the n argument is given and features
+with the highest correlation are then iteratively removed. Note that the absolute
+value of the calculated correlation coefficients are taken, so this number should
+always be positive, by default 0.9.</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of features to keep. If the threshold argument is None, then features
+are iteratively removed, ordered by the most correlated until the number of features
+is equal to n. If threshold is not None, and is a float, then n acts as a minimum
+number of features and feature removal will stop, no matter the correlations present
+in the dataset.</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+<li><p><strong>corr_kwargs</strong> (<em>dict</em>) – Keyword arguments which may be passed to the pd.Dataframe.corr function, allowing
+chaniging of the correlation calculation method from pearson to otheres.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.VIF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.preparative.</span></span><span class="sig-name descname"><span class="pre">VIF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.VIF" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.VIF.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vif_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.VIF.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Run the variance inflation factor filter, the same as calling the filter method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The phenonaut dataset to be operated on</p></li>
+<li><p><strong>vif_cutoff</strong> (<em>float</em><em>, </em><em>optional</em>) – The variance inflation factor cutoff.  Values above 5.0 indicate strong
+correlation, by default 5.0</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – Remove features by VIF score all the way down to a minimum given by this
+argument, by default 2</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.VIF.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vif_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.VIF.filter" title="Permalink to this definition"></a></dt>
+<dd><p>Run the variance inflation factor filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The phenonaut dataset to be operated on</p></li>
+<li><p><strong>vif_cutoff</strong> (<em>float</em><em>, </em><em>optional</em>) – The variance inflation factor cutoff.  Values above 5.0 indicate strong
+correlation, by default 5.0</p></li>
+<li><p><strong>min_features</strong> (<em>int</em><em>, </em><em>optional</em>) – Remove features by VIF score all the way down to a minimum given by this
+argument, by default 2</p></li>
+<li><p><strong>drop_columns</strong> (<em>bool</em><em>, </em><em>optional</em>) – If drop columns is True, then not only will features be removed from the
+dataset features list, but the columns for these features will be removed
+from the dataframe, by default False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.VIF.get_vif_scores">
+<span class="sig-name descname"><span class="pre">get_vif_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.transforms.preparative.VIF.get_vif_scores" title="Permalink to this definition"></a></dt>
+<dd><p>Get VIF scores dictionary from a phenonaut Dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The dataset from which to calculate VIF scores</p></li>
+<li><p><strong>use_features</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If None, then the features found within the dataset with a call to Dataset.features
+are used. This behaviour can be changed by passing a list of features as this
+use_features argument, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of mapping feature name to VIF score</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms.supervised_transformer">
+<span id="phenonaut-transforms-supervised-transformer-module"></span><h2>phenonaut.transforms.supervised_transformer module<a class="headerlink" href="#module-phenonaut.transforms.supervised_transformer" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.supervised_transformer.</span></span><span class="sig-name descname"><span class="pre">SupervisedTransformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callable_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.callable_args">
+<span class="sig-name descname"><span class="pre">callable_args</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.callable_args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_or_ycolumnlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.series.Series</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.array</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_perturbation_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_fit">
+<span class="sig-name descname"><span class="pre">has_fit</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_fit_transform">
+<span class="sig-name descname"><span class="pre">has_fit_transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_fit_transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_transform">
+<span class="sig-name descname"><span class="pre">has_transform</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.has_transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.is_callable">
+<span class="sig-name descname"><span class="pre">is_callable</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.is_callable" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.method">
+<span class="sig-name descname"><span class="pre">method</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.method" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.method_kwargs">
+<span class="sig-name descname"><span class="pre">method_kwargs</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.method_kwargs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.new_feature_names">
+<span class="sig-name descname"><span class="pre">new_feature_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.new_feature_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.supervised_transformer.SupervisedTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.supervised_transformer.SupervisedTransformer.transform" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms.transformer">
+<span id="phenonaut-transforms-transformer-module"></span><h2>phenonaut.transforms.transformer module<a class="headerlink" href="#module-phenonaut.transforms.transformer" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.transformer.Transformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.transformer.</span></span><span class="sig-name descname"><span class="pre">Transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformer_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callable_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_transform_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.transformer.Transformer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generic transformer to turn methods/objects into Phenonaut transforms</p>
+<p>This generic transformer class may be used to wrap functions which perform
+a simple transform (like np.log2), or even more complex objects, like PCA,
+t-SNE and StandardScaler from scikit (which provide their own fit/transform/
+fit_transform functions).</p>
+<p>This way, a Phenonaut transformer may be constructed with applies the given
+function/object method to a Phenonaut dataset and correctly updates features.</p>
+<p>Wrapping an object which requires fitting also brings with it the advantage
+that we may apply the group_by keyword to perform a unique fit and transform
+in groups, which is useful if you require PCA to be performed on a per-plate
+basis.</p>
+<p>May be used as follows - in this example, we are wrapping PCA from SciKit
+which has the effect of perfoming a 2D PCA on our Phenonaut Dataset object.
+We also make use of the group_by keyword, to perform a unique PCA for each
+plate (denoted by unique BARCODE values).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut</span> <span class="kn">import</span> <span class="n">Phenonaut</span>
+<span class="kn">from</span> <span class="nn">phenonaut.transforms</span> <span class="kn">import</span> <span class="n">Transformer</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ROW&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s1">&#39;COLUMN&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;BARCODE&#39;</span><span class="p">:[</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate2&quot;</span><span class="p">,</span><span class="s2">&quot;Plate2&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;feat_1&#39;</span><span class="p">:[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">5.2</span><span class="p">,</span><span class="mf">6.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+    <span class="s1">&#39;feat_2&#39;</span><span class="p">:[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mf">5.1</span><span class="p">,</span><span class="mf">6.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+    <span class="s1">&#39;feat_3&#39;</span><span class="p">:[</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">6.8</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.38</span><span class="p">],</span>
+    <span class="s1">&#39;filename&#39;</span><span class="p">:[</span><span class="s1">&#39;fileA.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileB.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileC.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileD.png&#39;</span><span class="p">,</span><span class="s1">&#39;fileE.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileF.png&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;FOV&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span>
+
+<span class="n">phe</span><span class="o">=</span><span class="n">Phenonaut</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="n">t_pca</span><span class="o">=</span><span class="n">Transformer</span><span class="p">(</span><span class="n">PCA</span><span class="p">,</span> <span class="n">constructor_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;n_components&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">})</span>
+<span class="n">t_pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">phe</span><span class="o">.</span><span class="n">ds</span><span class="p">,</span> <span class="n">group_by</span><span class="o">=</span><span class="s2">&quot;BARCODE&quot;</span><span class="p">)</span>
+<span class="n">t_pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">phe</span><span class="o">.</span><span class="n">ds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Along with the above, whereby a PCA transformer is generated from the SciKit
+PCA class, you may also use the built in phenonaut.transforms.PCA which has
+more PCA specific functionality, allowing creation of Scree plots etc.</p>
+<p>A transformer may also be made with a callable function (which operates on
+dataframes or numpy arrays) like np.log2, or np.abs, etc, as shown below.</p>
+<p>The following squares all features.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut</span> <span class="kn">import</span> <span class="n">Phenonaut</span>
+<span class="kn">from</span> <span class="nn">phenonaut.transforms</span> <span class="kn">import</span> <span class="n">Transformer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ROW&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s1">&#39;COLUMN&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;BARCODE&#39;</span><span class="p">:[</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate2&quot;</span><span class="p">,</span><span class="s2">&quot;Plate2&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">,</span><span class="s2">&quot;Plate1&quot;</span><span class="p">],</span>
+    <span class="s1">&#39;feat_1&#39;</span><span class="p">:[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">5.2</span><span class="p">,</span><span class="mf">6.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+    <span class="s1">&#39;feat_2&#39;</span><span class="p">:[</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.4</span><span class="p">,</span><span class="mf">5.1</span><span class="p">,</span><span class="mf">6.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],</span>
+    <span class="s1">&#39;feat_3&#39;</span><span class="p">:[</span><span class="mf">1.3</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">6.8</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.38</span><span class="p">],</span>
+    <span class="s1">&#39;filename&#39;</span><span class="p">:[</span><span class="s1">&#39;fileA.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileB.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileC.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileD.png&#39;</span><span class="p">,</span><span class="s1">&#39;fileE.png&#39;</span><span class="p">,</span><span class="s1">&#39;FileF.png&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;FOV&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]})</span>
+<span class="n">phe</span><span class="o">=</span><span class="n">Phenonaut</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t</span><span class="o">=</span><span class="n">Transformer</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">)</span>
+<span class="n">t</span><span class="p">(</span><span class="n">phe</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>Union</em><em>[</em><em>object</em><em>, </em><em>Callable</em><em>]</em>) – Instantiatable object with fit, transform and or fit_transform, or
+__call__ methods. Alternatively, a callable function. Designed to be
+passed something like the PCA class from SciKit, or a simple function
+like np.log2.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated.</p></li>
+<li><p><strong>transformer_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – When features are set on a Dataset, the history reflects what was
+carried out to generate those features. If None, then automatic naming
+of the passed function is attempted. By default None.</p></li>
+<li><p><strong>constructor_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional constructor arguments which may be passed to the class passed
+in the method argument upon instantiation. By default {}.</p></li>
+<li><p><strong>callable_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to pass to the function passed in the method
+argument. By default {}.</p></li>
+<li><p><strong>fit_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to the fit function called on object instantiated
+from the method argument. By default {}.</p></li>
+<li><p><strong>transform_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to the transform function called on object
+instantiated from the method argument. By default {}.</p></li>
+<li><p><strong>fit_transform_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments to the fit_transform function called on object
+instantiated from the method argument. By default {}.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.transformer.Transformer.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.transformer.Transformer.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Call transformer</p>
+<p>If a simple callable method was passed to the constructor of the transformer,
+then it can be applied by calling the method here.  The transform method can
+also be called with the same effect.  If the method has no __call__ method,
+then transform is attempted to be called. If this is absent, then fit_transform
+is attempted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object upon which the transform
+should be applied.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. If None, then
+features are attempted to be named through interrogation of the
+method_name argument. By default None.</p></li>
+<li><p><strong>method_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – When setting features, the history message should describe what was
+done. If None, then the method object/method is interrogated in an
+attempt to automatically deduce the name. By default None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.transformer.Transformer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_perturbation_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.transformer.Transformer.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Call fit on the transformer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – Dataset containing data to be fitted against</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>fit_perturbation_ids</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em><em>, </em><em>optional</em>) – If only a subset of the data should be used for fitting, then
+pertubations for fitting may be listed here. If none, then
+every datapoint is used for fitting, by default None.</p></li>
+<li><p><strong>fit_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – A pandas style query may be supplied to perform fitting. By default
+None.</p></li>
+<li><p><strong>fit_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – Optional arguments supplied to the fit function of the object passed
+in the constructor of this transformer. By default None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.transformer.Transformer.fit_transform">
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">typing.Union[phenonaut.data.dataset.Dataset,</span> <span class="pre">phenonaut.phenonaut.Phenonaut],</span> <span class="pre">group_by:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">fit_perturbation_ids:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">fit_query:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">fit_kwargs:</span> <span class="pre">typing.Optional[dict]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">transform_kwargs:</span> <span class="pre">typing.Optional[dict]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">fit_transform_kwargs:</span> <span class="pre">typing.Optional[dict]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">new_feature_names:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">method_name:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">free_memory_after_transform:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">center_on_perturbation_id:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">centering_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.transformer.Transformer.fit_transform" title="Permalink to this definition"></a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object upon which the
+fit_transform should be applied.</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>fit_perturbation_ids</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em><em>, </em><em>optional</em>) – If only a subset of the data should be used for fitting, then
+pertubations for fitting may be listed here. If none, then
+every datapoint is used for fitting, by default None.</p></li>
+<li><p><strong>fit_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – A pandas style query may be supplied to perform fitting. By default
+None.</p></li>
+<li><p><strong>fit_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – Optional arguments supplied to the fit function of the object passed
+in the constructor of this transformer. By default None.</p></li>
+<li><p><strong>transform_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – Additional arguments to the transform function called on object
+instantiated from the method argument. If set here, and not None, then
+it overrides any transform_kwargs given to the object constructor.
+Transform is only called as a fallback, if the object does not have
+a fit_transform method, but separate fit and transform methods which
+may be called in series. By default None.</p></li>
+<li><p><strong>fit_transform_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – Additional arguments to the fit_transform function called on object
+instantiated from the method argument. If set here, and not None, then
+it overrides any fit_transform_kwargs given to the object constructor.
+By default None.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. If None, then
+features are attempted to be named through interrogation of the
+method_name argument. By default None.</p></li>
+<li><p><strong>method_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – When setting features, the history message should describe what was
+done. If None, then the method object/method is interrogated in an
+attempt to automatically deduce the name. By default None.</p></li>
+<li><p><strong>free_memory_after_transform</strong> (<em>bool</em><em>, </em><em>optional</em>) – Remove temporary objects once transformation has been performed.
+By default True.</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the PCA on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>centering_function</strong> (<em>Callable</em><em>, </em><em>optional</em>) – Used with center_on_perturbation, this function is applied to
+all data for matching perturbations. By default, we use the median
+of perturbations. This behavior can be overridden by supplying a
+different function here. By default np.median.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.transformer.Transformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">dataset:</span> <span class="pre">typing.Union[phenonaut.data.dataset.Dataset,</span> <span class="pre">phenonaut.phenonaut.Phenonaut],</span> <span class="pre">new_feature_names:</span> <span class="pre">typing.Optional[typing.Union[str,</span> <span class="pre">list[str]]]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">method_name:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">transform_kwargs:</span> <span class="pre">typing.Optional[dict]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">free_memory_after_transform:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">center_on_perturbation_id:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">centering_function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">median&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.transformer.Transformer.transform" title="Permalink to this definition"></a></dt>
+<dd><p>Apply transform</p>
+<p>If no transform method is found, then __call__ is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object upon which the transform
+should be applied.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. If None, then
+features are attempted to be named through interrogation of the
+method_name argument. By default None.</p></li>
+<li><p><strong>method_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – When setting features, the history message should describe what was
+done. If None, then the method object/method is interrogated in an
+attempt to automatically deduce the name. By default None.</p></li>
+<li><p><strong>transform_kwargs</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em><em>, </em><em>optional</em>) – Additional arguments to the transform function called on object
+instantiated from the method argument. If set here, and not None, then
+it overrides any transform_kwargs given to the object constructor. By
+default None.</p></li>
+<li><p><strong>free_memory_after_transform</strong> (<em>bool</em><em>, </em><em>optional</em>) – Remove temporary objects once transformation has been performed.
+By default True.</p></li>
+<li><p><strong>center_on_perturbation_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Optionally, recentre the PCA on a named perturbation. Should have
+pertubation_column set within the dataset for this option, by
+default None.</p></li>
+<li><p><strong>centering_function</strong> (<em>Callable</em><em>, </em><em>optional</em>) – Used with center_on_perturbation, this function is applied to
+all data for matching perturbations. By default, we use the median
+of perturbations. This behavior can be overridden by supplying a
+different function here. By default np.median.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.transforms" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.predict.html" class="btn btn-neutral float-left" title="phenonaut.predict package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userguide.html" class="btn btn-neutral float-right" title="User guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
