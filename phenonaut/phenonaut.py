@@ -4,6 +4,7 @@
 import warnings
 from random import random
 from pandas.errors import DataError
+from phenonaut import data
 from phenonaut.data import Dataset
 from typing import Callable, Iterable, List, Optional, Union
 from pathlib import Path
@@ -267,7 +268,7 @@ class Phenonaut:
                 f"Attempting to get dataset, but {type(dataset)} was supplied. It should be str name, int giving the dataset location in the Phenonaut.datasets list, or a list/tuple of names/indexes to return multiple datasets"
             )
 
-    def __setitem__(self, name: str, dataset: Dataset) -> None:
+    def __setitem__(self, name: Union[str, int], dataset: Dataset) -> None:
         """Allows asignment of Datasets to Phenonaut object by name
 
         Parameters
@@ -277,8 +278,15 @@ class Phenonaut:
         dataset : Dataset
             New Dataset to be stored in Phenonaut object
         """
-        dataset.name = name
-        self.datasets.append(dataset)
+        if isinstance(name, int):
+            self.datasets[name]=dataset
+        else:
+            dataset.name = name
+            if name in self.keys():
+                name=self.get_dataset_index_from_name(name)
+                self.datasets[name]=dataset
+            else:
+                self.datasets.append(dataset)
 
     def __delitem__(self, key: Union[str, int]):
         """Allows the deletion of Datasets stored in a Phenonaut object
