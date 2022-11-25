@@ -127,19 +127,39 @@ returned indicating the euclidean distance between point1 and point2.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phenonaut.metrics.distances.mahalanobis">
-<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">mahalanobis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloud</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance_estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MinCovDet()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distances.mahalanobis" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distances.</span></span><span class="sig-name descname"><span class="pre">mahalanobis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloud</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pvals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covariance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">sklearn.covariance._empirical_covariance.EmpiricalCovariance</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">sklearn.covariance._robust_covariance.MinCovDet</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">EmpiricalCovariance()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distances.mahalanobis" title="Permalink to this definition"></a></dt>
 <dd><p>Measure the Mahalanobis distance between a point and a cloud</p>
+<p>The Mahalanobis distance calculation is particularly sensitive to outliers,
+which results in large changes in covariance matrix calculation. For this
+reason, robust covarience estimators may be suppplied to the method. Whilst
+a common recomendation is to calculate the sqrt of the Mahalanobis distance,
+this is an approximation to euclidean space, only correct when the covariance
+matrix is an identity matrix. As Phenonaut is concerned on operating on high
+dimensional space which very likely has covariences present, the returned
+distance is not square rooted, returning D2 as noted.</p>
+<p><a class="reference external" href="https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/euclid">https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/euclid</a></p>
+<p>Optionally, the p-value for the point or points belonging to the cloud can
+be returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>point</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>,</em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – Multidimensional point, can be a simple list of [x,y,z], or a 2d M*N
+<li><p><strong>point</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>,</em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – Multidimensional point, can be a simple list of features, or a 2d M*N
 list where M are multiple points to be individually measured of N
 features and returning an array of measurmenents for each point.</p></li>
 <li><p><strong>cloud</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em><em>, </em><em>np.ndarray</em><em>, </em><em>pd.DataFrame</em><em>]</em>) – 2D M*N array-like set of M points, with N features from which the
 underlying target distribution will be measured.</p></li>
-<li><p><strong>covariance_estimator</strong> (<em>Optional</em><em>[</em><em>object</em><em>]</em><em>, </em><em>optional</em>) – Instantiated object with fit and mahalanobis methods used for covariance
-estimation. MinCovDet is used by default from sklearn.covariance.
-Another option is sklearn.covariance.EmpiricalCovariance().</p></li>
+<li><p><strong>pvals</strong> (<em>bool</em>) – If True, then p-value for the point (or points) belonging to cloud is returned.
+This is calculated using Chi2 and degrees of freedom calculated as
+N-1, where N is the number of features/dimensions. If point was one
+dimensional, then a single floating point value is returned. If it is 2D
+(MxN matrix), then an array of length M is returned. By default, False.</p></li>
+<li><p><strong>covariance</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>np.ndarray</em><em>, </em><em>EmpiricalCovariance</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If none, then the covariance matrix is calculated using scikit’s
+EmpiricalCovariance. This is fairly robust to outliers, and much more robust
+than the standard approach to calculating a covariance matrix (using numpy’s
+np.cov method. Robust estimators may be used by passing in an instantiated
+object which a subclass of EmpiracalCovariance (like
+sklearn.covariance.MinCovDet or EmpiricalCovariance itself). If None, then
+numpy’s cov method is used (sensitive to outliers). By default EmpiracalCovariance().</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -149,9 +169,6 @@ cloud.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>[np.ndarray, float]</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>DataError</strong> – Point can be 2D, but not 3D.</p>
 </dd>
 </dl>
 </dd></dl>

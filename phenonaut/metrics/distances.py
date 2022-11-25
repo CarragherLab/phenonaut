@@ -12,7 +12,7 @@ from scipy.spatial.distance import pdist, cdist, cityblock
 from scipy.linalg import inv
 import numpy as np
 from scipy.spatial import distance
-from sklearn.covariance import MinCovDet
+from sklearn.covariance import EmpiricalCovariance, MinCovDet
 
 
 def treatment_spread_euclidean(
@@ -52,23 +52,48 @@ def treatment_spread_euclidean(
 def mahalanobis(
     point: Union[List[float], np.ndarray, pd.DataFrame],
     cloud: Union[List[List[float]], np.ndarray, pd.DataFrame],
-    covariance_estimator: Optional[object] = MinCovDet(),
+    pvals:bool=False,
+    covariance: Union[np.ndarray, EmpiricalCovariance, MinCovDet, None] = EmpiricalCovariance(),
 ):
     """Measure the Mahalanobis distance between a point and a cloud
+
+    The Mahalanobis distance calculation is particularly sensitive to outliers,
+    which results in large changes in covariance matrix calculation. For this
+    reason, robust covarience estimators may be suppplied to the method. Whilst
+    a common recomendation is to calculate the sqrt of the Mahalanobis distance,
+    this is an approximation to euclidean space, only correct when the covariance
+    matrix is an identity matrix. As Phenonaut is concerned on operating on high
+    dimensional space which very likely has covariences present, the returned
+    distance is not square rooted, returning D2 as noted.
+    
+    https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/euclid
+
+    Optionally, the p-value for the point or points belonging to the cloud can
+    be returned.
 
     Parameters
     ----------
     point : Union[List[float],np.ndarray, pd.DataFrame]
-        Multidimensional point, can be a simple list of [x,y,z], or a 2d M*N
+        Multidimensional point, can be a simple list of features, or a 2d M*N
         list where M are multiple points to be individually measured of N
         features and returning an array of measurmenents for each point.
     cloud : Union[List[List[float]], np.ndarray, pd.DataFrame]
         2D M*N array-like set of M points, with N features from which the
         underlying target distribution will be measured.
-    covariance_estimator : Optional[object], optional
-        Instantiated object with fit and mahalanobis methods used for covariance
-        estimation. MinCovDet is used by default from sklearn.covariance.
-        Another option is sklearn.covariance.EmpiricalCovariance().
+    pvals : bool
+        If True, then p-value for the point (or points) belonging to cloud is returned.
+        This is calculated using Chi2 and degrees of freedom calculated as
+        N-1, where N is the number of features/dimensions. If point was one
+        dimensional, then a single floating point value is returned. If it is 2D
+        (MxN matrix), then an array of length M is returned. By default, False.
+    covariance : Optional[Union[np.ndarray, EmpiricalCovariance]], optional
+        If none, then the covariance matrix is calculated using scikit's
+        EmpiricalCovariance. This is fairly robust to outliers, and much more robust
+        than the standard approach to calculating a covariance matrix (using numpy's
+        np.cov method. Robust estimators may be used by passing in an instantiated
+        object which a subclass of EmpiracalCovariance (like
+        sklearn.covariance.MinCovDet or EmpiricalCovariance itself). If None, then
+        numpy's cov method is used (sensitive to outliers). By default EmpiracalCovariance().
 
     Returns
     -------
@@ -77,28 +102,31 @@ def mahalanobis(
         returned indicating the Mahalanobis distance of the point to the
         cloud.
 
-    Raises
-    ------
-    DataError
-        Point can be 2D, but not 3D.
     """
-    point = np.array(point)
-    if point.ndim == 1:
-        point = point.reshape(1, -1)
-
-    if point.ndim > 2:
-        raise DataError(
-            f"point can be a 2D M*N array where M is unique points, and N are features. Point shape was {point.shape}."
-        )
-    covariance_estimator.fit(cloud.values)
-    results = np.empty(point.shape[0])
-    # for p,i in enumerate(point):
-    results = covariance_estimator.mahalanobis(point)
-    results = np.sqrt(results)
-    if len(results) == 1:
-        return np.sqrt(results[0])
+    point=np.array(point)
+    cloud=np.array(cloud)
+    if point.ndim==1:
+        point=point.reshape(1,-1)
+    
+    if isinstance(covariance,EmpiricalCovariance):
+        covariance.fit(cloud)
+        mahl_d=covariance.mahalanobis(point)
     else:
-        return results
+        if covariance is None:
+            cov_mat = np.cov(cloud.T)
+        elif isinstance(covariance, np.ndarray):
+            cov_mat=covariance
+        else:
+            raise ValueError(f"cov argument should be one of np.ndarray, None, or a subclass of sklearn.covariance.EmpiricalCovariance, it was {type(covariance)}")
+        difference = point - np.mean(cloud, axis=0)
+        mahl_d=np.diag(np.dot(np.dot(difference, np.linalg.inv(cov_mat)), difference.T))
+    if len(mahl_d)==1:
+        mahl_d=mahl_d[0]
+    if not pvals:
+        return mahl_d
+    else:
+        from scipy.stats import chi2
+        return 1-chi2.cdf(mahl_d,cloud.shape[1]-1)
 
 
 def euclidean(
