@@ -20,7 +20,7 @@ def test_transforms_standardscaler():
     phe=phenonaut.Phenonaut(df)
     stdscaler=phenonaut.transforms.StandardScaler()
     stdscaler(phe.ds)
-    assert phe.df.iloc[3,4]-1.589652<0.00001
+    assert abs(phe.df.iloc[3,4]-1.589652)<0.00001
 
 def test_transforms_pca():
     df=pd.DataFrame({
@@ -36,7 +36,7 @@ def test_transforms_pca():
     phe=phenonaut.Phenonaut(df)
     t_pca=phenonaut.transforms.PCA()
     t_pca(phe.ds)
-    assert phe.ds.data.iloc[3,0]-6.829846<0.00001
+    assert abs(phe.ds.data.iloc[3,0]-6.829846)<0.00001
 
 def test_transforms_tnse():
     df=pd.DataFrame({
@@ -107,4 +107,4 @@ def test_transforms_robustmad():
     phe=phenonaut.Phenonaut(df)
     robust_mad=phenonaut.transforms.RobustMAD()
     robust_mad(phe.ds)
-    assert phe.df.iloc[3,4]-4.363636<0.00001
+    assert abs(phe.df.iloc[3,4]-4.363636)<0.00001
