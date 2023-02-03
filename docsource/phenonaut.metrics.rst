@@ -20,6 +20,14 @@ phenonaut.metrics.measures module
    :undoc-members:
    :show-inheritance:
 
+phenonaut.metrics.performance module
+------------------------------------
+
+.. automodule:: phenonaut.metrics.performance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

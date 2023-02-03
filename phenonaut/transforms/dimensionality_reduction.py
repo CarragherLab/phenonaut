@@ -15,7 +15,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from pathlib import Path
 import pandas as pd
-
 from phenonaut.phenonaut import Phenonaut
 from phenonaut.transforms.transformer import Transformer
 
@@ -37,7 +36,7 @@ class PCA(Transformer):
     new_feature_names : Union[list[str], str]
         List of strings containing the names for the new features. Can also
         be just a single string, which then has numerical suffixes attached
-        enumerating the number of new features generated. By default "PCA"
+        enumerating the number of new features generated. By default "PC"
     ndims : int, optional
         Number of dimensions to embed the data into, by default 2
     """
@@ -76,7 +75,7 @@ class PCA(Transformer):
         new_feature_names : Union[list[str], str]
             List of strings containing the names for the new features. Can also
             be just a single string, which then has numerical suffixes attached
-            enumerating the number of new features generated. By default "PCA"
+            enumerating the number of new features generated. By default "PC"
         group_by : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
             basis. This group_by argument allows definition of a string which
@@ -139,7 +138,7 @@ class PCA(Transformer):
 
             column_rename_dict = {k:v for k,v in zip(dataset.features,explained_var_features)}
             dataset.df.rename(columns=column_rename_dict, inplace=True)
-            dataset.features=explained_var_features, "Added variance to features"
+            dataset.features=explained_var_features, "Added explained variance to features"
             
     def save_scree_plot(
         self, output_filename: Optional[Union[str, Path]] = None, title="Scree plot"
@@ -195,7 +194,7 @@ class PCA(Transformer):
                 output_image_path = Path(output_filename)
             plt.savefig(output_filename)
 
-        
+
 
 class TSNE(Transformer):
     """t-SNE dimensionality reduction

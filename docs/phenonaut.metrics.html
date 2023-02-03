@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenonaut.metrics package &mdash; Phenonaut 1.0.0 documentation</title>
+  <title>phenonaut.metrics package &mdash; Phenonaut 1.1.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -46,6 +46,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics.performance">phenonaut.metrics.performance module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.metrics">Module contents</a></li>
 </ul>
 </li>
@@ -369,6 +370,81 @@ human cells infected with SARS-CoV-2.” BioRxiv (2020).</p>
 <li><p><strong>target_TreatmentID</strong> (<em>[</em><em>type</em><em>]</em>) – TreatmentID of target phenotype. The median of all features across wells
 containing this phenotype is used.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.metrics.performance">
+<span id="phenonaut-metrics-performance-module"></span><h2>phenonaut.metrics.performance module<a class="headerlink" href="#module-phenonaut.metrics.performance" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.performance.percent_replicating">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.performance.</span></span><span class="sig-name descname"><span class="pre">percent_replicating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_number_of_repeats</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.performance.percent_replicating" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate percent replicating</p>
+<p>Percent replicating is defined by Way et. al. in:
+Way, Gregory P., et al. “Morphology and gene expression profiling provide complementary
+information for mapping cell state.” Cell systems 13.11 (2022): 911-923.
+or on bioRxiv:
+<a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2">https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2</a></p>
+<p>For each query compound at a concentration and in a common well (multiple plates), calculate
+pairwise distances and obtain the median.</p>
+<p>Next we compare this against the 95th percentile of a null distribution.
+If the replicates are greater, then it is replicating.</p>
+<p>To create the null distribution, we remove the query compound from the pool of possible
+compounds (at any concentration and in any well). Then we pick the same number of compounds
+as there were repeats of the query compound at a given concentration and in a well. We
+perform this to match the cardinality of repeats across distributions. From the data,
+one profile for each non-matching compound is chosen and then the median recorded when
+compared with a phenoytypic metric (by default Spearman’s rank). This creation and scoring
+of the null distribution is performed (by default) 1,000 times.</p>
+<p>The original mean score of the query compound repeats is then compared against the 95th
+percentile of this null distribution. If it is greater, then compound is deemed replicating.</p>
+<p>The percent replicating is then calculated from the number which were replicating versus the
+number which were not.</p>
+<p>As the calculation is demanding, the function makes use of the joblib library for parallel
+calculation of the null distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>pd.DataFrame</em><em>]</em><em>,</em>) – Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
+containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
+Dataset will be used.</p></li>
+<li><p><strong>features</strong> (<em>features:Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>=None</em><em>,</em>) – Features list which capture the phenotypic responses to perturbations. Only required if
+a pd.DataFrame is supplied in place of the ds argument.  If a Phenonaut object, or Dataset,
+the features will be examined and used as present in the Dataset/Phenonaut object last
+added Dataset. By default None.</p></li>
+<li><p><strong>perturbation_identifier</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Required if a pd.DataFrame is supplied in place of the ds argument. If a Phenonaut object is
+supplied, then the perturbation_identifier is obtained from the perturbation_column property
+of the Dataset. The same happens if a Dataset is supplied. By default, None.</p></li>
+<li><p><strong>groupby</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Columns in the dataframe that should be used to group perturbations in addition to the
+perturbation_identifier argument. To replicate percent replicating as defined by Way,
+the column names which capture concentration and well position should be supplied here.
+Way does however define variations of the percent replicating metric, where concentration
+and well position are relaxed. If performing the calculation in this manner, then groupby
+may be None.</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the non-matching compound replicates should be sampled to compose the null
+distribution, by default 1000</p></li>
+<li><p><strong>phenotypic_metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>]</em><em>, </em><em>optional</em>) – A callable phenotypic metric may be passed in, or the special case of the string ‘spearman’
+which returns the rank score. Other valid and usable text strings may be used which are then
+passed to scikit’s pairwise_distances function.  See documentation for usable strings
+defining metrics. By default ‘spearman’</p></li>
+<li><p><strong>min_number_of_repeats</strong> (<em>int</em><em>, </em><em>optional</em>) – The minimum number of matched query compounds which must be present to include the treatment
+in the percent replicating summary statistic. By default 2.</p></li>
+<li><p><strong>return_full_performance_df</strong> (<em>bool</em>) – If True, then a tuple is returned with the percent replicating score in the first position,
+and a pd.DataFrame containing full information on each repeat</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – The n_jobs argument is passed to joblib for parallel execution and defines the number of
+cpus to use.  A value of -1 denotes that the system should determine how many jobs to run.
+By default -1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If return_full_performance_df is False, then only the percent replicating score is returned.
+If True, then a tuple is returned, with percent replicating in the first position, and a
+pd.DataFrame in the second position containing the median repeat scores, as well as median
+null distribution scores in an easy to analyse format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, tuple[float, pd.DataFrame]]</p>
 </dd>
 </dl>
 </dd></dl>

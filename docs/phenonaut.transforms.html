@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenonaut.transforms package &mdash; Phenonaut 1.0.0 documentation</title>
+  <title>phenonaut.transforms package &mdash; Phenonaut 1.1.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -193,7 +193,7 @@ be saved. If None, then the plot is displayed interactively. By default, None.</
 <li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The Phenonaut dataset on which to apply PCA</p></li>
 <li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
 be just a single string, which then has numerical suffixes attached
-enumerating the number of new features generated. By default “PCA”</p></li>
+enumerating the number of new features generated. By default “PC”</p></li>
 <li><p><strong>ndims</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of dimensions to embed the data into, by default 2</p></li>
 </ul>
 </dd>
@@ -210,7 +210,7 @@ on which to apply PCA.</p></li>
 <li><p><strong>ndims</strong> (<em>int</em>) – Number of dimensions to embed the data into, by default 2</p></li>
 <li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
 be just a single string, which then has numerical suffixes attached
-enumerating the number of new features generated. By default “PCA”</p></li>
+enumerating the number of new features generated. By default “PC”</p></li>
 <li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
 basis. This group_by argument allows definition of a string which
 is used to identify columns with which unique values define a group
@@ -681,6 +681,56 @@ use_features argument, by default None</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict[str, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.ZCA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.preparative.</span></span><span class="sig-name descname"><span class="pre">ZCA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ZCA'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.ZCA" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">phenonaut.transforms.transformer.Transformer</span></code></a></p>
+<p>ZCA whitening</p>
+<p>Can be instantiated and called like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">zca</span><span class="o">=</span><span class="n">ZCA</span><span class="p">()</span>
+<span class="n">zca</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a>) – The Phenonaut dataset on which to apply ZCA whitening</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “ZCA”</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.transforms.preparative.ZCA.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">phenonaut.data.dataset.Dataset</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">phenonaut.phenonaut.Phenonaut</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'ZCA'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_perturbation_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.preparative.ZCA.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>ZCA whitening</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – The Phenonaut dataset or Phenonaut object containing one dataset
+on which to apply ZCA whitening.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em>) – List of strings containing the names for the new features. Can also
+be just a single string, which then has numerical suffixes attached
+enumerating the number of new features generated. By default “ZCA”</p></li>
+<li><p><strong>group_by</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Often we would like to apply transformations on a plate-by-plate
+basis. This group_by argument allows definition of a string which
+is used to identify columns with which unique values define a group
+or plate. It works with the pandas group_by function and accepts
+a list of strings if multiple columns must be used to define groups.
+By default None.</p></li>
+<li><p><strong>fit_perturbation_ids</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If only a subset of the data should be used for fitting, then
+pertubations for fitting may be listed here. If none, then
+every datapoint is used for fitting, by default None.</p></li>
+<li><p><strong>fit_query</strong> (<em>str</em><em>, </em><em>optional</em>) – A pandas style query may be supplied to perform fitting. By default
+None.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

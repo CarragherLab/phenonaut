@@ -1,16 +1,14 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from ast import arg
-from collections import namedtuple
-from os import remove
-from tabnanny import verbose
 from typing import Optional, Union
 from phenonaut.data import Dataset
+from phenonaut import Phenonaut
 import numpy as np
+from scipy.linalg import svd
+
 from sklearn.linear_model import LinearRegression as SklearnLinreg
-import phenonaut
-import pandas as pd
+from phenonaut.transforms.transformer import Transformer
 
 """This module contains functionality to remove highly correlated features from phenonaut datasets"""
 
@@ -340,3 +338,89 @@ class RemoveHighestCorrelatedThenVIF:
         rhc(ds, threshold=None, min_features=n_before_vif, drop_columns=drop_columns, **corr_kwargs)
         vif=VIF(self.verbose)
         vif(ds, drop_columns=drop_columns, min_features=min_features)
+
+class __ZCA__:
+    """
+    Private class used by ZCA, implementing fit, transform and
+    inverse_transform, heavily inspired by https://github.com/mwv/zca/
+    """
+    def __init__(self, eps=1e-6):
+        self.eps=eps
+    def fit(self, X:np.ndarray):
+        self.mean=np.mean(X, axis=0)
+        centered_X = X - self.mean
+        U, S, _ = svd(np.dot(centered_X.T, centered_X) / (centered_X.shape[0]-1))
+        s = np.sqrt(np.clip(S, self.eps, None))
+        self.W = np.dot(np.dot(U, np.diag(1./s)), U.T)
+        self.deW = np.dot(np.dot(U, np.diag(s)), U.T)
+        return self
+    def transform(self, X):
+        return np.dot(X - self.mean, self.W.T)
+    def inverse_transform(self, X):
+        return np.dot(X, self.deW) + self.mean
+
+class ZCA(Transformer):
+    """ZCA whitening
+
+    Can be instantiated and called like:
+
+    .. code-block:: python
+
+        zca=ZCA()
+        zca(dataset)
+
+    Parameters
+    ----------
+    dataset : Dataset
+        The Phenonaut dataset on which to apply ZCA whitening
+    new_feature_names : Union[list[str], str]
+        List of strings containing the names for the new features. Can also
+        be just a single string, which then has numerical suffixes attached
+        enumerating the number of new features generated. By default "ZCA"
+    """
+    def __init__(self, new_feature_names="ZCA"):
+        super().__init__(__ZCA__,new_feature_names=new_feature_names,transformer_name="ZCA")
+
+    def __call__(
+        self,
+        dataset: Union[Dataset, Phenonaut],
+        new_feature_names:Union[list[str], str]="ZCA",
+        group_by: Optional[Union[str, list[str]]] = None,
+        fit_perturbation_ids: Optional[Union[str, list]] = None,
+        fit_query:Optional[str]=None,
+    ):
+        """ZCA whitening
+
+        Parameters
+        ----------
+        dataset : Union[Dataset, Phenonaut]
+            The Phenonaut dataset or Phenonaut object containing one dataset
+            on which to apply ZCA whitening.
+        new_feature_names : Union[list[str], str]
+            List of strings containing the names for the new features. Can also
+            be just a single string, which then has numerical suffixes attached
+            enumerating the number of new features generated. By default "ZCA"
+        group_by : Optional[Union[str, list[str]]], optional
+            Often we would like to apply transformations on a plate-by-plate
+            basis. This group_by argument allows definition of a string which
+            is used to identify columns with which unique values define a group
+            or plate. It works with the pandas group_by function and accepts
+            a list of strings if multiple columns must be used to define groups.
+            By default None.
+        
+        fit_perturbation_ids : Optional[Union[str, list]], optional
+            If only a subset of the data should be used for fitting, then
+            pertubations for fitting may be listed here. If none, then
+            every datapoint is used for fitting, by default None.
+        fit_query : str, optional
+            A pandas style query may be supplied to perform fitting. By default
+            None.
+        """
+        self.fit_transform(
+            dataset,
+            group_by=group_by,
+            fit_perturbation_ids=fit_perturbation_ids,
+            fit_query=fit_query,
+            new_feature_names=new_feature_names,
+            method_name="ZCA",
+        )
