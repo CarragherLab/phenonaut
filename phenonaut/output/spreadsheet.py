@@ -37,33 +37,31 @@ def write_xlsx(
     ------
     ValueError
         output_file should be Path or str
-    """    
+    """
     if isinstance(output_file, str):
         output_file = Path(output_file)
     if isinstance(output_file, Path):
-        output_file=output_file.resolve()
+        output_file = output_file.resolve()
         if not output_file.parent.exists():
             output_file.parent.mkdir(parents=True)
     else:
         raise ValueError(f"output_file should have been a Path or str, it was {type(output_file)}")
 
     if isinstance(dfs, dict):
-        df_names=list(dfs.keys())
-        dfs=list(dfs.values())
+        df_names = list(dfs.keys())
+        dfs = list(dfs.values())
 
     if isinstance(dfs, pd.DataFrame):
-        dfs=[dfs]
+        dfs = [dfs]
 
     if df_names is None:
-        df_names=[f"Sheet{i+1}" for i in range(len(dfs))]
+        df_names = [f"Sheet{i+1}" for i in range(len(dfs))]
     if isinstance(df_names, str):
-        df_names=[df_names]
-    if len(dfs)>len(df_names):
-        num_to_add=len(dfs)-len(df_names)
-        df_names.extend([f"Sheet{i+1}" for i in range(len(df_names), len(df_names)+num_to_add)])
+        df_names = [df_names]
+    if len(dfs) > len(df_names):
+        num_to_add = len(dfs) - len(df_names)
+        df_names.extend([f"Sheet{i+1}" for i in range(len(df_names), len(df_names) + num_to_add)])
 
     with pd.ExcelWriter(output_file) as writer:
         for df, sheet_name in zip(dfs, df_names):
             df.to_excel(writer, sheet_name=sheet_name)
-    
-

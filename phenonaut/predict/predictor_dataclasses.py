@@ -8,11 +8,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import mean_absolute_error
 from functools import reduce
 
+
 @dataclass
 class OptunaHyperparameter:
-    """OptunaHyperparameter base dataclass which is inherited from
-    """    
+    """OptunaHyperparameter base dataclass which is inherited from"""
+
     name: str
+
 
 @dataclass
 class OptunaHyperparameterNumber(OptunaHyperparameter):
@@ -23,10 +25,12 @@ class OptunaHyperparameterNumber(OptunaHyperparameter):
     ------
     ValueError
         Lower bound must be lower than upper bound.
-    """    
+    """
+
     lower_bound: int
     upper_bound: int
-    needed:bool=True
+    needed: bool = True
+
     def _check_bounds(self):
         if self.upper_bound <= self.lower_bound:
             raise ValueError(
@@ -36,11 +40,11 @@ class OptunaHyperparameterNumber(OptunaHyperparameter):
                 " a single choice optuna hyperparameter"
             )
 
+
 @dataclass
 class HyperparameterInt(OptunaHyperparameterNumber):
-    """Optuna hyperparameter dataclass for ints
+    """Optuna hyperparameter dataclass for ints"""
 
-    """    
     def __post_init__(self):
         self._check_bounds()
         self.optuna_func = "suggest_int"
@@ -49,19 +53,18 @@ class HyperparameterInt(OptunaHyperparameterNumber):
 
 @dataclass
 class HyperparameterFloat(OptunaHyperparameterNumber):
-    """Optuna hyperparameter dataclass for floats
+    """Optuna hyperparameter dataclass for floats"""
 
-    """    
     def __post_init__(self):
         self._check_bounds()
         self.optuna_func = "suggest_float"
         self.parameters = (self.lower_bound, self.upper_bound)
 
+
 @dataclass
 class HyperparameterLog(OptunaHyperparameterNumber):
-    """Optuna hyperparameter dataclass for loguniform distributions of floats
+    """Optuna hyperparameter dataclass for loguniform distributions of floats"""
 
-    """ 
     def __post_init__(self):
         self._check_bounds()
         self.optuna_func = "suggest_loguniform"
@@ -70,28 +73,31 @@ class HyperparameterLog(OptunaHyperparameterNumber):
 
 @dataclass
 class HyperparameterCategorical(OptunaHyperparameter):
-    """Optuna hyperparameter dataclass for categorical lists
+    """Optuna hyperparameter dataclass for categorical lists"""
 
-    """ 
     choices: Union[list, tuple]
-    needed:bool=True
+    needed: bool = True
+
     def __post_init__(self):
-        if len(self.choices)==0:
-            raise ValueError("Choices must be an iterable (usualy list or tuple) with length at least one")
+        if len(self.choices) == 0:
+            raise ValueError(
+                "Choices must be an iterable (usualy list or tuple) with length at least one"
+            )
         self.optuna_func = "suggest_categorical"
         self.parameters = (self.choices,)
 
 
 @dataclass
 class PhenonautPredictionMetric:
-    """PhenonautPredictionMetric dataclass to hold metric, name and direction.
+    """PhenonautPredictionMetric dataclass to hold metric, name and direction."""
 
-    """ 
     func: Callable
     name: str
     lower_is_better: bool
+
     def __call__(self, *args: Any, **kwds: Any) -> float:
         return self.func(*args, **kwds)
+
 
 @dataclass(unsafe_hash=True)
 class PhenonautPredictor:
@@ -101,18 +107,19 @@ class PhenonautPredictor:
     augmenting them with additional information like name, the number of views
     it may operate on at once, and hyperparameter lists which may be optimised
     using Optuna.
-    """    
+    """
+
     name: str
     predictor: Union[BaseEstimator, Callable]
     optuna: Optional[Union[Iterable[OptunaHyperparameter], OptunaHyperparameter]] = None
     num_views: int = 1
     max_optuna_trials: Optional[int] = None
     dataset_size_cutoff: Optional[int] = None
-    constructor_kwargs:dict=field(default_factory=dict)
+    constructor_kwargs: dict = field(default_factory=dict)
     max_classes: Optional[int] = None
-    conditional_hyperparameter_generator_constructor_keyword:Optional[str]=None,
-    conditional_hyperparameter_generator:Optional[Callable]=None
-    embed_in_results:bool = True
+    conditional_hyperparameter_generator_constructor_keyword: Optional[str] = (None,)
+    conditional_hyperparameter_generator: Optional[Callable] = None
+    embed_in_results: bool = True
 
     # Standardise self.optuna to an iterable if required.
     def __post_init__(self):
@@ -121,7 +128,9 @@ class PhenonautPredictor:
         if self.optuna is None and self.max_optuna_trials is None:
             self.max_optuna_trials = 1
         if isinstance(self.optuna, Iterable):
-            if all([isinstance(opt_option, HyperparameterCategorical) for opt_option in self.optuna]):
+            if all(
+                [isinstance(opt_option, HyperparameterCategorical) for opt_option in self.optuna]
+            ):
                 self.max_optuna_trials = reduce(
                     lambda x, y: x * y, [len(opt_options.parameters) for opt_options in self.optuna]
                 )

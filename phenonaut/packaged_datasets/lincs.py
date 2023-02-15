@@ -19,32 +19,32 @@ import datetime
 class LINCS_Cell_Painting(PackagedDataset):
     """LINCS Cell Painting Dataset - https://clue.io/
 
-        This PackagedDataset provides supplies the following pd.DataFrames
-        (queryable by calling the inherited ".keys" method):
+    This PackagedDataset provides supplies the following pd.DataFrames
+    (queryable by calling the inherited ".keys" method):
 
-        Parameters
-        ----------
-        root : Union[Path, str]
-            Local directory containing the prepared dataset. If the dataset is
-            not found here and the argument download=True is not given, then an
-            error is raised. If download=True and the processed dataset is
-            absent, then it is downloaded the directory pointed at by the
-            'raw_data' argument detailed below. If raw_data_dir is a
-            non-absolute path, such as a single directory, then it is created as
-            a subdirectory of this root directory.
-        download : bool, optional
-            If true and the processed dataset is not found in the root
-            directory, then the dataset is downloaded and processed.
-            By default False.
-        raw_data_dir : Optional[Union[Path, str]], optional
-            If downloading and preparing the dataset, then a directory for the
-            raw data may be specified. If a non-absolute location is given,
-            then it is created in a subdirectory of the root directory specified
-            as the first argument. Absolute paths may be used to place raw data
-            files and intermediates in another location, such as scratch disks
-            etc, by default Path("raw_data").
-        """
-        
+    Parameters
+    ----------
+    root : Union[Path, str]
+        Local directory containing the prepared dataset. If the dataset is
+        not found here and the argument download=True is not given, then an
+        error is raised. If download=True and the processed dataset is
+        absent, then it is downloaded the directory pointed at by the
+        'raw_data' argument detailed below. If raw_data_dir is a
+        non-absolute path, such as a single directory, then it is created as
+        a subdirectory of this root directory.
+    download : bool, optional
+        If true and the processed dataset is not found in the root
+        directory, then the dataset is downloaded and processed.
+        By default False.
+    raw_data_dir : Optional[Union[Path, str]], optional
+        If downloading and preparing the dataset, then a directory for the
+        raw data may be specified. If a non-absolute location is given,
+        then it is created in a subdirectory of the root directory specified
+        as the first argument. Absolute paths may be used to place raw data
+        files and intermediates in another location, such as scratch disks
+        etc, by default Path("raw_data").
+    """
+
     def __init__(
         self,
         root: Union[Path, str],
@@ -81,17 +81,17 @@ class LINCS_Cell_Painting(PackagedDataset):
         """
 
         super().__init__(root, raw_data_dir)
-        self.name="LINCS Cell Painting "
-        self.processed_h5_file=self.root / "LINCS_CellPainting_phenonaut.h5"
+        self.name = "LINCS Cell Painting "
+        self.processed_h5_file = self.root / "LINCS_CellPainting_phenonaut.h5"
         # If the dataset is missing, get it
         self._call_if_file_missing(self.processed_h5_file, self._make, None)
 
-        store=pd.HDFStore(self.processed_h5_file)
+        store = pd.HDFStore(self.processed_h5_file)
 
-        self.register_ds_key('ds')
+        self.register_ds_key("ds")
 
         store.close()
-        
+
     def _make(self, remove_intermediates=False):
         """Make main LINCS CellPainting HDF5 file
 
@@ -108,7 +108,9 @@ class LINCS_Cell_Painting(PackagedDataset):
         # XXX TODO change compression to 9.
 
         # Make sure the required files to make the dataset exist
-        DownloadableFileInfo = namedtuple("DownloadableFileInfo", ["filename", "compressed_filename", "url"])
+        DownloadableFileInfo = namedtuple(
+            "DownloadableFileInfo", ["filename", "compressed_filename", "url"]
+        )
         required_files = [
             DownloadableFileInfo(
                 "GSE70138_Broad_LINCS_gene_info_2017-03-06.txt",
@@ -179,7 +181,9 @@ class LINCS_Cell_Painting(PackagedDataset):
             sep="\t",
             index_col=[0],
         )
-        pert_dose = self._sig_info["pert_idose"].apply(lambda x: x.replace(" um", "").strip()).astype(float)
+        pert_dose = (
+            self._sig_info["pert_idose"].apply(lambda x: x.replace(" um", "").strip()).astype(float)
+        )
         self._sig_info["pert_idose"] = np.where(pert_dose < 0, np.nan, pert_dose)
         self._df = self._df.merge(self._sig_info, left_index=True, right_index=True, copy=False)
 
@@ -211,7 +215,7 @@ class LINCS_Cell_Painting(PackagedDataset):
         h5_store["creation_date"] = pd.Series(str(datetime.datetime.now()))
         h5_store.close()
 
-    def get_df(self, key:str)->pd.DataFrame:
+    def get_df(self, key: str) -> pd.DataFrame:
         """Get supporting dataframe
 
         Parameters
@@ -224,17 +228,17 @@ class LINCS_Cell_Painting(PackagedDataset):
         pd.DataFrame
             Requested pd.DataFrame from h5 store
         """
-        if key=="landmark_gene_ids":
-            store=pd.HDFStore(self.processed_h5_file)
+        if key == "landmark_gene_ids":
+            store = pd.HDFStore(self.processed_h5_file)
             df = store["/gene_info"]
             return df.query("pr_is_lm == 1").index.to_numpy(dtype=str)
 
-        store=pd.HDFStore(self.processed_h5_file)
-        df=store["/"+key]
+        store = pd.HDFStore(self.processed_h5_file)
+        df = store["/" + key]
         store.close()
         return df
 
-    def get_ds(self, key:str)->Dataset:
+    def get_ds(self, key: str) -> Dataset:
         """Get supporting dataframe
 
         Parameters
@@ -248,13 +252,24 @@ class LINCS_Cell_Painting(PackagedDataset):
             Requested Phenonaut Dataset from h5 store, with the correctly set
             features and metadata
         """
-        if key=="ds":
-            key="df"    
-        store=pd.HDFStore(self.processed_h5_file)
-        df=store["/"+key]
-        features=[f for f in list(df.columns) if f not in ["pert_id","pert_iname","pert_type","cell_id","pert_idose","pert_itime","distil_id"]]
-        ds=Dataset("cmap", df, {'features':features})
+        if key == "ds":
+            key = "df"
+        store = pd.HDFStore(self.processed_h5_file)
+        df = store["/" + key]
+        features = [
+            f
+            for f in list(df.columns)
+            if f
+            not in [
+                "pert_id",
+                "pert_iname",
+                "pert_type",
+                "cell_id",
+                "pert_idose",
+                "pert_itime",
+                "distil_id",
+            ]
+        ]
+        ds = Dataset("cmap", df, {"features": features})
         store.close()
         return ds
-
-        

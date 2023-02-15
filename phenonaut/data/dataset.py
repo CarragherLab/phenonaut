@@ -89,11 +89,11 @@ class Dataset:
             x for x in dir(Dataset) if callable(getattr(Dataset, x)) and x[0] != "_"
         )
 
-        features_can_be_an_empty_list=False
-        
+        features_can_be_an_empty_list = False
+
         if metadata is not None:
-            if metadata.get("features", None)==[]:
-                features_can_be_an_empty_list=True
+            if metadata.get("features", None) == []:
+                features_can_be_an_empty_list = True
 
         if init_hash is None:
             self.sha256 = sha256()
@@ -117,9 +117,10 @@ class Dataset:
         # If str, change to path, check exists, load yaml file defining metadata
         # Can also be a dictionary, which is allowed, or None, relying on defaults.
         metadata = load_dict(metadata, cast_none_to_dict=True)
-        
+
         if kind is not None:
             from .recipes import kinds
+
             regularised_kind = (
                 kind.lower().replace(" ", "").replace("-", "").replace("_", "").replace(".", "")
             )
@@ -128,7 +129,7 @@ class Dataset:
                     f"Dataset kind given in kind argument was '{kind}',"
                     f" but this was not found in phenonaut. Usable kind arguments are: {kinds.keys()}"
                 )
-            metadata={**kinds[regularised_kind], **metadata}
+            metadata = {**kinds[regularised_kind], **metadata}
 
         # skip_row_numbers and header_row_number in metadata must be a list
         if isinstance(metadata.get("skip_row_numbers"), int):
@@ -153,13 +154,13 @@ class Dataset:
                     for ar, ar_val in metadata.items()
                     if ar in signature(pd.read_csv).parameters.keys()
                 }
-                
+
                 if "sep" not in read_csv_args:
                     # See if we can find a tab in the first line:
                     with open(input_file_path) as myfile:
                         head = next(myfile)
                         if "\t" in head:
-                            read_csv_args['sep']="\t"
+                            read_csv_args["sep"] = "\t"
 
                 self.df = pd.read_csv(input_file_path, **read_csv_args)
 
@@ -216,7 +217,7 @@ class Dataset:
 
             if func_name not in self.callable_functions:
                 raise KeyError(f"'transforms' contains an unknown function: '{func_name}'")
-            
+
             if isinstance(func_args, dict):
                 getattr(self, func_name)(**func_args)
             else:
@@ -275,10 +276,13 @@ class Dataset:
             raise DataError("features cannot be None")
         if len(metadata["initial_features"]) == 0:
             if features_can_be_an_empty_list:
-                print(f"Warning, the use of no features was explicitly requested for {dataset_name}")
+                print(
+                    f"Warning, the use of no features was explicitly requested for {dataset_name}"
+                )
             else:
-                raise DataError(f"features cannot be an empty list, features = {metadata['initial_features']}"
-            )
+                raise DataError(
+                    f"features cannot be an empty list, features = {metadata['initial_features']}"
+                )
 
         # Sort features using a natural sort, see:
         # https://blog.codinghorror.com/sorting-for-humans-natural-sort-order/
@@ -543,7 +547,7 @@ class Dataset:
         self.df.drop(columns=column_labels, inplace=True)
 
         reason_message = (
-            f", reason{reason}" if reason is not None and len(features_removed) > 0 else ""
+            f", reason = {reason}" if reason is not None and len(features_removed) > 0 else ""
         )
 
         if len(features_removed) > 0:
@@ -842,6 +846,13 @@ class Dataset:
         self.df.rename(columns=from_to, inplace=True)
         if len(self._history) != 0:
             self.features = self.features, f"Renamed columns: {from_to}"
+
+        # Renamed column might be a feature, if so, then rename the feature
+        from_to_in_features = {k_f: from_to[k_f] for k_f in from_to if k_f in self.features}
+        if len(from_to_in_features) > 0:
+            self.features = [
+                from_to_in_features.get(f, f) for f in self.features
+            ], "New features set by renaming columns ({from_to_dict})"
 
     def df_to_csv(self, output_path: Union[Path, str], **kwargs):
         """Write DataFrame to CSV
@@ -1261,7 +1272,7 @@ class Dataset:
             for c, dt in zip(self.df.columns, self.df.dtypes)
         }
         merged_df = self.df.copy().groupby(identifier_columns, as_index=False).aggregate(transforms)
-        
+
         for id_col_name in identifier_columns:
             merged_df[id_col_name] = merged_df[id_col_name].astype(dtypes_dict[id_col_name])
         tmp_metadata = self._metadata.copy()
@@ -1269,10 +1280,11 @@ class Dataset:
             del tmp_metadata["features_prefix"]
         if "initial_features" in tmp_metadata:
             del tmp_metadata["initial_features"]
-        tmp_metadata['features']=self.features
-        
-        
-        new_ds = Dataset(dataset_name=new_dataset_name, input_file_path=merged_df, metadata=tmp_metadata)
+        tmp_metadata["features"] = self.features
+
+        new_ds = Dataset(
+            dataset_name=new_dataset_name, input_file_path=merged_df, metadata=tmp_metadata
+        )
         new_ds._history = self.get_history()
         new_ds.features = (
             self.features,
@@ -1294,3 +1306,146 @@ class Dataset:
         if self.df is not None:
             self.sha256.update(self.df.values.tobytes())
             self.sha256.update(self.df.columns.values.tobytes())
+
+    def remove_features_with_outliers(self, outlier_cutoff=15.0, remove_data: bool = False):
+
+        """Removes feature columns containing values greater than given cutoff
+
+        By default, any feature containing a value greater than 15 is removed. This cutoff can
+        be raised and lowered as appropriate.
+
+        Parameters
+        ----------
+        outlier_cutoff : float, optional
+            If a feature column contains a value greater than this cutoff,
+            then the feature is removed. By default 15.
+        remove_data : bool, optional
+            If True, then not only are feature columns with outliers removed from
+            the Datasets list of features, but these columns are dropped from the
+            DataFrames. If False, then only the Datasets list of features are
+            changed. By default False.
+        """
+        outlier_features = self.data.columns[
+            self.data.apply(lambda x: x.abs().max() >= outlier_cutoff)
+        ].tolist()
+        if remove_data:
+            self.drop_columns(
+                outlier_features, reason=f"outlier feature columns, cutoff={outlier_cutoff}"
+            )
+        else:
+            self.features = (
+                [f for f in self.features if f not in outlier_features],
+                f"Dropped columns ({outlier_features}) outlier feature columns, cutoff={outlier_cutoff}",
+            )
+
+    def remove_blocklist_features(
+        self, blocklist: Union[Path, str, list[str]], skip_first_line_in_file: bool = True
+    ):
+        """Remove blocklisted features from a Dataset
+
+        Allows removal of predefined feature blocklists.  Featurisation may generate
+        features which are to be excluded from analysis as standard. This is the case
+        with cellular images featurised with cell profiler. As such, there are a set
+        of blocklist feautures which are often applied. This function allows
+        specification of a list of features for removal (in the form of a list),
+        or a string or path object denoting the location of a file containing this
+        information.  A special string may also be passed to this function:
+        "CellProfiler", which instructs Phenonaut to download the standard
+        blocklist located here: https://figshare.com/ndownloader/files/23661539
+
+
+        Parameters
+        ----------
+        blocklist : Union[Path, str, list[str]]
+            A str or Path directing Phenonaut to where a text file of blocklisted
+            features is stored.  Alternatively, a list of blocklisted features may
+            be supplied. A special value is also accepted, whereby a string of
+            "CellProfiler" is passed in, causing Phenonaut to retrieve the
+            commonly used CellProfiler blocklisted features from
+            https://figshare.com/ndownloader/files/23661539 .
+        skip_first_line_in_file : bool, optional
+            Commonly, blocklist files have a title line, which can be ignored
+            before starting to list features. If True, then the first line is
+            ignored. By default True.
+
+        Raises
+        ------
+        FileNotFoundError
+            Error raised if specified file is not found
+        """
+        if isinstance(blocklist, str):
+            if blocklist == "CellProfiler":
+                import requests
+
+                blocklist = [
+                    blf
+                    for blf in requests.get("https://figshare.com/ndownloader/files/23661539")
+                    .content.decode()
+                    .split("\n")[1:]
+                    if len(blf) > 1
+                ]
+            else:
+                blocklist = Path(blocklist)
+        if isinstance(blocklist, Path):
+            if not blocklist.exists():
+                raise FileNotFoundError(f"Specified blocklist file {blocklist} does not exist")
+            with open(blocklist) as f:
+                blocklist = [line.rstrip() for line in f]
+            if skip_first_line_in_file:
+                blocklist = blocklist[1:]
+        self.filter_columns([bl for bl in blocklist if bl in self.df.columns], keep=False)
+
+    def remove_low_variance_features(self, freq_cutoff=0.05, unique_cutoff=0.01):
+        """Exclude low information content features.
+
+        Adapted from pycytominer variance_threshold method
+        https://github.com/cytomining/pycytominer/blob/master/pycytominer/operations/variance_threshold.py
+
+        Sometimes, features can vary very little, this allows definition of cutoffs (ratios) of unique values
+        that can exist in a feature. See parameters for further description of cutoffs.
+
+
+        Parameters
+        ----------
+        freq_cutoff : float, default 0.05
+            Ratio as defined by 2nd most common feature value divided by the most
+            common feature value). Must range between 0 and 1.  Features below this
+            cutoff have a large population with a unique value and will be removed.
+        unique_cutoff: float, default 0.01
+            Remove features with little diversity in their measurements.
+            Must range between 0 and 1. Dividing the number of unique values in a
+            feature by the number of measurements returns a 'unique' ratio, values
+            below this cutoff are removed.
+
+        """
+
+        if not 0 <= freq_cutoff <= 1.0:
+            raise ValueError("freq_cutoff must be greater than 0 and less than 1")
+        if not 0 <= unique_cutoff <= 1:
+            raise ValueError("unique_cutoff must be greater than 0 and less than 1")
+
+        def _violates_frequency_cutoff(s, freq_cut):
+            val_count = s.value_counts()
+            try:
+                if (val_count.iloc[1] / val_count.iloc[0]) < freq_cut:
+                    return True
+            except IndexError:
+                return True
+            return False
+
+        # Subset dataframe
+
+        # Features containing massively overrepresented common values
+        features_to_remove_freq = self.data.apply(
+            lambda x: _violates_frequency_cutoff(x, freq_cutoff)
+        )
+        features_to_remove_freq = features_to_remove_freq[features_to_remove_freq].index.tolist()
+
+        # Features with values too common
+        unique_ratio = self.data.nunique() / self.df.shape[0]
+        features_to_remove_unique = unique_ratio[unique_ratio < unique_cutoff].index.tolist()
+
+        self.drop_columns(
+            list(set(features_to_remove_freq + features_to_remove_unique)),
+            reason=": filtered low variance features",
+        )

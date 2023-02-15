@@ -14,9 +14,5 @@ kinds = {
         "features_prefix": "ENSG",
         "index_col": 0,
     },
-    
-    "feat":{
-        'features_prefix':'feat_'
-    }
+    "feat": {"features_prefix": "feat_"},
 }
-

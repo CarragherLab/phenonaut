@@ -9,16 +9,17 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 def write_boxplot_to_file(
-    df:pd.DataFrame,
-    x_label_in_df:str,
-    y_label_in_df:str,
+    df: pd.DataFrame,
+    x_label_in_df: str,
+    y_label_in_df: str,
     output_file: Union[str, Path],
     title="Boxplot",
-    x_label:Optional[str]=None,
-    y_label:Optional[str]=None,
+    x_label: Optional[str] = None,
+    y_label: Optional[str] = None,
     figsize=(10, 6.18),
-    ):
+):
     """Write a boxplot to a file
 
     Boxplot generation from pd.DataFrames using the Seaborn library
@@ -46,20 +47,20 @@ def write_boxplot_to_file(
     figsize : tuple, optional
         Optional tuple of image height-width (in inches - as dictated by
         matplotlib/seaborn), by default (10, 6.18).
-    """    
-    sns.set(rc={'figure.figsize':figsize})
-    tidy_df = df.replace(' ',r'\n', regex=True) 
+    """
+    sns.set(rc={"figure.figsize": figsize})
+    tidy_df = df.replace(" ", r"\n", regex=True)
 
     if isinstance(output_file, str):
-        output_file=Path(output_file)
+        output_file = Path(output_file)
     if not output_file.parent.exists():
         output_file.parent.mkdir(parents=True)
-    ax=sns.boxplot(x=x_label_in_df, y=y_label_in_df, data=tidy_df)
+    ax = sns.boxplot(x=x_label_in_df, y=y_label_in_df, data=tidy_df)
     if x_label is not None:
         ax.set(xlabel=x_label)
     if y_label is not None:
         ax.set(ylabel=y_label)
-    
+
     ax.set_title(title)
     fig = ax.get_figure()
     plt.tight_layout()

@@ -24,7 +24,7 @@ default_regressors = [
             HyperparameterInt("n_estimators", 50, 200),
             HyperparameterCategorical("max_features", [None, "auto", "log2"]),
         ],
-        constructor_kwargs={'n_jobs':-1},
+        constructor_kwargs={"n_jobs": -1},
     ),
     PhenonautPredictor(
         "Linear SVR",
@@ -46,7 +46,9 @@ default_regressors = [
         ],
         dataset_size_cutoff=1000,
     ),
-    PhenonautPredictor("AdaBoost Regressor", AdaBoostRegressor, HyperparameterInt("n_estimators", 50, 200)),
+    PhenonautPredictor(
+        "AdaBoost Regressor", AdaBoostRegressor, HyperparameterInt("n_estimators", 50, 200)
+    ),
     PhenonautPredictor("Gradient Boosting Regressor", GradientBoostingRegressor),
     PhenonautPredictor("Decision Tree Regressor", DecisionTreeRegressor),
     PhenonautPredictor(
@@ -55,7 +57,12 @@ default_regressors = [
         constructor_kwargs={"copy_X_train": False},
         embed_in_results=False,
     ),
-    PhenonautPredictor("KNeighbors Regressor", KNeighborsRegressor, HyperparameterInt("n_neighbors", 2, 10), constructor_kwargs={'n_jobs':-1}),
+    PhenonautPredictor(
+        "KNeighbors Regressor",
+        KNeighborsRegressor,
+        HyperparameterInt("n_neighbors", 2, 10),
+        constructor_kwargs={"n_jobs": -1},
+    ),
     PhenonautPredictor(
         "SciKit NeuralNet Regressor",
         MLPRegressor,

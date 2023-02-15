@@ -4,4 +4,3 @@
 from .distances import *
 from .measures import scalar_projection, feature_correlation_to_target
 from .performance import percent_replicating
-

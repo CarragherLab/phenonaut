@@ -27,13 +27,13 @@ class Transformer:
     function/object method to a Phenonaut dataset and correctly updates features.
 
     Wrapping an object which requires fitting also brings with it the advantage
-    that we may apply the group_by keyword to perform a unique fit and transform
+    that we may apply the groupby keyword to perform a unique fit and transform
     in groups, which is useful if you require PCA to be performed on a per-plate
     basis.
 
     May be used as follows - in this example, we are wrapping PCA from SciKit
     which has the effect of perfoming a 2D PCA on our Phenonaut Dataset object.
-    We also make use of the group_by keyword, to perform a unique PCA for each
+    We also make use of the groupby keyword, to perform a unique PCA for each
     plate (denoted by unique BARCODE values).
 
 
@@ -57,7 +57,7 @@ class Transformer:
         phe=Phenonaut(df)
         from sklearn.decomposition import PCA
         t_pca=Transformer(PCA, constructor_kwargs={'n_components':2})
-        t_pca.fit(phe.ds, group_by="BARCODE")
+        t_pca.fit(phe.ds, groupby="BARCODE")
         t_pca.transform(phe.ds)
 
     Along with the above, whereby a PCA transformer is generated from the SciKit
@@ -97,10 +97,17 @@ class Transformer:
         __call__ methods. Alternatively, a callable function. Designed to be
         passed something like the PCA class from SciKit, or a simple function
         like np.log2.
-    new_feature_names : Union[list[str], str]
+    new_feature_names : Optional[Union[str, list[str]]]
         List of strings containing the names for the new features. Can also
         be just a single string, which then has numerical suffixes attached
-        enumerating the number of new features generated.
+        enumerating the number of new features generated, however, if the
+        string ends in an underscore, then the old feature name has that string
+        prepended to it. For example, if 'StandardScaler\_' is given and the
+        original features are feat_1, feat2, and feat_3, then the new features
+        will be StandardScaler_feat_1, StandardScaler_feat_2, and
+        StandardScaler_feat_3. If None, then the names of new features are
+        attempted to be derived from the name of the wrapped function.
+        By default None.
     transformer_name : Optional[str], optional
         When features are set on a Dataset, the history reflects what was
         carried out to generate those features. If None, then automatic naming
@@ -133,7 +140,7 @@ class Transformer:
         transform_kwargs: dict = {},
         fit_transform_kwargs: dict = {},
     ):
-
+        self._fit_has_been_called = False
         self._original_method = method
         self._new_feature_names = new_feature_names
         self._constructor_kwargs = constructor_kwargs
@@ -156,7 +163,7 @@ class Transformer:
     def fit(
         self,
         dataset: Union[Dataset, Phenonaut],
-        group_by: Optional[Union[str, list[str]]] = None,
+        groupby: Optional[Union[str, list[str]]] = None,
         fit_perturbation_ids: Union[str, list] = None,
         fit_query: Optional[str] = None,
         fit_kwargs: Optional[dict] = None,
@@ -167,11 +174,11 @@ class Transformer:
         ----------
         dataset : Union[Dataset, Phenonaut]
             Dataset containing data to be fitted against
-        group_by : Optional[Union[str, list[str]]], optional
+        groupby : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
-            basis. This group_by argument allows definition of a string which
+            basis. This groupby argument allows definition of a string which
             is used to identify columns with which unique values define a group
-            or plate. It works with the pandas group_by function and accepts
+            or plate. It works with the pandas groupby function and accepts
             a list of strings if multiple columns must be used to define groups.
             By default None.
         fit_perturbation_ids : Union[str, list], optional
@@ -208,14 +215,14 @@ class Transformer:
             fit_perturbation_ids = list(fit_perturbation_ids)
             fit_query = f"{dataset.perturbation_column} == @fit_perturbation_ids"
 
-        if group_by is None:
+        if groupby is None:
             if fit_query is None:
                 self._method.fit(dataset.data, **fit_kwargs)
             else:
                 self._method.fit(dataset.df.query(fit_query)[dataset.features], **fit_kwargs)
         else:
             self._original_features = dataset.features
-            self._grouped_data = dataset.df.groupby(group_by)
+            self._grouped_data = dataset.df.groupby(groupby)
             self._dataframes = [gdf for _, gdf in self._grouped_data]
             self._method = []
             for df in self._dataframes:
@@ -227,6 +234,7 @@ class Transformer:
                     self._method[-1].fit(df[self._original_features], **fit_kwargs)
                 else:
                     self._method[-1].fit(df.query(fit_query)[self._original_features], **fit_kwargs)
+        self._fit_has_been_called = True
         return self
 
     def transform(
@@ -265,7 +273,9 @@ class Transformer:
             default None.
         free_memory_after_transform : bool, optional
             Remove temporary objects once transformation has been performed.
-            By default True.
+            When performing a groupby operation, intermediate fits are retained,
+            these may be deleted after calling transform by setting this argument
+            to True. By default True.
         center_on_perturbation_id : Optional[str], optional
             Optionally, recentre the PCA on a named perturbation. Should have
             pertubation_column set within the dataset for this option, by
@@ -304,7 +314,11 @@ class Transformer:
                     fitted_object.transform(df[self._original_features], **transform_kwargs)
                 )
                 method_name, new_feature_names = self._get_method_name_and_feature_names(
-                    transformed_data_array.shape[1], method_name, new_feature_names
+                    transformed_data_array.shape[1],
+                    method_name,
+                    dataset.features,
+                    new_feature_names,
+                    dataset.df.columns.values.tolist(),
                 )
 
                 transformed_df = pd.concat(
@@ -340,7 +354,11 @@ class Transformer:
             )
 
             method_name, new_feature_names = self._get_method_name_and_feature_names(
-                transformed_data_array.shape[1], method_name, new_feature_names
+                transformed_data_array.shape[1],
+                method_name,
+                dataset.features,
+                new_feature_names,
+                dataset.df.columns.values.tolist(),
             )
             transformed_df = pd.concat(
                 [
@@ -386,7 +404,7 @@ class Transformer:
     def fit_transform(
         self,
         dataset: Union[Dataset, Phenonaut],
-        group_by: Optional[Union[str, list[str]]] = None,
+        groupby: Optional[Union[str, list[str]]] = None,
         fit_perturbation_ids: Union[str, list] = None,
         fit_query: Optional[str] = None,
         fit_kwargs: Optional[dict] = None,
@@ -405,11 +423,11 @@ class Transformer:
         dataset : Union[Dataset, Phenonaut]
             The Phenonaut dataset or Phenonaut object upon which the
             fit_transform should be applied.
-        group_by : Optional[Union[str, list[str]]], optional
+        groupby : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
-            basis. This group_by argument allows definition of a string which
+            basis. This groupby argument allows definition of a string which
             is used to identify columns with which unique values define a group
-            or plate. It works with the pandas group_by function and accepts
+            or plate. It works with the pandas groupby function and accepts
             a list of strings if multiple columns must be used to define groups.
             By default None.
         fit_perturbation_ids : Union[str, list], optional
@@ -446,7 +464,9 @@ class Transformer:
             attempt to automatically deduce the name. By default None.
         free_memory_after_transform : bool, optional
             Remove temporary objects once transformation has been performed.
-            By default True.
+            When performing a groupby operation, intermediate fits are retained,
+            these may be deleted after calling transform by setting this argument
+            to True. By default True.
         center_on_perturbation_id : Optional[str], optional
             Optionally, recentre the PCA on a named perturbation. Should have
             pertubation_column set within the dataset for this option, by
@@ -475,7 +495,7 @@ class Transformer:
         if not self._has_fit_transform:
             self.fit(
                 dataset,
-                group_by=group_by,
+                groupby=groupby,
                 fit_perturbation_ids=fit_perturbation_ids,
                 fit_query=fit_query,
                 fit_kwargs=fit_kwargs,
@@ -493,7 +513,7 @@ class Transformer:
                 raise ValueError(
                     f"fit_perturbation_ids and fit_query cannot be used when the transformation has a native fit_transform method.  Call fit, then transform on the transformer"
                 )
-            if group_by is None:
+            if groupby is None:
                 # Below we check if fit_transform_kwargs has anythin in it. This is not needed
                 # for scikit and similar, but the UMAP package thinks that a y argument of length 0
                 # if being passed if anything is there, so we work around it.
@@ -504,7 +524,11 @@ class Transformer:
                         self._method.fit_transform(dataset.data, **fit_transform_kwargs)
                     )
                 method_name, new_feature_names = self._get_method_name_and_feature_names(
-                    transformed_data_array.shape[1], method_name, new_feature_names
+                    transformed_data_array.shape[1],
+                    method_name,
+                    dataset.features,
+                    new_feature_names,
+                    dataset.df.columns.values.tolist(),
                 )
                 transformed_df = pd.concat(
                     [
@@ -527,7 +551,7 @@ class Transformer:
 
             else:  # Groupby is used
                 self._original_features = dataset.features
-                self._grouped_data = dataset.df.groupby(group_by)
+                self._grouped_data = dataset.df.groupby(groupby)
                 self._dataframes = [gdf for _, gdf in self._grouped_data]
                 self._method = []
                 for df_index, df in enumerate(self._dataframes):
@@ -540,7 +564,11 @@ class Transformer:
                     )
 
                     method_name, new_feature_names = self._get_method_name_and_feature_names(
-                        transformed_data_array.shape[1], method_name, new_feature_names
+                        transformed_data_array.shape[1],
+                        method_name,
+                        dataset.features,
+                        new_feature_names,
+                        dataset.df.columns.values.tolist(),
                     )
 
                     transformed_df = pd.concat(
@@ -575,7 +603,9 @@ class Transformer:
         self,
         n_features: int,
         method_name: Optional[str] = None,
-        features: Optional[list[str]] = None,
+        old_features: Optional[list[str]] = None,
+        new_features: Optional[list[str]] = None,
+        existing_column_names: Optional[list[str]] = None,
     ):
         """Get method name and new feature names
 
@@ -586,8 +616,13 @@ class Transformer:
         method_name : Optional[str], optional
             Name of the method, if known. If supplied and not None, then this
             name will be used. By default None.
-        features : Optional[list[str]], optional
+        new_features : Optional[list[str]], optional
             If the new features are known, then these are returned instead, by default None
+        existing_column_names : Optional[list[str]]
+            If supplied, then the function performs a check to see that any automatically
+            generated feature names are not already present in the dataframe columns. If they
+            are, then "_1" is appended. This check is performed iteratively, increasing the
+            number at each iteration until a set of unused features are found.
 
         Returns
         -------
@@ -606,19 +641,45 @@ class Transformer:
             else:
                 method_name = "UnknownTransform"
 
-        if features is None:
-            features = self._new_feature_names
-        if features is None:
-            features = method_name
-        if isinstance(features, str):
-            features = [f"{features}_{i+1}" for i in range(n_features)]
-        return method_name, features
+        if new_features is None:
+            new_features = self._new_feature_names
+        if new_features is None:
+            new_features = method_name
+        if isinstance(new_features, str):
+            if (
+                new_features[-1] == "_"
+                and isinstance(old_features, list)
+                and len(old_features) == n_features
+            ):
+                new_features = [f"{new_features}{f}" for f in old_features]
+            else:
+                new_features = [f"{new_features}_{i+1}" for i in range(n_features)]
+
+        if existing_column_names is not None:
+            f_repeat_counter = 1
+            if set(new_features).intersection(set(existing_column_names)):
+                new_features = [f"{f}_{f_repeat_counter}" for f in new_features]
+            while set(new_features).intersection(set(existing_column_names)):
+                f_repeat_counter += 1
+                new_features = [
+                    f"{'_'.join(f.split('_')[:-1])}_{f_repeat_counter}" for f in new_features
+                ]
+        return method_name, new_features
 
     def __call__(
         self,
-        dataset: Union[Dataset, Phenonaut],
-        new_feature_names: Optional[Union[list[str], str]] = None,
+        dataset: Union[Dataset, Phenonaut, np.ndarray],
+        groupby: Optional[Union[str, list[str]]] = None,
+        fit_perturbation_ids: Optional[Union[str, list]] = None,
+        fit_query: Optional[str] = None,
+        fit_kwargs: Optional[dict] = None,
+        transform_kwargs: Optional[dict] = None,
+        fit_transform_kwargs: Optional[dict] = None,
+        new_feature_names: Optional[Union[str, list[str]]] = None,
         method_name: Optional[str] = None,
+        free_memory_after_transform: bool = True,
+        center_on_perturbation_id: Optional[str] = False,
+        centering_function: Callable = np.median,
     ):
         """Call transformer
 
@@ -634,6 +695,35 @@ class Transformer:
         dataset : Union[Dataset, Phenonaut]
             The Phenonaut dataset or Phenonaut object upon which the transform
             should be applied.
+        groupby : Optional[Union[str, list[str]]], optional
+            Often we would like to apply transformations on a plate-by-plate
+            basis. This groupby argument allows definition of a string which
+            is used to identify columns with which unique values define a group
+            or plate. It works with the pandas groupby function and accepts
+            a list of strings if multiple columns must be used to define groups.
+            By default None.
+        fit_perturbation_ids : Union[str, list], optional
+            If only a subset of the data should be used for fitting, then
+            pertubations for fitting may be listed here. If none, then
+            every datapoint is used for fitting, by default None.
+        fit_query : Optional[str], optional
+            A pandas style query may be supplied to perform fitting. By default
+            None.
+        fit_kwargs : Optional[dict], optional
+            Optional arguments supplied to the fit function of the object passed
+            in the constructor of this transformer. By default None.
+        transform_kwargs : Optional[dict], optional
+            Additional arguments to the transform function called on object
+            instantiated from the method argument. If set here, and not None, then
+            it overrides any transform_kwargs given to the object constructor.
+            Transform is only called as a fallback, if the object does not have
+            a fit_transform method, but separate fit and transform methods which
+            may be called in series. By default None.
+        fit_transform_kwargs : Optional[dict], optional
+            Additional arguments to the fit_transform function called on object
+            instantiated from the method argument. If set here, and not None, then
+            it overrides any fit_transform_kwargs given to the object constructor.
+            By default None.
         new_feature_names : Optional[Union[list[str], str]], optional
             List of strings containing the names for the new features. Can also
             be just a single string, which then has numerical suffixes attached
@@ -644,33 +734,76 @@ class Transformer:
             When setting features, the history message should describe what was
             done. If None, then the method object/method is interrogated in an
             attempt to automatically deduce the name. By default None.
+        free_memory_after_transform : bool, optional
+            Remove temporary objects once transformation has been performed.
+            When performing a groupby operation, intermediate fits are retained,
+            these may be deleted after calling transform by setting this argument
+            to True. By default True.
+        center_on_perturbation_id : Optional[str], optional
+            Optionally, recentre the PCA on a named perturbation. Should have
+            pertubation_column set within the dataset for this option, by
+            default None.
+        centering_function : Callable, optional
+            Used with center_on_perturbation, this function is applied to
+            all data for matching perturbations. By default, we use the median
+            of perturbations. This behavior can be overridden by supplying a
+            different function here. By default np.median.
         """
-        if not self._is_callable:
-            if self._has_transform:
-                self.transform(dataset, new_feature_names=new_feature_names, method_name=method_name)
-            elif self._has_fit_transform:
-                    self.fit_transform(dataset, new_feature_names=new_feature_names, method_name=method_name)
-            else:
-                raise ValueError("Supplied object/method is not callable and had no fit_transform or transform method")
         if not isinstance(dataset, (Phenonaut, Dataset)):
             raise TypeError(
                 f"Dataset should be a Phenonaut object, or phenonaut.Dataset object, it was {type(dataset)}"
             )
         if isinstance(dataset, Phenonaut):
             dataset = dataset.ds
-        if self._callable_kwargs == {} or self._callable_kwargs is None:
-            transformed_data_array = np.array(self._method(dataset.data))
-        else:
-            transformed_data_array = np.array(self._method(dataset.data, **self._callable_kwargs))
 
-        method_name, new_feature_names = self._get_method_name_and_feature_names(
-            transformed_data_array.shape[1], method_name, new_feature_names
-        )
-        transformed_df = pd.DataFrame(
-            data=transformed_data_array, columns=new_feature_names, index=dataset.df.index
-        )
-        dataset.df = pd.concat([dataset.df, transformed_df], axis=1)
-        dataset.features = (
-            new_feature_names,
-            f"Applied callable {method_name}, {self._callable_kwargs=}",
-        )
+        if self._is_callable:
+            if self._callable_kwargs == {} or self._callable_kwargs is None:
+                transformed_data_array = np.array(self._method(dataset.data))
+            else:
+                transformed_data_array = np.array(
+                    self._method(dataset.data, **self._callable_kwargs)
+                )
+
+            method_name, new_feature_names = self._get_method_name_and_feature_names(
+                transformed_data_array.shape[1],
+                method_name,
+                dataset.features,
+                new_feature_names,
+                dataset.df.columns.values.tolist(),
+            )
+            transformed_df = pd.DataFrame(
+                data=transformed_data_array, columns=new_feature_names, index=dataset.df.index
+            )
+            dataset.df = pd.concat([dataset.df, transformed_df], axis=1)
+            dataset.features = (
+                new_feature_names,
+                f"Applied callable {method_name}, {self._callable_kwargs=}",
+            )
+            return
+        else:
+            # Not callable
+            if self._fit_has_been_called:
+                if self._has_transform:
+                    self.transform(
+                        dataset,
+                        new_feature_names=new_feature_names,
+                        method_name=method_name,
+                        transform_kwargs=transform_kwargs,
+                        free_memory_after_transform=free_memory_after_transform,
+                        center_on_perturbation_id=center_on_perturbation_id,
+                        centering_function=centering_function,
+                    )
+            else:
+                self.fit_transform(
+                    dataset,
+                    fit_perturbation_ids=fit_perturbation_ids,
+                    fit_query=fit_query,
+                    fit_kwargs=fit_kwargs,
+                    transform_kwargs=transform_kwargs,
+                    fit_transform_kwargs=fit_transform_kwargs,
+                    new_feature_names=new_feature_names,
+                    method_name=method_name,
+                    free_memory_after_transform=free_memory_after_transform,
+                    center_on_perturbation_id=center_on_perturbation_id,
+                    centering_function=centering_function,
+                )

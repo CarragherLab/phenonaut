@@ -66,7 +66,7 @@ class PackagedDataset(ABC):
         generated with root as the parent directory.  If this value is
         False, then it is taken to be an absolute path, possibly existing
         on another filesystem. By default True.
-        """
+    """
 
     def __init__(
         self,
@@ -131,8 +131,8 @@ class PackagedDataset(ABC):
         self.root = root
         self._raw_data_dir_relative_to_root = raw_data_dir_relative_to_root
         self.raw_data_dir = raw_data_dir
-        self._keys_to_accessible_dfs=[]
-        self._keys_to_accessible_dss=[]
+        self._keys_to_accessible_dfs = []
+        self._keys_to_accessible_dss = []
 
     @property
     def root(self) -> Path:
@@ -145,7 +145,7 @@ class PackagedDataset(ABC):
             data can be found.
         """
         return self._root
-    
+
     @root.setter
     def root(self, val: Union[Path, str]):
         """Set the root directory of the dataset
@@ -174,12 +174,12 @@ class PackagedDataset(ABC):
         return self._raw_data_dir
 
     @raw_data_dir.setter
-    def raw_data_dir(self, val:Union[Path, str]):
+    def raw_data_dir(self, val: Union[Path, str]):
         """Set the raw unprocessed data directory of the dataset
 
         Parameters
         -------
-        Path : Union[Path, str] 
+        Path : Union[Path, str]
             Directory of the raw, unprocessed dataset.
         """
         if val is None:
@@ -199,9 +199,8 @@ class PackagedDataset(ABC):
         source: str,
         destination: Union[Path, str],
         mkdir: bool = True,
-        skip_if_exists: bool = False,
+        skip_if_exists: bool = True,
         extract: bool = False,
-        keep_archive: bool = False,
     ):
         """Download a remote file to local filesystem
 
@@ -219,15 +218,13 @@ class PackagedDataset(ABC):
         extract: bool, optional
             If True, then extract the downloaded archive by calling
             self.extract_archive, by default False.
-        keep_archive: bool, optional
-            If True, and also extract is True, then the original file should be
-            kept after extraction. Has no effect is extract is False.
-            By default False.
         """
         if isinstance(destination, str):
             destination = Path(destination)
         if not isinstance(destination, Path):
-            raise TypeError(f"Destination should be of type Path or str, but was {type(destination)}")
+            raise TypeError(
+                f"Destination should be of type Path or str, but was {type(destination)}"
+            )
         if not destination.parent.exists():
             if mkdir:
                 destination.parent.mkdir(parents=True)
@@ -419,7 +416,7 @@ class PackagedDataset(ABC):
         -------
         List
             List of dataset names
-        """        
+        """
         return (k for k in self.ds_keys())
 
     def ds_keys(self) -> list:
@@ -433,7 +430,7 @@ class PackagedDataset(ABC):
         -------
         List
             List of keys which allow accessing pd.DataFrames belonging to this
-            PackagedDataset 
+            PackagedDataset
         """
         return self._keys_to_accessible_dss
 
@@ -451,7 +448,7 @@ class PackagedDataset(ABC):
         """
         return self._keys_to_accessible_dfs
 
-    def register_df_key(self, key:Union[str, List[str]])->None:
+    def register_df_key(self, key: Union[str, List[str]]) -> None:
         """Register a dataframe key with the PackagedDataset
 
         Packaged datasets may contain or have access to multiple pd.DataFrames
@@ -471,7 +468,7 @@ class PackagedDataset(ABC):
         ------
         TypeError
             [description]
-        """        
+        """
         if isinstance(key, str):
             self._keys_to_accessible_dfs.append(key)
             return
@@ -480,8 +477,7 @@ class PackagedDataset(ABC):
             return
         raise TypeError(f"Key must be a str or list, given type was {type(key)}")
 
-
-    def register_ds_key(self, key:Union[str, List[str]])->None:
+    def register_ds_key(self, key: Union[str, List[str]]) -> None:
         """Register a Phenonaut Dataset key with the PackagedDataset
 
         Packaged datasets may contain or have access to multiple pd.DataFrames
@@ -509,7 +505,7 @@ class PackagedDataset(ABC):
         ------
         TypeError
             Given key must be a str or list of str.
-        """        
+        """
         if isinstance(key, str):
             self._keys_to_accessible_dss.append(key)
             return
@@ -524,7 +520,7 @@ class PackagedDataset(ABC):
         Access Datasets using simple ['ds_name'] - dictionary-like notation. If
         a Dataset of that name is not present, then check if a DataFrame of that
         name is present.  If no Dataset or DataFrame is found, then an error is
-        raised. 
+        raised.
 
         Parameters
         ----------
@@ -540,15 +536,17 @@ class PackagedDataset(ABC):
         ------
         KeyError
             Key not found
-        """        
+        """
         if key in self.ds_keys():
             return self.get_ds(key)
         if key in self.df_keys():
             return self.get_df(key)
-        raise KeyError(f"The key '{key}' was not found in registered datsets or dataframes (.ds_keys(), or df_keys())")
+        raise KeyError(
+            f"The key '{key}' was not found in registered datsets or dataframes (.ds_keys(), or df_keys())"
+        )
 
     @abstractmethod
-    def get_df(self, key:str):
+    def get_df(self, key: str):
         """Abstract method - Get DataFrame
 
         Abstract method which all inheriting classes are required to implement
@@ -558,11 +556,11 @@ class PackagedDataset(ABC):
         ----------
         key : str
             Name of DataFrame
-        """        
+        """
         pass
 
     @abstractmethod
-    def get_ds(self, key:str):
+    def get_ds(self, key: str):
         """Abstract method - Get Dataset
 
         Abstract method which all inheriting classes are required to implement
@@ -572,6 +570,5 @@ class PackagedDataset(ABC):
         ----------
         key : str
             Name of Dataset
-        """ 
+        """
         pass
-

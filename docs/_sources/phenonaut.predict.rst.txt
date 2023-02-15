@@ -1,6 +1,14 @@
 phenonaut.predict package
 =========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   phenonaut.predict.default_predictors
+
 Submodules
 ----------
 

@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -25,11 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Phenonaut
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,8 +60,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Example 1 - TCGA</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example 1 - TCGA</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tcga_example.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,7 +72,7 @@
            <div itemprop="articleBody">
              
   <section id="example-1-tcga">
-<span id="tcga-example"></span><h1>Example 1 - TCGA<a class="headerlink" href="#example-1-tcga" title="Permalink to this headline"></a></h1>
+<span id="tcga-example"></span><h1>Example 1 - TCGA<a class="headerlink" href="#example-1-tcga" title="Permalink to this heading"></a></h1>
 <p>Figure 1 in the application note manuscript contains a heatmap demonstrating performance of predictors over all possible views of The Cancer Genome Atlas (TCGA) (Weinstein 2013). The public TCGA dataset contains methylation, miRNA, mRNA and RPPA profiles and metadata for tumor samples spanning a range of clinical tumor types. A variety of metadata is also present such as the age of the donor, then, smoking status and time until patient death (if applicable) from when the sample was taken. The TCGA packaged dataset as present in Phenonaut uses the same preparative steps as taken by Lee (Lee 2021), whereby the dataset was downloaded, rows with missing data removed and then principal component dimensionality reduction used to reduce the feature space within each view to 100 features. In addition to those preparative steps carried out by Lee, an additional metadata column is derived from the “days_to_death” column, indicating if the tumor donor survives 1 year after the sample was taken and named ‘survives_1_year’.
 Code used direct Phenonaut in production of the performance heatmap is available within the GitHub repository with the name “example1_TCGA.py”. This was executed in a Python 3.9.5 environment using Phenonaut version 1.0.0, Numpy version 1.20.3, Pandas version 1.4.0, scikit-learn version 0.24.2, and PyTorch version 1.10.2. Whilst the full source of example1_TCGA.py is considerably longer and more verbose than the code used to exemplify the task in Figure 1, additional checks on command line parameters and use of the fire interface module are not required. The minimal Python code listing given in Figure 1, along with the workflow YAML file are both sufficient to produce the reported output.
 Within Phenonaut, the predict submodule contains a profile function with purpose of applying all suitable predictors (classifiers, regressors, or multiregressors) to all possible view combinations for a given prediction target. The profile function performs the following:</p>
@@ -107,9 +111,9 @@ Lee, Changhee, and Mihaela van der Schaar. “A variational information bottlene
 </figure>
 <p>In addition to the “best view” performance boxplot shown in Figure 2, boxplots across all views are output as PNGS, and included into a summative PPTX presentation file along with the overall performance heatmap shown in Figure 1, and machine readable performance measures in the CSV and JSON file formats.</p>
 <section id="code-listing">
-<h2>Code listing<a class="headerlink" href="#code-listing" title="Permalink to this headline"></a></h2>
+<h2>Code listing<a class="headerlink" href="#code-listing" title="Permalink to this heading"></a></h2>
 <section id="python">
-<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline"></a></h3>
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fire</span>
 <span class="kn">from</span> <span class="nn">phenonaut</span> <span class="kn">import</span> <span class="n">Phenonaut</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">packaged_datasets</span>
 
@@ -121,7 +125,7 @@ Lee, Changhee, and Mihaela van der Schaar. “A variational information bottlene
     <span class="n">run_predictors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">optuna_merge_folds</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Run TCGA example, predicting one year survival rate over a range of datasets and combinations</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run TCGA example, predicting one year survival rate over a range of datasets and combinations</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -157,13 +161,13 @@ Lee, Changhee, and Mihaela van der Schaar. “A variational information bottlene
 </div>
 </section>
 <section id="yaml">
-<h3>YAML<a class="headerlink" href="#yaml" title="Permalink to this headline"></a></h3>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="nt">Example_1_predict_survival</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">predict</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">survives_1_yr</span><span class="w"></span>
+<h3>YAML<a class="headerlink" href="#yaml" title="Permalink to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example_1_predict_survival</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">predict</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">survives_1_yr</span>
 </pre></div>
 </div>
 </section>

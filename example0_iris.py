@@ -71,7 +71,9 @@ def run_phenonaut_iris_classification(
         If optuna_merge_folds is true, then the average validation score of each fold is passed as the result
         to optuna, optimising models across all folds. , by default False.
     """
-    phe = phenonaut_object_iris_2_views(load_iris(as_frame=True).frame, keep_only_class_1_and_2=True)
+    phe = phenonaut_object_iris_2_views(
+        load_iris(as_frame=True).frame, keep_only_class_1_and_2=True
+    )
     phenonaut.predict.profile(
         phe,
         output_path,
@@ -116,7 +118,6 @@ def run_phenonaut_iris_regression(
     )
 
 
-
 def run_phenonaut_iris_multiregression(
     output_path: str,
     n_optuna_trials: int = 20,
@@ -138,10 +139,12 @@ def run_phenonaut_iris_multiregression(
         If optuna_merge_folds is true, then the average validation score of each fold is passed as the result
         to optuna, optimising models across all folds. , by default False.
     """
-    phe=phenonaut_object_iris_2_views(load_iris(as_frame=True).frame, keep_only_class_1_and_2=True)
+    phe = phenonaut_object_iris_2_views(
+        load_iris(as_frame=True).frame, keep_only_class_1_and_2=True
+    )
     phe[0].drop_columns("target")
     phe[1].drop_columns("target")
-    
+
     phenonaut.predict.profile(
         phe,
         output_path,
@@ -149,7 +152,7 @@ def run_phenonaut_iris_multiregression(
         optuna_merge_folds=optuna_merge_folds,
         predictors=None if run_predictors else [],
         dataset_combinations=((0,),),
-        target=phe[1]
+        target=phe[1],
     )
 
 
@@ -158,9 +161,9 @@ if __name__ == "__main__":
         {
             "c": run_phenonaut_iris_classification,
             "classification": run_phenonaut_iris_classification,
-            'r': run_phenonaut_iris_regression,
-            'regression': run_phenonaut_iris_regression,
-            'mr': run_phenonaut_iris_multiregression,
-            'multiregression': run_phenonaut_iris_multiregression,
+            "r": run_phenonaut_iris_regression,
+            "regression": run_phenonaut_iris_regression,
+            "mr": run_phenonaut_iris_multiregression,
+            "multiregression": run_phenonaut_iris_multiregression,
         }
     )

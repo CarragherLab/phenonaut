@@ -26,14 +26,17 @@ class PredictionType(Enum):
     Enum : int
         Enumerated type, captures if the prediction task is classification,
         regression, or view (multiregression)
-    """    
+    """
+
     classification = auto()
     regression = auto()
     view = auto()
 
 
 def get_y_from_target(
-    data: Union[phenonaut.data.Dataset, pd.DataFrame, list[phenonaut.data.Dataset], list[pd.DataFrame]],
+    data: Union[
+        phenonaut.data.Dataset, pd.DataFrame, list[phenonaut.data.Dataset], list[pd.DataFrame]
+    ],
     target: Optional[Union[str, pd.Series, np.ndarray, tuple]] = None,
 ) -> Union[list, pd.Series, tuple, np.ndarray]:
     """Get target y from Dataset(s) or DataFrame
@@ -99,7 +102,9 @@ def get_y_from_target(
                     if target in d.get_non_feature_columns():
                         return d.df[target]
                 else:
-                    raise ValueError(f"Object of type {type(d)} found, should be phenonaut.Dataset or pd.DataFrame")
+                    raise ValueError(
+                        f"Object of type {type(d)} found, should be phenonaut.Dataset or pd.DataFrame"
+                    )
             raise ValueError(
                 f"Given target string (column title) was {target}, but this was not found in any supplied Datasets/Dataframes"
             )
@@ -107,7 +112,9 @@ def get_y_from_target(
     # Target was not set, guess it by identifying a ds that has one column not listed as a feature.
     for d in data:
         if not isinstance(d, phenonaut.data.Dataset):
-            raise ValueError(f"Target was not set, trying to guess it from a phenonaut.Dataset, but found {type(d)}")
+            raise ValueError(
+                f"Target was not set, trying to guess it from a phenonaut.Dataset, but found {type(d)}"
+            )
         if "prediction_target" in d._metadata.keys():
             return d.df[d._metadata["prediction_target"]]
         non_feature_columns = d.get_non_feature_columns()
@@ -138,7 +145,7 @@ def get_prediction_type_from_y(y):
     ------
     ValueError
         _description_
-    """    
+    """
     if isinstance(y, pd.Series):
         if y.values.dtype in [int, np.int64]:
             return PredictionType.classification
@@ -167,7 +174,9 @@ def get_prediction_type_from_y(y):
                 return PredictionType.regression
     if isinstance(y, phenonaut.data.Dataset):
         return PredictionType.view
-    raise ValueError(f"y was not pd.Series, list, np.array, phenonaut.data.Dataset, it was : {type(y)}")
+    raise ValueError(
+        f"y was not pd.Series, list, np.array, phenonaut.data.Dataset, it was : {type(y)}"
+    )
 
 
 def get_common_indexes(dataframes_list: list[pd.DataFrame]) -> list[str]:
@@ -182,7 +191,7 @@ def get_common_indexes(dataframes_list: list[pd.DataFrame]) -> list[str]:
     -------
     list[str]
         List of common indexes between pd.DataFrames.
-    """    
+    """
     return list(reduce(lambda x, y: x & y, [set(df.index) for df in dataframes_list]))
 
 
@@ -227,7 +236,9 @@ def get_df_from_optuna_db(
         raise FileNotFoundError(f"Could not find optuna database file ({optuna_db_file})")
     study_names = [
         study.study_name
-        for study in optuna.study.get_all_study_summaries(storage=f"sqlite:///{optuna_db_file.resolve()}")
+        for study in optuna.study.get_all_study_summaries(
+            storage=f"sqlite:///{optuna_db_file.resolve()}"
+        )
     ]
     for study_name in study_names:
         study = optuna.study.load_study(study_name, storage=f"sqlite:///{optuna_db_file.resolve()}")
@@ -248,7 +259,9 @@ def get_df_from_optuna_db(
             if "KFoldScores" in row_dict:
                 del row_dict["KFoldScores"]
                 fold_scores = trial.user_attrs["KFoldScores"]
-                row_dict.update({f"FoldScore_{i+1}": fold_scores[i] for i in range(len(fold_scores))})
+                row_dict.update(
+                    {f"FoldScore_{i+1}": fold_scores[i] for i in range(len(fold_scores))}
+                )
             row_dict.update({"parameters": trial.params})
             df_dict_list.append(row_dict)
 
@@ -263,7 +276,9 @@ def get_df_from_optuna_db(
                 if "KFoldScores" in row_dict:
                     del row_dict["KFoldScores"]
                     fold_scores = trial.user_attrs["KFoldScores"]
-                    row_dict.update({f"FoldScore_{i+1}": fold_scores[i] for i in range(len(fold_scores))})
+                    row_dict.update(
+                        {f"FoldScore_{i+1}": fold_scores[i] for i in range(len(fold_scores))}
+                    )
                 row_dict.update({"parameters": trial.params})
                 df_dict_list.append(row_dict)
 
@@ -286,7 +301,9 @@ def get_df_from_optuna_db(
     return df
 
 
-def get_best_predictor_dataset_df(df: pd.DataFrame, column_containing_values:str="test_score") -> pd.DataFrame:
+def get_best_predictor_dataset_df(
+    df: pd.DataFrame, column_containing_values: str = "test_score"
+) -> pd.DataFrame:
     """For a given Optuna hyperaprameter scan dataframe, get the best predictor
 
     Parameters
@@ -301,7 +318,7 @@ def get_best_predictor_dataset_df(df: pd.DataFrame, column_containing_values:str
     -------
     pd.DataFrame
         DataFrame containing information on the best predictor.
-    """    
+    """
     unique_predictors = df["predictor_name"].unique()
     unique_dataset_views = df["dataset"].unique()
     heatmap_data_array = np.full((len(unique_dataset_views), len(unique_predictors)), np.nan)
@@ -313,8 +330,6 @@ def get_best_predictor_dataset_df(df: pd.DataFrame, column_containing_values:str
             )[column_containing_values].max()
 
     return pd.DataFrame(heatmap_data_array, index=unique_dataset_views, columns=unique_predictors)
-
-
 
 
 def get_metric(metric: Union[str, dict, PhenonautPredictionMetric]):
@@ -347,7 +362,7 @@ def get_metric(metric: Union[str, dict, PhenonautPredictionMetric]):
         Given dictionary did not include all required fields.
     ValueError
         metric argument was not of a suitable type.
-    """    
+    """
     if isinstance(metric, PhenonautPredictionMetric):
         return metric
     elif isinstance(metric, str):
@@ -364,7 +379,9 @@ def get_metric(metric: Union[str, dict, PhenonautPredictionMetric]):
         elif metric in ["rmse", "RMSE", "root_mean_squared_error"]:
             from sklearn.metrics import mean_squared_error
 
-            return PhenonautPredictionMetric(lambda x, y: mean_squared_error(x, y, squared=False), "RMSE", True)
+            return PhenonautPredictionMetric(
+                lambda x, y: mean_squared_error(x, y, squared=False), "RMSE", True
+            )
 
         elif metric in ["AUROC", "auroc", "area_under_roc_curve"]:
             from sklearn.metrics import roc_auc_score
@@ -382,7 +399,9 @@ def get_metric(metric: Union[str, dict, PhenonautPredictionMetric]):
             )
         return PhenonautPredictionMetric(metric["func"], metric["name"], metric["lower_is_better"])
     else:
-        raise ValueError(f"Metric should be a str, PhenonautPredictionMetric, or dict, it was: {type(metric)}")
+        raise ValueError(
+            f"Metric should be a str, PhenonautPredictionMetric, or dict, it was: {type(metric)}"
+        )
 
 
 def get_X_y(
@@ -448,10 +467,18 @@ def get_X_y(
     else:
         if predictor.num_views == 1:  # Predictor can only do 1 view
             if common_indices is None:
-                return (np.hstack([phe[ds_name].data.values for ds_name in dataset_combination]), y.values)
+                return (
+                    np.hstack([phe[ds_name].data.values for ds_name in dataset_combination]),
+                    y.values,
+                )
             else:
                 return (
-                    np.hstack([phe[ds_name].data.loc[common_indices, :].values for ds_name in dataset_combination]),
+                    np.hstack(
+                        [
+                            phe[ds_name].data.loc[common_indices, :].values
+                            for ds_name in dataset_combination
+                        ]
+                    ),
                     y.loc[common_indices].values,
                 )
         else:  # Predictor is multiview
@@ -461,6 +488,9 @@ def get_X_y(
                 return ([phe[ds_name].data.values for ds_name in dataset_combination], y.values)
             else:
                 return (
-                    [phe[ds_name].data.loc[common_indices, :].values for ds_name in dataset_combination],
+                    [
+                        phe[ds_name].data.loc[common_indices, :].values
+                        for ds_name in dataset_combination
+                    ],
                     y.loc[common_indices].values,
                 )

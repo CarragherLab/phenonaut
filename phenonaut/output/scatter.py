@@ -18,47 +18,47 @@ import pandas as pd
 class Scatter(PhenonautVisualisation):
     """Phenonaut scatter visualisation object.
 
-        The object should be constructed, and then its add member function used
-        to add points to the scatter.  It may then be saved by calling save, or
-        displayed using show.
+    The object should be constructed, and then its add member function used
+    to add points to the scatter.  It may then be saved by calling save, or
+    displayed using show.
 
-        Scatter inherits from the PhenonautVisualisation base class, which
-        optionally stores a dictionary called plot_config. As currently
-        implemented, plot_config dictionaries can contain one nested dictionary
-        under a 'plot_markers' key, with keys to this nested dictionary
-        being  perturbation ids, and values are arguments to the matplotlib
-        marker types. To populate this base class dictionary, pass a config
-        dictionary to the constructor, like
-        
-        .. code-block:: python
-        
-            {'plot_markers':{'pert1':'X', 'pert2':'x'}}.
+    Scatter inherits from the PhenonautVisualisation base class, which
+    optionally stores a dictionary called plot_config. As currently
+    implemented, plot_config dictionaries can contain one nested dictionary
+    under a 'plot_markers' key, with keys to this nested dictionary
+    being  perturbation ids, and values are arguments to the matplotlib
+    marker types. To populate this base class dictionary, pass a config
+    dictionary to the constructor, like
 
-        Parameters
-        ----------
-        plot_config : Optional[Union[Path, str, dict]], optional
-            Optional configuration dictionary, allows  alows specification of initialisation arguments via dictionary.
-            Supply keys and values as argument as values. By default None.
-        figsize : Optional[Tuple[float, float]], optional
-            Output figure size (in inches, as directed by matplotlib/seaborn).
-            By default (8, 6)
-        title : Optional[str], optional
-            Plot title, by default "2D scatter"
-        x_label : Optional[str], optional
-            x-axis label, by default None
-        y_label : Optional[str], optional
-            y-axis label, by default None
-        show_legend : Optional[bool], optional
-            If True, then add a legend to the plot. By default True.
-        marker_size : int, optional
-            The size of each datapoint within the scatter. By default 90
-        axis_ranges : Optional[Tuple[Tuple[float, float], Tuple[float, float]]], optional
-            Optional tuple of tuples giving the min and max extents of each axis.
-            If None is given for any value, then the corresponding min/max for
-            that axis is calcaulated and used.
-            By default ((None, None), (None, None)).
-        """
-    
+    .. code-block:: python
+
+        {'plot_markers':{'pert1':'X', 'pert2':'x'}}.
+
+    Parameters
+    ----------
+    plot_config : Optional[Union[Path, str, dict]], optional
+        Optional configuration dictionary, allows  alows specification of initialisation arguments via dictionary.
+        Supply keys and values as argument as values. By default None.
+    figsize : Optional[Tuple[float, float]], optional
+        Output figure size (in inches, as directed by matplotlib/seaborn).
+        By default (8, 6)
+    title : Optional[str], optional
+        Plot title, by default "2D scatter"
+    x_label : Optional[str], optional
+        x-axis label, by default None
+    y_label : Optional[str], optional
+        y-axis label, by default None
+    show_legend : Optional[bool], optional
+        If True, then add a legend to the plot. By default True.
+    marker_size : int, optional
+        The size of each datapoint within the scatter. By default 90
+    axis_ranges : Optional[Tuple[Tuple[float, float], Tuple[float, float]]], optional
+        Optional tuple of tuples giving the min and max extents of each axis.
+        If None is given for any value, then the corresponding min/max for
+        that axis is calcaulated and used.
+        By default ((None, None), (None, None)).
+    """
+
     def __init__(
         self,
         plot_config: Optional[Union[Path, str, dict]] = None,
@@ -68,7 +68,10 @@ class Scatter(PhenonautVisualisation):
         y_label: Optional[str] = None,
         show_legend: Optional[bool] = True,
         marker_size: int = 90,
-        axis_ranges: Optional[Tuple[Tuple[float, float], Tuple[float, float]]] = ((None, None), (None, None)),
+        axis_ranges: Optional[Tuple[Tuple[float, float], Tuple[float, float]]] = (
+            (None, None),
+            (None, None),
+        ),
     ):
         """Phenonaut scatter visualisation object.
 
@@ -83,9 +86,9 @@ class Scatter(PhenonautVisualisation):
         being  perturbation ids, and values are arguments to the matplotlib
         marker types. To populate this base class dictionary, pass a config
         dictionary to the constructor, like
-        
+
         .. code-block:: python
-        
+
             {'plot_markers':{'pert1':'X', 'pert2':'x'}}.
 
         Parameters
@@ -128,7 +131,7 @@ class Scatter(PhenonautVisualisation):
         dataset: Union[Dataset, Phenonaut],
         perturbations: Optional[List[str]] = None,
         markers: Union[dict, list, bool] = True,
-        marker_size:int=None,
+        marker_size: int = None,
     ):
         """Add points to the scatter plot
 
@@ -156,9 +159,9 @@ class Scatter(PhenonautVisualisation):
         ------
         DataError
             Scatter plots are 2D, more than 2 features found.
-        """    
+        """
         if isinstance(dataset, Phenonaut):
-            dataset=dataset[-1]
+            dataset = dataset[-1]
         if len(dataset.features) != 2:
             raise DataError(f"Scatter requires 2 features, got {len(dataset.features)}")
         if self.config.get("xlabel") is None:
@@ -167,7 +170,7 @@ class Scatter(PhenonautVisualisation):
             self.config["ylabel"] = dataset.features[1]
 
         if marker_size is None:
-            marker_size=self.marker_size
+            marker_size = self.marker_size
 
         if perturbations is None:
             perturbations = dataset.get_unique_perturbations()
@@ -189,8 +192,7 @@ class Scatter(PhenonautVisualisation):
     def _decorate_figure(
         self,
     ):
-        """Internal helper function for axis decoration
-        """        
+        """Internal helper function for axis decoration"""
         if self.config.get("show_legend", True):
             self.ax.legend()
         else:
@@ -207,8 +209,7 @@ class Scatter(PhenonautVisualisation):
     def show(
         self,
     ):
-        """Show the plot on the screen
-        """        
+        """Show the plot on the screen"""
         self._decorate_figure()
         plt.show()
 
@@ -223,18 +224,20 @@ class Scatter(PhenonautVisualisation):
         ----------
         output_image_path : Union[Path, str]
             Output file path for the scatter plot.
-        """        
+        """
         self._decorate_figure()
         if isinstance(output_image_path, str):
             output_image_path = Path(output_image_path)
         if not output_image_path.parent.exists():
             output_image_path.parent.mkdir(parents=True)
         plt.savefig(output_image_path, **savefig_kwargs)
-    
-    def __del__(self,):
+
+    def __del__(
+        self,
+    ):
         """Delete scatter
 
         Ensures plt.cla and clf are called upon Scatter object deletion
-        """        
+        """
         plt.cla()
         plt.clf()

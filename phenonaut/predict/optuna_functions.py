@@ -112,12 +112,12 @@ def run_optuna_opt(
     target_dataset_name : Optional[str], optional
         If predicting a view, then the target Dataset may be given a name,
         by default None.
-    """    
-    
+    """
+
     # First, we make a deepcopy of predictor, as the type is mutable, and we will be changing it in
     # this function, adding a member variable to obtain the trained predictor back from the
     # augmented optuna objective function.
-    predictor=deepcopy(predictor)
+    predictor = deepcopy(predictor)
     # If predictor has max_optuna_trials set lower than max_optuna trials supplied by the function arg,
     # then take the lower. If not set, then we can use all trials denoted by n_optuna_trials argument.
     if predictor.max_optuna_trials is None:
@@ -126,7 +126,9 @@ def run_optuna_opt(
         n_optuna_trials_for_predictor = min(predictor.max_optuna_trials, n_optuna_trials)
 
     for fold_index, (train_indexes, validation_indexes) in enumerate(
-        KFold(n_splits=n_splits, shuffle=True, random_state=seed).split(X[0] if isinstance(X, list) else X)
+        KFold(n_splits=n_splits, shuffle=True, random_state=seed).split(
+            X[0] if isinstance(X, list) else X
+        )
     ):
         if isinstance(X, list):
             X_train = [X[i][train_indexes] for i in range(len(X))]
@@ -139,9 +141,7 @@ def run_optuna_opt(
 
         # Name the study- must be unique for predictor/dataset/target predictions
         if prediction_type == PredictionType.view and target_dataset_name is not None:
-            optuna_study_name = (
-                f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};{target_dataset_name};fold{fold_index+1}"
-            )
+            optuna_study_name = f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};{target_dataset_name};fold{fold_index+1}"
         else:
             optuna_study_name = f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};fold{fold_index+1}"
 
@@ -156,8 +156,13 @@ def run_optuna_opt(
         # some categorical parameters. These therefore require 1 run or very few to explore the entire search
         # space. We therefore see if max_optuna_trials for the predictor has been reached in this study before
         # if so, then there is no reason to test those parameters again.
-        if predictor.max_optuna_trials is not None and len(optuna_study.trials) >= predictor.max_optuna_trials:
-            print(f"max_optuna_trials ({predictor.max_optuna_trials}) already reached for study, continuing.")
+        if (
+            predictor.max_optuna_trials is not None
+            and len(optuna_study.trials) >= predictor.max_optuna_trials
+        ):
+            print(
+                f"max_optuna_trials ({predictor.max_optuna_trials}) already reached for study, continuing."
+            )
             return
 
         # It is a new study, set the user attributes for ease of analysis
@@ -171,8 +176,8 @@ def run_optuna_opt(
             optuna_study.set_user_attr("metric_name", metric.name)
             optuna_study.set_user_attr("lower_is_better", metric.lower_is_better)
             optuna_study.set_user_attr("merge_folds", False)
-            optuna_study.set_user_attr("fold_index", fold_index+1)
-        start_time=default_timer()
+            optuna_study.set_user_attr("fold_index", fold_index + 1)
+        start_time = default_timer()
         optuna_study.optimize(
             lambda trial: _optuna_augmented_objective(
                 trial,
@@ -186,7 +191,7 @@ def run_optuna_opt(
             ),
             n_trials=n_optuna_trials_for_predictor,
         )
-        optuna_study.set_user_attr("time_taken", default_timer()-start_time)
+        optuna_study.set_user_attr("time_taken", default_timer() - start_time)
         test_score = metric(y_test, predictor._best_predictor_instance.predict(X_test))
         optuna_study.set_user_attr("test_score", test_score)
 
@@ -249,17 +254,19 @@ def _optuna_augmented_objective(
             )
         )
     if isinstance(predictor.predictor, tuple):
-        predictor_instance = predictor.predictor[0](predictor.predictor[1](**optuna_dict, **predictor.constructor_kwargs))
+        predictor_instance = predictor.predictor[0](
+            predictor.predictor[1](**optuna_dict, **predictor.constructor_kwargs)
+        )
     else:
         predictor_instance = predictor.predictor(**optuna_dict, **predictor.constructor_kwargs)
     predictor_instance.fit(X_train, y_train)
-    score=metric(y_val, predictor_instance.predict(X_val))
-    
+    score = metric(y_val, predictor_instance.predict(X_val))
+
     # If not yet set (because its a new study with 0 trials and was initialised to None, then set it to the current score)
     if "best_trained_model_score" not in optuna_study.user_attrs:
         optuna_study.set_user_attr("best_trained_model_score", score)
     if not hasattr(predictor, "_best_predictor_instance"):
-        predictor._best_predictor_instance=predictor_instance
+        predictor._best_predictor_instance = predictor_instance
 
     cur_best_score = optuna_study.user_attrs["best_trained_model_score"]
 
@@ -267,34 +274,9 @@ def _optuna_augmented_objective(
         not metric.lower_is_better and score >= cur_best_score
     ):
         optuna_study.set_user_attr("best_trained_model_score", score)
-        predictor._best_predictor_instance=predictor_instance
+        predictor._best_predictor_instance = predictor_instance
 
     return score
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def run_optuna_opt_merge_folds(
@@ -317,7 +299,7 @@ def run_optuna_opt_merge_folds(
     # First, we make a deepcopy of predictor, as the type is mutable, and we will be changing it in
     # this function, adding a member variable to obtain the trained predictor back from the
     # augmented optuna objective function.
-    predictor=deepcopy(predictor)
+    predictor = deepcopy(predictor)
     # If predictor has max_optuna_trials set lower than max_optuna trials supplied by the function arg,
     # then take the lower. If not set, then we can use all trials denoted by n_optuna_trials argument.
     if predictor.max_optuna_trials is None:
@@ -329,7 +311,9 @@ def run_optuna_opt_merge_folds(
     if prediction_type == PredictionType.view and target_dataset_name is not None:
         optuna_study_name = f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};{target_dataset_name};merge_folds"
     else:
-        optuna_study_name = f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};merge_folds"
+        optuna_study_name = (
+            f"{phe_name};{prediction_type.name};{predictor.name};{dataset_combination};merge_folds"
+        )
 
     # Load study
     optuna_study = optuna.create_study(
@@ -342,8 +326,13 @@ def run_optuna_opt_merge_folds(
     # some categorical parameters. These therefore require 1 run or very few to explore the entire search
     # space. We therefore see if max_optuna_trials for the predictor has been reached in this study before
     # if so, then there is no reason to test those parameters again.
-    if predictor.max_optuna_trials is not None and len(optuna_study.trials) >= predictor.max_optuna_trials:
-        print(f"max_optuna_trials ({predictor.max_optuna_trials}) already reached for study, continuing.")
+    if (
+        predictor.max_optuna_trials is not None
+        and len(optuna_study.trials) >= predictor.max_optuna_trials
+    ):
+        print(
+            f"max_optuna_trials ({predictor.max_optuna_trials}) already reached for study, continuing."
+        )
         return
 
     # It is a new study, set the user attributes for ease of analysis
@@ -357,14 +346,14 @@ def run_optuna_opt_merge_folds(
         optuna_study.set_user_attr("metric_name", metric.name)
         optuna_study.set_user_attr("lower_is_better", metric.lower_is_better)
         optuna_study.set_user_attr("merge_folds", True)
-    start_time=default_timer()
+    start_time = default_timer()
     optuna_study.optimize(
         lambda trial: _optuna_augmented_objective_merge_folds(
             trial, optuna_study, X, y, predictor, metric, n_splits, seed=seed
         ),
         n_trials=n_optuna_trials_for_predictor,
     )
-    optuna_study.set_user_attr("time_taken", default_timer()-start_time)
+    optuna_study.set_user_attr("time_taken", default_timer() - start_time)
     test_score = metric(y_test, predictor._best_predictor_instance.predict(X_test))
     optuna_study.set_user_attr("test_score", test_score)
 
@@ -409,14 +398,18 @@ def _optuna_augmented_objective_merge_folds(
 
     # multi view
     if isinstance(X, list):
-        for train_indexes, validation_indexes in KFold(n_splits=n_splits, shuffle=True, random_state=seed).split(X[0]):
+        for train_indexes, validation_indexes in KFold(
+            n_splits=n_splits, shuffle=True, random_state=seed
+        ).split(X[0]):
             mv_X_train = [X[i][train_indexes] for i in range(len(X))]
             mv_X_test = [X[i][validation_indexes] for i in range(len(X))]
             predictor_instance.fit(mv_X_train, y[train_indexes])
             y_pred = predictor_instance.predict(mv_X_test)
             scores.append(metric(y[validation_indexes], y_pred))
     else:
-        for train_indexes, validation_indexes in KFold(n_splits=n_splits, shuffle=True, random_state=seed).split(X):
+        for train_indexes, validation_indexes in KFold(
+            n_splits=n_splits, shuffle=True, random_state=seed
+        ).split(X):
             predictor_instance.fit(X[train_indexes], y[train_indexes])
             y_pred = predictor_instance.predict(X[validation_indexes])
             scores.append(metric(y[validation_indexes], y_pred))
@@ -425,17 +418,16 @@ def _optuna_augmented_objective_merge_folds(
     if "best_trained_model_score" not in optuna_study.user_attrs:
         optuna_study.set_user_attr("best_trained_model_score", np.mean(scores))
     if not hasattr(predictor, "_best_predictor_instance"):
-        predictor._best_predictor_instance=predictor_instance
+        predictor._best_predictor_instance = predictor_instance
     cur_best_score = optuna_study.user_attrs["best_trained_model_score"]
 
     if (metric.lower_is_better and np.mean(scores) <= cur_best_score) or (
         not metric.lower_is_better and np.mean(scores) >= cur_best_score
     ):
         optuna_study.set_user_attr("best_trained_model_score", np.mean(scores))
-        predictor._best_predictor_instance=predictor_instance
+        predictor._best_predictor_instance = predictor_instance
     trial.set_user_attr("KFoldScores", scores)
     trial.set_user_attr("Mean_KFold", np.mean(scores))
     trial.set_user_attr("Std_KFold", np.std(scores))
 
     return np.mean(scores)
-    

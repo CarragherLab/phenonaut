@@ -33,13 +33,15 @@ def treatment_spread_euclidean(
         Perturbation column was not set for the given Dataset and was not
         supplied via the perturbation_column argument to
         treatment_spread_euclidean.
-    """    
+    """
     if perturbation_column is None and data.perturbation_column is None:
-        raise DataError("Dataset does not have a perturbation column set and none was supplied to treatment_spread_euclidean")
+        raise DataError(
+            "Dataset does not have a perturbation column set and none was supplied to treatment_spread_euclidean"
+        )
     if perturbation_column is None:
-        perturbation_column=data.perturbation_column
+        perturbation_column = data.perturbation_column
     perturbations = data.get_unique_perturbations() if perturbations is None else perturbations
-    
+
     return {
         t: np.sum(
             pdist(dataset.df.query(f"{data.perturbation_column} == '{t}'")[data.features]),
@@ -52,7 +54,7 @@ def treatment_spread_euclidean(
 def mahalanobis(
     point: Union[List[float], np.ndarray, pd.DataFrame],
     cloud: Union[List[List[float]], np.ndarray, pd.DataFrame],
-    pvals:bool=False,
+    pvals: bool = False,
     covariance: Union[np.ndarray, EmpiricalCovariance, MinCovDet, None] = EmpiricalCovariance(),
 ):
     """Measure the Mahalanobis distance between a point and a cloud
@@ -65,7 +67,7 @@ def mahalanobis(
     matrix is an identity matrix. As Phenonaut is concerned on operating on high
     dimensional space which very likely has covariences present, the returned
     distance is not square rooted, returning D2 as noted.
-    
+
     https://imaging.mrc-cbu.cam.ac.uk/statswiki/FAQ/euclid
 
     Optionally, the p-value for the point or points belonging to the cloud can
@@ -103,30 +105,33 @@ def mahalanobis(
         cloud.
 
     """
-    point=np.array(point)
-    cloud=np.array(cloud)
-    if point.ndim==1:
-        point=point.reshape(1,-1)
-    
-    if isinstance(covariance,EmpiricalCovariance):
+    point = np.array(point)
+    cloud = np.array(cloud)
+    if point.ndim == 1:
+        point = point.reshape(1, -1)
+
+    if isinstance(covariance, EmpiricalCovariance):
         covariance.fit(cloud)
-        mahl_d=covariance.mahalanobis(point)
+        mahl_d = covariance.mahalanobis(point)
     else:
         if covariance is None:
             cov_mat = np.cov(cloud.T)
         elif isinstance(covariance, np.ndarray):
-            cov_mat=covariance
+            cov_mat = covariance
         else:
-            raise ValueError(f"cov argument should be one of np.ndarray, None, or a subclass of sklearn.covariance.EmpiricalCovariance, it was {type(covariance)}")
+            raise ValueError(
+                f"cov argument should be one of np.ndarray, None, or a subclass of sklearn.covariance.EmpiricalCovariance, it was {type(covariance)}"
+            )
         difference = point - np.mean(cloud, axis=0)
-        mahl_d=np.diag(np.dot(np.dot(difference, np.linalg.inv(cov_mat)), difference.T))
-    if len(mahl_d)==1:
-        mahl_d=mahl_d[0]
+        mahl_d = np.diag(np.dot(np.dot(difference, np.linalg.inv(cov_mat)), difference.T))
+    if len(mahl_d) == 1:
+        mahl_d = mahl_d[0]
     if not pvals:
         return mahl_d
     else:
         from scipy.stats import chi2
-        return 1-chi2.cdf(mahl_d,cloud.shape[1]-1)
+
+        return 1 - chi2.cdf(mahl_d, cloud.shape[1] - 1)
 
 
 def euclidean(

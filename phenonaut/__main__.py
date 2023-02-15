@@ -11,11 +11,9 @@ import argparse
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run a Phenonaut workflow")
-    parser.add_argument(
-        "workflow_path", help="YAML or JSON file containing Phenonaut workflow"
-    )
+    parser.add_argument("workflow_path", help="YAML or JSON file containing Phenonaut workflow")
     args = parser.parse_args()
 
     workflow_path = Path(args.workflow_path)
-    
+
     ph0_workflow = Workflow(workflow_path)

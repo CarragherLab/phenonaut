@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,11 +27,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Phenonaut
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -72,8 +76,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>User guide</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User guide</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/userguide.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,12 +88,12 @@
            <div itemprop="articleBody">
              
   <section id="user-guide">
-<span id="id1"></span><h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+<span id="id1"></span><h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this heading"></a></h1>
 <p>For a full listing of capabilities, classes and functions available within Phenonaut, please refer to the online API documentation which is constantly expanding as new literature techniques are integrated.</p>
 <section id="phenonaut">
-<h2>Phenonaut<a class="headerlink" href="#phenonaut" title="Permalink to this headline"></a></h2>
+<h2>Phenonaut<a class="headerlink" href="#phenonaut" title="Permalink to this heading"></a></h2>
 <section id="phenonaut-class">
-<h3>Phenonaut class<a class="headerlink" href="#phenonaut-class" title="Permalink to this headline"></a></h3>
+<h3>Phenonaut class<a class="headerlink" href="#phenonaut-class" title="Permalink to this heading"></a></h3>
 <p>A typical Phenonaut run begins with instantiation of a Phenonaut object.
 Many options for instantiation are permitted, with an empty object created if no parameters are given.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut</span> <span class="kn">import</span> <span class="n">Phenonaut</span>
@@ -134,7 +138,7 @@ An instantiated Phenonaut object has the following member variables:</p>
 </div></blockquote>
 </section>
 <section id="datasets-class">
-<h3>Datasets class<a class="headerlink" href="#datasets-class" title="Permalink to this headline"></a></h3>
+<h3>Datasets class<a class="headerlink" href="#datasets-class" title="Permalink to this heading"></a></h3>
 <p>Datasets in Phenonaut encapsulate Pandas DataFrames and provide functionality to monitor features within the DataFrame, along with metadata, and provide a consistent interface for Phenonaut’s transforms, predictions and metrics.</p>
 <img alt="Snapshot of Dataset object." src="_images/dataset_obj_class_diagram.png" />
 <p>A user supplied CSV file may be used to instantiate a Dataset object. Using a CSV file containing the following small sample of the Iris dataset:</p>
@@ -271,7 +275,7 @@ The history of a dataset can be examined through accessing the ‘history’ pro
 </div>
 </section>
 <section id="datasets-containing-one-feature-per-row">
-<h3>Datasets containing one feature per-row<a class="headerlink" href="#datasets-containing-one-feature-per-row" title="Permalink to this headline"></a></h3>
+<h3>Datasets containing one feature per-row<a class="headerlink" href="#datasets-containing-one-feature-per-row" title="Permalink to this heading"></a></h3>
 <p>By default, Phenonaut expects features to be present in columns, with one
 column capturing a feature, and one row representing a sample, like:</p>
 <table class="docutils align-default">
@@ -482,7 +486,7 @@ the idea behind this transformation.  See : <a class="reference external" href="
 </div>
 </section>
 <section id="packaged-datasets">
-<h3>Packaged datasets<a class="headerlink" href="#packaged-datasets" title="Permalink to this headline"></a></h3>
+<h3>Packaged datasets<a class="headerlink" href="#packaged-datasets" title="Permalink to this heading"></a></h3>
 <p>Phenonaut contains a selection of public datasets, which can be accessed using classes inheriting from the PackagedDataset class. Users and developers are encouraged to write their own packaged dataset loaders using the Phenonaut framework and either submit pull requests for inclusion into Phenonaut or contact the authors.
 The initial v1.0.0 release of Phenonaut contains the following packaged datasets:</p>
 <ul class="simple">
@@ -527,7 +531,7 @@ As packaged datasets may contain multiple views, a dictionary like notation can 
 <li><p>Produce scatter plot.</p></li>
 </ol>
 <section id="removing-highly-correlated-features">
-<h4>Removing highly correlated features<a class="headerlink" href="#removing-highly-correlated-features" title="Permalink to this headline"></a></h4>
+<h4>Removing highly correlated features<a class="headerlink" href="#removing-highly-correlated-features" title="Permalink to this heading"></a></h4>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut.transforms.preparative</span> <span class="kn">import</span> <span class="n">VIF</span>
 <span class="n">VIF</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">phe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
@@ -542,7 +546,7 @@ As packaged datasets may contain multiple views, a dictionary like notation can 
 </div>
 </section>
 <section id="applying-umap">
-<h4>Applying UMAP<a class="headerlink" href="#applying-umap" title="Permalink to this headline"></a></h4>
+<h4>Applying UMAP<a class="headerlink" href="#applying-umap" title="Permalink to this heading"></a></h4>
 <p>We then apply the UMAP dimensionality reduction technique to the Dataset, using no arguments apart from the Dataset to be operated on – producing a 2D UMAP embedding:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut.transforms</span> <span class="kn">import</span> <span class="n">UMAP</span>
 <span class="n">UMAP</span><span class="p">()(</span><span class="n">phe</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -550,7 +554,7 @@ As packaged datasets may contain multiple views, a dictionary like notation can 
 </div>
 </section>
 <section id="plotting-the-results">
-<h4>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this headline"></a></h4>
+<h4>Plotting the results<a class="headerlink" href="#plotting-the-results" title="Permalink to this heading"></a></h4>
 <p>Finally, we plot the output. To achieve this, we exploit a special property of datasets which may have a perturbation_column value set. This refers to a non-feature column which can be used to distinguish between samples for plotting and grouping purposes. First, however, we change the values in the target column from 0 and 1 to benign and malignant respectively, this enables proper labelling to be automatically applied to plots.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenonaut.output</span> <span class="kn">import</span> <span class="n">Scatter</span>
 <span class="n">phe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">=</span> <span class="n">phe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;benign&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s2">&quot;malignant&quot;</span><span class="p">})</span>

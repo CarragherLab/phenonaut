@@ -4,7 +4,6 @@
 from curses import meta
 import pytest
 import phenonaut
-from iris import *
 from phenonaut.data.dataset import Dataset
 import pandas as pd
 import numpy as np
@@ -252,11 +251,11 @@ def test_readin_transformations():
             "transforms": [
                 ("replace_str", ("Var2", "Pos_", "Pos-")),
                 ("split_column", ("Var2", "_", ["Well", "CpdID", "PlateID"])),
-                ('pivot', ('Var1', 'value')),
+                ("pivot", ("Var1", "value")),
                 #'transpose',
-                #(pivot_table(values = 'value', index=["WellName"], columns = 'Var1')
+                # (pivot_table(values = 'value', index=["WellName"], columns = 'Var1')
             ],
-            "features_prefix":'ENSG',
+            "features_prefix": "ENSG",
         },
     )
     print(phe.df)

@@ -16,6 +16,7 @@ import seaborn as sns
 from matplotlib.ticker import StrMethodFormatter
 from matplotlib.colors import Colormap
 
+
 def write_heatmap_from_df(
     df: pd.DataFrame,
     title: str,
@@ -28,15 +29,15 @@ def write_heatmap_from_df(
     figure_dpi: int = 300,
     vmin: Optional[float] = None,
     vmax: Optional[float] = None,
-    annotation_fontsize:int=10,
-    annotation_best_fontsize:int=12,
+    annotation_fontsize: int = 10,
+    annotation_best_fontsize: int = 12,
     lower_is_better: bool = False,
     annotation_format_string_value=".2f",
     annotation_format_string_std=".3f",
     highlight_best: bool = True,
-    pallet_name:str = "seagreen",
-    put_cbar_on_left:bool=False,
-    sns_colour_palette:Optional[Colormap]=None,
+    pallet_name: str = "seagreen",
+    put_cbar_on_left: bool = False,
+    sns_colour_palette: Optional[Colormap] = None,
 ) -> None:
     """Write heatmap from pd.DataFrame
 
@@ -104,20 +105,27 @@ def write_heatmap_from_df(
         Optionally, supply a seaborn colour map for use in the colour bar. By
         default None.
     """
-    
+
     padding = {
         "top": 0.25,
         "bottom": 1.24,
         "element_height": 0.60,
     }
     if figsize is None:
-        figsize = (10.0, padding["top"] + padding["bottom"] + padding["element_height"] * df.shape[0])
+        figsize = (
+            10.0,
+            padding["top"] + padding["bottom"] + padding["element_height"] * df.shape[0],
+        )
     if (transpose is None and df.shape[0] > df.shape[1]) or transpose:
         df = deepcopy(df.transpose())
     # Turn column and row labels with spaces into multiline items
     df = df.rename(
         columns={c: c.replace(" ", "\n") for c in df.columns if isinstance(c, str)},
-        index={ind: ind.replace(" ", "\n").replace(":", "\n") for ind in df.index if isinstance(ind, str)},
+        index={
+            ind: ind.replace(" ", "\n").replace(":", "\n")
+            for ind in df.index
+            if isinstance(ind, str)
+        },
     )
 
     if not isinstance(annot, np.ndarray):
@@ -126,7 +134,9 @@ def write_heatmap_from_df(
                 np.array(
                     [
                         f"{val:{annotation_format_string_value}}\n({std:{annotation_format_string_std}})"
-                        for val, std in zip(df.values.ravel(), standard_deviations_df.values.ravel())
+                        for val, std in zip(
+                            df.values.ravel(), standard_deviations_df.values.ravel()
+                        )
                     ]
                 )
                 .reshape(df.values.shape)
@@ -147,7 +157,9 @@ def write_heatmap_from_df(
         negated_mask = ~mask
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better) if sns_colour_palette is None else sns_colour_palette,
+            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+            if sns_colour_palette is None
+            else sns_colour_palette,
             mask=mask,
             annot=annot,
             linewidths=0.02,
@@ -156,11 +168,13 @@ def write_heatmap_from_df(
             annot_kws={"fontsize": annotation_fontsize},
             vmin=np.nanmin(df.values) if vmin is None else vmin,
             vmax=np.nanmax(df.values) if vmax is None else vmax,
-            cbar_kws=dict(location="left") if  put_cbar_on_left else None,
+            cbar_kws=dict(location="left") if put_cbar_on_left else None,
         )
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better) if sns_colour_palette is None else sns_colour_palette,
+            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+            if sns_colour_palette is None
+            else sns_colour_palette,
             mask=negated_mask,
             annot=annot,
             linewidths=0.02,
@@ -170,12 +184,14 @@ def write_heatmap_from_df(
             cbar=False,
             vmin=np.nanmin(df.values) if vmin is None else vmin,
             vmax=np.nanmax(df.values) if vmax is None else vmax,
-            cbar_kws=dict(location="left") if  put_cbar_on_left else None,
+            cbar_kws=dict(location="left") if put_cbar_on_left else None,
         )
     else:
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better) if sns_colour_palette is None else sns_colour_palette,
+            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+            if sns_colour_palette is None
+            else sns_colour_palette,
             annot=annot,
             linewidths=0.02,
             ax=ax,
@@ -183,7 +199,7 @@ def write_heatmap_from_df(
             annot_kws={"fontsize": annotation_fontsize},
             vmin=np.nanmin(df.values) if vmin is None else vmin,
             vmax=np.nanmax(df.values) if vmax is None else vmax,
-            cbar_kws=dict(location="left") if  put_cbar_on_left else None,
+            cbar_kws=dict(location="left") if put_cbar_on_left else None,
         )
 
     plt.xlabel(axis_labels[0])

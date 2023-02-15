@@ -10,10 +10,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -24,11 +24,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Phenonaut
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -55,8 +59,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Index</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -108,21 +112,11 @@
 </li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.dimensionality_reduction.UMAP.__call__">(phenonaut.transforms.dimensionality_reduction.UMAP method)</a>
 </li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.GenericTransform.__call__">(phenonaut.transforms.generic_transformations.GenericTransform method)</a>
-</li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.Log2.__call__">(phenonaut.transforms.generic_transformations.Log2 method)</a>
-</li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.RobustMAD.__call__">(phenonaut.transforms.generic_transformations.RobustMAD method)</a>
-</li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.StandardScaler.__call__">(phenonaut.transforms.generic_transformations.StandardScaler method)</a>
-</li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF.__call__">(phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF method)</a>
 </li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.RemoveHighlyCorrelated.__call__">(phenonaut.transforms.preparative.RemoveHighlyCorrelated method)</a>
 </li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.VIF.__call__">(phenonaut.transforms.preparative.VIF method)</a>
-</li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.ZCA.__call__">(phenonaut.transforms.preparative.ZCA method)</a>
 </li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.transformer.Transformer.__call__">(phenonaut.transforms.transformer.Transformer method)</a>
 </li>
@@ -177,9 +171,11 @@
 </li>
       <li><a href="phenonaut.html#phenonaut.phenonaut.Phenonaut.clone_dataset">clone_dataset() (phenonaut.phenonaut.Phenonaut method)</a>
 </li>
+      <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP">CMAP (class in phenonaut.packaged_datasets.cmap)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP">CMAP (class in phenonaut.packaged_datasets.cmap)</a>
+      <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP_Level4">CMAP_Level4 (class in phenonaut.packaged_datasets.cmap)</a>
 </li>
       <li><a href="phenonaut.html#phenonaut.phenonaut.Phenonaut.combine_datasets">combine_datasets() (phenonaut.phenonaut.Phenonaut method)</a>
 </li>
@@ -205,16 +201,18 @@
 </li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.dataset_size_cutoff">dataset_size_cutoff (phenonaut.predict.predictor_dataclasses.PhenonautPredictor attribute)</a>
 </li>
+      <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.dave.DAVE">DAVE (class in phenonaut.predict.default_predictors.pytorch_models.dave)</a>
+</li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.TransformationHistory.description">description (phenonaut.data.dataset.TransformationHistory attribute)</a>
 </li>
       <li><a href="phenonaut.html#phenonaut.phenonaut.Phenonaut.df">df (phenonaut.phenonaut.Phenonaut property)</a>
 </li>
       <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.base.PackagedDataset.df_keys">df_keys() (phenonaut.packaged_datasets.base.PackagedDataset method)</a>
 </li>
-      <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.df_to_csv">df_to_csv() (phenonaut.data.dataset.Dataset method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.df_to_csv">df_to_csv() (phenonaut.data.dataset.Dataset method)</a>
+</li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.df_to_multiple_csvs">df_to_multiple_csvs() (phenonaut.data.dataset.Dataset method)</a>
 </li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.distance_df">distance_df() (phenonaut.data.dataset.Dataset method)</a>
@@ -289,10 +287,10 @@
         <li><a href="phenonaut.html#phenonaut.workflow.Workflow.filter_rows">(phenonaut.workflow.Workflow method)</a>
 </li>
       </ul></li>
-      <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.RobustMAD.fit">fit() (phenonaut.transforms.generic_transformations.RobustMAD method)</a>
+      <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.dave.DAVE.fit">fit() (phenonaut.predict.default_predictors.pytorch_models.dave.DAVE method)</a>
 
       <ul>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.StandardScaler.fit">(phenonaut.transforms.generic_transformations.StandardScaler method)</a>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn.MultiRegressorNN.fit">(phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn.MultiRegressorNN method)</a>
 </li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.supervised_transformer.SupervisedTransformer.fit">(phenonaut.transforms.supervised_transformer.SupervisedTransformer method)</a>
 </li>
@@ -313,8 +311,6 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.GenericTransform">GenericTransform (class in phenonaut.transforms.generic_transformations)</a>
-</li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predict_utils.get_best_predictor_dataset_df">get_best_predictor_dataset_df() (in module phenonaut.predict.predict_utils)</a>
 </li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predict_utils.get_common_indexes">get_common_indexes() (in module phenonaut.predict.predict_utils)</a>
@@ -331,6 +327,8 @@
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_df">(phenonaut.packaged_datasets.breast_cancer.BreastCancer method)</a>
 </li>
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP.get_df">(phenonaut.packaged_datasets.cmap.CMAP method)</a>
+</li>
+        <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP_Level4.get_df">(phenonaut.packaged_datasets.cmap.CMAP_Level4 method)</a>
 </li>
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.iris.Iris.get_df">(phenonaut.packaged_datasets.iris.Iris method)</a>
 </li>
@@ -349,6 +347,8 @@
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_ds">(phenonaut.packaged_datasets.breast_cancer.BreastCancer method)</a>
 </li>
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP.get_ds">(phenonaut.packaged_datasets.cmap.CMAP method)</a>
+</li>
+        <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.cmap.CMAP_Level4.get_ds">(phenonaut.packaged_datasets.cmap.CMAP_Level4 method)</a>
 </li>
         <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.iris.Iris.get_ds">(phenonaut.packaged_datasets.iris.Iris method)</a>
 </li>
@@ -455,24 +455,18 @@
       </ul></li>
       <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.load_csv_kwargs">load_csv_kwargs (phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple attribute)</a>
 </li>
-      <li><a href="phenonaut.html#phenonaut.phenonaut.Phenonaut.load_dataset">load_dataset() (phenonaut.phenonaut.Phenonaut method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="phenonaut.html#phenonaut.phenonaut.Phenonaut.load_dataset">load_dataset() (phenonaut.phenonaut.Phenonaut method)</a>
+</li>
       <li><a href="phenonaut.html#phenonaut.utils.load_dict">load_dict() (in module phenonaut.utils)</a>
 </li>
       <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.Log2">Log2 (class in phenonaut.transforms.generic_transformations)</a>
 </li>
-      <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterFloat.lower_bound">lower_bound (phenonaut.predict.predictor_dataclasses.HyperparameterFloat attribute)</a>
-
-      <ul>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterInt.lower_bound">(phenonaut.predict.predictor_dataclasses.HyperparameterInt attribute)</a>
+      <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.dave.DAVE.loss_function">loss_function() (phenonaut.predict.default_predictors.pytorch_models.dave.DAVE method)</a>
 </li>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterLog.lower_bound">(phenonaut.predict.predictor_dataclasses.HyperparameterLog attribute)</a>
+      <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.lower_bound">lower_bound (phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber attribute)</a>
 </li>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.lower_bound">(phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber attribute)</a>
-</li>
-      </ul></li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.lower_is_better">lower_is_better (phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric attribute)</a>
 </li>
   </ul></td>
@@ -557,6 +551,20 @@
 </li>
         <li><a href="phenonaut.predict.html#module-phenonaut.predict">phenonaut.predict</a>
 </li>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors">phenonaut.predict.default_predictors</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.classifiers">phenonaut.predict.default_predictors.classifiers</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.multiregressors">phenonaut.predict.default_predictors.multiregressors</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models">phenonaut.predict.default_predictors.pytorch_models</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.dave">phenonaut.predict.default_predictors.pytorch_models.dave</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn">phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn</a>
+</li>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.regressors">phenonaut.predict.default_predictors.regressors</a>
+</li>
         <li><a href="phenonaut.predict.html#module-phenonaut.predict.optuna_functions">phenonaut.predict.optuna_functions</a>
 </li>
         <li><a href="phenonaut.predict.html#module-phenonaut.predict.predict_utils">phenonaut.predict.predict_utils</a>
@@ -582,6 +590,10 @@
         <li><a href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn.MultiRegressorNN">MultiRegressorNN (class in phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -793,8 +805,6 @@
         <li><a href="phenonaut.packaged_datasets.html#module-phenonaut.packaged_datasets.cmap">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     phenonaut.packaged_datasets.iris
 
@@ -823,11 +833,62 @@
         <li><a href="phenonaut.html#module-phenonaut.phenonaut">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     phenonaut.predict
 
       <ul>
         <li><a href="phenonaut.predict.html#module-phenonaut.predict">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.classifiers
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.classifiers">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.multiregressors
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.multiregressors">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.pytorch_models
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.pytorch_models.dave
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.dave">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn">module</a>
+</li>
+      </ul></li>
+      <li>
+    phenonaut.predict.default_predictors.regressors
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.regressors">module</a>
 </li>
       </ul></li>
       <li>
@@ -931,7 +992,13 @@
       <li><a href="phenonaut.data.html#phenonaut.data.platemap_querier.PlatemapQuerier">PlatemapQuerier (class in phenonaut.data.platemap_querier)</a>
 </li>
       <li><a href="phenonaut.html#phenonaut.workflow.predict">predict() (in module phenonaut.workflow)</a>
+
+      <ul>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.dave.DAVE.predict">(phenonaut.predict.default_predictors.pytorch_models.dave.DAVE method)</a>
 </li>
+        <li><a href="phenonaut.predict.default_predictors.pytorch_models.html#phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn.MultiRegressorNN.predict">(phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn.MultiRegressorNN method)</a>
+</li>
+      </ul></li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predict_utils.PredictionType">PredictionType (class in phenonaut.predict.predict_utils)</a>
 </li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.predictor">predictor (phenonaut.predict.predictor_dataclasses.PhenonautPredictor attribute)</a>
@@ -958,18 +1025,24 @@
 </li>
       <li><a href="phenonaut.predict.html#phenonaut.predict.predict_utils.PredictionType.regression">regression (phenonaut.predict.predict_utils.PredictionType attribute)</a>
 </li>
+      <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.remove_blocklist_features">remove_blocklist_features() (phenonaut.data.dataset.Dataset method)</a>
+</li>
+      <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.remove_features_with_outliers">remove_features_with_outliers() (phenonaut.data.dataset.Dataset method)</a>
+</li>
+      <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.remove_low_variance_features">remove_low_variance_features() (phenonaut.data.dataset.Dataset method)</a>
+</li>
       <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.RemoveHighestCorrelatedThenVIF">RemoveHighestCorrelatedThenVIF (class in phenonaut.transforms.preparative)</a>
 </li>
       <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.RemoveHighlyCorrelated">RemoveHighlyCorrelated (class in phenonaut.transforms.preparative)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.rename_column">rename_column() (phenonaut.data.dataset.Dataset method)</a>
 
       <ul>
         <li><a href="phenonaut.html#phenonaut.workflow.Workflow.rename_column">(phenonaut.workflow.Workflow method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.rename_columns">rename_columns() (phenonaut.data.dataset.Dataset method)</a>
 
       <ul>
@@ -978,7 +1051,7 @@
       </ul></li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.replace_str">replace_str() (phenonaut.data.dataset.Dataset method)</a>
 </li>
-      <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.RobustMAD">RobustMAD (class in phenonaut.transforms.generic_transformations)</a>
+      <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.RobustMAD">RobustMAD (class in phenonaut.transforms.preparative)</a>
 </li>
       <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.base.PackagedDataset.root">root (phenonaut.packaged_datasets.base.PackagedDataset property)</a>
 </li>
@@ -1024,7 +1097,7 @@
 </li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.split_column">split_column() (phenonaut.data.dataset.Dataset method)</a>
 </li>
-      <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.StandardScaler">StandardScaler (class in phenonaut.transforms.generic_transformations)</a>
+      <li><a href="phenonaut.transforms.html#phenonaut.transforms.preparative.StandardScaler">StandardScaler (class in phenonaut.transforms.preparative)</a>
 </li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.subtract_mean">subtract_mean() (phenonaut.data.dataset.Dataset method)</a>
 </li>
@@ -1048,22 +1121,18 @@
 </li>
       <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple">TCGA.TCGA_MetadataTuple (class in phenonaut.packaged_datasets.tcga)</a>
 </li>
-      <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.RobustMAD.transform">transform() (phenonaut.transforms.generic_transformations.RobustMAD method)</a>
+      <li><a href="phenonaut.transforms.html#phenonaut.transforms.supervised_transformer.SupervisedTransformer.transform">transform() (phenonaut.transforms.supervised_transformer.SupervisedTransformer method)</a>
 
       <ul>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.generic_transformations.StandardScaler.transform">(phenonaut.transforms.generic_transformations.StandardScaler method)</a>
-</li>
-        <li><a href="phenonaut.transforms.html#phenonaut.transforms.supervised_transformer.SupervisedTransformer.transform">(phenonaut.transforms.supervised_transformer.SupervisedTransformer method)</a>
-</li>
         <li><a href="phenonaut.transforms.html#phenonaut.transforms.transformer.Transformer.transform">(phenonaut.transforms.transformer.Transformer method)</a>
 </li>
       </ul></li>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.TransformationHistory">TransformationHistory (class in phenonaut.data.dataset)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.transforms.html#phenonaut.transforms.transformer.Transformer">Transformer (class in phenonaut.transforms.transformer)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.data.html#phenonaut.data.dataset.Dataset.transpose">transpose() (phenonaut.data.dataset.Dataset method)</a>
 </li>
       <li><a href="phenonaut.packaged_datasets.html#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.treatment_id">treatment_id (phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple attribute)</a>
@@ -1084,18 +1153,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.transforms.html#phenonaut.transforms.dimensionality_reduction.UMAP">UMAP (class in phenonaut.transforms.dimensionality_reduction)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="phenonaut.html#phenonaut.workflow.Workflow.umap">umap() (phenonaut.workflow.Workflow method)</a>
 </li>
-      <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterFloat.upper_bound">upper_bound (phenonaut.predict.predictor_dataclasses.HyperparameterFloat attribute)</a>
-
-      <ul>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterInt.upper_bound">(phenonaut.predict.predictor_dataclasses.HyperparameterInt attribute)</a>
+      <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.upper_bound">upper_bound (phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber attribute)</a>
 </li>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.HyperparameterLog.upper_bound">(phenonaut.predict.predictor_dataclasses.HyperparameterLog attribute)</a>
-</li>
-        <li><a href="phenonaut.predict.html#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.upper_bound">(phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber attribute)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 

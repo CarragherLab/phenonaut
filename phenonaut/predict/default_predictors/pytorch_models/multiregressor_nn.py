@@ -19,6 +19,7 @@ class _MRegressorNN(nn.Module):
             self.layers.append(nn.ReLU())
         self.layers.append(nn.Linear(network_shape[-2], network_shape[-1]))
         self.layers.append(nn.Sigmoid())
+
     def forward(self, x):
         for layer in self.layers[:-1]:
             x = layer(x)
@@ -32,10 +33,9 @@ class MultiRegressorNN:
         learning_rate=1e-3,
         epochs=100,
         num_hidden_layers=1,
-        hidden_layer_sizes:Optional[list[int]]=None,
+        hidden_layer_sizes: Optional[list[int]] = None,
         use_optimizer: str = "ADAM",
         seed: Optional[int] = None,
-
     ):
         if seed is not None:
             torch.manual_seed(seed)
@@ -45,25 +45,41 @@ class MultiRegressorNN:
         self.num_hidden_layers = num_hidden_layers
         self.use_optimizer = use_optimizer
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.hidden_layer_sizes=hidden_layer_sizes
+        self.hidden_layer_sizes = hidden_layer_sizes
         if self.hidden_layer_sizes is None:
             self.network_shape = np.linspace(100, 100, num=self.num_hidden_layers + 2, dtype=int)
         else:
-            self.network_shape = np.array([100,]+self.hidden_layer_sizes+[100])
+            self.network_shape = np.array(
+                [
+                    100,
+                ]
+                + self.hidden_layer_sizes
+                + [100]
+            )
         self.model = _MRegressorNN(self.network_shape).to(self.device)
 
     def fit(self, X, y):
-        if self.network_shape[0]!=X.shape[1] or self.network_shape[-1]!=y.shape[1]:
+        if self.network_shape[0] != X.shape[1] or self.network_shape[-1] != y.shape[1]:
             del self.model
             if self.hidden_layer_sizes is None:
-                self.network_shape = np.linspace(X.shape[1], y.shape[1], num=self.num_hidden_layers + 2, dtype=int)
+                self.network_shape = np.linspace(
+                    X.shape[1], y.shape[1], num=self.num_hidden_layers + 2, dtype=int
+                )
             else:
-                self.network_shape = np.array([X.shape[1],]+self.hidden_layer_sizes+[y.shape[1]])
+                self.network_shape = np.array(
+                    [
+                        X.shape[1],
+                    ]
+                    + self.hidden_layer_sizes
+                    + [y.shape[1]]
+                )
             self.model = _MRegressorNN(self.network_shape).to(self.device)
         y = torch.tensor(y.astype(np.float32))
         X = torch.tensor(X.astype(np.float32))
         train_tensor = torch.utils.data.TensorDataset(X, y)
-        train_loader = torch.utils.data.DataLoader(dataset=train_tensor, batch_size=self.batch_size, shuffle=True)
+        train_loader = torch.utils.data.DataLoader(
+            dataset=train_tensor, batch_size=self.batch_size, shuffle=True
+        )
 
         optimizer = None
         if self.use_optimizer == "ADAM":

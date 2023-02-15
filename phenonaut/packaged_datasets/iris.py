@@ -21,43 +21,44 @@ import datetime
 class Iris(PackagedDataset):
     """IRIS dataset Scikit learn
 
-        This PackagedDataset provides the Iris dataset from scikit-learn, with
-        unique iris entries, each with four features each, and finally a target
-        column denoting class. Further information is available via scikit-lean
-        here:
+    This PackagedDataset provides the Iris dataset from scikit-learn, with
+    unique iris entries, each with four features each, and finally a target
+    column denoting class. Further information is available via scikit-lean
+    here:
 
-        https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html
+    https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html
 
-        or wikipedia:
+    or wikipedia:
 
-        https://en.wikipedia.org/wiki/Iris_flower_data_set
+    https://en.wikipedia.org/wiki/Iris_flower_data_set
 
-        or from:
+    or from:
 
-        https://archive.ics.uci.edu/ml/datasets/Iris
+    https://archive.ics.uci.edu/ml/datasets/Iris
 
-        Parameters
-        ----------
-        root : Union[Path, str]
-            Local directory containing the prepared dataset. If the dataset is
-            not found here and the argument download=True is not given, then an
-            error is raised. If download=True and the processed dataset is
-            absent, then it is downloaded the directory pointed at by the
-            'raw_data' argument detailed below. If raw_data_dir is a
-            non-absolute path, such as a single directory, then it is created as
-            a subdirectory of this root directory.
-        download : bool, optional
-            If true and the processed dataset is not found in the root
-            directory, then the dataset is downloaded and processed.
-            By default False.
-        raw_data_dir : Optional[Union[Path, str]], optional
-            If downloading and preparing the dataset, then a directory for the
-            raw data may be specified. If a non-absolute location is given, then
-            it is created in a subdirectory of the root directory specified as
-            the first argument. Absolute paths may be used to place raw
-            datafiles and intermediates in another location, such as scratch
-            disks etc, by default Path("raw_data").
-        """
+    Parameters
+    ----------
+    root : Union[Path, str]
+        Local directory containing the prepared dataset. If the dataset is
+        not found here and the argument download=True is not given, then an
+        error is raised. If download=True and the processed dataset is
+        absent, then it is downloaded the directory pointed at by the
+        'raw_data' argument detailed below. If raw_data_dir is a
+        non-absolute path, such as a single directory, then it is created as
+        a subdirectory of this root directory.
+    download : bool, optional
+        If true and the processed dataset is not found in the root
+        directory, then the dataset is downloaded and processed.
+        By default False.
+    raw_data_dir : Optional[Union[Path, str]], optional
+        If downloading and preparing the dataset, then a directory for the
+        raw data may be specified. If a non-absolute location is given, then
+        it is created in a subdirectory of the root directory specified as
+        the first argument. Absolute paths may be used to place raw
+        datafiles and intermediates in another location, such as scratch
+        disks etc, by default Path("raw_data").
+    """
+
     def __init__(
         self,
         root: Union[Path, str],

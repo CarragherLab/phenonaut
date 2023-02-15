@@ -229,13 +229,14 @@ def scalar_projection(
         f"Applied ScalarProjection in comparison with median phentype of {output_column_label}",
     )
 
-#corrcoef_features_to_target
+
+# corrcoef_features_to_target
 def feature_correlation_to_target(
     dataset: Union[Dataset, Phenonaut, DataFrame],
     target_feature: str,
-    features: Optional[list[str]]=None,
+    features: Optional[list[str]] = None,
     method: str = "pearson",
-    return_dataframe:bool=True,
+    return_dataframe: bool = True,
 ):
     """
     Calculate correlation coefficients for features to a column
@@ -285,9 +286,9 @@ def feature_correlation_to_target(
     ================= ================================
 
     The optional dictionary, returned by calling the function with the additional return_dataframe parameter set to False:
-    
+
     .. code-block:: python
-        
+
         print(feature_correlation_to_target(phe, 'petal length (cm)'), return_dataframe=False)
 
     has the form:
@@ -336,39 +337,53 @@ def feature_correlation_to_target(
         target_feature not found in the dataset.
     TypeError
         Supplied dataset was not of type Phenonaut, Dataset, or pd.DataFrame
-    """    
+    """
 
     import pandas as pd
+
     # If Phenonaut object supplied, change it to the dataset
     if isinstance(dataset, Phenonaut):
         if len(dataset.datasets) != 1:
             raise ValueError(
                 f"Phenonaut object passed to feature_correlation_to_target but it did not contain 1 dataset, it contained {len(dataset.datasets)}"
             )
-        dataset=dataset[-1]
-    
+        dataset = dataset[-1]
+
     # If Dataset, then make df with just required features
     if isinstance(dataset, Dataset):
         if features is None:
-            features=list(dataset.features)
+            features = list(dataset.features)
         if target_feature in features:
             features.remove(target_feature)
         if target_feature not in dataset.df.columns:
             raise ValueError("Given target_feature was not found in the supplied Dataset")
-        dataset=dataset.df[features+[target_feature]]
+        dataset = dataset.df[features + [target_feature]]
 
     elif isinstance(dataset, DataFrame):
         if features is None:
-            raise ValueError("DataFrame provided to feature_correlation_to_target, but no features_list")
+            raise ValueError(
+                "DataFrame provided to feature_correlation_to_target, but no features_list"
+            )
         if target_feature not in dataset.columns:
             raise ValueError("Given target_feature was not found in the supplied Dataset")
-        dataset=dataset[features+[target_feature]]
+        dataset = dataset[features + [target_feature]]
     else:
-        raise TypeError("dataset argument to feature_correlation_to_target was not of type Phenonaut, Dataset, or DataFrame")
+        raise TypeError(
+            "dataset argument to feature_correlation_to_target was not of type Phenonaut, Dataset, or DataFrame"
+        )
 
-    coefs={column_name:dataset[column_name].corr(dataset[target_feature], method=method) for column_name in features}
+    coefs = {
+        column_name: dataset[column_name].corr(dataset[target_feature], method=method)
+        for column_name in features
+    }
 
     if return_dataframe:
-        return DataFrame.from_dict({'index': coefs.keys(), f'correlation_to_{target_feature}':coefs.values()}).set_index('index').sort_values(by=f'correlation_to_{target_feature}', ascending=False)
+        return (
+            DataFrame.from_dict(
+                {"index": coefs.keys(), f"correlation_to_{target_feature}": coefs.values()}
+            )
+            .set_index("index")
+            .sort_values(by=f"correlation_to_{target_feature}", ascending=False)
+        )
     else:
         return coefs

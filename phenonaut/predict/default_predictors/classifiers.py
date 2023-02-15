@@ -28,14 +28,14 @@ default_classifiers = [
             HyperparameterInt("n_estimators", 50, 200),
             HyperparameterCategorical("max_features", (None, "auto", "log2")),
         ],
-        constructor_kwargs={'n_jobs':-1},
+        constructor_kwargs={"n_jobs": -1},
     ),
     PhenonautPredictor(
         "KNN",
         KNeighborsClassifier,
         HyperparameterInt("n_neighbors", 2, 10),
         max_optuna_trials=9,
-        constructor_kwargs={'n_jobs':-1},
+        constructor_kwargs={"n_jobs": -1},
     ),
     PhenonautPredictor(
         "Linear SVM",
@@ -62,7 +62,7 @@ default_classifiers = [
         GaussianProcessClassifier,
         constructor_kwargs={
             "copy_X_train": False,
-            'n_jobs':-1,
+            "n_jobs": -1,
         },
         embed_in_results=False,
     ),

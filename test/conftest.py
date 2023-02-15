@@ -5,6 +5,30 @@ import phenonaut
 import pytest
 from phenonaut.data import Dataset
 from sklearn.datasets import load_iris
+import pandas as pd
+
+
+@pytest.fixture
+def small_2_plate_df():
+    return pd.DataFrame(
+        {
+            "ROW": [1, 1, 1, 1, 1, 1],
+            "COLUMN": [1, 1, 1, 1, 2, 2],
+            "BARCODE": ["Plate1", "Plate1", "Plate2", "Plate2", "Plate1", "Plate1"],
+            "feat_1": [1.2, 1.3, 5.2, 6.2, 0.1, 0.2],
+            "feat_2": [1.2, 1.4, 5.1, 6.1, 0.2, 0.2],
+            "feat_3": [1.3, 1.5, 5, 6.8, 0.3, 0.38],
+            "filename": [
+                "fileA.png",
+                "FileB.png",
+                "FileC.png",
+                "FileD.png",
+                "fileE.png",
+                "FileF.png",
+            ],
+            "FOV": [1, 2, 1, 2, 1, 2],
+        }
+    )
 
 
 @pytest.fixture

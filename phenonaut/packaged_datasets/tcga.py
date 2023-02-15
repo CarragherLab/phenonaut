@@ -22,7 +22,7 @@ class TCGA(PackagedDataset):
     the TCGA website:
 
     https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga
-    
+
         "The Cancer Genome Atlas (TCGA), a landmark cancer genomics program,
         molecularly characterized over 20,000 primary cancer and matched
         normal samples spanning 33 cancer types. This joint effort between
@@ -36,11 +36,11 @@ class TCGA(PackagedDataset):
         Lee, Changhee, and Mihaela Schaar. "A Variational Information
         Bottleneck Approach to Multi-Omics Data Integration." International
         Conference on Artificial Intelligence and Statistics. PMLR, 2021.
-    
+
     Although we have taken the decision to process the dataset into 10 PCA
     dimensions using linear PCA, although the number of PCA dimensions can
     be changed using the num_pca_dims argument to this constructor.
-    
+
     Additionally no PCA can be applied and custom transformation in the form of a callable used by passing it to custom_transformation_func_and_name_tuple.
 
     Datasets representing clinical_decision, RPPA, miRNA, methylation,
@@ -51,10 +51,10 @@ class TCGA(PackagedDataset):
     the requested number of PCA dimensions.
 
     Steps undertaken in dataset preparation are as follows:
-    
+
     #. Download the dataset. This downloads 186 .tar.gz files totalling ~20 GB. These are then extracted, taking ~32 GB.
     #. Files representing different tumour types for each view are merged, and empty columns removed. These files are then saved as intermediates.
-    
+
     On modest 2020 hardware, processing:
 
     * clinical_decisions takes ~2 secs, generating 2.5 MB intermediate
@@ -274,15 +274,8 @@ class TCGA(PackagedDataset):
         self.__merge_data()
         self.__perform_pca_write_h5()
 
-        # XXX
-        # If requested, remove the raw data, and processing intermediates
-        # if rm_intermediates and (self.tmp_dir).exists():
-        #     shutil.rmtree(self.tmp_dir)
-        # if rm_downloaded_data and self.raw_data_dir.exists():
-        #     shutil.rmtree(self.raw_data_dir)
-
     def __download_TCGA(self):
-        remote_base_url = "http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/"
+        remote_base_url = "https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/"
         filename_suffixes = [
             "Methylation_Preprocess.Level_3.2016012800.0.0.tar.gz",
             "miRseq_Preprocess.Level_3.2016012800.0.0.tar.gz",
@@ -310,10 +303,10 @@ class TCGA(PackagedDataset):
         # them as non-critical allows checking if they are available without raising
         # an exception when they are not downloaded.
         non_critical_urls = [
-            "http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.Methylation_Preprocess.Level_3.2016012800.0.0.tar.gz",
-            "http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.mRNAseq_Preprocess.Level_3.2016012800.0.0.tar.gz",
-            "http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.RPPA_AnnotateWithGene.Level_3.2016012800.0.0.tar.gz",
-            "http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/LAML/20160128/gdac.broadinstitute.org_LAML.RPPA_AnnotateWithGene.Level_3.2016012800.0.0.tar.gz",
+            "https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.Methylation_Preprocess.Level_3.2016012800.0.0.tar.gz",
+            "https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.mRNAseq_Preprocess.Level_3.2016012800.0.0.tar.gz",
+            "https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/FPPP/20160128/gdac.broadinstitute.org_FPPP.RPPA_AnnotateWithGene.Level_3.2016012800.0.0.tar.gz",
+            "https://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/LAML/20160128/gdac.broadinstitute.org_LAML.RPPA_AnnotateWithGene.Level_3.2016012800.0.0.tar.gz",
         ]
         self._batch_download(download_tasks, non_critical_urls=non_critical_urls)
 

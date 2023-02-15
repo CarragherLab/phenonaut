@@ -53,7 +53,7 @@ class Workflow:
 
 
     The equivalent JSON with clearer (for Python programmers) formatting for the above is:
-    
+
     .. code-block:: python
 
         {
@@ -79,8 +79,8 @@ class Workflow:
                 },
             ]
         }
-    
-    
+
+
     The workflow define above in the example YAML and JSON formats, has the
     name "scalar_projection_example", and consists of 3 commands.
 
@@ -154,21 +154,21 @@ class Workflow:
         in different formats. Special keys for the metadata dictionary are
         listed below (See Pandas documentation for read_csv for more in-depth
         information):
-        
+
         sep
             define separator for fields within the file (by default ',')
-        
+
         skiprows
             define a number of rows to skip at the beginning of a file
-        
+
         header_row_number
             may be a single number, or list of numbers denoting header rows.
-        
+
         transpose
             In the case of some transcriptomics raw data,
             transposition is required to have samples row-wise. Therefore the
             table must be transposed.  Set to True to transpose.
-        
+
         index_col
             Column to use as the row labels of the CSV given as either
             the column names or as numerical indexes. Note: index_col=False can
@@ -206,12 +206,16 @@ class Workflow:
             file = arguments["file"]
             metadata = arguments["metadata"]
             if file.endswith(".tsv") or file.endswith(".tsv.gz"):
-                if 'sep' not in metadata:
-                    metadata['sep']="\t"
+                if "sep" not in metadata:
+                    metadata["sep"] = "\t"
             if file.endswith(".h5"):
                 if "key" not in arguments:
-                    raise KeyError("Workflow load called on an h5 file, without supplying a key argument")
-                self.phe.load_dataset("Workflow loaded dataset", file, metadata=metadata, h5_key=arguments['key'])
+                    raise KeyError(
+                        "Workflow load called on an h5 file, without supplying a key argument"
+                    )
+                self.phe.load_dataset(
+                    "Workflow loaded dataset", file, metadata=metadata, h5_key=arguments["key"]
+                )
             self.phe.load_dataset("Workflow loaded dataset", file, metadata=metadata)
             return
         if "dataset" in arguments:
@@ -355,19 +359,19 @@ class Workflow:
         ----------
         arguments : dict
             Dictionary, should contain:
-            
+
             split_by_column: str
                 the column to be split on
 
             output_dir: str
                 the target output directory
-            
+
             file_prefix: str
                 optional prefix for each file.
-            
+
             file suffix: str
                 optional suffix for each file.
-            
+
             file_extension: str
                 optional file extension, by default '.csv'
 
@@ -433,8 +437,10 @@ class Workflow:
         """
         if "output_column_label" not in arguments:
             arguments["output_column_label"] = arguments["target_perturbation_column_value"]
-        phenonaut.metrics.scalar_projection(self.phe[arguments.get("target_dataset", -1)], **arguments)
-        
+        phenonaut.metrics.scalar_projection(
+            self.phe[arguments.get("target_dataset", -1)], **arguments
+        )
+
     def euclidean_distance(self, arguments: dict):
         """Workflow function: Add a column for the euclidean distance to a target perturbation.
 
@@ -458,11 +464,16 @@ class Workflow:
         """
         if "output_column_label" not in arguments:
             arguments["output_column_label"] = arguments["target_perturbation_column_value"]
-        target_perturbation_column_name=arguments['target_perturbation_column_name']
-        target_perturbation_column_value=arguments['target_perturbation_column_value']
-        output_column_label=arguments['output_column_label']
-        ds=self.phe[arguments.get("target_dataset", -1)]
-        ds.df[output_column_label]=phenonaut.metrics.euclidean(ds.data, ds.df.query(f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"))
+        target_perturbation_column_name = arguments["target_perturbation_column_name"]
+        target_perturbation_column_value = arguments["target_perturbation_column_value"]
+        output_column_label = arguments["output_column_label"]
+        ds = self.phe[arguments.get("target_dataset", -1)]
+        ds.df[output_column_label] = phenonaut.metrics.euclidean(
+            ds.data,
+            ds.df.query(
+                f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"
+            ),
+        )
 
     def mahalanobis_distance(self, arguments: dict):
         """Workflow function: Add a column for the Mahalanobis distance to target perturbations.
@@ -487,12 +498,16 @@ class Workflow:
         """
         if "output_column_label" not in arguments:
             arguments["output_column_label"] = arguments["target_perturbation_column_value"]
-        target_perturbation_column_name=arguments['target_perturbation_column_name']
-        target_perturbation_column_value=arguments['target_perturbation_column_value']
-        output_column_label=arguments['output_column_label']
-        ds=self.phe[arguments.get("target_dataset", -1)]
-        ds.df[output_column_label]=phenonaut.metrics.mahalanobis(ds.data, ds.df.query(f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"))
-
+        target_perturbation_column_name = arguments["target_perturbation_column_name"]
+        target_perturbation_column_value = arguments["target_perturbation_column_value"]
+        output_column_label = arguments["output_column_label"]
+        ds = self.phe[arguments.get("target_dataset", -1)]
+        ds.df[output_column_label] = phenonaut.metrics.mahalanobis(
+            ds.data,
+            ds.df.query(
+                f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"
+            ),
+        )
 
     def manhattan_distance(self, arguments: dict):
         """Workflow function: Add a column for the Manhattan distance to target perturbation.
@@ -517,11 +532,16 @@ class Workflow:
         """
         if "output_column_label" not in arguments:
             arguments["output_column_label"] = arguments["target_perturbation_column_value"]
-        target_perturbation_column_name=arguments['target_perturbation_column_name']
-        target_perturbation_column_value=arguments['target_perturbation_column_value']
-        output_column_label=arguments['output_column_label']
-        ds=self.phe[arguments.get("target_dataset", -1)]
-        ds.df[output_column_label]=phenonaut.metrics.manhattan(ds.data, ds.df.query(f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"))
+        target_perturbation_column_name = arguments["target_perturbation_column_name"]
+        target_perturbation_column_value = arguments["target_perturbation_column_value"]
+        output_column_label = arguments["output_column_label"]
+        ds = self.phe[arguments.get("target_dataset", -1)]
+        ds.df[output_column_label] = phenonaut.metrics.manhattan(
+            ds.data,
+            ds.df.query(
+                f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"
+            ),
+        )
 
     def cityblock_distance(self, arguments: dict):
         """Workflow function: Add a column for the cityblock distance to a target perturbation.
@@ -544,11 +564,16 @@ class Workflow:
         """
         if "output_column_label" not in arguments:
             arguments["output_column_label"] = arguments["target_perturbation_column_value"]
-        target_perturbation_column_name=arguments['target_perturbation_column_name']
-        target_perturbation_column_value=arguments['target_perturbation_column_value']
-        output_column_label=arguments['output_column_label']
-        ds=self.phe[arguments.get("target_dataset", -1)]
-        ds.df[output_column_label]=phenonaut.metrics.manhattan(ds.data, ds.df.query(f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"))
+        target_perturbation_column_name = arguments["target_perturbation_column_name"]
+        target_perturbation_column_value = arguments["target_perturbation_column_value"]
+        output_column_label = arguments["output_column_label"]
+        ds = self.phe[arguments.get("target_dataset", -1)]
+        ds.df[output_column_label] = phenonaut.metrics.manhattan(
+            ds.data,
+            ds.df.query(
+                f"{target_perturbation_column_name} == '{target_perturbation_column_value}'"
+            ),
+        )
 
     def rename_column(self, arguments: dict):
         """Workflow function: Rename column
@@ -694,7 +719,7 @@ class Workflow:
         ----------
         arguments : dict
             Dictionary containing the following key:value pairs:
-            
+
             query_column
                 value is the name of the column to perform the query on.
             regex_query
@@ -768,7 +793,7 @@ class Workflow:
         arguments : dict
             Dictionary of arguments to used to direct the PCA process, can
             contain the following keys and values
-            
+
             target_dataset
                 Index or name of dataset which should have the
                 dimensionality reduction applied. If absent, then
@@ -947,8 +972,8 @@ class Workflow:
                 dropped from the data table, as well as being removed from
                 features. If not supplied, then the behaviour is as if False was
                 supplied.
-            
-            
+
+
         """
         from phenonaut.transforms.preparative import VIF
 
@@ -971,7 +996,7 @@ class Workflow:
         Parameters
         ----------
         arguments : dict
-            
+
             target_dataset
                 Index or name of dataset which should have features
                 filtered. If absent, then behaviour is as if -1 is supplied,
@@ -1036,7 +1061,7 @@ class Workflow:
                 removed. Features with VIF scores above 5.0 are considered
                 highly correlated. If not supplied, then behaviour is as if a
                 value of 5.0 was supplied.
-            - drop_columns : 
+            - drop_columns :
                 If drop columns is True, then not only will features
                 be removed from the dataset features list, but the columns for
                 these features will be removed from the dataframe. If absent,
@@ -1059,7 +1084,7 @@ class Workflow:
         Parameters
         ----------
         arguments : dict
-            
+
             target_dataset
                 Index or name of dataset which should have features
                 plotted. If absent, then behaviour is as if -1 is supplied,
@@ -1098,67 +1123,68 @@ class Workflow:
 
 
 def predict(self, arguments: dict):
-        """Workflow function: predict
+    """Workflow function: predict
 
 
-        Profile predictors in their ability to predict a given target.
+    Profile predictors in their ability to predict a given target.
 
-        Phenonaut provides functionality to profile the performance of multiple predictors against
-        multiple views of data. This is exemplified in the TCGA example used in the Phenonaut paper -
-        see Example 1 - TCGA for a full walkthrough of applying this functionality to The Cancer Genome Atlas.
-        With a given ‘target’ for prediction which is in the dataset, predict selects all appropriate predictors
-        (classifiers for classification, regressors for regression and multiregressors for multi regression/view targets).
-        Then, enumerating all views of the data and all predictors, hyperparameter optimisation coupled with 5-fold cross
-        validation using Optuna is employed, before finally testing the best hyperparameter sets with retained test sets.
-        This process is automatic and requires the data, and a prediction target. Output from this process is extensive
-        and it may take a long time to complete, depending on the characteristics of your input data. Writen output from
-        the profiling process consists of performance heatmaps highlighting best view/predictor combinations in bold,
-        boxplots for each view combination and a PPTX presentation file allowing easy sharing of data, along with machine
-        readable CSV and JSON results.
+    Phenonaut provides functionality to profile the performance of multiple predictors against
+    multiple views of data. This is exemplified in the TCGA example used in the Phenonaut paper -
+    see Example 1 - TCGA for a full walkthrough of applying this functionality to The Cancer Genome Atlas.
+    With a given ‘target’ for prediction which is in the dataset, predict selects all appropriate predictors
+    (classifiers for classification, regressors for regression and multiregressors for multi regression/view targets).
+    Then, enumerating all views of the data and all predictors, hyperparameter optimisation coupled with 5-fold cross
+    validation using Optuna is employed, before finally testing the best hyperparameter sets with retained test sets.
+    This process is automatic and requires the data, and a prediction target. Output from this process is extensive
+    and it may take a long time to complete, depending on the characteristics of your input data. Writen output from
+    the profiling process consists of performance heatmaps highlighting best view/predictor combinations in bold,
+    boxplots for each view combination and a PPTX presentation file allowing easy sharing of data, along with machine
+    readable CSV and JSON results.
 
-        For each unique view combination and predictor, perform the following:
+    For each unique view combination and predictor, perform the following:
 
-            - Merge views and remove samples which do not have features across currently needed views.
+        - Merge views and remove samples which do not have features across currently needed views.
 
-            - Shuffle the samples.
+        - Shuffle the samples.
 
-            - Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.
+        - Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.
 
-            - Split the data using 5-fold cross validation into train and validation sets.
+        - Split the data using 5-fold cross validation into train and validation sets.
 
-            - For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.
+        - For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.
 
-        Parameters
-        ----------
-        
-        arguments : dict
-        
-            output_directory
-                Directory into which profiling output (boxplots, heatmaps, CSV, JSON and PPTX should be written).
+    Parameters
+    ----------
 
-            dataset_combinations
-                If multiple datasets are already loaded, then lists of ‘views’ may be specified for exploration. If None, or this argument is absent, then all combinations of available views/Datasets are enumerated and used.
+    arguments : dict
 
-            target
-                The prediction target, denoted by a column name given here which exists in loaded datasets.
+        output_directory
+            Directory into which profiling output (boxplots, heatmaps, CSV, JSON and PPTX should be written).
 
-            n_splits
-                Number of splits to use in the N-fold cross validation, if absent, then the default of 5 is used.
+        dataset_combinations
+            If multiple datasets are already loaded, then lists of ‘views’ may be specified for exploration. If None, or this argument is absent, then all combinations of available views/Datasets are enumerated and used.
 
-            n_optuna_trials
-                Number of Optuna trials for hyperparameter optimisation, by default 20. This drastically impacts runtime, so if things are taking too long, you may wish to lower this number. For a more thorough exploration of hyperparameter space, increase this number.
+        target
+            The prediction target, denoted by a column name given here which exists in loaded datasets.
 
-            optuna_merge_folds
-                By default, each fold has hyperparameters optimised and the trained predictor with parameters reported. If this optuna_merge_folds is true, then each fold is trained on and and hyperparameters optimised across folds (not per-fold). Setting this to False may be useful depending on the intended use of the predictor. It is believed that when False, and parameters are not optimised across folds, then more accurate prediction variance/accuracy estimates are produced. If absent, behaves as if false.
+        n_splits
+            Number of splits to use in the N-fold cross validation, if absent, then the default of 5 is used.
 
-            test_set_fraction
-                When optimising a predictor, by default a fraction of the total data is held back for testing, separate from the train-validation splits. This test_set_fraction controls the size of this split. If absent, then the default value of 0.2 is used.
+        n_optuna_trials
+            Number of Optuna trials for hyperparameter optimisation, by default 20. This drastically impacts runtime, so if things are taking too long, you may wish to lower this number. For a more thorough exploration of hyperparameter space, increase this number.
 
-        """
+        optuna_merge_folds
+            By default, each fold has hyperparameters optimised and the trained predictor with parameters reported. If this optuna_merge_folds is true, then each fold is trained on and and hyperparameters optimised across folds (not per-fold). Setting this to False may be useful depending on the intended use of the predictor. It is believed that when False, and parameters are not optimised across folds, then more accurate prediction variance/accuracy estimates are produced. If absent, behaves as if false.
 
-        if "destination" not in arguments:
-            raise KeyError(
-                "The key 'destination' with a location to write the output PNG must be present within the arguments dictionary"
-            )
-        from phenonaut.predict import profile
-        predict(**arguments)
+        test_set_fraction
+            When optimising a predictor, by default a fraction of the total data is held back for testing, separate from the train-validation splits. This test_set_fraction controls the size of this split. If absent, then the default value of 0.2 is used.
+
+    """
+
+    if "destination" not in arguments:
+        raise KeyError(
+            "The key 'destination' with a location to write the output PNG must be present within the arguments dictionary"
+        )
+    from phenonaut.predict import profile
+
+    predict(**arguments)

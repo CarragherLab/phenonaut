@@ -21,41 +21,41 @@ import datetime
 class BreastCancer(PackagedDataset):
     """Breast Cancer Dataset from scikit-learn
 
-        This PackagedDataset provides the Breast Cancer dataset from
-        scikit-learn. This is also known as the Breast cancer Wisconsin
-        (diagnostic) dataset.
-        See the scikit-learn user guide for more information:
-        https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset
-        Original dataset information available at:
-        https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)
-        
-        Contains 569 unique samples breast cancer fine needle aspirates, each
-        with 30 features, and one target of 0 or 1, denoting benign or
-        malignant respectively.
+    This PackagedDataset provides the Breast Cancer dataset from
+    scikit-learn. This is also known as the Breast cancer Wisconsin
+    (diagnostic) dataset.
+    See the scikit-learn user guide for more information:
+    https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset
+    Original dataset information available at:
+    https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)
 
-        Parameters
-        ----------
-        root : Union[Path, str]
-            Local directory containing the prepared dataset. If the dataset is
-            not found here and the argument download=True is not given, then an
-            error is raised. If download=True and the processed dataset is
-            absent, then it is downloaded the directory pointed at by the
-            'raw_data' argument detailed below. If raw_data_dir is a
-            non-absolute path, such as a single directory,
-            then it is created as a subdirectory of this root directory.
-        download : bool, optional
-            If true and the processed dataset is not found in the root
-            directory, then the dataset is downloaded and processed.
-            By default False.
-        raw_data_dir : Optional[Union[Path, str]], optional
-            If downloading and preparing the dataset, then a directory for the
-            raw data may be specified. If a non-absolute location is given,
-            then it is created in a subdirectory of the root directory
-            specified as the first argument. Absolute paths may be used to
-            place raw datafiles and intermediates in another location, such as
-            scratch disks etc, by default Path("raw_data").
-        """
-        
+    Contains 569 unique samples breast cancer fine needle aspirates, each
+    with 30 features, and one target of 0 or 1, denoting benign or
+    malignant respectively.
+
+    Parameters
+    ----------
+    root : Union[Path, str]
+        Local directory containing the prepared dataset. If the dataset is
+        not found here and the argument download=True is not given, then an
+        error is raised. If download=True and the processed dataset is
+        absent, then it is downloaded the directory pointed at by the
+        'raw_data' argument detailed below. If raw_data_dir is a
+        non-absolute path, such as a single directory,
+        then it is created as a subdirectory of this root directory.
+    download : bool, optional
+        If true and the processed dataset is not found in the root
+        directory, then the dataset is downloaded and processed.
+        By default False.
+    raw_data_dir : Optional[Union[Path, str]], optional
+        If downloading and preparing the dataset, then a directory for the
+        raw data may be specified. If a non-absolute location is given,
+        then it is created in a subdirectory of the root directory
+        specified as the first argument. Absolute paths may be used to
+        place raw datafiles and intermediates in another location, such as
+        scratch disks etc, by default Path("raw_data").
+    """
+
     def __init__(
         self,
         root: Union[Path, str],
@@ -72,7 +72,7 @@ class BreastCancer(PackagedDataset):
         https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset
         Original dataset information available at:
         https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)
-        
+
         Contains 569 unique samples breast cancer fine needle aspirates, each
         with 30 features, and one target of 0 or 1, denoting benign or
         malignant respectively.

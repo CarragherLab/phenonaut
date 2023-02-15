@@ -7,7 +7,12 @@ import json
 import yaml
 
 
-def check_path(p: Union[Path, str], is_dir: bool = False, make_parents: bool = True, make_dir_if_dir: bool = True)->Path:
+def check_path(
+    p: Union[Path, str],
+    is_dir: bool = False,
+    make_parents: bool = True,
+    make_dir_if_dir: bool = True,
+) -> Path:
     """Check a user supplied path (str or Path), ensuring parents exist etc
 
     Parameters
@@ -32,7 +37,7 @@ def check_path(p: Union[Path, str], is_dir: bool = False, make_parents: bool = T
         Parent does not exist, and make_parents was False
     ValueError
         Passed path was not a string or pathlib.Path
-    """    
+    """
     if isinstance(p, str):
         p = Path(p)
     if isinstance(p, Path):
@@ -60,10 +65,12 @@ def check_path(p: Union[Path, str], is_dir: bool = False, make_parents: bool = T
             else:
                 return p
     else:
-        raise ValueError(f"File/directory ({p}) passed as argument was not a string or Path, it was {type(p)}")
+        raise ValueError(
+            f"File/directory ({p}) passed as argument was not a string or Path, it was {type(p)}"
+        )
 
 
-def load_dict(file_path:Union[str, Path, None], cast_none_to_dict=False):
+def load_dict(file_path: Union[str, Path, None], cast_none_to_dict=False):
     if cast_none_to_dict and file_path is None:
         return {}
     if isinstance(file_path, dict):
@@ -71,7 +78,9 @@ def load_dict(file_path:Union[str, Path, None], cast_none_to_dict=False):
     if isinstance(file_path, str):
         file_path = Path(file_path)
     if not isinstance(file_path, (str, Path)):
-        raise TypeError(f"Argument 'file_path' to load_dict function was not None, str, or Path. It was {type(file_path)}")
+        raise TypeError(
+            f"Argument 'file_path' to load_dict function was not None, str, or Path. It was {type(file_path)}"
+        )
     if not file_path.exists():
         raise FileNotFoundError(f"The file '{file_path}' does not exist")
     if file_path.suffix in [".yml", ".yaml"]:

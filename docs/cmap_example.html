@@ -11,10 +11,10 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -25,11 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Phenonaut
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -56,8 +60,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Example 2 - CMAP</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example 2 - CMAP</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/cmap_example.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,7 +72,7 @@
            <div itemprop="articleBody">
              
   <section id="example-2-cmap">
-<h1>Example 2 - CMAP<a class="headerlink" href="#example-2-cmap" title="Permalink to this headline"></a></h1>
+<h1>Example 2 - CMAP<a class="headerlink" href="#example-2-cmap" title="Permalink to this heading"></a></h1>
 <p>The purpose of example 2 in the lower right portion of Figure 1 in the application note manuscript was to exemplify use of the CMAP packaged dataset, along with user supplied and built-in phenotypic metrics. An interactive Jupyter notebook (Jupyter core version 4.9.1) was used to carry out this analysis with version Python 3.9.5, Phenonaut version 1.0.0, Numpy version 1.20.3, Pandas version 1.4.0, scikit-learn version 0.24.2, and PyTorch version 1.10.2 installed. The notebook can be found in the Phenonaut source repository named “example2_CMAP_metric_groups.ipynb”. The notebook was used to evaluate the built in (Euclidean and Manhattan distances) and user defined phenotypic metrics (TCCS[6] and scalar projection[7]). In this notebook, the CMAP packaged dataset loader is used to obtain a copy of the public CMAP dataset, which is then filtered, keeping only CRISPR perturbation repeats on the A549 cell line transfected with the pLX311-Cas9 vector, from here referred to using the internal CMAP nomenclature of the ‘A549.311’ cell line. The phenotypic metrics are then evaluated using Area Under the Receiver Operator Characterstic Curve (AUROC) metric, indicating their ability to group together repeats. Boxplots of the AUROC performance across repeats are then generated to give an overview of metric performance. The jupyter file “example2_CMAP_metric_groups.ipynb” available in the “Supplemental Data from Object Store” section gives the code listing required to explore and generate the boxplot shown within Figure 1 of the manuscript.
 A walkthrough of the notebook follows:</p>
 <p>CRISPR (xpr) repeats present in the CMAP dataset offer the possibility to evaluate phenotypic metrics applied to different representations of the level 5 L1000 profiles within the CMAP dataset.  Here, we evaluate metric-feature space pairs and their ability to correctly rank xpr repeats as highly similar to each other.  Metric and feature space pairs are scored through evaluation of the area under receiver operating characteristic (AUROC), with 0.5 representative of random guessing, 1, perfect performance, and 0 representative of perfectly incorrect ranking being applied to xpr repeats.

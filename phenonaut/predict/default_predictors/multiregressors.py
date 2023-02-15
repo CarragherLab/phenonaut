@@ -16,7 +16,9 @@ from phenonaut.predict.predictor_dataclasses import (
 
 default_multiregressors = [
     PhenonautPredictor("DummyRegressor-Average", (MultiOutputRegressor, DummyRegressor)),
-    PhenonautPredictor("MultiOutputRegressor-LinearRegression", (MultiOutputRegressor, LinearRegression)),
+    PhenonautPredictor(
+        "MultiOutputRegressor-LinearRegression", (MultiOutputRegressor, LinearRegression)
+    ),
     PhenonautPredictor(
         "MultiOutputRegressor-GradientBoosting",
         (MultiOutputRegressor, GradientBoostingRegressor),

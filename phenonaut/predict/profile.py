@@ -64,16 +64,16 @@ def profile(
     are selected. For TCGA, the four omics views allow 15 view combinations
     (4x singular, 6x double, 4x triple and 1x quad). For each unique view
     combination and predictor, perform the following:
-    
+
 
     * Merge views and remove samples which do not have features across currently needed views.
-    
+
     * Shuffle the samples.
-    
+
     * Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.
-    
+
     * Split the data using 5-fold cross validation into train and validation sets.
-    
+
     * For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.
 
 
@@ -147,7 +147,7 @@ def profile(
     save_models : bool, optional
         Save the trained models to pickle files for later use. By default False.
 
-    """    
+    """
     output_directory = check_path(output_directory, is_dir=True)
 
     # Set up optuna_db_path. Dont do any file checks on it - as a sql
@@ -166,7 +166,8 @@ def profile(
     # Turn dataset_combination int tuples into named sets (may happen if user supplied)
     #    ((0,), (0,1))
     dataset_combinations = [
-        [ds if isinstance(ds, str) else phe[ds].name for ds in comb] for comb in dataset_combinations
+        [ds if isinstance(ds, str) else phe[ds].name for ds in comb]
+        for comb in dataset_combinations
     ]
 
     # Set prediction_type - may be supplied as a string, matching one of the defined enum types.
@@ -222,7 +223,10 @@ def profile(
                     and predictor.max_classes < len(np.unique(y))
                 ):
                     continue
-                if predictor.dataset_size_cutoff is not None and predictor.dataset_size_cutoff < len(y):
+                if (
+                    predictor.dataset_size_cutoff is not None
+                    and predictor.dataset_size_cutoff < len(y)
+                ):
                     continue
 
                 # Split out a test set, leaving train and validation in X and y
@@ -231,7 +235,9 @@ def profile(
                 np.random.shuffle(shuffled_indexes)
 
                 if isinstance(X, list):
-                    X_test = [Xv[shuffled_indexes[: int(y.shape[0] * test_set_fraction)]] for Xv in X]
+                    X_test = [
+                        Xv[shuffled_indexes[: int(y.shape[0] * test_set_fraction)]] for Xv in X
+                    ]
                     X = [Xv[shuffled_indexes[int(y.shape[0] * test_set_fraction) :]] for Xv in X]
                 else:
                     X_test = X[shuffled_indexes[: int(y.shape[0] * test_set_fraction)]]
@@ -340,7 +346,9 @@ def profile(
 
         boxplot_best_paths = []
         for dataset in df_best.dataset.unique():
-            boxplot_best_paths.append(output_directory / f"boxplot_{dataset.replace(':', '_')}_best.png")
+            boxplot_best_paths.append(
+                output_directory / f"boxplot_{dataset.replace(':', '_')}_best.png"
+            )
             write_boxplot_to_file(
                 df_best.query(f"dataset == '{dataset}'"),
                 "predictor_name",
@@ -378,8 +386,12 @@ def profile(
         #     best_with_folds_as_scores.append(tmp_dict)
         # df_best = pd.DataFrame(best_with_folds_as_scores)
         # df_best.to_csv(output_directory/"b.csv")
-        best_predictor_dataset_heatmap = get_best_predictor_dataset_df(mean_df, column_containing_values="test_score")
-        best_predictor_std_dataset_heatmap = get_best_predictor_dataset_df(sd_df, column_containing_values="test_score")
+        best_predictor_dataset_heatmap = get_best_predictor_dataset_df(
+            mean_df, column_containing_values="test_score"
+        )
+        best_predictor_std_dataset_heatmap = get_best_predictor_dataset_df(
+            sd_df, column_containing_values="test_score"
+        )
 
         best_predictor_dataset_heatmap = best_predictor_dataset_heatmap.reindex(
             df_best.predictor_name.unique(), axis=1
@@ -404,7 +416,9 @@ def profile(
 
         boxplot_best_paths = []
         for dataset in df_best.dataset.unique():
-            boxplot_best_paths.append(output_directory / f"boxplot_{dataset.replace(':', '_')}_best.png")
+            boxplot_best_paths.append(
+                output_directory / f"boxplot_{dataset.replace(':', '_')}_best.png"
+            )
             write_boxplot_to_file(
                 df_best.query(f"dataset == '{dataset}'"),
                 "predictor_name",
@@ -427,7 +441,9 @@ def profile(
 
         # Sort filenames first by alphabetical, then by length then iterate
         # Unneded: for f in sorted(boxplot_image_filenames, key=lambda x: (len(x.name), x.name)):
-        ppt.add_image_slide("Heatmap", output_directory / "best_predictor_ds_heatmap.png", width=15, height=15)
+        ppt.add_image_slide(
+            "Heatmap", output_directory / "best_predictor_ds_heatmap.png", width=15, height=15
+        )
         for f in boxplot_best_paths:
             ppt.add_image_slide(f"{dfromp(f)}", f)
         ppt.save(output_directory / f"prediction_performance.pptx")

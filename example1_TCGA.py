@@ -7,7 +7,7 @@ from phenonaut import Phenonaut, predict, packaged_datasets
 
 def run_phenonaut_tcga(
     output_path: str,
-    tcga_path: str = "/local_scratch/data/phenonaut_datasets/tcga",
+    tcga_path: str,
     n_optuna_trials: int = 20,
     run_predictors: bool = True,
     optuna_merge_folds: bool = False,
@@ -17,19 +17,23 @@ def run_phenonaut_tcga(
     Parameters
     ----------
     output_path : Union[str, Path]
-        Output directory for the results of phenonaut.predict.profile
-    tcga_path : str, optional
-        The location of the TCGA dataset if already downloaded, otherwise, the destination location, by default "/local_scratch/data/phenonaut_datasets/tcga"
+        Output directory for the results of phenonaut.predict.profile.
+    tcga_path : str
+        The location of the TCGA dataset if already downloaded, otherwise, the destination location.
     n_optuna_trials : int
-        Number of optuna_trials to run for each predictor and each view, by default 20
+        Number of optuna_trials to run for each predictor and each view, by default 20.
     run_predictors : bool, optional
-        If True, then run all predictors, by default True
+        If True, then run all predictors, by default True.
     optuna_merge_folds : bool, optional
         By default, every fold of the train-validation split is optimised by optuna for a predictor&view pair.
         If optuna_merge_folds is true, then the average validation score of each fold is passed as the result
         to optuna, optimising models across all folds. , by default False.
     """
-    phe = Phenonaut(dataset=packaged_datasets.TCGA(root=tcga_path, prediction_target="survives_1_year"))
+    phe = Phenonaut(
+        dataset=packaged_datasets.TCGA(
+            root=tcga_path, prediction_target="survives_1_year", download=True
+        )
+    )
     predict.profile(
         phe,
         output_path,

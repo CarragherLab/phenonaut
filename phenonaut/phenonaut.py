@@ -145,11 +145,19 @@ class Phenonaut:
             # Append to datasets, setting features and name.
             if dataframe_name is None:
                 self.datasets.append(
-                    Dataset(dataset_name="sklearnBunch", input_file_path=df, metadata={"features": dataset.feature_names})
+                    Dataset(
+                        dataset_name="sklearnBunch",
+                        input_file_path=df,
+                        metadata={"features": dataset.feature_names},
+                    )
                 )
             else:
                 self.datasets.append(
-                    Dataset(dataset_name=dataframe_name, input_file_path=df, metadata={"features": dataset.feature_names})
+                    Dataset(
+                        dataset_name=dataframe_name,
+                        input_file_path=df,
+                        metadata={"features": dataset.feature_names},
+                    )
                 )
 
             if name is not None:
@@ -162,7 +170,9 @@ class Phenonaut:
                 dataset = Path(dataset)
             if dataframe_name is None:
                 dataframe_name = str(dataset)
-            dataset = Dataset(dataset_name=dataframe_name, input_file_path=dataset, metadata=metadata, kind=kind)
+            dataset = Dataset(
+                dataset_name=dataframe_name, input_file_path=dataset, metadata=metadata, kind=kind
+            )
 
         # If its a Dataset, or list of datasets, directly add it to self.datasets.
         if isinstance(dataset, (Dataset, pd.DataFrame)):
@@ -202,7 +212,9 @@ class Phenonaut:
                         f"dataset_metadata contained {len(metadata)} metadata dictionaries, but dataset contained {len(dataset)} pd.DataFrames"
                     )
                 for ds_name, df, ds_metadata in zip(dataframe_name, dataset, metadata):
-                    self.datasets.append(Dataset(dataset_name=ds_name, input_file_path=df, metadata=ds_metadata))
+                    self.datasets.append(
+                        Dataset(dataset_name=ds_name, input_file_path=df, metadata=ds_metadata)
+                    )
                 return
 
             if name is not None:
@@ -255,9 +267,7 @@ class Phenonaut:
         """
         if isinstance(dataset, str):
             if dataset not in self.keys():
-                raise KeyError(
-                    f"'{dataset}' not found as a name in datasets ({self.keys()})"
-                )
+                raise KeyError(f"'{dataset}' not found as a name in datasets ({self.keys()})")
             return self.datasets[self.keys().index(dataset)]
         elif isinstance(dataset, int):
             return self.datasets[dataset]
@@ -279,12 +289,12 @@ class Phenonaut:
             New Dataset to be stored in Phenonaut object
         """
         if isinstance(name, int):
-            self.datasets[name]=dataset
+            self.datasets[name] = dataset
         else:
             dataset.name = name
             if name in self.keys():
-                name=self.get_dataset_index_from_name(name)
-                self.datasets[name]=dataset
+                name = self.get_dataset_index_from_name(name)
+                self.datasets[name] = dataset
             else:
                 self.datasets.append(dataset)
 
@@ -312,9 +322,7 @@ class Phenonaut:
         """
         if isinstance(key, str):
             if key not in self.keys():
-                raise KeyError(
-                    f"'{key}' not found as a name in datasets ({self.keys()})"
-                )
+                raise KeyError(f"'{key}' not found as a name in datasets ({self.keys()})")
             del self.datasets[self.keys().index(key)]
             return
         elif isinstance(key, int):
@@ -427,7 +435,7 @@ class Phenonaut:
         input_file_path: Union[Path, str],
         metadata: dict = None,
         h5_key: Optional[str] = None,
-        features:Optional[list[str]]=None,
+        features: Optional[list[str]] = None,
     ):
         """Load a dataset from a CSV, optionally suppying metadata and a name
 
@@ -450,11 +458,18 @@ class Phenonaut:
         """
         if dataset_name is None and metadata is not None:
             dataset_name = metadata.pop("dataset_name", f"Dataset {len(self.datasets)+1}")
-        if features !=None:
-            metadata['features']=features
-        self.datasets.append(Dataset(dataset_name=dataset_name, input_file_path=input_file_path, metadata=metadata))
+        if features != None:
+            metadata["features"] = features
+        self.datasets.append(
+            Dataset(dataset_name=dataset_name, input_file_path=input_file_path, metadata=metadata)
+        )
 
-    def combine_datasets(self, dataset_ids_to_combine:Optional[Union[list[str], list[int]]]=None, new_name:Optional[str]=None, features: list = None):
+    def combine_datasets(
+        self,
+        dataset_ids_to_combine: Optional[Union[list[str], list[int]]] = None,
+        new_name: Optional[str] = None,
+        features: list = None,
+    ):
         """Combine multiple datasets into a single dataset
 
         Often, large datasets are split across multiple CSV files. For example,
@@ -486,8 +501,8 @@ class Phenonaut:
         if dataset_ids_to_combine == []:
             raise ValueError("Empty list supplied as indexes of datasets to combine")
         if dataset_ids_to_combine is None:
-            dataset_ids_to_combine=[idx for idx in range(len(self.datasets))]
-        
+            dataset_ids_to_combine = [idx for idx in range(len(self.datasets))]
+
         dataframes_to_combine = [self[i].df for i in dataset_ids_to_combine]
         datasets_to_combine = [self[i] for i in dataset_ids_to_combine]
         new_metadata = {}
@@ -505,9 +520,7 @@ class Phenonaut:
                     )
         if new_name is None:
             new_name = f"Combined_dataset from datasets[{dataset_ids_to_combine}]"
-        self.datasets.append(
-            Dataset(dataset_name=new_name,input_file_path=None, metadata=None)
-        )
+        self.datasets.append(Dataset(dataset_name=new_name, input_file_path=None, metadata=None))
         self.datasets[-1].df = new_df
         self.datasets[-1]._metadata = new_metadata
         self.datasets[-1].features = (
@@ -791,7 +804,6 @@ class Phenonaut:
             for c in itertools_combinations(ds_names, i)
         )
 
-
     def aggregate_dataset(
         self,
         composite_identifier_columns: list[str],
@@ -882,16 +894,13 @@ class Phenonaut:
             By default "mean".
 
         """
-        
+
         if isinstance(datasets, (int, str)):
             datasets = [datasets]
-        datasets=list(datasets) # In case generator is consumed by new_names_or_prefix below.
+        datasets = list(datasets)  # In case generator is consumed by new_names_or_prefix below.
 
         if isinstance(new_names_or_prefix, str):
-            new_names_or_prefix = [
-                f"{new_names_or_prefix}{self[idx].name}"
-                for idx in datasets
-            ]
+            new_names_or_prefix = [f"{new_names_or_prefix}{self[idx].name}" for idx in datasets]
 
         if len(new_names_or_prefix) != len(datasets):
             raise ValueError(
@@ -954,8 +963,8 @@ class Phenonaut:
             Datasets contain common feature columns, cannot merge.
         ValueError
             No common columns found to perform merge.
-            
-        """        
+
+        """
         if ids is None:
             ids = self.get_dataset_index_from_name(self.keys())
             if len(ids) != 2:
@@ -967,7 +976,9 @@ class Phenonaut:
                 f"merge_datasets merges 2 Datasets at a time. The ids argument contained {len(ids)} dataset indexes"
             )
         if any(f1 in self[ids[1]].features for f1 in self[ids[0]].features):
-            raise ValueError(f"Datasets shared common features, cannot merge, common features were {set(self[ids[0]].features).intersection(set(self[ids[1]].features))}")
+            raise ValueError(
+                f"Datasets shared common features, cannot merge, common features were {set(self[ids[0]].features).intersection(set(self[ids[1]].features))}"
+            )
         if common_merge_columns is None:
             common_merge_columns = list(
                 set.intersection(*map(set, [self[id].df.columns.tolist() for id in ids]))
@@ -976,9 +987,15 @@ class Phenonaut:
             raise ValueError("No common columns found in dataframes to perform merge")
         new_df = pd.merge(self[ids[0]].df, self[ids[1]].df, on=common_merge_columns)
         # Uniquify features, preserving order
-        merged_features=self[ids[0]].features+self[ids[1]].features
+        merged_features = self[ids[0]].features + self[ids[1]].features
 
-        self.datasets.append(Dataset(dataset_name=new_dataset_name,input_file_path=new_df, metadata={'features':merged_features}))
+        self.datasets.append(
+            Dataset(
+                dataset_name=new_dataset_name,
+                input_file_path=new_df,
+                metadata={"features": merged_features},
+            )
+        )
 
     def save(self, output_filename: Union[str, Path], overwrite_existing: bool = False) -> None:
         """Save Phenonaut object and contained Data to a pickle

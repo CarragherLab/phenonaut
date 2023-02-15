@@ -20,9 +20,7 @@ class SupervisedTransformer:
     is_callable = False
     callable_args = {}
 
-    def __init__(
-        self, method, new_feature_names=None, callable_args: dict = {}, **kwargs
-    ):
+    def __init__(self, method, new_feature_names=None, callable_args: dict = {}, **kwargs):
 
         # Here we need to handle a method being put in, a class, and a class instance.
 
@@ -86,17 +84,15 @@ class SupervisedTransformer:
                 self._fit_df(data, y_or_ycolumnlabel)
         else:
             if not isinstance(data, Dataset):
-                raise TypeError(f"fit requires a pd.DataFrame, or a Dataset class, received {type(data)}")
-            if fit_perturbation_ids is None:
-                fit_perturbation_ids = list(
-                    data.get_unique_perturbations()
+                raise TypeError(
+                    f"fit requires a pd.DataFrame, or a Dataset class, received {type(data)}"
                 )
+            if fit_perturbation_ids is None:
+                fit_perturbation_ids = list(data.get_unique_perturbations())
             if isinstance(y_or_ycolumnlabel, str):
                 self._fit_df(
                     data.df.loc[
-                        data.df.query(
-                            f"{data.perturbation_column} == @fit_perturbation_ids"
-                        ).index,
+                        data.df.query(f"{data.perturbation_column} == @fit_perturbation_ids").index,
                         data.features,
                     ],
                     data.df.loc[y_or_ycolumnlabel],
@@ -104,9 +100,7 @@ class SupervisedTransformer:
             else:
                 self._fit_df(
                     data.df.loc[
-                        data.df.query(
-                            f"{data.perturbation_column} == @fit_perturbation_ids"
-                        ).index,
+                        data.df.query(f"{data.perturbation_column} == @fit_perturbation_ids").index,
                         data.features,
                     ],
                     y_or_ycolumnlabel,
@@ -125,7 +119,9 @@ class SupervisedTransformer:
             transformed_data = self.transform_df(data.df)
         else:
             if not isinstance(data, Dataset):
-                raise TypeError(f"transform requires a pd.DataFrame, or a Dataset class, received {type(data)}")
+                raise TypeError(
+                    f"transform requires a pd.DataFrame, or a Dataset class, received {type(data)}"
+                )
         transformed_data = self._transform_df(data.df.loc[:, data.features])
 
         # Now we assign features/column names with the following descending priority:
@@ -136,8 +132,7 @@ class SupervisedTransformer:
             new_feature_names = self.new_feature_names
         if new_feature_names is None:
             new_feature_names = [
-                f"{self.method.__name__}-{n+1}"
-                for n in range(transformed_data.shape[1])
+                f"{self.method.__name__}-{n+1}" for n in range(transformed_data.shape[1])
             ]
         data.df[new_feature_names] = transformed_data
         data.features = (new_feature_names, f"{self.method}")
@@ -168,7 +163,9 @@ class SupervisedTransformer:
             transformed_data = self._fit_transform_df(data.df)
         else:
             if not isinstance(data, Dataset):
-                raise TypeError(f"fit_transform requires a pd.DataFrame, or a Dataset class, received {type(data)}")
+                raise TypeError(
+                    f"fit_transform requires a pd.DataFrame, or a Dataset class, received {type(data)}"
+                )
         transformed_data = self._fit_transform_df(data.df.loc[:, data.features])
 
         # Now we assign features/column names with the following descending priority:
@@ -179,8 +176,7 @@ class SupervisedTransformer:
             new_feature_names = self.new_feature_names
         if new_feature_names is None:
             new_feature_names = [
-                f"{self.method.__name__}-{n+1}"
-                for n in range(transformed_data.shape[1])
+                f"{self.method.__name__}-{n+1}" for n in range(transformed_data.shape[1])
             ]
         data.df[new_feature_names] = transformed_data
         data.features = (new_feature_names, f"{self.method}")

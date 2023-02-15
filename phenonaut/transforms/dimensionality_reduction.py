@@ -29,6 +29,10 @@ class PCA(Transformer):
         pca=PCA()
         pca(dataset)
 
+    PCA transformer is rather verbose, copying a lot of functionality supplied by
+    its parent class simply becuase explaining feature variance is often important
+    along with generating skree plots etc.
+
     Parameters
     ----------
     dataset : Dataset
@@ -41,12 +45,12 @@ class PCA(Transformer):
         Number of dimensions to embed the data into, by default 2
     """
 
-    def __init__(self, new_feature_names="PC", ndims:int=2):
+    def __init__(self, new_feature_names="PC", ndims: int = 2):
         super().__init__(
             Sklearn_PCA,
             new_feature_names=new_feature_names,
             transformer_name="SciKitPCA",
-            constructor_kwargs={'n_components':ndims}
+            constructor_kwargs={"n_components": ndims},
         )
         self.ndims = ndims
 
@@ -54,13 +58,12 @@ class PCA(Transformer):
         self,
         dataset: Union[Dataset, Phenonaut],
         ndims: int = 2,
-        new_feature_names:Union[list[str], str]="PC",
-        group_by: Optional[Union[str, list[str]]] = None,
+        new_feature_names: Union[list[str], str] = "PC",
+        groupby: Optional[Union[str, list[str]]] = None,
         center_on_perturbation_id: Optional[str] = None,
-        centering_function:Callable=np.median,
-
+        centering_function: Callable = np.median,
         fit_perturbation_ids: Optional[Union[str, list]] = None,
-        fit_query:Optional[str]=None,
+        fit_query: Optional[str] = None,
         explain_variance_in_features: bool = False,
     ):
         """Principal Component Analysis (PCA) dimensionality reduction
@@ -76,11 +79,11 @@ class PCA(Transformer):
             List of strings containing the names for the new features. Can also
             be just a single string, which then has numerical suffixes attached
             enumerating the number of new features generated. By default "PC"
-        group_by : Optional[Union[str, list[str]]], optional
+        groupby : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
-            basis. This group_by argument allows definition of a string which
+            basis. This groupby argument allows definition of a string which
             is used to identify columns with which unique values define a group
-            or plate. It works with the pandas group_by function and accepts
+            or plate. It works with the pandas groupby function and accepts
             a list of strings if multiple columns must be used to define groups.
             By default None.
         center_on_perturbation_id : Optional[str], optional
@@ -104,17 +107,17 @@ class PCA(Transformer):
             dimension is included in the new PCA descriptor feature name.
             Overrides new_feature_names. By default False.
         """
-        if self.ndims!=ndims:
+        if self.ndims != ndims:
             super().__init__(
                 Sklearn_PCA,
                 new_feature_names=new_feature_names,
                 transformer_name="SciKitPCA",
-                constructor_kwargs={'n_components':ndims},
+                constructor_kwargs={"n_components": ndims},
             )
             self.ndims = ndims
         self.fit_transform(
             dataset,
-            group_by=group_by,
+            groupby=groupby,
             fit_perturbation_ids=fit_perturbation_ids,
             fit_query=fit_query,
             new_feature_names=new_feature_names,
@@ -124,22 +127,22 @@ class PCA(Transformer):
         )
         if explain_variance_in_features:
             if isinstance(self._method, list):
-                print("Warning, adding variance explained by features, however, group_by was used. Explaining variance using the first fitted PCA")
-                pca_variance_ratio=self._method[0].explained_variance_ratio_
+                print(
+                    "Warning, adding variance explained by features, however, groupby was used. Explaining variance using the first fitted PCA"
+                )
+                pca_variance_ratio = self._method[0].explained_variance_ratio_
             else:
-                pca_variance_ratio=self._method.explained_variance_ratio_
+                pca_variance_ratio = self._method.explained_variance_ratio_
 
-            explained_var_features=[
-                    f"PC{x+1} ({expvariance*100:.2f} % explained variance)"
-                    for x, expvariance in zip(
-                        range(self.ndims), pca_variance_ratio
-                    )
-                ]
+            explained_var_features = [
+                f"PC{x+1} ({expvariance*100:.2f} % explained variance)"
+                for x, expvariance in zip(range(self.ndims), pca_variance_ratio)
+            ]
 
-            column_rename_dict = {k:v for k,v in zip(dataset.features,explained_var_features)}
+            column_rename_dict = {k: v for k, v in zip(dataset.features, explained_var_features)}
             dataset.df.rename(columns=column_rename_dict, inplace=True)
-            dataset.features=explained_var_features, "Added explained variance to features"
-            
+            dataset.features = explained_var_features, "Added explained variance to features"
+
     def save_scree_plot(
         self, output_filename: Optional[Union[str, Path]] = None, title="Scree plot"
     ):
@@ -161,9 +164,9 @@ class PCA(Transformer):
         if self._method is None:
             raise DataError("Cant make scree plot, nothing fitted")
         if isinstance(self._method, list):
-            pca_object=self._method[-1]
+            pca_object = self._method[-1]
         else:
-            pca_object=self._method
+            pca_object = self._method
         fig, ax = plt.subplots(1)
         ax.plot(
             range(1, pca_object.explained_variance_ratio_.shape[0] + 1),
@@ -195,7 +198,6 @@ class PCA(Transformer):
             plt.savefig(output_filename)
 
 
-
 class TSNE(Transformer):
     """t-SNE dimensionality reduction
 
@@ -218,20 +220,20 @@ class TSNE(Transformer):
         Number of dimensions to embed the data into, by default 2
     """
 
-    def __init__(self, new_feature_names="TSNE", ndims:int=2):
-        
-        constructor_kwargs={'n_components':ndims}
-        
+    def __init__(self, constructor_kwargs={}, new_feature_names="TSNE", ndims: int = 2):
+
+        constructor_kwargs["n_components"] = ndims
+
         if ndims > 3:
-            constructor_kwargs['method'] = "exact"
+            constructor_kwargs["method"] = "exact"
         else:
-            constructor_kwargs['method'] = "barnes_hut"
-        
+            constructor_kwargs["method"] = "barnes_hut"
+
         super().__init__(
             Sklearn_TSNE,
             new_feature_names=new_feature_names,
             transformer_name="t-SNE",
-            constructor_kwargs=constructor_kwargs
+            constructor_kwargs=constructor_kwargs,
         )
         self.ndims = ndims
 
@@ -239,10 +241,10 @@ class TSNE(Transformer):
         self,
         dataset: Union[Dataset, Phenonaut],
         ndims: int = 2,
-        new_feature_names:Union[list[str], str]="tSNE",
-        group_by: Optional[Union[str, list[str]]] = None,
+        new_feature_names: Union[list[str], str] = "tSNE",
+        groupby: Optional[Union[str, list[str]]] = None,
         center_on_perturbation_id: Optional[str] = None,
-        centering_function:Callable=np.median,
+        centering_function: Callable = np.median,
     ):
         """t-SNE dimensionality reduction
 
@@ -264,11 +266,11 @@ class TSNE(Transformer):
             List of strings containing the names for the new features. Can also
             be just a single string, which then has numerical suffixes attached
             enumerating the number of new features generated. By default "tSNE"
-        group_by : Optional[Union[str, list[str]]], optional
+        groupby : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
-            basis. This group_by argument allows definition of a string which
+            basis. This groupby argument allows definition of a string which
             is used to identify columns with which unique values define a group
-            or plate. It works with the pandas group_by function and accepts
+            or plate. It works with the pandas groupby function and accepts
             a list of strings if multiple columns must be used to define groups.
             By default None.
         center_on_perturbation_id : Optional[str], optional
@@ -281,29 +283,28 @@ class TSNE(Transformer):
             of perturbations. This behavior can be overridden by supplying a
             different function here. By default np.median.
         """
-        if self.ndims!=ndims:
-            constructor_kwargs={'n_components':ndims}
+        if self.ndims != ndims:
+            constructor_kwargs = {"n_components": ndims}
             if ndims > 3:
-                constructor_kwargs['method'] = "exact"
+                constructor_kwargs["method"] = "exact"
             else:
-                constructor_kwargs['method'] = "barnes_hut"
+                constructor_kwargs["method"] = "barnes_hut"
             super().__init__(
                 TSNE,
                 new_feature_names=new_feature_names,
                 transformer_name="t-SNE",
-                constructor_kwargs=constructor_kwargs
+                constructor_kwargs=constructor_kwargs,
             )
-            self.ndims=ndims
+            self.ndims = ndims
 
         self.fit_transform(
             dataset,
-            group_by=group_by,
+            groupby=groupby,
             new_feature_names=new_feature_names,
             method_name="t-SNE",
             center_on_perturbation_id=center_on_perturbation_id,
             centering_function=centering_function,
         )
-
 
 
 class UMAP(Transformer):
@@ -328,12 +329,12 @@ class UMAP(Transformer):
         Number of dimensions to embed the data into, by default 2
     """
 
-    def __init__(self, new_feature_names="UMAP", ndims:int=2):
+    def __init__(self, new_feature_names="UMAP", ndims: int = 2):
         super().__init__(
             umap.UMAP,
             new_feature_names=new_feature_names,
             transformer_name="UMAP",
-            constructor_kwargs={'n_components':ndims}
+            constructor_kwargs={"n_components": ndims},
         )
         self.ndims = ndims
 
@@ -341,10 +342,10 @@ class UMAP(Transformer):
         self,
         dataset: Union[Dataset, Phenonaut],
         ndims: int = 2,
-        new_feature_names:Union[list[str], str]="UMAP",
-        group_by: Optional[Union[str, list[str]]] = None,
+        new_feature_names: Union[list[str], str] = "UMAP",
+        groupby: Optional[Union[str, list[str]]] = None,
         center_on_perturbation_id: Optional[str] = None,
-        centering_function:Callable=np.median,
+        centering_function: Callable = np.median,
     ):
         """UMAP dimensionality reduction
 
@@ -366,11 +367,11 @@ class UMAP(Transformer):
             List of strings containing the names for the new features. Can also
             be just a single string, which then has numerical suffixes attached
             enumerating the number of new features generated. By default "UMAP"
-        group_by : Optional[Union[str, list[str]]], optional
+        groupby : Optional[Union[str, list[str]]], optional
             Often we would like to apply transformations on a plate-by-plate
-            basis. This group_by argument allows definition of a string which
+            basis. This groupby argument allows definition of a string which
             is used to identify columns with which unique values define a group
-            or plate. It works with the pandas group_by function and accepts
+            or plate. It works with the pandas groupby function and accepts
             a list of strings if multiple columns must be used to define groups.
             By default None.
         center_on_perturbation_id : Optional[str], optional
@@ -383,18 +384,18 @@ class UMAP(Transformer):
             of perturbations. This behavior can be overridden by supplying a
             different function here. By default np.median.
         """
-        if self.ndims!=ndims:
+        if self.ndims != ndims:
             super().__init__(
                 umap.UMAP,
                 new_feature_names=new_feature_names,
                 transformer_name="UMAP",
-                constructor_kwargs={'n_components':ndims}
+                constructor_kwargs={"n_components": ndims},
             )
-            self.ndims=ndims
+            self.ndims = ndims
 
         self.fit_transform(
             dataset,
-            group_by=group_by,
+            groupby=groupby,
             new_feature_names=new_feature_names,
             method_name="UMAP",
             center_on_perturbation_id=center_on_perturbation_id,
@@ -405,33 +406,34 @@ class UMAP(Transformer):
 class LDA:
     """LDA dimensionality reduction
 
-        Once instantiated, can be called like:
+    Once instantiated, can be called like:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            lda=LDA()
-            lda(dataset)
+        lda=LDA()
+        lda(dataset)
 
 
-        Parameters
-        ----------
-        dataset : Union[Dataset, Phenonaut]
-            The Phenonaut dataset or Phenonaut object containing one dataset
-            on which to apply the transformation.
-        ndims : int, optional
-            Number of dimensions to embed the data into, by default 2
-        center_on_perturbation_id : Optional[str], optional
-            Optionally, recentre the embedding space on a named perturbation. Should have
-            pertubation_column set within the dataset for this option, by
-            default None.
-        center_by_median : bool, optional
-            By default, any dataset centering will be performed on the median
-            of controls or perturbations. If this argument is False, then
-            centering is performed on the mean, by default True.
-        predict_proba : bool
-            If True, then probabilities of each datapoint belonging to every
-            other class is calculated and used in place of output features.
-        """
+    Parameters
+    ----------
+    dataset : Union[Dataset, Phenonaut]
+        The Phenonaut dataset or Phenonaut object containing one dataset
+        on which to apply the transformation.
+    ndims : int, optional
+        Number of dimensions to embed the data into, by default 2
+    center_on_perturbation_id : Optional[str], optional
+        Optionally, recentre the embedding space on a named perturbation. Should have
+        pertubation_column set within the dataset for this option, by
+        default None.
+    center_by_median : bool, optional
+        By default, any dataset centering will be performed on the median
+        of controls or perturbations. If this argument is False, then
+        centering is performed on the mean, by default True.
+    predict_proba : bool
+        If True, then probabilities of each datapoint belonging to every
+        other class is calculated and used in place of output features.
+    """
+
     def __init__(self):
         self.ndims = 2
         self.lda = None
@@ -442,7 +444,7 @@ class LDA:
         ndims=2,
         center_on_perturbation_id=None,
         center_by_median: bool = True,
-        predict_proba:bool=False,
+        predict_proba: bool = False,
     ):
         """LDA dimensionality reduction
 
