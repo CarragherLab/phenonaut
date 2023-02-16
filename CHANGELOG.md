@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file under headings Added, Changed, and Fixed
 
+## [1.2.1] - 2023-02-16
+
+### Fixed
+- fixed missing install requirements (torch, torchvision, torchaudio)
+
+
 ## [1.2.0] - 2023-02-15
 
 ### Added
