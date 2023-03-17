@@ -21,7 +21,14 @@ Datasets are read into the dataset class, aided by a yaml file describing the un
 2) perturbation_column, optional column which gives a unique ID to the treatment performed on the well/vial/data.
 3) Metadata, optional dictionary containing metadata for the dataset.
 
-Example usage in Python programs, and in workflow/scripted modes coming soon.
+## Documentation
+
+[Start here](https://carragherlab.github.io/phenonaut/)
+- [User guide](https://carragherlab.github.io/phenonaut/userguide.html)
+- [API documentation](https://carragherlab.github.io/phenonaut/phenonaut.html)
+- [Publication examples](https://carragherlab.github.io/phenonaut/publication_examples.html)
+- [Workflow mode](https://carragherlab.github.io/phenonaut/workflow_guide.html)
+
 
 
 Copyright © The University of Edinburgh, 2023.

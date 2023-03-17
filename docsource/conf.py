@@ -22,7 +22,7 @@ copyright = '2023, Steven Shave'
 author = 'Steven Shave'
 
 # The full version, including alpha/beta/rc tags
-release = '1.2.1'
+release = '1.2.8'
 
 
 # -- General configuration ---------------------------------------------------
