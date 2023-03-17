@@ -20,10 +20,26 @@ phenonaut.metrics.measures module
    :undoc-members:
    :show-inheritance:
 
+phenonaut.metrics.non\_ds\_phenotypic\_metrics module
+-----------------------------------------------------
+
+.. automodule:: phenonaut.metrics.non_ds_phenotypic_metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 phenonaut.metrics.performance module
 ------------------------------------
 
 .. automodule:: phenonaut.metrics.performance
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenonaut.metrics.utils module
+------------------------------
+
+.. automodule:: phenonaut.metrics.utils
    :members:
    :undoc-members:
    :show-inheritance:

@@ -55,6 +55,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.cmap">phenonaut.packaged_datasets.cmap module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.iris">phenonaut.packaged_datasets.iris module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.lincs">phenonaut.packaged_datasets.lincs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.metadata_moa">phenonaut.packaged_datasets.metadata_moa module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.tcga">phenonaut.packaged_datasets.tcga module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets">Module contents</a></li>
 </ul>
@@ -839,6 +840,160 @@ etc, by default Path(“raw_data”).</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_ds">
 <span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.metadata_moa">
+<span id="phenonaut-packaged-datasets-metadata-moa-module"></span><h2>phenonaut.packaged_datasets.metadata_moa module<a class="headerlink" href="#module-phenonaut.packaged_datasets.metadata_moa" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.metadata_moa.</span></span><span class="sig-name descname"><span class="pre">MetadataBROADLincsCellPaintingMOAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>DataFrame supplier for BROAD Lincs Cell Painting assigned MOAs</p>
+<p>This PackagedDataset provides access to a pd.DataFrame containing information
+on the BROAD institutes LINCS Cell Paiting compound MOA assignment.</p>
+<p>This data is located in the broadinstitute/lincs-cell-painting GitHub repository
+under metadata/moa/repurposing_simple.tsv.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/broadinstitute/lincs-cell-painting/master/metadata/moa/repurposing_simple.tsv">https://raw.githubusercontent.com/broadinstitute/lincs-cell-painting/master/metadata/moa/repurposing_simple.tsv</a></p>
+<p>Commentary on creation of this resource which may be useful is also available
+here:
+<a class="reference external" href="https://github.com/broadinstitute/lincs-cell-painting/issues/5">https://github.com/broadinstitute/lincs-cell-painting/issues/5</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given, then
+it is created in a subdirectory of the root directory specified as
+the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_df" title="Permalink to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_ds" title="Permalink to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.metadata_moa.</span></span><span class="sig-name descname"><span class="pre">MetadataJUMPMOACompounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>DataFrame supplier for JUMP consortium MOA compound set</p>
+<p>This PackagedDataset provides access to a pd.DataFrame containing information
+on the JUMP MOA compound selection. Further information is available here:</p>
+<p><a class="reference external" href="https://github.com/jump-cellpainting/JUMP-MOA">https://github.com/jump-cellpainting/JUMP-MOA</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given, then
+it is created in a subdirectory of the root directory specified as
+the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_df" title="Permalink to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_ds" title="Permalink to this definition"></a></dt>
 <dd><p>Get supporting dataframe</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

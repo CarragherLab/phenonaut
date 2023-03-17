@@ -6,3 +6,5 @@ from .cmap import CMAP, CMAP_Level4
 from .iris import Iris
 from .iris import Iris_2_views
 from .breast_cancer import BreastCancer
+
+from .metadata_moa import MetadataJUMPMOACompounds, MetadataBROADLincsCellPaintingMOAs

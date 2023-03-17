@@ -209,12 +209,14 @@ def test_phe_getitem_setitem_delitem(dataset_iris):
     assert phe.datasets[0].name == "test_ds"
 
 
-def test_phe_save_and_load(dataset_iris):
+def test_phe_save_load_and_revert(dataset_iris):
     tmp_file = tempfile.NamedTemporaryFile(delete=True)
     try:
         phe = Phenonaut(dataset_iris)
         phe.save(tmp_file.name)
         phe_loaded = Phenonaut.load(tmp_file.name)
+        assert len(phe_loaded.datasets) == 1
+        phe.revert()
         assert len(phe_loaded.datasets) == 1
     finally:
         tmp_file.close()

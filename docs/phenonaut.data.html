@@ -334,6 +334,39 @@ contain a feature. By default None.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.drop_nans_with_cutoff">
+<span class="sig-name descname"><span class="pre">drop_nans_with_cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.drop_nans_with_cutoff" title="Permalink to this definition"></a></dt>
+<dd><p>Drop rows or columns containing NaN or Inf values above a specified cutoff percentage.</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>axis: Optional[int], default=None</dt><dd><p>Axis along which to drop NaN or Inf values. If None, both rows and columns are dropped.</p>
+</dd>
+<dt>nan_cutoff: float, default=0.1</dt><dd><p>Cutoff percentage for NaN or Inf values. Rows or columns with NaN or Inf percentages greater than this
+value will be dropped.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.drop_rows">
+<span class="sig-name descname"><span class="pre">drop_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Index</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.drop_rows" title="Permalink to this definition"></a></dt>
+<dd><p>Drop rows inplace given a set of indices.</p>
+<p>Intelligently drop rows from the dataset (inplace). Updating of
+rows will not cause hash update as features are unchanged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>row_indices</strong> (<em>pd.Index</em>) – List of row indexes which should be removed. Can also be an int
+to remove just one row.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – Error raised if the index is missing from dataframe index:</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.features">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">features</span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.features" title="Permalink to this definition"></a></dt>
@@ -404,6 +437,29 @@ which return True.</p>
 are kept. If this argument is false, then the opposite occurs, and
 the rows matching are discarded, by default True</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.get_df_features_perturbation_column">
+<span class="sig-name descname"><span class="pre">get_df_features_perturbation_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">pandas.core.frame.DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.get_df_features_perturbation_column" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to obtain DataFrame, features and perturbation column name.</p>
+<p>Some Phenonaut functions allow passing of a Phenonaut object, or DataSet. They
+then access the underlying pd.DataFrame for calculations. This helper function
+is present on Phenonaut objects and Dataset objects, allowing more concise
+code and less replication when obtaining the underlying data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>quiet</strong> (<em>bool</em>) – When checking if perturbation is set, check without inducing a
+warning if it is None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing the Dataframe, a list of features and the
+perturbation column name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[pd.DataFrame, list[str], str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -500,6 +556,25 @@ element.</p>
 <dd class="field-even"><p>list[<a class="reference internal" href="#phenonaut.data.dataset.TransformationHistory" title="phenonaut.data.dataset.TransformationHistory">TransformationHistory</a>]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.impute_nans">
+<span class="sig-name descname"><span class="pre">impute_nans</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">impute_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'median'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.impute_nans" title="Permalink to this definition"></a></dt>
+<dd><p>Impute missing values in the DataFrame.</p>
+<section id="id1">
+<h3>Parameters:<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>groupby_col: str or list of str, default=None</dt><dd><p>The name(s) of the column(s) to group by when imputing missing values.
+If None, impute missing values across the entire DataFrame.</p>
+</dd>
+<dt>impute_fn: Union[Callable, str, None]</dt><dd><p>The callable to use for imputing missing values on the DataFrame or
+grouped DataFrame as defined by the groupby_col. Special cases exist
+for ‘median’ and ‘mean’, whereby pd.median and pd.mean are applied.
+If None, then no action is taken. By default ‘median’.</p>
+</dd>
+</dl>
+</section>
 </dd></dl>
 
 <dl class="py method">
@@ -682,8 +757,8 @@ may be present, with identifiers like ‘DMSO’ etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.remove_blocklist_features">
-<span class="sig-name descname"><span class="pre">remove_blocklist_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocklist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_line_in_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.remove_blocklist_features" title="Permalink to this definition"></a></dt>
-<dd><p>Remove blocklisted features from a Dataset</p>
+<span class="sig-name descname"><span class="pre">remove_blocklist_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">blocklist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_first_line_in_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">erase_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_to_non_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_prefixed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.remove_blocklist_features" title="Permalink to this definition"></a></dt>
+<dd><p>Remove blocklisted features/columns from a Dataset</p>
 <p>Allows removal of predefined feature blocklists.  Featurisation may generate
 features which are to be excluded from analysis as standard. This is the case
 with cellular images featurised with cell profiler. As such, there are a set
@@ -692,7 +767,11 @@ specification of a list of features for removal (in the form of a list),
 or a string or path object denoting the location of a file containing this
 information.  A special string may also be passed to this function:
 “CellProfiler”, which instructs Phenonaut to download the standard
-blocklist located here: <a class="reference external" href="https://figshare.com/ndownloader/files/23661539">https://figshare.com/ndownloader/files/23661539</a></p>
+blocklist located here: <a class="reference external" href="https://figshare.com/ndownloader/files/23661539">https://figshare.com/ndownloader/files/23661539</a>.
+Whilst matching features are removed, by default features which have a
+prefix on a blocklist matched feature are also removed. See parameters.</p>
+<p>Note: matching columns which are not features are also removed by
+default, see parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -705,6 +784,24 @@ commonly used CellProfiler blocklisted features from
 <li><p><strong>skip_first_line_in_file</strong> (<em>bool</em><em>, </em><em>optional</em>) – Commonly, blocklist files have a title line, which can be ignored
 before starting to list features. If True, then the first line is
 ignored. By default True.</p></li>
+<li><p><strong>erase_data</strong> (<em>bool</em>) – If False, then no removal of columns from the Dataset is performed,
+only ensuring that no features are set which match the blocklist.
+This means that blocklist columns could persist in the Dataset as
+non-features. If True, then features are removed, and matching
+columns deleted. If False, apply_to_non_features has no effect.
+By default, True.</p></li>
+<li><p><strong>apply_to_non_features</strong> (<em>bool</em>) – If True, then apply the filtering to columns as well as features. By
+default True.</p></li>
+<li><p><strong>removed_prefixed</strong> (<em>bool</em>) – If True, features/columns may still be matched with blocklist
+features if they have a prefix followed by an underscore character.
+This allows transformations to be performed and features still
+removed. For example, applying the RobustMAD trasform prefixes
+features with ‘RobustMAD_’, generating RobustMAD_FeatureA,
+RobustMAD_FeatureB etc.
+remove_blocklist_features will identify FeatureA (if in blocklist)
+and still remove that blocklisted feature. To deactivate this
+default behavior, set remove_prefixed_features to False. By default
+True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -853,27 +950,105 @@ produced splits.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.subtract_mean">
-<span class="sig-name descname"><span class="pre">subtract_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.subtract_mean" title="Permalink to this definition"></a></dt>
-<dd><p>Subtract the mean of rows identified in the query from features</p>
-<p>Useful function for normalising to controls.</p>
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.subtract_func_results_on_features">
+<span class="sig-name descname"><span class="pre">subtract_func_results_on_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_or_perturbation_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'median'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.subtract_func_results_on_features" title="Permalink to this definition"></a></dt>
+<dd><p>Subtract the result of a function applied to rows</p>
+<p>Useful function for centering plates on DMSO or control perturbations.
+If called with no func, then median is taken as the required function.
+The median, or result of applied function to rows identified by the query
+string (query_or_perturbation_name parameter) are subtracted from all
+perturbations. The query_or_perturbation_name may also be an
+identifier present in the datasets perturbation column (if set). If a
+column name, or list of column names are given in the groupby argument,
+then the operation is carried out within these groups before being
+merged back to the original dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – Pandas style query to retrieve rows from which means are calculated.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_or_perturbation_name</strong> (<em>str</em>) – Pandas style query to retrieve rows from which quantities for
+substraction are calculated, or, if the dataset has
+perturbation_column set and the parameter value can be found it the
+perturbation column, then these samples are used and have the given
+function applied to them.  In short, for a Dataset with
+perturbation_column set to “cpd_name”, then the same effect can be
+achied with this parameter being “DMSO” and “cpd_name==’DMSO’”.</p></li>
+<li><p><strong>groupby</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – The name, or list of names of columns that the DataSet should be
+grouped by for application of the transformation on a group-by group
+basis. This is very useful if neededing to subtract median DMSO
+perturbation features on a plate-by-plate basis, whereby the column
+containing plateIDs would be supplied.  Multiple column names may
+also be supplied.</p></li>
+<li><p><strong>func</strong> (<em>Union</em><em>[</em><em>Callable</em><em>, </em><em>str</em><em>, </em><em>None</em><em>]</em>) – The callable to use in calculation of the quantity to subtract for
+each perturbation. Special cases exist for ‘median’ and ‘mean’ strings
+whereby pd.median and pd.mean are applied respectively.
+If None, then no action is taken. By default ‘median’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.subtract_mean">
+<span class="sig-name descname"><span class="pre">subtract_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_or_perturbation_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.subtract_mean" title="Permalink to this definition"></a></dt>
+<dd><p>Subtract the mean of rows identified in the query from features</p>
+<p>Useful function for centering plates on DMSO or control perturbations.
+The mean of row features identified by the query string
+(query_or_perturbation_name parameter) are subtracted from all
+perturbations. If the query_or_perturbation_name may also be an
+identifier present in the datasets perturbation column (if set). If a
+column name, or list of column names aregiven in the groupby argument,
+then the operation is carried out within these groups before being
+merged back to the original dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_or_perturbation_name</strong> (<em>str</em>) – Pandas style query to retrieve rows from which quantities for
+substraction are calculated, or, if the dataset has
+perturbation_column set and the parameter value can be found it the
+perturbation column, then these samples are used and have the given
+function applied to them.  In short, for a Dataset with
+perturbation_column set to “cpd_name”, then the same effect can be
+achied with this parameter being “DMSO” and “cpd_name==’DMSO’”.</p></li>
+<li><p><strong>groupby</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – The name, or list of names of columns that the DataSet should be
+grouped by for application of the transformation on a group-by group
+basis. This is very useful if neededing to subtract mean DMSO
+perturbation features on a plate-by-plate basis, whereby the column
+containing plateIDs would be supplied.  Multiple column names may
+also be supplied.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.subtract_median">
-<span class="sig-name descname"><span class="pre">subtract_median</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.subtract_median" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">subtract_median</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_or_perturbation_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.subtract_median" title="Permalink to this definition"></a></dt>
 <dd><p>Subtract the median of rows identified in the query from features</p>
-<p>Useful function for working with imaging plates, where conventionally,
-median DMSO control wells on a per-plate basis are subtracted.</p>
+<p>Useful function for centering plates on DMSO or control perturbations.
+The median of row features identified by the query string
+(query_or_perturbation_name parameter) are subtracted from all
+perturbations. If the query_or_perturbation_name may also be an
+identifier present in the datasets perturbation column (if set). If a
+column name, or list of column names aregiven in the groupby argument,
+then the operation is carried out within these groups before being
+merged back to the original dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – Pandas style query to retrieve rows from which medians are
-calculated.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query_or_perturbation_name</strong> (<em>str</em>) – Pandas style query to retrieve rows from which quantities for
+substraction are calculated, or, if the dataset has
+perturbation_column set and the parameter value can be found it the
+perturbation column, then these samples are used and have the given
+function applied to them.  In short, for a Dataset with
+perturbation_column set to “cpd_name”, then the same effect can be
+achied with this parameter being “DMSO” and “cpd_name==’DMSO’”.</p></li>
+<li><p><strong>groupby</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – The name, or list of names of columns that the DataSet should be
+grouped by for application of the transformation on a group-by group
+basis. This is very useful if neededing to subtract median DMSO
+perturbation features on a plate-by-plate basis, whereby the column
+containing plateIDs would be supplied.  Multiple column names may
+also be supplied.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

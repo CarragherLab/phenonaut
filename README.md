@@ -10,8 +10,8 @@ Phenonaut is a framework for applying workflows to multi-omics data. Originally 
 
 Phenonaut operates in 2 modes:
 
-1) As a Python package, importable and callable within custom scripts.
-2) Operating on a workflow defined in either YAML, or JSON, allowing integration of complex chains of Phenonaut instructions to be integrated into existing workflows and pipelines. When built as a package and installed, workflows can be executed with:
+- As a Python package, importable and callable within custom scripts.
+- Operating on a workflow defined in either YAML, or JSON, allowing integration of complex chains of Phenonaut instructions to be integrated into existing workflows and pipelines. When built as a package and installed, workflows can be executed with:
 ```python -m phenonaut workflow.yml``` .
 
 
@@ -24,6 +24,6 @@ Datasets are read into the dataset class, aided by a yaml file describing the un
 Example usage in Python programs, and in workflow/scripted modes coming soon.
 
 
-Copyright © The University of Edinburgh, 2022.
+Copyright © The University of Edinburgh, 2023.
 
 Development has been supported by GSK.

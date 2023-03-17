@@ -291,7 +291,9 @@ class Dataset:
         # sort as:
         # ['f1', 'f2a', 'f03', 'f10', 'f13']
         # ignoring zero padding etc.
-        natural_sort_convert_digit_or_str = lambda x: int(x) if x.isdigit() else x.lower()
+        def natural_sort_convert_digit_or_str(x):
+            return int(x) if x.isdigit() else x.lower()
+
         metadata["initial_features"] = sorted(
             metadata["initial_features"],
             key=lambda x: [natural_sort_convert_digit_or_str(c) for c in re.split("([0-9]+)", x)],
@@ -552,7 +554,32 @@ class Dataset:
 
         if len(features_removed) > 0:
             new_features = [feat for feat in self.features if feat not in features_removed]
-            self.features = new_features, f"Droped columns ({column_labels}) {reason_message}"
+            self.features = new_features, f"Dropped columns ({column_labels}) {reason_message}"
+
+    def drop_rows(self, row_indices: pd.Index) -> None:
+        """Drop rows inplace given a set of indices.
+
+        Intelligently drop rows from the dataset (inplace). Updating of
+        rows will not cause hash update as features are unchanged.
+
+        Parameters
+        ----------
+        row_indices : pd.Index
+            List of row indexes which should be removed. Can also be an int
+            to remove just one row.
+
+        Raises
+        ------
+            KeyError: Error raised if the index is missing from dataframe index
+        """
+
+        missing_indices = set(row_indices) - set(self.df.index)
+        if missing_indices:
+            raise KeyError(
+                f"Could not find {missing_indices} in dataframe indices, which are: {self.df.index.values}"
+            )
+
+        self.df.drop(index=row_indices, inplace=True)
 
     def filter_inplace(self, query: str) -> None:
         """Apply a pandas query style filter, keeping all that pass
@@ -566,33 +593,161 @@ class Dataset:
         self.df = self.df.loc[self.df.query(query).index]
         self.features = self.features, f"Filtered in place, query={query}"
 
-    def subtract_median(self, query: str) -> None:
+    def subtract_func_results_on_features(
+        self,
+        query_or_perturbation_name: str,
+        groupby: Optional[Union[str, list[str]]],
+        func: Union[Callable, str, None] = "median",
+    ) -> None:
+        """Subtract the result of a function applied to rows
+
+        Useful function for centering plates on DMSO or control perturbations.
+        If called with no func, then median is taken as the required function.
+        The median, or result of applied function to rows identified by the query
+        string (query_or_perturbation_name parameter) are subtracted from all
+        perturbations. The query_or_perturbation_name may also be an
+        identifier present in the datasets perturbation column (if set). If a
+        column name, or list of column names are given in the groupby argument,
+        then the operation is carried out within these groups before being
+        merged back to the original dataframe.
+
+        Parameters
+        ----------
+        query_or_perturbation_name : str
+            Pandas style query to retrieve rows from which quantities for
+            substraction are calculated, or, if the dataset has
+            perturbation_column set and the parameter value can be found it the
+            perturbation column, then these samples are used and have the given
+            function applied to them.  In short, for a Dataset with
+            perturbation_column set to "cpd_name", then the same effect can be
+            achied with this parameter being "DMSO" and "cpd_name=='DMSO'".
+        groupby : Optional[str, list[str]]
+            The name, or list of names of columns that the DataSet should be
+            grouped by for application of the transformation on a group-by group
+            basis. This is very useful if neededing to subtract median DMSO
+            perturbation features on a plate-by-plate basis, whereby the column
+            containing plateIDs would be supplied.  Multiple column names may
+            also be supplied.
+        func: Union[Callable, str, None]
+            The callable to use in calculation of the quantity to subtract for
+            each perturbation. Special cases exist for 'median' and 'mean' strings
+            whereby pd.median and pd.mean are applied respectively.
+            If None, then no action is taken. By default 'median'.
+        """
+
+        def _perform_df_transform(all_df, q, feat, func) -> pd.DataFrame:
+            df_query=all_df.query(q)
+            if df_query.shape[0]==0:
+                raise DataError("Query or perturbation returned no matches when attempting to find amounts of features for subtraction in the rest of group.  If using groupby - is the requested perturbation present in the group?")
+            if isinstance(func, str):
+                if func == "mean":
+                    all_df.loc[:,feat] = all_df[feat] - df_query[feat].mean()
+                    return all_df
+                elif func == "median":
+                    all_df.loc[:,feat] = all_df[feat] - df_query[feat].median()
+                    return all_df
+                else:
+                    raise ValueError(
+                        f"Unknown magic string passed ('{func}'), options are mean or median"
+                    )
+            else:
+                all_df.loc[:, feat] = all_df[feat] - df_query[feat].apply(func)
+            return all_df
+
+        # In the line below, get pertibation column this way rather than use the getter to avoid warning message if None.
+        if self._metadata.get("perturbation_column", None) is not None and query_or_perturbation_name in self.df[self._metadata.get("perturbation_column", None)]:
+            query_or_perturbation_name=f"{self.perturbation_column}=='{query_or_perturbation_name}'"
+        if groupby is None:
+            self.df[self.features] = _perform_df_transform(
+                self.df,
+                self.df.query(query_or_perturbation_name),
+                self.features,
+                func,
+            )
+        else:
+            grouped_df_results=[]
+            for _, g in self.df.groupby(groupby):
+                grouped_df_results.append(_perform_df_transform(
+                g,
+                query_or_perturbation_name,
+                self.features,
+                func,
+            ))
+            self.df=pd.concat(grouped_df_results)
+
+
+        self.features = (
+            self.features,
+            f"Subtracted features of rows matching perturbation: {query_or_perturbation_name}, func={func}",
+        )
+
+    def subtract_median(
+        self, query_or_perturbation_name: str, groupby: Optional[Union[str, list[str]]]
+    ) -> None:
         """Subtract the median of rows identified in the query from features
 
-        Useful function for working with imaging plates, where conventionally,
-        median DMSO control wells on a per-plate basis are subtracted.
+        Useful function for centering plates on DMSO or control perturbations.
+        The median of row features identified by the query string
+        (query_or_perturbation_name parameter) are subtracted from all
+        perturbations. If the query_or_perturbation_name may also be an
+        identifier present in the datasets perturbation column (if set). If a
+        column name, or list of column names aregiven in the groupby argument,
+        then the operation is carried out within these groups before being
+        merged back to the original dataframe.
 
         Parameters
         ----------
-        query : str
-            Pandas style query to retrieve rows from which medians are
-            calculated.
+        query_or_perturbation_name : str
+            Pandas style query to retrieve rows from which quantities for
+            substraction are calculated, or, if the dataset has
+            perturbation_column set and the parameter value can be found it the
+            perturbation column, then these samples are used and have the given
+            function applied to them.  In short, for a Dataset with
+            perturbation_column set to "cpd_name", then the same effect can be
+            achied with this parameter being "DMSO" and "cpd_name=='DMSO'".
+        groupby : Optional[str, list[str]]
+            The name, or list of names of columns that the DataSet should be
+            grouped by for application of the transformation on a group-by group
+            basis. This is very useful if neededing to subtract median DMSO
+            perturbation features on a plate-by-plate basis, whereby the column
+            containing plateIDs would be supplied.  Multiple column names may
+            also be supplied.
         """
-        self.df[self.features] = self.data - self.df.query(query)[self.features].median()
-        self.features = self.features, f"Subtracted median of rows matching query: {query}"
+        self.subtract_func_results_on_features(query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func='median')
 
-    def subtract_mean(self, query: str) -> None:
+    def subtract_mean(
+        self, query_or_perturbation_name: str, groupby: Optional[Union[str, list[str]]]
+    ) -> None:
         """Subtract the mean of rows identified in the query from features
 
-        Useful function for normalising to controls.
+        Useful function for centering plates on DMSO or control perturbations.
+        The mean of row features identified by the query string
+        (query_or_perturbation_name parameter) are subtracted from all
+        perturbations. If the query_or_perturbation_name may also be an
+        identifier present in the datasets perturbation column (if set). If a
+        column name, or list of column names aregiven in the groupby argument,
+        then the operation is carried out within these groups before being
+        merged back to the original dataframe.
 
         Parameters
         ----------
-        query : str
-            Pandas style query to retrieve rows from which means are calculated.
+        query_or_perturbation_name : str
+            Pandas style query to retrieve rows from which quantities for
+            substraction are calculated, or, if the dataset has
+            perturbation_column set and the parameter value can be found it the
+            perturbation column, then these samples are used and have the given
+            function applied to them.  In short, for a Dataset with
+            perturbation_column set to "cpd_name", then the same effect can be
+            achied with this parameter being "DMSO" and "cpd_name=='DMSO'".
+        groupby : Optional[str, list[str]]
+            The name, or list of names of columns that the DataSet should be
+            grouped by for application of the transformation on a group-by group
+            basis. This is very useful if neededing to subtract mean DMSO
+            perturbation features on a plate-by-plate basis, whereby the column
+            containing plateIDs would be supplied.  Multiple column names may
+            also be supplied.
         """
-        self.df[self.features] = self.data - self.df.query(query)[self.features].mean()
-        self.features = self.features, f"Subtracted mean of rows matching query: {query}"
+        self.subtract_func_results_on_features(query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func='mean')
 
     def divide_median(self, query: str) -> None:
         """Divide dataset features by the median of rows identified in the query
@@ -1067,6 +1222,7 @@ class Dataset:
         """
         new_features = [f"SMP_{feat}" for feat in self.features]
         if per_column_name is None:
+            # TODO: this should throw an error/warning because of dimension mismatch
             self.df[new_features] = self.data - self.df.median(axis=0)
         else:
             for unique_plate in self.df[per_column_name].unique():
@@ -1308,7 +1464,6 @@ class Dataset:
             self.sha256.update(self.df.columns.values.tobytes())
 
     def remove_features_with_outliers(self, outlier_cutoff=15.0, remove_data: bool = False):
-
         """Removes feature columns containing values greater than given cutoff
 
         By default, any feature containing a value greater than 15 is removed. This cutoff can
@@ -1339,9 +1494,14 @@ class Dataset:
             )
 
     def remove_blocklist_features(
-        self, blocklist: Union[Path, str, list[str]], skip_first_line_in_file: bool = True
+        self,
+        blocklist: Union[Path, str, list[str]],
+        skip_first_line_in_file: bool = True,
+        erase_data: bool = True,
+        apply_to_non_features: bool = True,
+        remove_prefixed: bool = True,
     ):
-        """Remove blocklisted features from a Dataset
+        """Remove blocklisted features/columns from a Dataset
 
         Allows removal of predefined feature blocklists.  Featurisation may generate
         features which are to be excluded from analysis as standard. This is the case
@@ -1351,8 +1511,12 @@ class Dataset:
         or a string or path object denoting the location of a file containing this
         information.  A special string may also be passed to this function:
         "CellProfiler", which instructs Phenonaut to download the standard
-        blocklist located here: https://figshare.com/ndownloader/files/23661539
+        blocklist located here: https://figshare.com/ndownloader/files/23661539.
+        Whilst matching features are removed, by default features which have a
+        prefix on a blocklist matched feature are also removed. See parameters.
 
+        Note: matching columns which are not features are also removed by
+        default, see parameters.
 
         Parameters
         ----------
@@ -1367,12 +1531,34 @@ class Dataset:
             Commonly, blocklist files have a title line, which can be ignored
             before starting to list features. If True, then the first line is
             ignored. By default True.
+        erase_data: bool
+            If False, then no removal of columns from the Dataset is performed,
+            only ensuring that no features are set which match the blocklist.
+            This means that blocklist columns could persist in the Dataset as
+            non-features. If True, then features are removed, and matching
+            columns deleted. If False, apply_to_non_features has no effect.
+            By default, True.
+        apply_to_non_features: bool
+            If True, then apply the filtering to columns as well as features. By
+            default True.
+        removed_prefixed: bool
+            If True, features/columns may still be matched with blocklist
+            features if they have a prefix followed by an underscore character.
+            This allows transformations to be performed and features still
+            removed. For example, applying the RobustMAD trasform prefixes
+            features with 'RobustMAD\_', generating RobustMAD_FeatureA,
+            RobustMAD_FeatureB etc.
+            remove_blocklist_features will identify FeatureA (if in blocklist)
+            and still remove that blocklisted feature. To deactivate this
+            default behavior, set remove_prefixed_features to False. By default
+            True.
 
         Raises
         ------
         FileNotFoundError
             Error raised if specified file is not found
         """
+
         if isinstance(blocklist, str):
             if blocklist == "CellProfiler":
                 import requests
@@ -1393,7 +1579,42 @@ class Dataset:
                 blocklist = [line.rstrip() for line in f]
             if skip_first_line_in_file:
                 blocklist = blocklist[1:]
-        self.filter_columns([bl for bl in blocklist if bl in self.df.columns], keep=False)
+
+        if not erase_data:
+            # Only removing features
+            if remove_prefixed:
+                features_to_keep = [
+                    f
+                    for f in self.features
+                    if f not in blocklist and not any([f.endswith(f"_{b}") for b in blocklist])
+                ]
+            else:
+                features_to_keep = [f for f in self.features if f not in blocklist]
+            self.features = (
+                features_to_keep,
+                f"Removed blocklist features ({list(set(self.features)-set(features_to_keep))})",
+            )
+            return
+        else:
+            if apply_to_non_features:
+                if remove_prefixed:
+                    to_remove = [
+                        c
+                        for c in self.df.columns
+                        if c in blocklist or any([c.endswith(f"_{b}") for b in blocklist])
+                    ]
+                else:
+                    to_remove = [c for c in self.df.columns if c in blocklist]
+            else:
+                if remove_prefixed:
+                    to_remove = [
+                        f
+                        for f in self.df.columns
+                        if f in blocklist or any([f.endswith(f"_{b}") for b in blocklist])
+                    ]
+                else:
+                    to_remove = [f for f in self.df.columns if f in blocklist]
+            self.filter_columns(to_remove, keep=False)
 
     def remove_low_variance_features(self, freq_cutoff=0.05, unique_cutoff=0.01):
         """Exclude low information content features.
@@ -1448,4 +1669,126 @@ class Dataset:
         self.drop_columns(
             list(set(features_to_remove_freq + features_to_remove_unique)),
             reason=": filtered low variance features",
+        )
+
+    def drop_nans_with_cutoff(self, axis: Optional[int] = None, nan_cutoff: float = 0.1) -> None:
+        """
+        Drop rows or columns containing NaN or Inf values above a specified cutoff percentage.
+
+        Parameters:
+        -----------
+        axis: Optional[int], default=None
+            Axis along which to drop NaN or Inf values. If None, both rows and columns are dropped.
+        nan_cutoff: float, default=0.1
+            Cutoff percentage for NaN or Inf values. Rows or columns with NaN or Inf percentages greater than this
+            value will be dropped.
+
+        """
+
+        # Compute the percentage of NaNs and Infs in each row and column
+        row_nans_infs = self.data.isna().sum(axis=1) + np.isinf(self.data).sum(axis=1)
+        col_nans_infs = self.data.isna().sum(axis=0) + np.isinf(self.data).sum(axis=0)
+        row_pct = row_nans_infs / self.data.shape[1]
+        col_pct = col_nans_infs / self.data.shape[0]
+
+        if axis == 0:
+            rows_to_drop = list(self.data.loc[(row_pct >= nan_cutoff), :].index)
+            self.drop_rows(rows_to_drop)
+        elif axis == 1:
+            columns_to_drop = list(self.data.loc[:, col_pct >= nan_cutoff].columns)
+            self.drop_columns(
+                columns_to_drop,
+                reason=f": filtered out features with large nan values above {nan_cutoff}",
+            )
+        else:
+            rows_to_drop = list(self.data.loc[(row_pct >= nan_cutoff), :].index)
+            self.drop_rows(rows_to_drop)
+            columns_to_drop = list(self.data.loc[:, col_pct >= nan_cutoff].columns)
+            self.drop_columns(
+                columns_to_drop,
+                reason=f": filtered out features with large nan values above {nan_cutoff}",
+            )
+
+    def impute_nans(
+        self,
+        groupby_col: Optional[Union[str, list[str]]] = None,
+        impute_fn: Union[Callable, str, None] = "median",
+    ) -> None:
+        """
+        Impute missing values in the DataFrame.
+
+        Parameters:
+        -----------
+        groupby_col: str or list of str, default=None
+            The name(s) of the column(s) to group by when imputing missing values.
+            If None, impute missing values across the entire DataFrame.
+        impute_fn: Union[Callable, str, None]
+            The callable to use for imputing missing values on the DataFrame or
+            grouped DataFrame as defined by the groupby_col. Special cases exist
+            for 'median' and 'mean', whereby pd.median and pd.mean are applied.
+            If None, then no action is taken. By default 'median'.
+        """
+
+        if impute_fn is None:
+            return
+        if impute_fn == "median":
+            impute_fn = lambda df: df.fillna(df.median())
+
+        elif impute_fn == "mean":
+            impute_fn = lambda df: df.fillna(df.mean())
+
+        if groupby_col is None:
+            group = self.df[self.features]
+        else:
+            if not isinstance(groupby_col, list):
+                groupby_col = [groupby_col]
+            group = self.df[self.features + groupby_col]
+
+        group = group.replace([np.inf, -np.inf], np.nan)
+
+        if groupby_col is None:
+            imputed_group = impute_fn(group)
+            self.df[self.features] = imputed_group
+
+        else:
+            imputed_groups = group.groupby(groupby_col, group_keys=False).apply(impute_fn)
+            self.df[self.features + groupby_col] = imputed_groups
+
+        if groupby_col is not None:
+            self.features = (
+                self.features,
+                f"Removed invalid entries by nan and inf handling on group column {groupby_col}",
+            )
+        else:
+            self.features = (
+                self.features,
+                "Removed invalid entries by nan and inf handling",
+            )
+
+    def get_df_features_perturbation_column(
+        self, quiet: bool = False
+    ) -> tuple[pd.DataFrame, list[str], Union[str, None]]:
+        """Helper function to obtain DataFrame, features and perturbation column name.
+
+        Some Phenonaut functions allow passing of a Phenonaut object, or DataSet. They
+        then access the underlying pd.DataFrame for calculations. This helper function
+        is present on Phenonaut objects and Dataset objects, allowing more concise
+        code and less replication when obtaining the underlying data.
+
+        Parameters
+        ----------
+        quiet : bool
+            When checking if perturbation is set, check without inducing a
+            warning if it is None.
+
+        Returns
+        -------
+        tuple[pd.DataFrame, list[str], str]
+            Tuple containing the Dataframe, a list of features and the
+            perturbation column name.
+        """
+        return (
+            self.df,
+            self.features,
+            self._metadata.get("perturbation_column", None) if quiet else self.perturbation_column,
         )

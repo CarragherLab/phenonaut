@@ -4,6 +4,7 @@
 import phenonaut
 from phenonaut.data.dataset import Dataset
 import numpy as np
+import pandas as pd
 from phenonaut.phenonaut import Phenonaut
 
 
@@ -11,7 +12,8 @@ def test_get_features_and_non_features(dataset_iris):
     features = dataset_iris.features
     print(features)
     non_features = dataset_iris.get_non_feature_columns()
-    assert sorted(features + non_features) == sorted(dataset_iris.df.columns.values)
+    assert sorted(
+        features + non_features) == sorted(dataset_iris.df.columns.values)
 
 
 def test_new_aggregated_dataset(small_2_plate_df):
@@ -63,7 +65,8 @@ def test_feature_selection_when_loading_csv():
         tmp.flush()
         phe = Phenonaut()
         phe.load_dataset(tmp.name, tmp.name, {"features_prefix": "feat"})
-        assert phe.ds.features == ["feature1", "feature2", "feature003", "feature10"]
+        assert phe.ds.features == ["feature1",
+                                   "feature2", "feature003", "feature10"]
 
     with tempfile.NamedTemporaryFile(mode="w") as tmp:
         tmp.write(
@@ -71,7 +74,8 @@ def test_feature_selection_when_loading_csv():
         )
         tmp.flush()
         phe = Phenonaut()
-        phe.load_dataset(tmp.name, tmp.name, {"features_regex": ".*(width|length).*"})
+        phe.load_dataset(tmp.name, tmp.name, {
+                         "features_regex": ".*(width|length).*"})
         assert phe.ds.features == [
             "petal length (cm)",
             "petal width (cm)",
@@ -92,13 +96,49 @@ def test_remove_features_with_outliers(dataset_iris):
 
 
 def test_remove_low_variance_features(dataset_iris):
-    dataset_iris.remove_low_variance_features(freq_cutoff=0.5, unique_cutoff=0.2)
+    dataset_iris.remove_low_variance_features(
+        freq_cutoff=0.5, unique_cutoff=0.2)
     assert dataset_iris.features == ["petal length (cm)", "sepal length (cm)"]
 
 
 def test_remove_blocklist_features(dataset_iris):
-    dataset_iris.remove_blocklist_features(["petal length (cm)", "sepal length (cm)"])
+    dataset_iris.remove_blocklist_features(
+        ["petal length (cm)", "sepal length (cm)"])
     assert dataset_iris.features == ["petal width (cm)", "sepal width (cm)"]
-    dataset_iris.rename_column("petal width (cm)", "Nuclei_Correlation_Manders_AGP_DNA")
+
+    dataset_iris.rename_column("petal width (cm)", "RobustMAD_Nuclei_Correlation_Manders_AGP_DNA")
+
     dataset_iris.remove_blocklist_features("CellProfiler")
+    assert "RobustMAD_Nuclei_Correlation_Manders_AGP_DNA" not in dataset_iris.df.columns
     assert dataset_iris.features == ["sepal width (cm)"]
+
+
+def test_drop_nans_with_cutoff(nan_inf_dataset):
+
+    nan_inf_dataset.drop_nans_with_cutoff(nan_cutoff=0.4)
+    assert (list(nan_inf_dataset.df.columns) == ['A', 'B', 'C', 'D', 'F'])
+    assert (list(nan_inf_dataset.df.index) == [0, 1, 2, 5])
+    assert (nan_inf_dataset.df.equals(pd.DataFrame({'A': {0: 1, 1: 2, 2: 3, 5: 6},
+                                                    'B': {0: 6, 1: 5, 2: 4, 5: 1},
+                                                    'C': {0: 1.0, 1: 2.0, 2: 3.0, 5: 4.0},
+                                                    'D': {0: np.inf, 1: 1.0, 2: 2.0, 5: np.nan},
+                                                    'F': {0: 'g1', 1: 'g1', 2: 'g1', 5: 'g2'}})))
+
+
+def test_impute_nans(nan_inf_dataset):
+
+    nan_inf_dataset.impute_nans(groupby_col=None, impute_fn='median')
+
+    assert (nan_inf_dataset.df.equals(pd.DataFrame({'A': {0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 6},
+                                                    'B': {0: 6, 1: 5, 2: 4, 3: 3, 4: 2, 5: 1},
+                                                    'C': {0: 1.0, 1: 2.0, 2: 3.0, 3: 2.5, 4: 2.5, 5: 4.0},
+                                                    'D': {0: 2.5, 1: 1.0, 2: 2.0, 3: 3.0, 4: 4.0, 5: 2.5},
+                                                    'E': {0: 5.0, 1: 5.5, 2: 5.5, 3: 5.5, 4: 5.5, 5: 6.0},
+                                                    'F': {0: 'g1', 1: 'g1', 2: 'g1', 3: 'g2', 4: 'g2', 5: 'g2'}})))
+
+
+
+def test_subtract_from_datasets(small_2_plate_ds):
+    ds=small_2_plate_ds
+    ds.subtract_median(query_or_perturbation_name="FOV==1", groupby="BARCODE")
+    assert np.abs(np.sum(ds.df['feat_1'] - np.array([0.55,0.65,-0.55,-0.45,0.00,1.00])))<1e-6

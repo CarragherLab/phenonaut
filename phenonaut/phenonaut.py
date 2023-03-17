@@ -104,7 +104,6 @@ class Phenonaut:
         dataframe_name: Optional[Union[str, list[str]]] = None,
         init_hash: Optional[Union[str, bytes]] = None,
     ):
-
         if init_hash is None:
             self.init_hash = b""
         else:
@@ -178,7 +177,6 @@ class Phenonaut:
         if isinstance(dataset, (Dataset, pd.DataFrame)):
             dataset = [dataset]
         if isinstance(dataset, list):
-
             ds_types = list(set(map(type, dataset)))
 
             if len(ds_types) > 1:
@@ -1002,9 +1000,7 @@ class Phenonaut:
 
         Writes a gzipped Python pickle file. If no compression, or another
         compressison format is required, then the user should use a custom
-        pickle.dump and not rely on this helper function.  Warning, SHA256
-        '_hashlib.HASH' objects are not serialisable, so crytographic hashes
-        and proof of manipulations are lost upon saving.
+        pickle.dump and not rely on this helper function.
 
         Parameters
         ----------
@@ -1016,8 +1012,39 @@ class Phenonaut:
         for ds in self.datasets:
             ds.sha256 = b64encode(ds.sha256.digest()).decode("utf-8")
         output_filename = check_path(output_filename)
+        if output_filename.exists() and not overwrite_existing:
+            raise FileExistsError(f"{output_filename} exists, and overwrite_existing was False")
+        self.last_saved_pickle_filename = output_filename
         with gzip.open(output_filename, "wb") as f:
             pickle.dump(self, f)
+        for ds in self.datasets:
+            ds.sha256 = sha256(ds.sha256.encode("utf-8"))
+
+    def revert(self) -> None:
+        """Revert a Phenonaut object that was recently saved to it's previous state
+
+        Upon calling save on a Phenonaut object, the record stores the output file location,
+        allowing a quick was to revert changes made to a file by calling .revert(). This
+        returns the object to it's saved state.
+
+        Raises
+        ------
+        FileNotFoundError
+            File not found, Phenonaut object has never been written out.
+
+        """
+        if hasattr(self, "last_saved_pickle_filename"):
+            if not self.last_saved_pickle_filename.exists():
+                raise FileNotFoundError(f"Could not find file {self.last_saved_pickle_filename}")
+            with gzip.open(self.last_saved_pickle_filename, "rb") as f:
+                phe = pickle.load(f)
+                for ds in phe.datasets:
+                    ds.sha256 = sha256(ds.sha256.encode("utf-8"))
+                self.__dict__ = phe.__dict__
+        else:
+            raise FileNotFoundError(
+                "Called revert on a Phenonaut object which has never been saved.  Save it first, before calling revert."
+            )
 
     @classmethod
     def load(cls, filepath: Union[str, Path]) -> "Phenonaut":
@@ -1048,3 +1075,38 @@ class Phenonaut:
             for ds in phe.datasets:
                 ds.sha256 = sha256(ds.sha256.encode("utf-8"))
             return phe
+
+    def get_df_features_perturbation_column(
+        self, ds_index=-1, quiet: bool = False
+    ) -> tuple[pd.DataFrame, list[str], Union[str, None]]:
+        """Helper function to obtain DataFrame, features and perturbation column name.
+
+        Some Phenonaut functions allow passing of a Phenonaut object, or DataSet. They
+        then access the underlying pd.DataFrame for calculations. This helper function
+        is present on Phenonaut objects and Dataset objects, allowing more concise
+        code and less replication when obtaining the underlying data. If multiple
+        Datasets are present, then the last added Dataset is used to obtain data, but
+        this behaviour can be changed by passing the ds_index argument.
+
+        Parameters
+        ----------
+        ds_index : int, optional
+            Index of the Dataset to be returned. By default -1, which uses the
+            last added Dataset.
+        quiet : bool
+            When checking if perturbation is set, check without inducing a
+            warning if it is None.
+
+        Returns
+        -------
+        tuple[pd.DataFrame, list[str], str]
+            Tuple containing the Dataframe, a list of features and the
+            perturbation column name.
+        """
+        return (
+            self[ds_index].df,
+            self[ds_index].features,
+            self[ds_index]._metadata.get("perturbation_column", None)
+            if quiet
+            else self[ds_index].perturbation_column,
+        )

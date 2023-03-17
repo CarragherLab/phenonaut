@@ -44,6 +44,14 @@ phenonaut.packaged\_datasets.lincs module
    :undoc-members:
    :show-inheritance:
 
+phenonaut.packaged\_datasets.metadata\_moa module
+-------------------------------------------------
+
+.. automodule:: phenonaut.packaged_datasets.metadata_moa
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 phenonaut.packaged\_datasets.tcga module
 ----------------------------------------
 

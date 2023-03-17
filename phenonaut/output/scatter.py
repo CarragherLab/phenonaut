@@ -123,7 +123,10 @@ class Scatter(PhenonautVisualisation):
             if x not in ("self", "figure_config", "var") and x not in self.config.keys()
         ]:
             self.config[var] = eval(var)
-        self.fig, self.ax = plt.subplots(1, 1, figsize=figsize)
+
+
+
+        self.fig, self.ax = plt.subplots(1,1,figsize = figsize)
         self.marker_size = marker_size
 
     def add(
@@ -178,6 +181,7 @@ class Scatter(PhenonautVisualisation):
             df = dataset.df.query(f"{dataset.perturbation_column} == @perturbations")
         else:
             df = dataset.df
+
         sns.scatterplot(
             data=df,
             x=dataset.features[0],
@@ -188,6 +192,8 @@ class Scatter(PhenonautVisualisation):
             markers=markers,
             ax=self.ax,
         )
+        #self._decorate_figure()
+        #plt.show()
 
     def _decorate_figure(
         self,
@@ -212,6 +218,8 @@ class Scatter(PhenonautVisualisation):
         """Show the plot on the screen"""
         self._decorate_figure()
         plt.show()
+
+
 
     def save_figure(self, output_image_path: Union[Path, str], **savefig_kwargs):
         """Save the current scatter plot to PNG/SVG file
