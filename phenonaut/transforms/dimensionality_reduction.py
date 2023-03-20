@@ -290,7 +290,7 @@ class TSNE(Transformer):
             else:
                 constructor_kwargs["method"] = "barnes_hut"
             super().__init__(
-                TSNE,
+                Sklearn_TSNE,
                 new_feature_names=new_feature_names,
                 transformer_name="t-SNE",
                 constructor_kwargs=constructor_kwargs,

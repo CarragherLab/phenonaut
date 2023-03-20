@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file under headings Added, Changed, and Fixed
 
+## [1.3.0] - 2023-03-20
+
+### Fixed
+- Fixed a bug present when directly calling an istantiated TSNE transformer without fit_transform.
+
 ## [1.2.8] - 2023-03-16
 
 ### Added
