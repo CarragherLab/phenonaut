@@ -7,8 +7,8 @@ from pandas.errors import DataError
 
 from phenonaut.data import Dataset
 from typing import Callable, Optional, Union
-from sklearn.decomposition import PCA as Sklearn_PCA
-from sklearn.manifold import TSNE as Sklearn_TSNE
+from sklearn.decomposition import PCA as _SKLearnPCA
+from sklearn.manifold import TSNE as _SKLearn_TSNE
 import umap
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as sklearn_LDA
 import numpy as np
@@ -47,7 +47,7 @@ class PCA(Transformer):
 
     def __init__(self, new_feature_names="PC", ndims: int = 2):
         super().__init__(
-            Sklearn_PCA,
+            _SKLearnPCA,
             new_feature_names=new_feature_names,
             transformer_name="SciKitPCA",
             constructor_kwargs={"n_components": ndims},
@@ -109,7 +109,7 @@ class PCA(Transformer):
         """
         if self.ndims != ndims:
             super().__init__(
-                Sklearn_PCA,
+                _SKLearnPCA,
                 new_feature_names=new_feature_names,
                 transformer_name="SciKitPCA",
                 constructor_kwargs={"n_components": ndims},
@@ -230,7 +230,7 @@ class TSNE(Transformer):
             constructor_kwargs["method"] = "barnes_hut"
 
         super().__init__(
-            Sklearn_TSNE,
+            _SKLearn_TSNE,
             new_feature_names=new_feature_names,
             transformer_name="t-SNE",
             constructor_kwargs=constructor_kwargs,
@@ -290,7 +290,7 @@ class TSNE(Transformer):
             else:
                 constructor_kwargs["method"] = "barnes_hut"
             super().__init__(
-                Sklearn_TSNE,
+                _SKLearn_TSNE,
                 new_feature_names=new_feature_names,
                 transformer_name="t-SNE",
                 constructor_kwargs=constructor_kwargs,

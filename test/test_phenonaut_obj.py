@@ -211,9 +211,14 @@ def test_phe_getitem_setitem_delitem(dataset_iris):
 
 def test_phe_save_load_and_revert(dataset_iris):
     tmp_file = tempfile.NamedTemporaryFile(delete=True)
+    print(tmp_file.file)
+
     try:
         phe = Phenonaut(dataset_iris)
-        phe.save(tmp_file.name)
+        # Save, using overwrite_existing=True, as NamedTemporaryFile makes the
+        # file, Phenonaut would then throw a warning saying it exists.
+        phe.save(tmp_file.name, overwrite_existing=True)
+
         phe_loaded = Phenonaut.load(tmp_file.name)
         assert len(phe_loaded.datasets) == 1
         phe.revert()

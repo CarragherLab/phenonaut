@@ -116,11 +116,13 @@ class MetadataJUMPMOACompounds(PackagedDataset):
         pd.DataFrame
             Requested pd.DataFrame from h5 store
         """
+        store = pd.HDFStore(self.processed_h5_file)
         if key=="" or key is None:
-            store = pd.HDFStore(self.processed_h5_file)
-            return store["/JUMP_MOA_compounds"]
+            df = store["/JUMP_MOA_compounds"].copy()
         else:
-            return store["/" + key]             
+            df=store["/" + key].copy()
+        store.close()
+        return df
 
     def get_ds(self, key: str) -> Dataset:
         """Get supporting dataframe
@@ -198,7 +200,7 @@ class MetadataBROADLincsCellPaintingMOAs(PackagedDataset):
 
         self.store = pd.HDFStore(self.processed_h5_file)
 
-        self.register_df_key("MOA compounds")
+        self.register_df_key("BROAD_MOA_compounds")
 
         self.store.close()
 
@@ -245,11 +247,14 @@ class MetadataBROADLincsCellPaintingMOAs(PackagedDataset):
         pd.DataFrame
             Requested pd.DataFrame from h5 store
         """
+        store = pd.HDFStore(self.processed_h5_file)
         if key=="" or key is None:
-            store = pd.HDFStore(self.processed_h5_file)
-            return store["/Broad_MOA_compounds"]
+            df=store["/Broad_MOA_compounds"].copy()
         else:
-            return store["/" + key]             
+            df= store["/" + key].copy()
+        store.close()
+        return df
+
 
     def get_ds(self, key: str) -> Dataset:
         """Get supporting dataframe

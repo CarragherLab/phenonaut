@@ -4,7 +4,7 @@ from phenonaut.data import Dataset
 from phenonaut import Phenonaut
 from typing import Optional, Union, Callable
 import numpy as np
-from random import sample, choice
+from random import sample, choice, choices
 from scipy.spatial.distance import pdist
 from joblib import Parallel, delayed
 from progressbar import progressbar
@@ -461,16 +461,32 @@ def _inspect_compact(
             else:
                 null_criteria_query_list.append(f"{gbn}!='{tmp_val}'")
 
-    if isinstance(null_query_or_df, pd.DataFrame):
-        if null_criteria_query_list!=[]:
-            null_df = null_query_or_df.query(" and ".join(null_criteria_query_list))
-        else:
-            null_df=null_query_or_df
+    if len(null_criteria_query_list)>0:
+        null_df = df.query(" and ".join(null_criteria_query_list))
     else:
-        if null_criteria_query_list!=[]:
-            null_df = df.query(" and ".join(null_criteria_query_list)).query(null_query_or_df)
+        null_df = df
+
+    if isinstance(null_query_or_df, pd.DataFrame):
+        if len(null_criteria_query_list)==0:
+            null_df = null_query_or_df
         else:
+            null_df = null_query_or_df.query(" and ".join(null_criteria_query_list))
+    elif isinstance(null_query_or_df, str):
+        if len(null_criteria_query_list)==0:
             null_df = df.query(null_query_or_df)
+        else:
+            null_df = df.query(" and ".join(null_criteria_query_list)).query(null_query_or_df)
+    else:
+        if len(null_criteria_query_list)>0:
+            null_df = df.query(" and ".join(null_criteria_query_list))
+        else:
+            null_df = df
+
+
+    # generate a dictionary (pert_name_to_idx_dict), allowing mapping from pert_name
+    # to indexes (0 -indexed np array)
+    null_pert_names = null_df[replicate_criteria[0]]
+    pert_name_to_idx_dict = {pname: [] for pname in null_pert_names.unique()}
 
 
     # Calculate matched repeat score
@@ -485,10 +501,12 @@ def _inspect_compact(
             pdist(replicate_frame[features].values, metric=similarity_metric)
         )
 
-
+    # If c is cardinality, choose c non-matching compounds. For each c, choose a
+    # random repeat index r. Compose list of length n_iters x c.
     indices = [
-        sample(range(null_df.shape[0]), cardinality)
-        for _ in range(n_iters)]
+        choices(range(null_df.shape[0]), k=cardinality)
+        for _ in range(n_iters)
+    ]
 
     if len(indices) < 2:
         return _ReplicateData(matching_multiindex, len(matching_indices), np.nan, np.nan)
@@ -616,7 +634,7 @@ def _setup_percent_replicating(
 
 def percent_replicating(
     ds: Union[Dataset, Phenonaut, pd.DataFrame],
-    perturbation_column: Union[str, None],
+    perturbation_column: Optional[str] = None,
     replicate_query: Optional[str] = None,
     replicate_criteria: Optional[Union[str, list[str]]] = None,
     replicate_criteria_not: Optional[Union[str, list[str]]] = None,
@@ -635,7 +653,7 @@ def percent_replicating(
     additional_captured_params: Optional[dict] = None,
     similarity_metric_name: Optional[str] = None,
     performance_df_file: Optional[Union[str, Path]] = None,
-    percentile_cutoff: int = 95,
+    percentile_cutoff:Optional[int] = None,
     use_joblib_parallelisation: bool = True,
     n_jobs: int = -1,
 ):
@@ -676,7 +694,7 @@ def percent_replicating(
         Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
         containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
         Dataset will be used.
-    perturbation_column : Union[str, None]
+    perturbation_column : Optional[str]
         In the standard % replicating calculation, compounds, are matched by name (or identifier),
         and dose, although this can be relaxed. This argument sets the column name
         containing an identifier for the perturbation name (or identifier), usually the name of a
@@ -685,7 +703,7 @@ def percent_replicating(
         interrogation of the perturbation_column property of the Dataset. In the case of the CMAP_Level4
         PackagedDataset, a standard run would be achieved by passing 'pert_iname'as an argument here,
         or disregarding the value found in this argument by providing a dataset with the
-        perturbation_column property already set.
+        perturbation_column property already set. By default None.
     replicate_query: Optional[str]=None
         Optional pandas query to apply in selection of the matching replicates, this maybe something
         like ensuring concentration is above a threshold, or that they are taken from certain timepoints.
@@ -801,9 +819,13 @@ def percent_replicating(
         similarity metric name may be passed here, rather than relying upon calling __repr__ on the
         function, which may return long names such as:
         'bound method Phenotypic_Metric.similarity of Manhattan'. By default None.
-    percentile_cutoff : int
+    percentile_cutoff : Optional[int]
         Percentile of the null distribution over which the matching replicates must score to be
-        considered replicating. Should range from 0 to 100. By default 95.
+        considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+        metric where higher is better, but if using a metric where lower is better, then it should
+        be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+        value 95 if similarity_metric_higher_is_better==True, and 5 if
+        similarity_metric_higher_is_better==False. By default None.
     use_joblib_parallelisation : bool
         If True, then use joblib to parallelise evaluation of compounds. By default True.
     n_jobs : int, optional
@@ -825,7 +847,7 @@ def percent_replicating(
         raise ValueError(
             f"Error, max_cardinality ({max_cardinality}) may not be less than min_cardinality ({min_cardinality})"
         )
-    if percentile_cutoff < 1:
+    if percentile_cutoff is not None and percentile_cutoff < 1 :
         print(
             "WARNING: percentile_cutoff < 1. For the 95th percentile, this should be 95, not 0.95. This function calls np.percentile, which behaves the same, expecting a number between 0 and 100 to specify the cutoff."
         )
@@ -871,6 +893,9 @@ def percent_replicating(
         similarity_metric_name = similarity_metric.name
         if similarity_metric.is_magic_string:
             similarity_metric = similarity_metric.func
+
+    if percentile_cutoff is None:
+        percentile_cutoff=95 if similarity_metric_higher_is_better else 5
 
     inspect_replicating_additional_args = {
         "df": df,
@@ -1053,31 +1078,9 @@ def percent_replicating(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def percent_compact(
     ds: Union[Dataset, Phenonaut, pd.DataFrame],
-    perturbation_column: Union[str, None],
+    perturbation_column: Optional[str] = None,
     replicate_criteria: Optional[Union[str, list[str]]] = None,
     replicate_query: Optional[str] = None,
     replicate_criteria_not: Optional[Union[str, list[str]]] = None,
@@ -1096,7 +1099,7 @@ def percent_compact(
     additional_captured_params: Optional[dict] = None,
     similarity_metric_name: Optional[str] = None,
     performance_df_file: Optional[Union[str, Path]] = None,
-    percentile_cutoff: int = 95,
+    percentile_cutoff:Optional[int] = None,
     use_joblib_parallelisation: bool = True,
     n_jobs: int = -1,
 ):
@@ -1132,14 +1135,14 @@ def percent_compact(
         Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
         containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
         Dataset will be used.
-    perturbation_column : Union[str, None]
+    perturbation_column : Optional[str]
         This argument sets the column name containing an identifier for the perturbation name (or
         identifier), usually the name of a compound or similar. If a Phenonaut object or Dataset is
         supplied as the ds argument and this perturbation_column argument is None, then this value is
         attempted to be discovered through interrogation of the perturbation_column property of the
         Dataset. In the case of the CMAP_Level4 PackagedDataset, a standard run would be achieved by
         passing 'pert_iname'as an argument here, or disregarding the value found in this argument by
-        providing a dataset with the perturbation_column property already set.
+        providing a dataset with the perturbation_column property already set. By default None.
     replicate_criteria : Optional[Union[str, list[str]]]=None
         As noted above describing the impact of the perturbation_column argument, matching compounds
         are often defined by their perturbation name/identifier and dose.  Whilst the perturbation
@@ -1255,9 +1258,13 @@ def percent_compact(
         similarity metric name may be passed here, rather than relying upon calling __repr__ on the
         function, which may return long names such as:
         'bound method Phenotypic_Metric.similarity of Manhattan'. By default None.
-    percentile_cutoff : int
+    percentile_cutoff : Optional[int]
         Percentile of the null distribution over which the matching replicates must score to be
-        considered compact. Should range from 0 to 100. By default 95.
+        considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+        metric where higher is better, but if using a metric where lower is better, then it should
+        be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+        value 95 if similarity_metric_higher_is_better==True, and 5 if
+        similarity_metric_higher_is_better==False. By default None.
     use_joblib_parallelisation : bool
         If True, then use joblib to parallelise evaluation of compounds. By default True.
     n_jobs : int, optional
@@ -1279,7 +1286,7 @@ def percent_compact(
         raise ValueError(
             f"Error, max_cardinality ({max_cardinality}) may not be less than min_cardinality ({min_cardinality})"
         )
-    if percentile_cutoff < 1:
+    if percentile_cutoff is not None and percentile_cutoff < 1 :
         print(
             "WARNING: percentile_cutoff < 1. For the 95th percentile, this should be 95, not 0.95. This function calls np.percentile, which behaves the same, expecting a number between 0 and 100 to specify the cutoff."
         )
@@ -1326,7 +1333,10 @@ def percent_compact(
         if similarity_metric.is_magic_string:
             similarity_metric = similarity_metric.func
 
-    inspect_replicating_additional_args = {
+    if percentile_cutoff is None:
+        percentile_cutoff=95 if similarity_metric_higher_is_better else 5
+
+    inspect_compact_additional_args = {
         "df": df,
         "features": features,
         "replicate_query": replicate_query,
@@ -1352,8 +1362,8 @@ def percent_compact(
     # Run in parallel
     if use_joblib_parallelisation:
         compactness_results = Parallel(n_jobs=n_jobs)(
-            delayed(_inspect_replicating)(
-                **(inspect_replicating_additional_args), **{"g_indices": g_indices}
+            delayed(_inspect_compact)(
+                **inspect_compact_additional_args, **{"g_indices": g_indices}
             )
             for g_indices in df_groupby_indices_and_items
             if (
@@ -1364,8 +1374,8 @@ def percent_compact(
     # Or not
     else:
         compactness_results = [
-            _inspect_replicating(
-                **(inspect_replicating_additional_args), **{"g_indices": g_indices}
+            _inspect_compact(
+                **inspect_compact_additional_args, **{"g_indices": g_indices}
             )
             for g_indices in progressbar(df_groupby_indices_and_items)
             if (

@@ -407,7 +407,7 @@ class RemoveHighestCorrelatedThenVIF:
         vif(ds, drop_columns=drop_columns, min_features=min_features)
 
 
-class __ZCA__:
+class _ZCA:
     """
     Private class used by ZCA, implementing fit, transform and
     inverse_transform, heavily inspired by https://github.com/mwv/zca/
@@ -453,7 +453,7 @@ class ZCA(Transformer):
     """
 
     def __init__(self, new_feature_names: Union[list[str], str] = "ZCA_"):
-        super().__init__(__ZCA__, new_feature_names=new_feature_names, transformer_name="ZCA")
+        super().__init__(_ZCA, new_feature_names=new_feature_names, transformer_name="ZCA")
 
 
 class __RobustMAD__:

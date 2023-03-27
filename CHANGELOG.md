@@ -2,10 +2,34 @@
 
 All notable changes to this project will be documented in this file under headings Added, Changed, and Fixed
 
-## [1.3.0] - 2023-03-20
+## [1.3.4] - 2023-03-27
+
+### Added
+- Ability to supply features argument to new Datasets rather than wrapping in metadata dictionary
+- data property to Phenonaut objects to return phe[-1].df[phe[-1].features].values
+- weights argument to KNNImputer
+
+### Changed
+- Percentile argument for percent_replicating and percent_compact is no longer required, and inferred to be 95th (if higher is better), or 5th if lower is better
 
 ### Fixed
-- Fixed a bug present when directly calling an istantiated TSNE transformer without fit_transform.
+- Broken test caused by tempfile creation and phe.revert
+
+## [1.3.3] - 2023-03-24
+
+### Added
+- Added imputers (SimpleImputer, KNNImputer, RFImputer) to transforms.imputers
+
+## [1.3.2] - 2023-03-24
+
+### Added
+- get_dataset_names to phenonaut.Phenonaut objects
+
+### Fixed
+- PackagedDataset loaders do not keep a H5store open, allowing multiple concurrent runs in HPC environment.
+
+### Changed
+- percentile_cutoff now optional for percent_replicating and percent_compact, allowing inference if None for 95th/5th percentile depending on similarity metric (higher or lower better)
 
 ## [1.2.8] - 2023-03-16
 

@@ -54,6 +54,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.dimensionality_reduction">phenonaut.transforms.dimensionality_reduction module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.generic_transformations">phenonaut.transforms.generic_transformations module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.imputers">phenonaut.transforms.imputers module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.preparative">phenonaut.transforms.preparative module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.supervised_transformer">phenonaut.transforms.supervised_transformer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.transforms.transformer">phenonaut.transforms.transformer module</a></li>
@@ -389,6 +390,97 @@ different function here. By default np.median.</p></li>
 <dt class="sig sig-object py" id="phenonaut.transforms.generic_transformations.Log2">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.generic_transformations.</span></span><span class="sig-name descname"><span class="pre">Log2</span></span><a class="headerlink" href="#phenonaut.transforms.generic_transformations.Log2" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformer</span></code></a></p>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.transforms.imputers">
+<span id="phenonaut-transforms-imputers-module"></span><h2>phenonaut.transforms.imputers module<a class="headerlink" href="#module-phenonaut.transforms.imputers" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.imputers.KNNImputer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.imputers.</span></span><span class="sig-name descname"><span class="pre">KNNImputer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'KNNImputed_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.imputers.KNNImputer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformer</span></code></a></p>
+<p>SciKitLearn KNNImputer</p>
+<p>SciKit’s KNNImputer wrapped in a Phenonaut Transformer. Allows passing a
+numer of neighbors to use for imputation.</p>
+<p>Can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">imputer</span><span class="o">=</span><span class="n">KNNImputer</span><span class="p">()</span>
+<span class="n">imputer</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_neighbors</strong> (<em>int</em>) – Use this many neighboring samples for imputation.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Weight function for neighbor points. Can be one of ‘uniform’ (All points
+in neighborhood weighted equally), ‘distance’ (contribution of neighbor
+points by inverse of their distance), or a callable accepting distance
+matrix and returning an array of the same shape containing  weights, see
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html">https://scikit-learn.org/stable/modules/generated/sklearn.impute.KNNImputer.html</a>
+for further info.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Name of new features. If ending in _, then this is prepended to existing
+features. By default ‘KNNImputed_’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.imputers.RFImputer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.imputers.</span></span><span class="sig-name descname"><span class="pre">RFImputer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rf_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_jobs':</span> <span class="pre">-1}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RFImputed_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.imputers.RFImputer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformer</span></code></a></p>
+<p>RandomForestImputer</p>
+<p>RandomForestImputer inspired by SKLearn documentation here:
+<a class="reference external" href="https://scikit-learn.org/stable/auto_examples/impute/plot_iterative_imputer_variants_comparison.html#sphx-glr-auto-examples-impute-plot-iterative-imputer-variants-comparison-py">https://scikit-learn.org/stable/auto_examples/impute/plot_iterative_imputer_variants_comparison.html#sphx-glr-auto-examples-impute-plot-iterative-imputer-variants-comparison-py</a></p>
+<p>Can be very computationally expensive, so careful setting of max_iter is advised.</p>
+<p>Can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">imputer</span><span class="o">=</span><span class="n">RFImputer</span><span class="p">()</span>
+<span class="n">imputer</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rf_kwargs</strong> (<em>dict</em>) – Dictionary to use in constructing the SciKitLearn RandomForestRegressor,
+by default {‘n_jobs’:-1} (implying that all available processors should be used to
+fit the random forest regressor).  May take any values shown in sklearn documentation:
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html">https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html</a></p></li>
+<li><p><strong>max_iter</strong> (<em>int</em>) – The maximum number of times to impute the missing values and check convergence
+as dictated by tol.</p></li>
+<li><p><strong>tol</strong> (<em>float</em>) – The tolerance at which convergence is accepted. Once changes between iterations
+are smaller than this value, then iteration stops, unless max_iter has been reached
+in which case, iteration stops before tol is reached.  By default 1e-3.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Name of new features. If ending in _, then this is prepended to existing
+features. By default ‘RFImputed_’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.transforms.imputers.SimpleImputer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.transforms.imputers.</span></span><span class="sig-name descname"><span class="pre">SimpleImputer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'median'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_feature_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Imputed_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.transforms.imputers.SimpleImputer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.transforms.transformer.Transformer" title="phenonaut.transforms.transformer.Transformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Transformer</span></code></a></p>
+<p>SciKitLearn SimpleImputer</p>
+<p>SciKit’s SimpleImputer wrapped in a Phenonaut Transformer. Allows passing a
+strategy argument containing ‘mean’, ‘median’, ‘most_frequent’, or ‘constant’.
+If constant is passed, then must supply a fill_value argument.</p>
+<p>Can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">imputer</span><span class="o">=</span><span class="n">SimpleImputer</span><span class="p">()</span>
+<span class="n">imputer</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strategy</strong> (<em>str</em><em>, </em><em>optional</em>) – The imputation strategy to use, can be ‘mean’, ‘median’, ‘most_frequent’,
+or ‘constant’, by default “median”.</p></li>
+<li><p><strong>fill_value</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If constant is passed as the strategy, then this argument should contain
+the constant value to fill with. By default None.</p></li>
+<li><p><strong>new_feature_names</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Name of new features. If ending in _, then this is prepended to existing
+features. By default ‘Imputed_’.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

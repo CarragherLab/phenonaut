@@ -1,11 +1,9 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from sklearn import decomposition
 from phenonaut.data.dataset import Dataset
-from typing import Callable, Type, Union, List
+from typing import Union, List
 from inspect import isclass
-from numpy import array
 import numpy as np
 import pandas as pd
 

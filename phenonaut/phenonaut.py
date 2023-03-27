@@ -13,6 +13,7 @@ from itertools import combinations as itertools_combinations
 from sklearn.utils import Bunch
 from phenonaut.packaged_datasets.base import PackagedDataset
 import pickle
+from copy import deepcopy
 import gzip
 from phenonaut.utils import check_path
 from hashlib import sha256
@@ -75,8 +76,10 @@ class Phenonaut:
         constructor. Has no effect if the type of dataset passed is not a
         pandas DataFrame or list of pandas DataFrames. If a list of pandas
         DataFrames is passed to data but only one metadata dictionary is
-        given, then this dictionary is applied to all DataFrames. By default
-        None.
+        given, then this dictionary is applied to all DataFrames. By default {}.
+    features : Optional[list[str]] = None
+        May be used as a shortcut to including features in the metadata dictionary.
+        Only used if the metadata is a dict and does not contain a features key.
     dataframe_name : Optional[Union[dict, list[dict]]]
         Used when a pandas DataFrame, or str, or Path to a CSV file is passed to
         the constructor of the phenonaut object. Optional name to give to the
@@ -100,10 +103,14 @@ class Phenonaut:
         name: str = "Phenonaut object",
         kind: Optional[str] = None,
         packaged_dataset_name_filter: Optional[Union[list[str], str]] = None,
-        metadata: Optional[Union[dict, list[dict]]] = None,
+        metadata: Optional[Union[dict, list[dict]]] = {},
+        features : Optional[list[str]] = None,
         dataframe_name: Optional[Union[str, list[str]]] = None,
         init_hash: Optional[Union[str, bytes]] = None,
     ):
+        metadata=deepcopy(metadata)
+        if isinstance(metadata, dict) and 'features' not in metadata and features is not None:
+            metadata['features']=features.copy()
         if init_hash is None:
             self.init_hash = b""
         else:
@@ -146,7 +153,7 @@ class Phenonaut:
                 self.datasets.append(
                     Dataset(
                         dataset_name="sklearnBunch",
-                        input_file_path=df,
+                        input_file_path_or_df=df,
                         metadata={"features": dataset.feature_names},
                     )
                 )
@@ -154,7 +161,7 @@ class Phenonaut:
                 self.datasets.append(
                     Dataset(
                         dataset_name=dataframe_name,
-                        input_file_path=df,
+                        input_file_path_or_df=df,
                         metadata={"features": dataset.feature_names},
                     )
                 )
@@ -170,7 +177,7 @@ class Phenonaut:
             if dataframe_name is None:
                 dataframe_name = str(dataset)
             dataset = Dataset(
-                dataset_name=dataframe_name, input_file_path=dataset, metadata=metadata, kind=kind
+                dataset_name=dataframe_name, input_file_path_or_df=dataset, metadata=metadata, kind=kind
             )
 
         # If its a Dataset, or list of datasets, directly add it to self.datasets.
@@ -211,7 +218,7 @@ class Phenonaut:
                     )
                 for ds_name, df, ds_metadata in zip(dataframe_name, dataset, metadata):
                     self.datasets.append(
-                        Dataset(dataset_name=ds_name, input_file_path=df, metadata=ds_metadata)
+                        Dataset(dataset_name=ds_name, input_file_path_or_df=df, metadata=ds_metadata)
                     )
                 return
 
@@ -338,6 +345,27 @@ class Phenonaut:
         return (k for k in self.keys())
 
     @property
+    def data(self) -> Dataset:
+        """Return the data of the highest index in phenonaut.datasets
+
+        Calling phe.data is the same as calling phe.ds.data
+
+        Returns
+        -------
+        np.ndarray
+            Last added/highest indexed Dataset features
+
+        Raises
+        ------
+        DataError
+            No datasets loaded
+        """
+        if self.datasets is None or self.datasets == []:
+            raise DataError("Attempt to get data, but no dataset loaded")
+        return self.datasets[-1].data
+
+
+    @property
     def ds(self) -> Dataset:
         """Return the dataset with the highest index in phenonaut.datasets
 
@@ -459,7 +487,7 @@ class Phenonaut:
         if features != None:
             metadata["features"] = features
         self.datasets.append(
-            Dataset(dataset_name=dataset_name, input_file_path=input_file_path, metadata=metadata)
+            Dataset(dataset_name=dataset_name, input_file_path_or_df=input_file_path, metadata=metadata)
         )
 
     def combine_datasets(
@@ -518,13 +546,24 @@ class Phenonaut:
                     )
         if new_name is None:
             new_name = f"Combined_dataset from datasets[{dataset_ids_to_combine}]"
-        self.datasets.append(Dataset(dataset_name=new_name, input_file_path=None, metadata=None))
+        self.datasets.append(Dataset(dataset_name=new_name, input_file_path_or_df=None, metadata=None))
         self.datasets[-1].df = new_df
         self.datasets[-1]._metadata = new_metadata
         self.datasets[-1].features = (
             features,
             f"Combined datasets at dataset indexes: {dataset_ids_to_combine}",
         )
+
+    def get_dataset_names(self,)->list[str]:
+        """Get a list of dataset names
+
+        Returns
+        -------
+        list[str]
+            List containing the names of datasets within this Phenonaut object.
+        """
+        return self.keys()
+
 
     def get_dataset_index_from_name(
         self, name: Union[str, list[str], tuple[str]]
@@ -555,11 +594,10 @@ class Phenonaut:
         ValueError
             Error raised if no datasets were found to match a requested name.
         """
-        dataset_names = [ds.name for ds in self.datasets]
         if isinstance(name, str):
-            return dataset_names.index(name)
+            return self.keys().index(name)
         elif isinstance(name, (list, tuple)):
-            return [dataset_names.index(n) for n in name]
+            return [self.keys().index(n) for n in name]
 
     def clone_dataset(
         self,
@@ -990,7 +1028,7 @@ class Phenonaut:
         self.datasets.append(
             Dataset(
                 dataset_name=new_dataset_name,
-                input_file_path=new_df,
+                input_file_path_or_df=new_df,
                 metadata={"features": merged_features},
             )
         )
@@ -1072,6 +1110,8 @@ class Phenonaut:
             raise FileNotFoundError(f"Could not find file {filepath}")
         with gzip.open(filepath, "rb") as f:
             phe = pickle.load(f)
+            if isinstance(phe, Dataset):
+                phe=Phenonaut(phe)
             for ds in phe.datasets:
                 ds.sha256 = sha256(ds.sha256.encode("utf-8"))
             return phe

@@ -1,4 +1,4 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2023.
 # Development has been supported by GSK.
 
 from scipy.spatial.distance import cdist
@@ -43,7 +43,7 @@ class Dataset:
         is examined and if a TAB character is found present in the first line of the file,
         then it is assumed that the TAB character should be used to delimit values. This check
         is not performed if a 'sep' key is found in metadata, allowing a simple way to
-        override this check.
+        override this check. By default {}.
     kind : Optional[str]
         Instead of providing metadata, some presets are available, which make reading
         in things like DRUG-Seq easier, without the need to explicitly set all
@@ -60,8 +60,11 @@ class Dataset:
         subsequent experiments. Building up a provable chain along the way.
         By default None, implying an empty bytes array.
     h5_key : Optional[str]
-            If input_file_path is an h5 file, then a key to access the target
-            DataFrame must be supplied.
+        If input_file_path is an h5 file, then a key to access the target
+        DataFrame must be supplied.
+    features : Optional[list[str]]
+        Features may be supplied here which are then added to the metadata dict
+        if supplied.
 
     Raises
     ------
@@ -74,11 +77,12 @@ class Dataset:
     def __init__(
         self,
         dataset_name: str,
-        input_file_path: Union[Path, str] = None,
-        metadata: Union[dict, Path, str] = None,
+        input_file_path_or_df: Union[Path, str, pd.DataFrame] = None,
+        metadata: Union[dict, Path, str] = {},
         kind: Optional[str] = None,
         init_hash: Optional[Union[str, bytes]] = None,
         h5_key: Optional[str] = None,
+        features: Optional[list[str]] = None,
     ):
         self.name = dataset_name
         self._history = []
@@ -88,8 +92,18 @@ class Dataset:
         self.callable_functions = list(
             x for x in dir(Dataset) if callable(getattr(Dataset, x)) and x[0] != "_"
         )
-
+        metadata=deepcopy(metadata)
         features_can_be_an_empty_list = False
+
+        if features is not None:
+            if metadata is None:
+                metadata={}
+
+            if "features" in metadata:
+                raise ValueError(
+                    f"'features' argument was not None in construction of new Dataset (named {dataset_name}), and metadata contained a features entry, please use only one"
+                )
+            metadata['features']=features.copy()
 
         if metadata is not None:
             if metadata.get("features", None) == []:
@@ -105,18 +119,21 @@ class Dataset:
             else:
                 raise ValueError(f"The given argument init_hash was not a bytes array or a string")
         # If file path is a string, make it a Path
-        if isinstance(input_file_path, str):
-            input_file_path = Path(input_file_path)
+        if isinstance(input_file_path_or_df, str):
+            input_file_path_or_df = Path(input_file_path_or_df)
 
         # Allow creation of a blank Dataset object when None is supplied for csv_file_path
-        if input_file_path is None:
+        if input_file_path_or_df is None:
             self.__update_hash()
             return
 
         # Load metadata.
         # If str, change to path, check exists, load yaml file defining metadata
         # Can also be a dictionary, which is allowed, or None, relying on defaults.
-        metadata = load_dict(metadata, cast_none_to_dict=True)
+        if isinstance(metadata, (Path, str)):
+            metadata = load_dict(metadata)
+        if metadata is None:
+            metadata={}
 
         if kind is not None:
             from .recipes import kinds
@@ -137,11 +154,11 @@ class Dataset:
         if isinstance(metadata.get("header_row_number"), int):
             metadata["header_row_number"] = [metadata["header_row_number"]]
 
-        if isinstance(input_file_path, Path):
-            if input_file_path.suffix == ".h5":
+        if isinstance(input_file_path_or_df, Path):
+            if input_file_path_or_df.suffix == ".h5":
                 if "key" not in metadata:
                     raise KeyError("Attempting to load hdf5 file, but no key was given in metadata")
-                self.df = pd.read_hdf(input_file_path, h5_key)
+                self.df = pd.read_hdf(input_file_path_or_df, h5_key)
             else:
                 # Read the CSV file into a pandas DataFrame. It needs to be read in
                 # before features are set because the user may be using
@@ -157,19 +174,19 @@ class Dataset:
 
                 if "sep" not in read_csv_args:
                     # See if we can find a tab in the first line:
-                    with open(input_file_path) as myfile:
+                    with open(input_file_path_or_df) as myfile:
                         head = next(myfile)
                         if "\t" in head:
                             read_csv_args["sep"] = "\t"
 
-                self.df = pd.read_csv(input_file_path, **read_csv_args)
+                self.df = pd.read_csv(input_file_path_or_df, **read_csv_args)
 
             # Some datasets contain column names with spaces after them. Additionally,
             # Columbus column titles often have \xa0 at the end.  Strip this whitespace.
             self.df = self.df.rename(columns=lambda x: x.strip())
 
-        if isinstance(input_file_path, pd.DataFrame):
-            self.df = input_file_path.copy()
+        if isinstance(input_file_path_or_df, pd.DataFrame):
+            self.df = input_file_path_or_df.copy()
 
         # Some documentation and early users rely upon transpose being in metadata.
         # If it is, then we move it to transforms within metadata.
@@ -234,7 +251,7 @@ class Dataset:
                 raise ValueError(
                     f"'features' must be a list, np.nparray, or tuple of strings, it was {type(metadata['features'])}"
                 )
-            metadata["initial_features"] = metadata["features"]
+            metadata["initial_features"] = metadata["features"].copy()
             del metadata["features"]
 
         # If no features were given, use features_prefix and features_regex to identify them
@@ -319,13 +336,13 @@ class Dataset:
         # But this took 20 mins.  It was therefore decided to remove the check and rely on Pandas to
         # correctly assign numeric types if it can - this is correct, expected behavior anyway.
 
-        if isinstance(input_file_path, Path):
+        if isinstance(input_file_path_or_df, Path):
             self.features = (
                 metadata["initial_features"],
-                f"{input_file_path=}, {metadata=}, {init_hash=}",
+                f"{input_file_path_or_df=}, {metadata=}, {init_hash=}",
             )
 
-        if isinstance(input_file_path, pd.DataFrame):
+        if isinstance(input_file_path_or_df, pd.DataFrame):
             self.features = (
                 metadata["initial_features"],
                 f"DataFrame passed to Dataset constructor, {metadata=}, {init_hash=}",
@@ -636,15 +653,17 @@ class Dataset:
         """
 
         def _perform_df_transform(all_df, q, feat, func) -> pd.DataFrame:
-            df_query=all_df.query(q)
-            if df_query.shape[0]==0:
-                raise DataError("Query or perturbation returned no matches when attempting to find amounts of features for subtraction in the rest of group.  If using groupby - is the requested perturbation present in the group?")
+            df_query = all_df.query(q)
+            if df_query.shape[0] == 0:
+                raise DataError(
+                    "Query or perturbation returned no matches when attempting to find amounts of features for subtraction in the rest of group.  If using groupby - is the requested perturbation present in the group?"
+                )
             if isinstance(func, str):
                 if func == "mean":
-                    all_df.loc[:,feat] = all_df[feat] - df_query[feat].mean()
+                    all_df.loc[:, feat] = all_df[feat] - df_query[feat].mean()
                     return all_df
                 elif func == "median":
-                    all_df.loc[:,feat] = all_df[feat] - df_query[feat].median()
+                    all_df.loc[:, feat] = all_df[feat] - df_query[feat].median()
                     return all_df
                 else:
                     raise ValueError(
@@ -655,8 +674,14 @@ class Dataset:
             return all_df
 
         # In the line below, get pertibation column this way rather than use the getter to avoid warning message if None.
-        if self._metadata.get("perturbation_column", None) is not None and query_or_perturbation_name in self.df[self._metadata.get("perturbation_column", None)]:
-            query_or_perturbation_name=f"{self.perturbation_column}=='{query_or_perturbation_name}'"
+        if (
+            self._metadata.get("perturbation_column", None) is not None
+            and query_or_perturbation_name
+            in self.df[self._metadata.get("perturbation_column", None)]
+        ):
+            query_or_perturbation_name = (
+                f"{self.perturbation_column}=='{query_or_perturbation_name}'"
+            )
         if groupby is None:
             self.df[self.features] = _perform_df_transform(
                 self.df,
@@ -665,16 +690,17 @@ class Dataset:
                 func,
             )
         else:
-            grouped_df_results=[]
+            grouped_df_results = []
             for _, g in self.df.groupby(groupby):
-                grouped_df_results.append(_perform_df_transform(
-                g,
-                query_or_perturbation_name,
-                self.features,
-                func,
-            ))
-            self.df=pd.concat(grouped_df_results)
-
+                grouped_df_results.append(
+                    _perform_df_transform(
+                        g,
+                        query_or_perturbation_name,
+                        self.features,
+                        func,
+                    )
+                )
+            self.df = pd.concat(grouped_df_results)
 
         self.features = (
             self.features,
@@ -713,7 +739,9 @@ class Dataset:
             containing plateIDs would be supplied.  Multiple column names may
             also be supplied.
         """
-        self.subtract_func_results_on_features(query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func='median')
+        self.subtract_func_results_on_features(
+            query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func="median"
+        )
 
     def subtract_mean(
         self, query_or_perturbation_name: str, groupby: Optional[Union[str, list[str]]]
@@ -747,7 +775,9 @@ class Dataset:
             containing plateIDs would be supplied.  Multiple column names may
             also be supplied.
         """
-        self.subtract_func_results_on_features(query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func='mean')
+        self.subtract_func_results_on_features(
+            query_or_perturbation_name=query_or_perturbation_name, groupby=groupby, func="mean"
+        )
 
     def divide_median(self, query: str) -> None:
         """Divide dataset features by the median of rows identified in the query
@@ -869,7 +899,7 @@ class Dataset:
         Dataset
             New dataset created from query
         """
-        new_ds = Dataset(name, input_file_path=None, metadata=None)
+        new_ds = Dataset(name, input_file_path_or_df=None, metadata=None)
         new_ds.df = self.df.query(query)
         new_ds.features = (self.features, f"New dataset from query: {query}")
         new_ds._metadata = self._metadata
@@ -1439,7 +1469,7 @@ class Dataset:
         tmp_metadata["features"] = self.features
 
         new_ds = Dataset(
-            dataset_name=new_dataset_name, input_file_path=merged_df, metadata=tmp_metadata
+            dataset_name=new_dataset_name, input_file_path_or_df=merged_df, metadata=tmp_metadata
         )
         new_ds._history = self.get_history()
         new_ds.features = (

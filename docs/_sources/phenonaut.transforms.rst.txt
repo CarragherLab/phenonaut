@@ -20,6 +20,14 @@ phenonaut.transforms.generic\_transformations module
    :undoc-members:
    :show-inheritance:
 
+phenonaut.transforms.imputers module
+------------------------------------
+
+.. automodule:: phenonaut.transforms.imputers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 phenonaut.transforms.preparative module
 ---------------------------------------
 
