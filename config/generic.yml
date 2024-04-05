@@ -1,0 +1,50 @@
+# features
+#   String (or list of features present in the SDF). If string, then it is
+#   tokenised on whitespace, so use a list of strings if column headers
+#   contain spaces. Overrides features_prefix if given. (Defaults to None)
+#   Example: |features: "feature1 feature2"
+#            or
+#            |features:
+#            | - feature1
+#            | - feature2
+#            | - feature with space 3
+
+# features_prefix
+#   Prefix for features discoverable in the file. Overridden if features
+#   string (or list) is given. Can be a list, allowing capturing of multiple
+#   feature prefixes. (Defaults to 'feat_')
+
+# index_col
+#   Specifies the column to use as an index.  Defaults to None, causing a new
+#   index to be created. Can be a sting if just one column is specified.  If
+#   multiple columns are use in a multi-index, then must be a list of ints.
+#   Example, use first and second column as an index: | index_col: [0,1]
+#   Exmaple, use first column as an index:            | index_col: 0
+#   Example, use 'treatment' column as an index       | index_col: treatment
+
+# drop_nan
+#   By default, drop_nan is set to true, this can be overriden if the user
+#   does not want to remove rows containing NaN values. (Use YAML style true/
+#   false - all lowercase. Defaults to True)
+#   Example, not dropping NaNs: drop_nan: false
+
+# csv_separator
+#   Separator present in csv file. (Defaults to ',')
+# Example - |csv_separator: \t
+# Example - |csv_separator: " "
+# Example - |csv_separator: ":"
+
+# skip_row_numbers
+#   List of row indexes to skip when reading in the file (zero indexed). For
+#   example, nanostring data typically has a blank third line, so:
+#   Example - skip 3nd line: |skip_row_numbers: 2
+#                             or
+#                            |skip_row_numbers: [2]
+#   Example - skip multiple: |skip_row_numbers: [0,2,4,6,8]
+
+# header_row_number
+#   Row number (zero indexed) containing column headers.  Can be a list if
+#   multiple rows make up the header.  Nanostring data typically has 2 rows
+#   acting as a header, so:
+#   Example - use first 2 rows: | header_row_numbers:[0,1].
+#   (Defaults to 0 - the first row)

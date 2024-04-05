@@ -1,7 +1,8 @@
-# Copyright © The University of Edinburgh, 2023.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
-import phenonaut
 import pandas as pd
+import numpy as np
+import phenonaut
 import phenonaut.transforms
 
 
@@ -20,7 +21,8 @@ def test_transforms_pca(small_2_plate_df):
     t_pca = phenonaut.transforms.PCA()
     t_pca(phe.ds)
     assert (
-        phe.df["PC_2"] - pd.Series([0.033607, -0.005505, 0.342870, -0.276157, -0.037338, -0.057477])
+        phe.df["PC_2"]
+        - pd.Series([0.033607, -0.005505, 0.342870, -0.276157, -0.037338, -0.057477])
     ).abs().mean() < 1e-6
 
 
@@ -53,7 +55,8 @@ def test_transforms_umap(small_2_plate_df):
 
 def test_transforms_custom_callable_square(small_2_plate_df):
     phe = phenonaut.Phenonaut(small_2_plate_df)
-    from numpy import square, all as np_all
+    from numpy import all as np_all
+    from numpy import square
 
     f1_series = phe.ds.data.values[:, 0]
     t_square = phenonaut.transforms.Transformer(square)
@@ -85,3 +88,4 @@ def test_transforms_log2(small_2_plate_df):
         phe.df["log2_feat_3"]
         - pd.Series([0.378512, 0.584963, 2.321928, 2.765535, -1.736966, -1.395929])
     ).abs().sum() < 2e-6
+

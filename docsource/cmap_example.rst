@@ -152,17 +152,17 @@ In order to perform a sanity check, the xpr repeats were visualised in PCA, tSNE
 
 Producing the following figures:
 
-    .. figure:: example2_pca_scatter.png
+    .. figure:: /_static/example2_pca_scatter.png
         :alt: PCA scatter of A549.311 cell line
 
         PCA scatter of CMAP A549.311 cell line CRISPR repeats. Large blue '+' are untreated controls.
 
-    .. figure:: example2_umap_scatter.png
+    .. figure:: /_static/example2_umap_scatter.png
         :alt: UMAP scatter of A549.311 cell line
 
         UMAP scatter of CMAP A549.311 cell line CRISPR repeats. Large blue '+' are untreated controls.
 
-    .. figure:: example2_tsne_scatter.png
+    .. figure:: /_static/example2_tsne_scatter.png
         :alt: t-SNE scatter of A549.311 cell line
 
         t-SNE scatter of CMAP A549.311 cell line CRISPR repeats. Large blue '+' are untreated controls.
@@ -222,7 +222,7 @@ A boxplot was then generated to summarise the results of the above metric evalua
 
 Resulting in the following figure:
 
-.. figure:: example2_boxplot_noopt.png
+.. figure:: /_static/example2_boxplot_noopt.png
     :alt: Boxplot of phenotypic metric performance
 
     Boxplot of AUROC scores across averaged xpr repeats of the A549.311 cell line within CMAP. For each dimensionality reduction technique (PCA, UMAP and tSNE), 2 dimensions were requested, and all other options kept to default settings.
@@ -259,16 +259,16 @@ The above figure gives us an insight into metric-feature space performance, but 
     custom_annotation.loc[['UMAP','t-SNE'], ['scalar projection', 'cosine similarity']]="NA"
     write_heatmap_from_df(better_than_df,"Num significant at 0.05 level", BASE_PROJECT_DIR/"mwu-betterthan-heatmap.png", figsize=(5,4), lower_is_better=False, annotation_format_string_value="g", annot=custom_annotation.transpose().values, sns_colour_palette="Blues")
 
-.. figure:: example2_heatmap_noopt.png
+.. figure:: /_static/example2_heatmap_noopt.png
     :alt: Heatmap of Mann-Whitney U metric performance (one tailed, greater than)
 
     1-tailed Mann Whitney-U (greater than) test, evaluating if the query metric-feature space combination is better than the candidate-feature space combination. Values denote p-values that the metric-feature space combination in a given row is performed better than the metric-feature space column given in the column by chance along.  If this value is <0.05, we deem there to be a less than 5 % chance that the metric-feature space combination outperformed the other by chance.
 
-.. figure:: example2_heatmap_summary_noopt.png
+.. figure:: /_static/example2_heatmap_summary_noopt.png
     :alt: Heatmap summary of Mann-Whitney U metric performance (one tailed, greater than)
     :scale: 50 %
 
-    Counts of the number of features-space metric pairs that were significantly better performing than other metric-feature space pairs. Suggests that scalar projection applied to full and standard scalar feature space outperforms the same number of metric-feature space pairs as cosine similarity applied to standard scalar feature space. 
+    Counts of the number of features-space metric pairs that were significantly better performing than other metric-feature space pairs. Suggests that scalar projection applied to full and standard scalar feature space outperforms the same number of metric-feature space pairs as cosine similarity applied to standard scalar feature space.
 
 Whilst the above shows that scalar projection applied to full and standard scalar feature space outperforms the same number of metric-feature space pairs as cosine similarity applied to standard scalar feature space, there is no significant (at the 0.05 level) performance difference between any of those top metric-feature space combinations, as evidenced in Figure S7.
 Additionally, the PCA, UMAP and t-SNE feature spaces are in 2 dimensions only. This can be optimised using a simple scanning approach to reach optimum AUROC scores for each metric-feature space pair.
@@ -305,11 +305,11 @@ Additionally, the PCA, UMAP and t-SNE feature spaces are in 2 dimensions only. T
                     else:
                         results[i,j]=np.nan
             return results
-        
+
         from copy import deepcopy
         from multiprocessing import Pool
 
-            
+
         sds = deepcopy(phe["xpr_scaled"])
 
         n_dims_list = np.arange(2, min(sds.df.shape[0]-2, sds.df.shape[1]-2))
@@ -353,7 +353,7 @@ Additionally, the PCA, UMAP and t-SNE feature spaces are in 2 dimensions only. T
 
 Producing the following:
 
-.. figure:: example2_ndims_scatter.png
+.. figure:: /_static/example2_ndims_scatter.png
     :alt: ndims optimisation scatter for dimensionality reduction techniques
 
     AUROC scores for PCA, UMAP and t-SNE feature spaces across a range of dimensions for each appropriate metric.
@@ -457,7 +457,7 @@ and visualise:
     plt.tight_layout()
     fig.savefig(BASE_PROJECT_DIR/"boxplot_opt.png", dpi=300)
 
-.. figure:: example2_boxplot_opt.png
+.. figure:: /_static/example2_boxplot_opt.png
     :alt: ndims optimised metric performance boxplots.
 
     Boxplot of AUROC scores across averaged xpr repeats of the A549.311 cell line within CMAP. For each dimensionality reduction technique (PCA, UMAP and tSNE), the optimum number of dimensions were used to maximise AUROC scores, indicating the throretical maximum scores achievable using these metric-feature space pairs, other options kept to default settings.
@@ -497,12 +497,12 @@ Similarly to before, we may repeat the statistical testing to evaluate metric-fe
     custom_annotation.loc[['UMAP','t-SNE'], ['scalar projection', 'cosine similarity']]="NA"
     write_heatmap_from_df(better_than_df,"Num significant at 0.05 level", BASE_PROJECT_DIR/"betterthan_heatmap_opt.png", figsize=(5,4), lower_is_better=False, annotation_format_string_value="g", annot=custom_annotation.transpose().values, sns_colour_palette="Blues")
 
-.. figure:: example2_heatmap_opt.png
+.. figure:: /_static/example2_heatmap_opt.png
     :alt: Heatmap of Mann-Whitney U metric performance (one tailed, greater than)
 
     1-tailed Mann Whitney-U (greater than) test, evaluating if the query metric-feature space combination is better than the candidate-feature space combination, dimensionality reduction techniques using optimum number of dimensions to reflect theoretical maximum performance. Values denote p-values that the metric-feature space combination is a given row is performed better than the metric-feature space column given in the column by chance along.  If this value is <0.05, we deem there to be a less than 5 % chance that the metric-feature space combination outperformed the other by chance.
 
-.. figure:: example2_heatmap_summary_opt.png
+.. figure:: /_static/example2_heatmap_summary_opt.png
     :alt: Heatmap summary of of Mann-Whitney U metric performance (one tailed, greater than)
     :scale: 50 %
 

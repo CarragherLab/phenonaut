@@ -1,5 +1,5 @@
 phenonaut package
-=================
+====================
 
 Subpackages
 -----------
@@ -17,8 +17,16 @@ Subpackages
 Submodules
 ----------
 
-phenonaut.phenonaut module
+phenonaut.errors module
 --------------------------
+
+.. automodule:: phenonaut.errors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenonaut.phenonaut module
+-----------------------------
 
 .. automodule:: phenonaut.phenonaut
    :members:
@@ -26,7 +34,7 @@ phenonaut.phenonaut module
    :show-inheritance:
 
 phenonaut.utils module
-----------------------
+-------------------------
 
 .. automodule:: phenonaut.utils
    :members:
@@ -34,7 +42,7 @@ phenonaut.utils module
    :show-inheritance:
 
 phenonaut.workflow module
--------------------------
+----------------------------
 
 .. automodule:: phenonaut.workflow
    :members:

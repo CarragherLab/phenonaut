@@ -1,11 +1,11 @@
 phenonaut.metrics package
-=========================
+============================
 
 Submodules
 ----------
 
 phenonaut.metrics.distances module
-----------------------------------
+-------------------------------------
 
 .. automodule:: phenonaut.metrics.distances
    :members:
@@ -13,7 +13,7 @@ phenonaut.metrics.distances module
    :show-inheritance:
 
 phenonaut.metrics.measures module
----------------------------------
+------------------------------------
 
 .. automodule:: phenonaut.metrics.measures
    :members:
@@ -21,7 +21,7 @@ phenonaut.metrics.measures module
    :show-inheritance:
 
 phenonaut.metrics.non\_ds\_phenotypic\_metrics module
------------------------------------------------------
+--------------------------------------------------------
 
 .. automodule:: phenonaut.metrics.non_ds_phenotypic_metrics
    :members:
@@ -29,7 +29,7 @@ phenonaut.metrics.non\_ds\_phenotypic\_metrics module
    :show-inheritance:
 
 phenonaut.metrics.performance module
-------------------------------------
+---------------------------------------
 
 .. automodule:: phenonaut.metrics.performance
    :members:
@@ -37,7 +37,7 @@ phenonaut.metrics.performance module
    :show-inheritance:
 
 phenonaut.metrics.utils module
-------------------------------
+---------------------------------
 
 .. automodule:: phenonaut.metrics.utils
    :members:

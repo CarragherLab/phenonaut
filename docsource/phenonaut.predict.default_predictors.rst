@@ -1,5 +1,5 @@
 phenonaut.predict.default\_predictors package
-=============================================
+================================================
 
 Subpackages
 -----------
@@ -13,7 +13,7 @@ Submodules
 ----------
 
 phenonaut.predict.default\_predictors.classifiers module
---------------------------------------------------------
+-----------------------------------------------------------
 
 .. automodule:: phenonaut.predict.default_predictors.classifiers
    :members:
@@ -21,7 +21,7 @@ phenonaut.predict.default\_predictors.classifiers module
    :show-inheritance:
 
 phenonaut.predict.default\_predictors.multiregressors module
-------------------------------------------------------------
+---------------------------------------------------------------
 
 .. automodule:: phenonaut.predict.default_predictors.multiregressors
    :members:
@@ -29,7 +29,7 @@ phenonaut.predict.default\_predictors.multiregressors module
    :show-inheritance:
 
 phenonaut.predict.default\_predictors.regressors module
--------------------------------------------------------
+----------------------------------------------------------
 
 .. automodule:: phenonaut.predict.default_predictors.regressors
    :members:

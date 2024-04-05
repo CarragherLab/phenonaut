@@ -1,8 +1,9 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
 import fire
-from phenonaut import Phenonaut, predict, packaged_datasets
+
+from phenonaut import Phenonaut, packaged_datasets, predict
 
 
 def run_phenonaut_tcga(
@@ -45,6 +46,4 @@ def run_phenonaut_tcga(
 
 
 if __name__ == "__main__":
-    fire.Fire(
-        run_phenonaut_tcga,
-    )
+    fire.Fire(run_phenonaut_tcga)

@@ -1,11 +1,11 @@
 phenonaut.transforms package
-============================
+===============================
 
 Submodules
 ----------
 
 phenonaut.transforms.dimensionality\_reduction module
------------------------------------------------------
+--------------------------------------------------------
 
 .. automodule:: phenonaut.transforms.dimensionality_reduction
    :members:
@@ -13,7 +13,7 @@ phenonaut.transforms.dimensionality\_reduction module
    :show-inheritance:
 
 phenonaut.transforms.generic\_transformations module
-----------------------------------------------------
+-------------------------------------------------------
 
 .. automodule:: phenonaut.transforms.generic_transformations
    :members:
@@ -21,7 +21,7 @@ phenonaut.transforms.generic\_transformations module
    :show-inheritance:
 
 phenonaut.transforms.imputers module
-------------------------------------
+---------------------------------------
 
 .. automodule:: phenonaut.transforms.imputers
    :members:
@@ -29,7 +29,7 @@ phenonaut.transforms.imputers module
    :show-inheritance:
 
 phenonaut.transforms.preparative module
----------------------------------------
+------------------------------------------
 
 .. automodule:: phenonaut.transforms.preparative
    :members:
@@ -37,7 +37,7 @@ phenonaut.transforms.preparative module
    :show-inheritance:
 
 phenonaut.transforms.supervised\_transformer module
----------------------------------------------------
+------------------------------------------------------
 
 .. automodule:: phenonaut.transforms.supervised_transformer
    :members:
@@ -45,7 +45,7 @@ phenonaut.transforms.supervised\_transformer module
    :show-inheritance:
 
 phenonaut.transforms.transformer module
----------------------------------------
+------------------------------------------
 
 .. automodule:: phenonaut.transforms.transformer
    :members:

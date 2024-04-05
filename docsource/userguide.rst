@@ -16,31 +16,31 @@ Phenonaut class
 ---------------
 
 A typical Phenonaut run begins with instantiation of a Phenonaut object.
-Many options for instantiation are permitted, with an empty object created if no parameters are given. 
+Many options for instantiation are permitted, with an empty object created if no parameters are given.
 
 .. code-block:: python
-        
+
     from phenonaut import Phenonaut
     phe=Phenonaut()
 
 Please refer to Phenonaut API documentation for a complete description of Phenonaut constructor arguments and member functions.
 An instantiated Phenonaut object has the following member variables:
 
-* datasets - a list of Dataset objects. 
+* datasets - a list of Dataset objects.
 * df - shorthand notation to access the Pandas DataFrame of the last Dataset in the datasets list.
 * ds - shorthand notation to access the last Dataset in the datasets list.
 * name - string containing a name for the Phenonaut object, this simplifies working with multiple Phenonaut objects in list-like structures.
 
-.. figure:: phenonaut_obj_class_diagram.png
+.. figure:: /_static/phenonaut_obj_class_diagram.png
     :alt: Snapshot of Phenonaut object.
 
-    Full typing hinting is too long to display here, but available in :doc:`phenonaut` documentation 
+    Full typing hinting is too long to display here, but available in :doc:`phenonaut` documentation
 
 
 In addition to these member variables, we can access the datasets list using dictionary-like accessors. For example, with an instantiated Phenonaut object stored in the variable “phe” containing two datasets “Alice” and “Bob”, we may access them using dictionary-like and list-like accessors.
-    
+
     .. code-block:: python
-        
+
         phe["Alice"] # Access the Alice Dataset
         phe["Bob"] # Access the Bob Dataset
         phe[0]  # Access the first (Alice) Dataset
@@ -48,15 +48,15 @@ In addition to these member variables, we can access the datasets list using dic
         phe[-1] # Access the last (Bob) Dataset
 
 Phenonaut objects along with all data they hold may be easily written to python pickle files:
-    
+
     .. code-block:: python
-        
+
         phe.save("phe.pkl")
 
 Pickled Phenonaut objects may be loaded in the following way:
-    
+
     .. code-block:: python
-    
+
         phe=Phenonaut.load("phe.pkl")
 
 --------------
@@ -64,8 +64,8 @@ Datasets class
 --------------
 
 Datasets in Phenonaut encapsulate Pandas DataFrames and provide functionality to monitor features within the DataFrame, along with metadata, and provide a consistent interface for Phenonaut's transforms, predictions and metrics.
- 
-.. image:: dataset_obj_class_diagram.png
+
+.. image:: /_static/dataset_obj_class_diagram.png
     :alt: Snapshot of Dataset object.
 
 A user supplied CSV file may be used to instantiate a Dataset object. Using a CSV file containing the following small sample of the Iris dataset:
@@ -82,7 +82,7 @@ sepal length (cm) sepal width (cm) petal length (cm) petal width (cm) target
 
 It may be loaded into a Dataset object using three different feature selection methods:
 
-#.	The 'features' key, specifying a list of features. 
+#.	The 'features' key, specifying a list of features.
 #.	The 'features_prefix' key, specifying a common prefix.
 #.	The 'features_regex' key, specifying a regular expression
 
@@ -138,7 +138,7 @@ Accessing the underlying DataFrame is achieved as follows:
     ds.df
 
 A DataFrame of only features may also be accessed via the *data* property, useful as input to transforms etc.
-    
+
 .. code-block:: python
 
     ds.data # equivalent to calling ds.df[ds.features]
@@ -168,7 +168,7 @@ or
 Resulting the return of a list of history tuples.
 
 .. code-block:: console
-    
+
     [TransformationHistory(features=['petal length (cm)', 'petal width (cm)', 'sepal length (cm)', 'sepal width (cm)'], description='Loaded /tmp/tmpcu2rpsai, sep=\',\'", skiprows=None, header=[0], transpose=False, index_col=None, metadata={\'features_regex\': \'.*(width|length).*\', \'initial_features\': [\'petal length (cm)\', \'petal width (cm)\', \'sepal length (cm)\', \'sepal width (cm)\']}, init_hash=None, '), TransformationHistory(features=['petal length (cm)', 'petal width (cm)', 'sepal width (cm)'], description='Removed sepal length (cm) feature')]
 
 
@@ -239,7 +239,7 @@ It is vastly different to the internal format required by Phenonaut.
 
 .. csv-table:: DRUG-seq sample output, 2 measurements per well, for 4 wells.
     :header: "","Var1","Var2","value"
-    
+
     "1","ENSG00000225972","A1_CPD1_PLATE1",4.0185
     "2","ENSG00000225630","A1_CPD1_PLATE1",1.1539
     "3","ENSG00000225972","A2_CPD2_PLATE1",10.6661
@@ -248,7 +248,7 @@ It is vastly different to the internal format required by Phenonaut.
     "6","ENSG00000225630","A3_CPD3_PLATE1",9.8436
     "7","ENSG00000225972","A4_Pos_ctrl_PLATE1",0.1234
     "8","ENSG00000225630","A4_Pos_ctrl_PLATE1",9.8436
-    
+
 Fortunately, Phenonaut offers the ability to perform transforms on the data upon reading it in.
 This is achieved through use of the 'transforms' key in metadata.  The 'transforms' key should
 have under it a list of transforms to be applied to the data.  These transforms can be any member
@@ -266,13 +266,13 @@ with list elements consisting of tuples in two forms:
 * n-elements in the tuple, whereby the 1st element is the name of the function to be called, and subsequent elements are arguments to be passed to the function.
 
 We have features listed one per-row and occurring once for every well on a plate
-measured. 
+measured.
 
 Our target format for this dataset would be:
 
 .. csv-table:: Ideal, transformed DRUG-seq sample output, 2 counts measurements per well, for 3 wells.
     :header: "WellName","CpdID","PlateID","ENSG00000225972", "ENSG00000225630"
-    
+
     "A1", "CPD1", "PLATE1", 4.0185, 1.1539
     "A2", "CPD2", "PLATE1", 10.6661, 1.6130
     "A3", "CPD3", "PLATE1", 0.1234, 9.8436
@@ -288,32 +288,32 @@ We need to address the following with transforms:
   split on.
 
   .. code-block:: python
-    
+
     ("replace_str", "Var2", "Pos_", "Pos-")
 * Split the Var2 column on the underscore character to create 3 new columns:
-  
+
   .. code-block:: python
-    
+
     ("split_column", "Var2", "_", ['WellID','CpdID','PlateID'])
 
 * Pivot the table, populating new features with the values in the 'Var1' column, and their
   values from the 'value' column. Further reading on pivoting can help in grasping
   the idea behind this transformation.  See : `https://pandas.pydata.org/docs/user_guide/reshaping.html <https://pandas.pydata.org/docs/user_guide/reshaping.html>`_
-  
+
   .. code-block:: python
-    
+
     ("pivot", "Var1", 'value')
 
 * We may optionally undo the renaming operation now that we have split the filed, and replace 'Pos-' with 'Pos\_' in the 'CpdID' column:
-  
+
   .. code-block:: python
-    
+
     ("replace_str", "CpdID", "Pos-", "Pos_")
 
 Putting it all together produces the following phenonaut code, containing metadata, with nested transform keys:
 
 .. code-block:: python
-    
+
     phe = Phenonaut(
         "DRUG-seq_input_file.csv",
         metadata={
@@ -326,7 +326,7 @@ Putting it all together produces the following phenonaut code, containing metada
             'features_prefix':'ENSG'
         },
     )
-    
+
 
 
 -----------------
@@ -389,11 +389,11 @@ Removing highly correlated features
 
     from phenonaut.transforms.preparative import VIF
     VIF().filter(phe[0])
-    
+
 With no arguments passed to filter apart from the Dataset to be filtered, a VIF cutoff of 5 is used. This reduces the number of features to from 31 to 13:
-    
+
 .. code-block:: python
-    
+
     print(phe[0].features)
 
 Outputs:
@@ -409,7 +409,7 @@ Applying UMAP
 We then apply the UMAP dimensionality reduction technique to the Dataset, using no arguments apart from the Dataset to be operated on – producing a 2D UMAP embedding:
 
 .. code-block:: python
-    
+
     from phenonaut.transforms import UMAP
     UMAP()(phe[0])
 
@@ -429,7 +429,6 @@ Finally, we plot the output. To achieve this, we exploit a special property of d
 
 Which produces the following plot showing separation between benign and malignant tumor samples.
 
-.. figure:: bc_dataset_umap_scatter.png
-    
-    Output from the scatter visualisation applied to the breast cancer dataset after VIF filtering and applying UMAP dimensionality reduction to two dimensions, showing an apparent separation within feature space of benign vs malignant tumours.
+.. figure:: /_static/bc_dataset_umap_scatter.png
 
+    Output from the scatter visualisation applied to the breast cancer dataset after VIF filtering and applying UMAP dimensionality reduction to two dimensions, showing an apparent separation within feature space of benign vs malignant tumours.

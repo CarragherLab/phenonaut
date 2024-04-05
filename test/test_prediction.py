@@ -1,13 +1,15 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
 import shutil
-import pandas as pd
+import tempfile
+from pathlib import Path
+
 import numpy as np
+import pandas as pd
+
 from phenonaut.output.heatmap import write_heatmap_from_df
 from phenonaut.phenonaut import Phenonaut
-from pathlib import Path
-import tempfile
 
 
 def test_get_y_from_iris_dataset(dataset_iris):

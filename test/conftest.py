@@ -1,13 +1,16 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
-import phenonaut
-import pytest
-from phenonaut.data import Dataset
-from sklearn.datasets import load_iris
-import pandas as pd
 from pathlib import Path
+
 import numpy as np
+import pandas as pd
+import pytest
+from sklearn.datasets import load_iris
+
+import phenonaut
+from phenonaut.data import Dataset
+
 
 @pytest.fixture
 def sklearn_regression_df():
@@ -24,6 +27,7 @@ def sklearn_regression_df():
 
     """
     return pd.read_csv(Path("test") / "generated_regression_dataset.csv", index_col=0)
+
 
 @pytest.fixture
 def small_2_plate_df():
@@ -47,10 +51,19 @@ def small_2_plate_df():
         }
     )
 
+
 @pytest.fixture
-def small_2_plate_ds(small_2_plate_df:pd.DataFrame):
-    ds=Dataset("Small 2 plate DS", small_2_plate_df, {"features": ['feat_1','feat_2', 'feat_3']})
-    return Dataset("Small 2 plate DS", small_2_plate_df, {"features": ['feat_1','feat_2', 'feat_3']})
+def small_2_plate_ds(small_2_plate_df: pd.DataFrame):
+    ds = Dataset(
+        "Small 2 plate DS",
+        small_2_plate_df,
+        {"features": ["feat_1", "feat_2", "feat_3"]},
+    )
+    return Dataset(
+        "Small 2 plate DS",
+        small_2_plate_df,
+        {"features": ["feat_1", "feat_2", "feat_3"]},
+    )
 
 
 @pytest.fixture
@@ -60,13 +73,13 @@ def iris_df():
 
 
 @pytest.fixture
-def dataset_iris(iris_df:pd.DataFrame):
+def dataset_iris(iris_df: pd.DataFrame):
     column_names = iris_df.columns.to_list()
     return Dataset("Iris", iris_df, {"features": column_names[0:4]})
 
 
 @pytest.fixture
-def phenonaut_object_iris_2_views(iris_df:pd.DataFrame):
+def phenonaut_object_iris_2_views(iris_df: pd.DataFrame):
     column_names = iris_df.columns.to_list()
     df1 = iris_df.iloc[:, [0, 1, 4]].copy()
     df2 = iris_df.iloc[:, [2, 3, 4]].copy()
@@ -76,7 +89,7 @@ def phenonaut_object_iris_2_views(iris_df:pd.DataFrame):
 
 
 @pytest.fixture
-def phenonaut_object_iris_4_views(iris_df:pd.DataFrame):
+def phenonaut_object_iris_4_views(iris_df: pd.DataFrame):
     column_names = iris_df.columns.to_list()
     df1 = iris_df.iloc[:, [0, 4]].copy()
     df2 = iris_df.iloc[:, [1, 4]].copy()
@@ -88,21 +101,64 @@ def phenonaut_object_iris_4_views(iris_df:pd.DataFrame):
     ds4 = Dataset("Iris_view4", df4, {"features": [column_names[3]]})
     return phenonaut.Phenonaut([ds1, ds2, ds3, ds4])
 
+
 @pytest.fixture
 def nan_inf_df():
-
-    df = pd.DataFrame({
-            'A': [1, 2, 3, 4, 5, 6],
-            'B': [6, 5, 4, 3, 2, 1],
-            'C': [1, 2, 3, np.nan, np.inf, 4],
-            'D': [np.inf, 1, 2, 3, 4, np.nan],
-            'E': [5, np.nan, np.nan, np.nan, np.nan, 6],
-            'F': ["g1","g1","g1","g2","g2","g2"]
-            })
+    df = pd.DataFrame(
+        {
+            "A": [1, 2, 3, 4, 5, 6],
+            "B": [6, 5, 4, 3, 2, 1],
+            "C": [1, 2, 3, np.nan, np.inf, 4],
+            "D": [np.inf, 1, 2, 3, 4, np.nan],
+            "E": [5, np.nan, np.nan, np.nan, np.nan, 6],
+            "F": ["g1", "g1", "g1", "g2", "g2", "g2"],
+        }
+    )
 
     return df
+
 
 @pytest.fixture
 def nan_inf_dataset(nan_inf_df: pd.DataFrame):
     column_names = nan_inf_df.columns.to_list()
-    return Dataset("nan_inf", nan_inf_df , {"features": column_names[0:5]})
+    return Dataset("nan_inf", nan_inf_df, {"features": column_names[0:5]})
+
+
+@pytest.fixture
+def twenty_one_blobs_phe():
+    """Make a 20-feature dataset containing 20 5x replicates and 1 20x negative control
+
+    Last compound has a large SD
+
+    Returns
+    -------
+    phenonaut.Phenonaut
+        Phenonaut object containing blobs
+    """
+    import phenonaut
+    import numpy as np
+    import pandas as pd
+    from sklearn.datasets import make_blobs
+
+    num_features = 10
+    num_treatments = 20
+    num_vehicle_replicates = 20
+    num_treatment_replicates = 5
+
+    X, y = make_blobs(
+        n_samples=[num_vehicle_replicates]
+        + [num_treatment_replicates] * num_treatments,
+        n_features=num_features,
+        cluster_std=[2] + [1] * (num_treatments - 1) + [4],
+        random_state=42,
+        return_centers=False,
+        shuffle=False,
+    )
+    df = pd.DataFrame(
+        np.hstack([X, y[:, None]]),
+        columns=[f"feat_{f+1}" for f in range(num_features)] + ["label"],
+    )
+    df["label"] = df["label"].astype(int)
+    phe = phenonaut.Phenonaut(df, metadata={"features_prefix": "feat_"})
+    phe.ds.perturbation_column = "label"
+    return phe

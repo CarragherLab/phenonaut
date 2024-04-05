@@ -1,11 +1,112 @@
+[project]
+name="phenonaut"
+dynamic = ["version"]
+description="A toolkit for multiomic phenotypic space exploration."
+authors = [
+    {name = "Steven Shave", email="steven.x.shave@gsk.com"},
+    {name = "Abdullah Athar", email="abdullah.m.athar@gsk.com"},
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy==1.25.2", # Pinned because of numba
+    "pandas>=2.0.0",
+    "scikit-learn>=1.2.0",
+    "scipy>=1.7.0",
+    "torch>=2.0.1",
+    "fire>=0.5.0",
+    "tqdm>=4.48.0",
+    "openpyxl>=3.1.1",
+    "optuna>=3.1.0",
+    "h5py>=3.6.0",
+    "matplotlib>=3.7.1",
+    "seaborn>=0.12.2",
+    "tables>=3.7.0",
+    "umap-learn>=0.5.4",
+    "rbo>=0.1.2",
+    "python-pptx>=0.6",
+    "requests",
+    "mvlearn==0.4.1", # mvlearn's next release, 0.5.0 does not support matplotlib >3.3
+    "torchvision",
+    "torchaudio",
+    "numba>=0.58.0",
+    "llvmlite>=0.41.0",
+    "ipykernel",
+    "ipywidgets",
+    "tensorboard",
+    ]
+
+
+[project.urls]
+Homepage = "https://carragherlab.github.io/phenonaut/"
+Documentation = "https://carragherlab.github.io/phenonaut/phenonaut.html"
+Repository = "https://github.com/CarragherLab/phenonaut"
+Changelog = "https://github.com/CarragherLab/phenonaut/blob/main/CHANGELOG.md"
+
+
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+include = '''
+(
+    ^/tests/
+  | ^/src/
+  | ^/setup[.]py
+)
+'''
+
+exclude = '''
+(
+    __pycache__
+    |.*\.egg-info
+    |.*.pptx
+)
+'''
+extend-exclude = '''.*test_.*'''
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+phenonaut = ["output/ph0_*.pptx"]
+
+[tool.setuptools.dynamic]
+version = {attr = "phenonaut.__version__"}
+
+[project.optional-dependencies]
+dev = [
+    'pandas==2.1.1',
+    'black==23.3.0',
+    'pytest==7.4.0',
+    'build==0.10.0',
+    'pre-commit==3.5.0',
+    'sphinx==7.2.6',
+    'sphinx_rtd_theme',
+    'pre-commit==3.5.0',
+]
+
+
 [build-system]
 requires = [
     "setuptools>=42",
-    "wheel",
-    "torch",
-    "torchvision",
-    "torchaudio",
+    "wheel>=0.41.2",
+    "torch>=2.0.1",
+    "pre-commit>=3.5.0",
+    "black==23.3.0",
 ]
 build-backend = "setuptools.build_meta"
-[tool.black]
-line-length = 100
+
+[tool.isort]
+profile = 'black'
+
+[tool.pytest.ini_options]
+"testpaths" = "test/test*"

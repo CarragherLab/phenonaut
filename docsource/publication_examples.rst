@@ -8,7 +8,7 @@
 Publication examples
 ====================
 
-.. image:: phenonaut.png
+.. image:: /_static/phenonaut.png
    :align: right
 
 Two examples are given in the Phenonaut paper, one on the The Cancer Genome Atlas, utilising Phenonaut called from a Python program, and another where Phenonaut is applied to data with the Connectivity Map interactively, within a Jupyter notebook.

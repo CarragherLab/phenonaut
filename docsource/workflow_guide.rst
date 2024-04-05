@@ -5,8 +5,8 @@ Workflow mode
 Phenonaut may be used in a workflow mode, removing the requirement for users to be able to use Python.
 
 
-With the definition of workflows in simple YAML files (`<https://en.wikipedia.org/wiki/YAML/>`_), 
-standardised workflows can be created that have access to all Phenonuat functionality. 
+With the definition of workflows in simple YAML files (`<https://en.wikipedia.org/wiki/YAML/>`_),
+standardised workflows can be created that have access to all Phenonuat functionality.
 Whilst YAML files are a simple and convenient format, JSON dictionaries respresented as text files in
 the .json format may also be passed. For the purposes of this documentation, the YAML format is used
 to exemplify Phenonaut capabilities. Phenonaut will determine if it is working with YAML or JSON files
@@ -38,7 +38,7 @@ This page documents all workflow enabled functions such as 'load' and 'predict' 
 The publication SI material contains a worked example using workflow mode which can also be found here:
 :doc:`tcga_example`.
 
-Documentation on the Python API is useful for understanding the implementation details of 
+Documentation on the Python API is useful for understanding the implementation details of
 :doc:`workflow mode<phenonaut>`.
 
 I/O
@@ -47,7 +47,7 @@ I/O
 load
 ----
 
-    Load a dataset in the format denoted by a given file extension, or a PakcagedDataset known to Phenonaut. 
+    Load a dataset in the format denoted by a given file extension, or a PakcagedDataset known to Phenonaut.
     There are 2 main routes to loading a dataset in workflow mode.
 
     1. Loading a packaged dataset (using the dataset key)
@@ -64,7 +64,7 @@ load
             "iris", "The Iris dataset (Yann)."
             "BreastCancer", "The Breast cancer Wisconsin (diagnostic) dataset (Wisconsin)."
 
-        
+
 
         References:
             * Weinstein, John N., et al. "The cancer genome atlas pan-cancer analysis project." Nature genetics 45.10 (2013): 1113-1120.
@@ -87,13 +87,13 @@ load
 
         .. csv-table:: Workflow file formats (* can be <ext>.gz indicating gzip compression is applied)
             :header: "Extension", "Description"
-            
+
             "csv*",               "Standard CSV (Comma separated values) file"
             "tsv*",               "Tab separated values file"
             "h5",               "H5 data.  A 'key' argument must also be passed in conjunction with this file format,
-            
+
             denoting the key within the H5 file that the (normally, pd.DataFrame resides under)"
-        
+
         Filetype is inferred from the file name extension. Note that .csv and .tsv files may be gzipped (.csv.gz and .tsv.gz).
 
     *metadata*
@@ -106,9 +106,9 @@ load
         - 'transpose' : In the case of some transcriptomics raw data, transposition is required to have samples row-wise. Therefore the table must be transposed. Set to True to transpose.
         - 'index_col' : Column to use as the row labels of the CSV given as either the column names or as numerical indexes. Note: index_col=False can be used to force pandas to not use the first column as the index, e.g. when you have a malformed file with delimiters at the end of each line.
         - 'key' : If an h5 file is specified, then this is the key under which the pandas dataframe representing the dataset resides.
-        
+
         .. code-block:: yaml
-            
+
             ---
             Example load usage:
             - load:
@@ -125,7 +125,7 @@ write_csv
 
     Writes a dataset to a CSV file. As well as the keys defined below, additional keys may be supplied
     which are passed to Pandas.DataFrame.to_csv as kwargs, allowing fully flexible output.
-    
+
     See https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv for a full listing of additional arguments.
 
 
@@ -135,7 +135,7 @@ write_csv
         The path to the file where output should be writen.
 
     .. code-block:: yaml
-        
+
         ---
         Example write_csv usage:
         - load:
@@ -153,7 +153,7 @@ write_csv
 write_multiple_csvs
 -------------------
 
-    
+
     Often it is useful to write a CSV file per plate within the dataset, or group the data by some other
     identifier. This write_multiple_csvs workflow function provides this functionality.
 
@@ -173,7 +173,7 @@ write_multiple_csvs
         optional file extension, by default '.csv'
 
     .. code-block:: yaml
-        
+
         ---
         Example write_multiple_csvs usage:
         - load:
@@ -222,7 +222,7 @@ add_well_id
         Do not resort the dataset by well ID, if not supplied, then behaves as if False
 
     .. code-block:: yaml
-        
+
         ---
         Example add_well_id:
         - load:
@@ -243,14 +243,14 @@ copy_column
 -----------
 
     Copys the values of one column within a dataset to another.
-    
+
     Supply either 'to' and 'from' keys, or alternatively, simply from:to key-value
     pairs denoting how to perform the copy operation.
 
     Argument details
-    
+
     .. code-block:: yaml
-        
+
         ---
         Example copying a column:
         - load:
@@ -271,9 +271,9 @@ rename_column and rename_columns
     Renames a single, or multiple columns. The arguments dictionary should contain key:value pairs, where the key is the old column name and the value is the new column name.
 
     Supply either 'name_from' and 'name_to' keys, or alternatively, simply from:to key-value pairs denoting how to perform the rename operation. Multiple columns can be renamed in a single call, using multiple dictionary entries.
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example rename columns:
         - load:
@@ -304,9 +304,9 @@ filter_columns
         Singular column to keep (or regular expression to match).  Can be used interchangably with column_names.
     *regex*
         If true, perform regular expression matching. By default false.
-    
+
     .. code-block:: yaml
-        
+
         ---
         Example filtering coiumns:
         - load:
@@ -338,7 +338,7 @@ filter_rows
         If True then rows matching the query are kept, if False, then rows matching are discarded, and non-matching rows kept.
 
     .. code-block:: yaml
-        
+
         ---
         Example filtering rows:
         - load:
@@ -379,7 +379,7 @@ filter_correlated_features
         be removed from the dataframe. If absent, then the behaviour is as if False was supplied as a value to this key:value pair.
 
     .. code-block:: yaml
-        
+
         ---
         Example filtering correlated features:
         - load:
@@ -409,7 +409,7 @@ VIF_filter_features
         If drop columns is True, then not only will features be removed from the dataset features list, but the columns for these features will be removed from the dataframe. If absent, then behaviour is as if False was supplied.
 
     .. code-block:: yaml
-        
+
         ---
         Example VIF filtering:
         - load:
@@ -443,7 +443,7 @@ filter_correlated_and_VIF_features
         If drop columns is True, then not only will features be removed from the dataset features list, but the columns for these features will be removed from the dataframe. If absent, then behaviour is as if False was supplied.
 
     .. code-block:: yaml
-        
+
         ---
         Example filtering correlated features and then VIF filtering:
         - load:
@@ -460,7 +460,7 @@ filter_correlated_and_VIF_features
 if_blank_also_blank
 -------------------
     Often it is required to clean or remove rows not needed for inclusion into further established pipelines/ workflows. This workflow function allows the ability to remove values from a column on the condition that onther column is empty.
-    
+
     *query_column*
         Value is the name of the column to perform the query on.
     *regex_query*
@@ -474,7 +474,7 @@ if_blank_also_blank
 
 
     .. code-block:: yaml
-        
+
         ---
         Example conditionally removing columns:
         - load:
@@ -509,7 +509,7 @@ pca
         PCA may be fit to only the included IDs, before the transform is applied to the whole dataset.
 
     .. code-block:: yaml
-        
+
         ---
         Example PCA:
         - load:
@@ -537,7 +537,7 @@ tnse
         If true, then median of center_on_perturbation is used, if False, then the mean is used.
 
     .. code-block:: yaml
-        
+
         ---
         Example t-SNE:
         - load:
@@ -565,7 +565,7 @@ umap
         If true, then median of center_on_perturbation is used, if False, then the mean is used.
 
     .. code-block:: yaml
-        
+
         ---
         Example UMAP:
         - load:
@@ -589,13 +589,13 @@ scalar projection
 
     *target_dataset*
         Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
-    
+
     *target_perturbation_column_name*
         Column name to match the target_perturbation_column value defined below, usually a column capturing control names.
 
     *target_perturbation_column_value*
         value to be found in the column defined in target_perturbation_column_name
-    
+
     *output_column_label*
         Output from the scalar projection will have the form:
             on_target\_<output_column_label>
@@ -603,9 +603,9 @@ scalar projection
             off_target\_<output_column_label>
 
         if this is missing, then it is set to target_perturbation_column_value
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example scalar projection:
         - load:
@@ -629,18 +629,18 @@ euclidean_distance
 
     *target_dataset*
         Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
-    
+
     *target_perturbation_column_name*
         Column name to match the target_perturbation_column value defined below, usually a column capturing control names.
 
     *target_perturbation_column_value*
         value to be found in the column defined in target_perturbation_column_name
-    
+
     *output_column_label*
         Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example scalar projection:
         - load:
@@ -664,18 +664,18 @@ manhattan_distance
 
     *target_dataset*
         Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
-    
+
     *target_perturbation_column_name*
         Column name to match the target_perturbation_column value defined below, usually a column capturing control names.
 
     *target_perturbation_column_value*
         value to be found in the column defined in target_perturbation_column_name
-    
+
     *output_column_label*
         Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example scalar projection:
         - load:
@@ -698,18 +698,18 @@ cityblock_distance
 
     *target_dataset*
         Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
-    
+
     *target_perturbation_column_name*
         Column name to match the target_perturbation_column value defined below, usually a column capturing control names.
 
     *target_perturbation_column_value*
         value to be found in the column defined in target_perturbation_column_name
-    
+
     *output_column_label*
         Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example scalar projection:
         - load:
@@ -732,18 +732,18 @@ mahalanobis_distance
 
     *target_dataset*
         Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
-    
+
     *target_perturbation_column_name*
         Column name to match the target_perturbation_column value defined below, usually a column capturing control names.
 
     *target_perturbation_column_value*
         value to be found in the column defined in target_perturbation_column_name
-    
+
     *output_column_label*
         Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example scalar projection:
         - load:
@@ -774,9 +774,9 @@ set_perturbation_column
         If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.
     *column*
         column name to mark as containing perturbations ids.
-        
+
     .. code-block:: yaml
-        
+
         ---
         Example set_perturbation_column:
         - load:
@@ -809,9 +809,9 @@ scatter
         If absent, then all perturbations are included.
     *destination*
         Output location for the PNG - required field.  An error will be thrown if omitted.
-    
+
     .. code-block:: yaml
-        
+
         ---
         Example scatter:
         - load:
@@ -834,7 +834,7 @@ Prediction
 predict
 -------
     Profile predictors in their ability to predict a given target.
-    
+
     Phenonaut provides functionality to profile the performance of multiple predictors against multiple views of data.
     This is exemplified in the TCGA example used in the Phenonaut paper - see
     :ref:`tcga_example` for a full walkthrough of applying this functionality to The Cancer Genome Atlas. With a given 'target'
@@ -848,7 +848,7 @@ predict
 
 
     For each unique view combination and predictor, perform the following:
-    
+
     - Merge views and remove samples which do not have features across currently needed views.
     - Shuffle the samples.
     - Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.
@@ -883,13 +883,12 @@ predict
         held back for testing, separate from the train-validation splits. This
         test_set_fraction controls the size of this split. If absent, then the
         default value of 0.2 is used.
-    
+
     .. code-block:: yaml
-        
+
         ---
         Example_1_predict_survival:
         - load:
             dataset: TCGA
         - predict:
             target: survives_1_yr
-

@@ -2,6 +2,82 @@
 
 All notable changes to this project will be documented in this file under headings Added, Changed, and Fixed
 
+## [2.0.3] - 2024-03-26
+
+### Fixed
+- Exclude pptx files from black formatting
+- Dataset constructor raises an error if features passed as metadata are not of type list
+- merged dataset deletion with passed datasets
+- test using dataset_groupby, corrected to groupby_datasets
+
+## [2.0.2] - 2024-03-06
+
+### Fixed
+- RandomForest regressor no longer uses auto max_features hyperparameter, making it compatible with scikit-learn 1.1 onwards.
+
+## [2.0.1] - 2024-03-01
+
+### Changed
+- The way versioning works internally to Phenonaut.
+- Updated pyproject.toml to include powerpoint templates
+
+## [1.5.1] - 2023-10-19
+
+### Added
+- New class of Error NotEnoughRowsError added to better flag runtime errors.
+- Added checks to mp_value_score which ensure grouped dataframe groups have at least 3 rows required for calculations.
+- In mp_value_score, groups with < 3 rows may be ignored by calling the function with raise_error_for_low_count_groups = False, in which case np.nan values will be returned for the group.
+
+### Changed
+- Improved tests for mp_value_score, checking for correct behaviour within small groups with <3 rows.
+
+
+## [1.5.0] - 2023-09-27
+
+### Changed
+- Refactored package to use pyproject.toml for install/build
+- Updated classifier hyperparameters, `max_features='auto'` has been deprecated in scikit 1.1 and will be removed in 1.3. Now explicitly set to `max_features='sqrt'`.
+- Removed progressbar2 in favour of tqdm throughout.
+
+### Fixed
+- predict.profile updated to work with newer pandas
+- Phenonaut.merge_datasets now honours the remove_merged flag
+
+
+## [1.4.3] - 2023-08-16
+### Added
+- random_state argument for percent replicating, allowing passing of a np.random.Generator, or an int to seed a new Generator
+
+
+## [1.4.1] - 2023-07-28
+### Fixed
+- bug in Phenonaut.merge_datasets
+- bug in data.Datasets.groupby
+
+## [1.4.0] - 2023-07-18
+### Added
+- merge_datasets method added to Phenonaut objects
+- mp_value_score metric added to phenonaut.metrics.performance (doi:10.1177/1087057112469257)
+- added __repr__ to Phenonaut objects
+
+
+## [1.3.8] - 2023-06-22
+### Changed
+- Removed py3.10 style Unions, favouing the old style typing.Union
+
+## [1.3.7] - 2023-06-22
+### Fixed
+- bug in the generation of Scree plots from fitted PCA transformers 
+
+
+## [1.3.6] - 2023-06-01
+### Added
+- groupby function to dataset, allowing splitting on one dataset into many
+
+## [1.3.5] - 2023-03-29
+### Added
+- orient argument to write_boxplot_to_file allowing horizontal or vertical plotting.
+
 ## [1.3.4] - 2023-03-27
 
 ### Added
@@ -138,10 +214,9 @@ All notable changes to this project will be documented in this file under headin
 
 ### Changed
 - Removed ambiguity between GenericTransform and Transform base classes by removing GenericTransform. Now objects which are callable or have fit/transform/fit_transform may inherit from the transform class and be eaily used in Phenonaut. Below we see the easy way scikit-learn's PCA can be wrapped:
-  
+
         transformer=Transformer(PCA, constructor_kwargs={'n_components':2})
         t_pca.fit(phe.ds, groupby="BARCODE")
         t_pca.transform(phe.ds)
 - Cleaned up tests
 - RobustMAD now moved to inherit from Transformer, allowing the groupby argument, and for normalisations to happen on a per-plate basis
-

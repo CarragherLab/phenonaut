@@ -1,16 +1,16 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
-from curses import meta
-import pytest
-import phenonaut
-from phenonaut.data.dataset import Dataset
-import pandas as pd
-import numpy as np
 import tempfile
+from curses import meta
 from io import StringIO
 
+import numpy as np
+import pandas as pd
+import pytest
 
+import phenonaut
+from phenonaut.data.dataset import Dataset
 from phenonaut.phenonaut import Phenonaut
 
 
@@ -36,7 +36,9 @@ def test_possible_dataset_combinations(phenonaut_object_iris_4_views):
 
 
 def test_possible_dataset_combinations_indexes(phenonaut_object_iris_4_views):
-    all_possible_views = phenonaut_object_iris_4_views.get_dataset_combinations(return_indexes=True)
+    all_possible_views = phenonaut_object_iris_4_views.get_dataset_combinations(
+        return_indexes=True
+    )
     assert all_possible_views == (
         (0,),
         (1,),
@@ -71,20 +73,20 @@ def test_phenonaut_obj_from_df():
     ph0 = phenonaut.Phenonaut(df, metadata={"features_prefix": ["B"]})
     assert ph0.ds.features == ["B"]
     ph0 = phenonaut.Phenonaut(df, metadata={"features_prefix": ""})
-    assert set(ph0.ds.features) == set(["B", "A", "id"])
+    assert set(ph0.ds.features) == {"B", "A", "id"}
     ph0 = phenonaut.Phenonaut([df, another_df], metadata={"features_prefix": ""})
-    assert set(ph0.datasets[0].features) == set(["B", "A", "id"])
-    assert set(ph0.datasets[1].features) == set(["B", "A2", "id2"])
+    assert set(ph0.datasets[0].features) == {"B", "A", "id"}
+    assert set(ph0.datasets[1].features) == {"B", "A2", "id2"}
     ph0 = phenonaut.Phenonaut([df, another_df], metadata={"features": ["B"]})
-    assert set(ph0.datasets[0].features) == set(["B"])
-    assert set(ph0.datasets[1].features) == set(["B"])
+    assert set(ph0.datasets[0].features) == {"B"}
+    assert set(ph0.datasets[1].features) == {"B"}
     ph0 = phenonaut.Phenonaut(
         [df, another_df],
         metadata=[{"features": ["B"]}, {"features_prefix": ""}],
         dataframe_name=["Bob", "Robert"],
     )
-    assert set(ph0.datasets[0].features) == set(["B"])
-    assert set(ph0.datasets[1].features) == set(["A2", "B", "id2"])
+    assert set(ph0.datasets[0].features) == {"B"}
+    assert set(ph0.datasets[1].features) == {"A2", "B", "id2"}
     assert ph0.datasets[0].name == "Bob"
     assert ph0.datasets[-1].name == "Robert"
 
@@ -127,7 +129,7 @@ def test_aggregate_dataset_in_ph0_obj():
     phe = phenonaut.Phenonaut(df, metadata={"features_prefix": "feat_"})
     phe.aggregate_dataset(["ROW", "COLUMN", "BARCODE"])
     assert len(phe.datasets) == 2
-    assert set(phe.ds.features) == set(["feat_1", "feat_2", "feat_3"])
+    assert set(phe.ds.features) == {"feat_1", "feat_2", "feat_3"}
     assert abs(phe.ds.df["feat_1"][0] - 1.25 < 0.00001)
     assert np.abs(phe.ds.df["feat_1"][1] - 5.70 < 0.00001)
     assert np.abs(phe.ds.df["feat_1"][2] - 0.15 < 0.00001)
@@ -186,7 +188,7 @@ def test_aggregate_dataset():
         inplace=True,
     )
     assert len(phe.datasets) == 2
-    assert set(phe.ds.features) == set(["feat_1", "feat_2", "feat_3"])
+    assert set(phe.ds.features) == {"feat_1", "feat_2", "feat_3"}
     assert abs(phe.ds.df["feat_1"][0] - 1.25 < 0.00001)
     assert np.abs(phe.ds.df["feat_1"][1] - 5.70 < 0.00001)
     assert np.abs(phe.ds.df["feat_1"][2] - 0.15 < 0.00001)
@@ -211,7 +213,6 @@ def test_phe_getitem_setitem_delitem(dataset_iris):
 
 def test_phe_save_load_and_revert(dataset_iris):
     tmp_file = tempfile.NamedTemporaryFile(delete=True)
-    print(tmp_file.file)
 
     try:
         phe = Phenonaut(dataset_iris)
@@ -236,33 +237,35 @@ def test_phe_clone(dataset_iris):
     assert phe.keys() == ["Iris", "Iris2", "Iris3", "Iris4"]
 
 
-def test_readin_transformations():
-    df = pd.read_csv(
-        StringIO(
-            """"idx","Var1","Var2","value"
-        
-        "1","ENSG00000225972","A1_CPD1_PLATE1",4.0185
-        "2","ENSG00000225630","A1_CPD1_PLATE1",1.1539
-        "3","ENSG00000225972","A2_CPD2_PLATE1",10.6661
-        "4","ENSG00000225630","A2_CPD2_PLATE1",1.6130
-        "5","ENSG00000225972","A3_CPD3_PLATE1",0.1234
-        "6","ENSG00000225630","A3_CPD3_PLATE1",9.8436
-        "7","ENSG00000225972","A4_Pos_ctrl_PLATE1",0.1234
-        "8","ENSG00000225630","A4_Pos_ctrl_PLATE1",9.8436"""
-        )
-    ).reset_index()
-    phe = Phenonaut(
-        df,
-        "Test_df",
-        metadata={
-            "transforms": [
-                ("replace_str", ("Var2", "Pos_", "Pos-")),
-                ("split_column", ("Var2", "_", ["Well", "CpdID", "PlateID"])),
-                ("pivot", ("Var1", "value")),
-                #'transpose',
-                # (pivot_table(values = 'value', index=["WellName"], columns = 'Var1')
-            ],
-            "features_prefix": "ENSG",
-        },
+def test_splitting_dataset_in_ph0_obj(small_2_plate_df):
+    """Test the splitting of datasets using groupby"""
+    phe = phenonaut.Phenonaut(
+        small_2_plate_df, metadata={"features_prefix": "feat_"}
     )
-    print(phe.df)
+    assert len(phe.datasets) == 1
+    phe.groupby_datasets(["FOV", "filename"])
+    assert len(phe.datasets) == 6
+
+    phe = phenonaut.Phenonaut(
+        small_2_plate_df, metadata={"features_prefix": "feat_"}
+    )
+    assert len(phe.datasets) == 1
+    phe.groupby_datasets(["FOV", "filename"], remove_original=False)
+    assert len(phe.datasets) == 7
+
+
+def test_merge_datasets(small_2_plate_df):
+    """Test merging of datasets split using the groupby method"""
+    phe = phenonaut.Phenonaut(
+        small_2_plate_df, metadata={"features_prefix": "feat_"}
+    )
+    split_ds = phe.ds.groupby(["FOV", "filename"])
+    phe.merge_datasets(split_ds)
+    assert len(phe.ds.df) == len(small_2_plate_df)
+    del phe[-1]
+    merged_ds = phe.merge_datasets(split_ds, return_merged=True)
+    assert len(merged_ds.df) == len(small_2_plate_df)
+    phe.datasets.extend(split_ds)
+    del phe[0]
+    phe.merge_datasets(list(range(0, len(split_ds))))
+    assert len(phe.datasets) == 1

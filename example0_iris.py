@@ -1,4 +1,4 @@
-# Copyright © The University of Edinburgh, 2022.
+# Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
 """Run example predict.profile on IRIS dataset
@@ -33,9 +33,10 @@ OUTPUT_DIR is the destination output directory
 
 
 import fire
+from sklearn.datasets import load_iris
+
 import phenonaut
 import phenonaut.predict
-from sklearn.datasets import load_iris
 from phenonaut.data import Dataset
 
 
@@ -104,7 +105,9 @@ def run_phenonaut_iris_regression(
         If optuna_merge_folds is true, then the average validation score of each fold is passed as the result
         to optuna, optimising models across all folds. , by default False.
     """
-    phe = phenonaut.Phenonaut(load_iris(), dataframe_name="Iris, predict sepal length")
+    phe = phenonaut.Phenonaut(
+        load_iris(), dataframe_name="Iris, predict sepal length"
+    )
     target_column_name = "sepal length (cm)"
     y = phe[0].df[target_column_name]
     phe[0].drop_columns([target_column_name, "target"])
