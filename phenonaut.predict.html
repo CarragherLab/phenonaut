@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.predict package &mdash; Phenonaut 2.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=664ffad9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.predict.default_predictors package" href="phenonaut.predict.default_predictors.html" />
+    <link rel="prev" title="phenonaut.packaged_datasets package" href="phenonaut.packaged_datasets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">phenonaut.predict package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.predict.optuna_functions">phenonaut.predict.optuna_functions module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.predict.predict_utils">phenonaut.predict.predict_utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.predict.predictor_dataclasses">phenonaut.predict.predictor_dataclasses module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.predict.profile">phenonaut.predict.profile module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.predict">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.errors">phenonaut.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.html">phenonaut package</a></li>
+      <li class="breadcrumb-item active">phenonaut.predict package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.predict.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-predict-package">
+<h1>phenonaut.predict package<a class="headerlink" href="#phenonaut-predict-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.predict.default_predictors.html">phenonaut.predict.default_predictors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.default_predictors.pytorch_models.html">phenonaut.predict.default_predictors.pytorch_models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.default_predictors.pytorch_models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.dave">phenonaut.predict.default_predictors.pytorch_models.dave module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn">phenonaut.predict.default_predictors.pytorch_models.multiregressor_nn module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.predict.default_predictors.pytorch_models.html#module-phenonaut.predict.default_predictors.pytorch_models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.classifiers">phenonaut.predict.default_predictors.classifiers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.multiregressors">phenonaut.predict.default_predictors.multiregressors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors.regressors">phenonaut.predict.default_predictors.regressors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.predict.default_predictors.html#module-phenonaut.predict.default_predictors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-phenonaut.predict.optuna_functions">
+<span id="phenonaut-predict-optuna-functions-module"></span><h2>phenonaut.predict.optuna_functions module<a class="headerlink" href="#module-phenonaut.predict.optuna_functions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.optuna_functions.predictor_from_str">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.optuna_functions.</span></span><span class="sig-name descname"><span class="pre">predictor_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ob_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a></span></span><a class="headerlink" href="#phenonaut.predict.optuna_functions.predictor_from_str" title="Link to this definition"></a></dt>
+<dd><p>Convert a base64 gziped object string to PhenonautPredictor</p>
+<p>Convert a str to object after applying gzip decompression and then
+pickle.loads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ob_str</strong> (<em>str</em>) – String representation of base64 encoded gzipped object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PhenonautPredictor object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor">PhenonautPredictor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.optuna_functions.predictor_to_str">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.optuna_functions.</span></span><span class="sig-name descname"><span class="pre">predictor_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#phenonaut.predict.optuna_functions.predictor_to_str" title="Link to this definition"></a></dt>
+<dd><p>Encode a PhenonautPredictor (or any serialisable object) to str</p>
+<p>First serialise the object using pickle.dumps, compress using gzip and
+return the base64 string representation.  Works with any serialisable
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ob</strong> (<a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><em>PhenonautPredictor</em></a>) – Serializable object to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Base64 gzip serialised object as a utf-8 string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.optuna_functions.run_optuna_opt">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.optuna_functions.</span></span><span class="sig-name descname"><span class="pre">run_optuna_opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><span class="pre">PredictionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><span class="pre">PhenonautPredictionMetric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_optuna_trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phe_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_combination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sqlite:///'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.optuna_functions.run_optuna_opt" title="Link to this definition"></a></dt>
+<dd><p>Run Optuna-led hyperparameter optimisation on predictor and data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Training data</p></li>
+<li><p><strong>X_test</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Test data</p></li>
+<li><p><strong>y</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Training target</p></li>
+<li><p><strong>y_test</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><em>np.ndarray</em><em>]</em><em>, </em><em>np.ndarray</em><em>]</em>) – Test target data</p></li>
+<li><p><strong>prediction_type</strong> (<a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><em>PredictionType</em></a>) – Prediction type specifying classification, regression or view.</p></li>
+<li><p><strong>predictor</strong> (<a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><em>PhenonautPredictor</em></a>) – The predictor with fit, predict functions packed into PhenonautPredictor
+dataclass which supports the predictor class with specification of
+hyperparameters etc.</p></li>
+<li><p><strong>metric</strong> (<a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><em>PhenonautPredictionMetric</em></a>) – The scoring metric to be used to assess performance.</p></li>
+<li><p><strong>n_optuna_trials</strong> (<em>int</em>) – Number of optuna trials to optimise across.</p></li>
+<li><p><strong>phe_name</strong> (<em>str</em>) – Name of the Phenonaut object from which the data comes</p></li>
+<li><p><strong>dataset_combination</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Combination views of datasets to be used</p></li>
+<li><p><strong>optuna_db_path</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Output file path for Optuna sqlite3 database file</p></li>
+<li><p><strong>n_splits</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of splits to be used in cross fold validation, by default 5</p></li>
+<li><p><strong>random_state</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>np.random.Generator</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Seed for use by random number generator, allow deterministing repeats.
+If None, then do no pre-seed the generator. By default None</p></li>
+<li><p><strong>optuna_db_protocol</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Protocol for optuna to use to access storage. By default “sqlite:///”</p></li>
+<li><p><strong>target_dataset_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If predicting a view, then the target Dataset may be given a name,
+by default None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.optuna_functions.run_optuna_opt_merge_folds">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.optuna_functions.</span></span><span class="sig-name descname"><span class="pre">run_optuna_opt_merge_folds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><span class="pre">PredictionType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><span class="pre">PhenonautPredictionMetric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_optuna_trials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phe_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_combination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sqlite:///'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_dataset_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.optuna_functions.run_optuna_opt_merge_folds" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-phenonaut.predict.predict_utils">
+<span id="phenonaut-predict-predict-utils-module"></span><h2>phenonaut.predict.predict_utils module<a class="headerlink" href="#module-phenonaut.predict.predict_utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.PredictionType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">PredictionType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predict_utils.PredictionType" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>PredictionType Enum for classification, regression or view prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Enum</strong> (<em>int</em>) – Enumerated type, captures if the prediction task is classification,
+regression, or view (multiregression)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.PredictionType.classification">
+<span class="sig-name descname"><span class="pre">classification</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#phenonaut.predict.predict_utils.PredictionType.classification" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.PredictionType.regression">
+<span class="sig-name descname"><span class="pre">regression</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#phenonaut.predict.predict_utils.PredictionType.regression" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.PredictionType.view">
+<span class="sig-name descname"><span class="pre">view</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#phenonaut.predict.predict_utils.PredictionType.view" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_X_y">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_X_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_combination</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><span class="pre">PredictionType</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_X_y" title="Link to this definition"></a></dt>
+<dd><p>For a given set of views, and known y, get X and y for predictor training</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phe</strong> (<a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a>) – The Phenonaut object containing Datasets</p></li>
+<li><p><strong>dataset_combination</strong> (<em>Union</em><em>[</em><em>tuple</em><em>, </em><em>list</em><em>]</em>) – Dataset combinations to be used in prediction task.</p></li>
+<li><p><strong>target</strong> (<em>pd.Series</em><em>, </em><em>np.ndarray</em>) – Prediction target</p></li>
+<li><p><strong>predictor</strong> (<a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><em>PhenonautPredictor</em></a>) – The PhenonautPredictor being used.</p></li>
+<li><p><strong>prediction_type</strong> (<a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><em>PredictionType</em></a>) – Enum classification type specifying classification, regression or view.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>X, y tuple for training of predictor.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_best_predictor_dataset_df">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_best_predictor_dataset_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_containing_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'test_score'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_best_predictor_dataset_df" title="Link to this definition"></a></dt>
+<dd><p>For a given Optuna hyperaprameter scan dataframe, get the best predictor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Optua hyperparameterscan pd.DataFrame, likely generated by
+get_df_from_optuna_db.</p></li>
+<li><p><strong>column_containing_values</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the column containing scores. By default “test_score”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame containing information on the best predictor.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_common_indexes">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_common_indexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_common_indexes" title="Link to this definition"></a></dt>
+<dd><p>Get common indexes from list of DataFrames</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes_list</strong> (<em>list</em><em>[</em><em>pd.DataFrame</em><em>]</em>) – List of pd.DataFrames from which common indexes should be extracted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of common indexes between pd.DataFrames.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_df_from_optuna_db">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_df_from_optuna_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optuna_db_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_output_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_only_best_per_study</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_df_from_optuna_db" title="Link to this definition"></a></dt>
+<dd><p>After predict.profile, turn Optuna sqlite3 files into pd.DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optuna_db_file</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>]</em>) – Optuna hyperparameter optimisation database (sqlite3file)</p></li>
+<li><p><strong>csv_output_filename</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Target output CSV file. Can be None, in which case, no CSV file is
+written out. By default None.</p></li>
+<li><p><strong>json_output_filename</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Target output JSON file. Can be None, in which case, no JSON file is
+written out. By default None.</p></li>
+<li><p><strong>get_only_best_per_study</strong> (<em>bool</em><em>, </em><em>optional</em>) – Boolean value stating if only the best hyperparameter set per study
+should be writen out. By default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame sumarising Optuna hyperparameter scan results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – Database file (sqlite3) not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_metric">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><span class="pre">PhenonautPredictionMetric</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_metric" title="Link to this definition"></a></dt>
+<dd><p>Get metric function from various options for metric definition</p>
+<p>Helper function which allows specification of metrics with strings
+indicating common names, dictionaries.</p>
+<p>Currently understands the shortcut strings:
+accuracy, accuracy_score
+mse, MSE, mean_squared_error
+rmse, RMSE, root_mean_squared_error
+AUROC, auroc, area_under_roc_curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>, </em><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><em>PhenonautPredictionMetric</em></a><em>]</em>) – String, dict or PhenonautPredictionMetric to be used for scoring</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Prediction metric</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric">PhenonautPredictionMetric</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – No metrics found matching short string name.</p></li>
+<li><p><strong>KeyError</strong> – Given dictionary did not include all required fields.</p></li>
+<li><p><strong>ValueError</strong> – metric argument was not of a suitable type.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_prediction_type_from_y">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_prediction_type_from_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_prediction_type_from_y" title="Link to this definition"></a></dt>
+<dd><p>For a given target y - get prediction type</p>
+<p>Looking at the data in y, return prediction type from classification,
+regression or multiregression (view prediction).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.predict_utils.get_y_from_target">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predict_utils.</span></span><span class="sig-name descname"><span class="pre">get_y_from_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span></span></span><a class="headerlink" href="#phenonaut.predict.predict_utils.get_y_from_target" title="Link to this definition"></a></dt>
+<dd><p>Get target y from Dataset(s) or DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Union</em><em>[</em><em>list</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>]</em><em>,</em><em>list</em><em>[</em><em>DataFrame</em><em>]</em><em>]</em>) – Dataset, DataFrame, list of Datasets or list of DataFrames where the
+target values are present.</p></li>
+<li><p><strong>target</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Series</em><em>, </em><em>np.ndarray</em><em>, </em><em>tuple</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Target column name containing target y values in Dataset/DataFrame. If
+None, then the target y is attempted to be inferred by looking for
+Dataset columns which are not listed as features. Target y cannot be
+inferred from DataFrames. If np.ndarray, tuple, or pd.Series, then this
+is directly returned as the target of prediciton y, by default None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Target y values for prediction</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[list, Series, tuple, np.ndarray]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Given target string (column title) was a feature of the dataset.</p></li>
+<li><p><strong>ValueError</strong> – Object should be phenonaut.Dataset or pd.DataFrame.</p></li>
+<li><p><strong>ValueError</strong> – Given target string (column title) was not found in any supplied
+    Datasets/Dataframes.</p></li>
+<li><p><strong>ValueError</strong> – Target was not set, trying to guess it from a phenonaut.Dataset, but
+    did not find this type.</p></li>
+<li><p><strong>ValueError</strong> – Could not guess the target from supplied Dataset(s). Pass target as
+    string for a dataset.df column heading, or the prediction target
+    directly.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.predict.predictor_dataclasses">
+<span id="phenonaut-predict-predictor-dataclasses-module"></span><h2>phenonaut.predict.predictor_dataclasses module<a class="headerlink" href="#module-phenonaut.predict.predictor_dataclasses" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterCategorical">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">HyperparameterCategorical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterCategorical" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptunaHyperparameter</span></code></a></p>
+<p>Optuna hyperparameter dataclass for categorical lists</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterCategorical.choices">
+<span class="sig-name descname"><span class="pre">choices</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterCategorical.choices" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterCategorical.needed">
+<span class="sig-name descname"><span class="pre">needed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterCategorical.needed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterFloat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">HyperparameterFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterFloat" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptunaHyperparameterNumber</span></code></a></p>
+<p>Optuna hyperparameter dataclass for floats</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterInt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">HyperparameterInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterInt" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptunaHyperparameterNumber</span></code></a></p>
+<p>Optuna hyperparameter dataclass for ints</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.HyperparameterLog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">HyperparameterLog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.HyperparameterLog" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptunaHyperparameterNumber</span></code></a></p>
+<p>Optuna hyperparameter dataclass for loguniform distributions of floats</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">OptunaHyperparameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>OptunaHyperparameter base dataclass which is inherited from</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">OptunaHyperparameterNumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_bound</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter"><code class="xref py py-class docutils literal notranslate"><span class="pre">OptunaHyperparameter</span></code></a></p>
+<p>Optuna hyperparameter dataclass for numbers, inherited for int and float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – Lower bound must be lower than upper bound.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.lower_bound">
+<span class="sig-name descname"><span class="pre">lower_bound</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.lower_bound" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.needed">
+<span class="sig-name descname"><span class="pre">needed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.needed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.upper_bound">
+<span class="sig-name descname"><span class="pre">upper_bound</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameterNumber.upper_bound" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">PhenonautPredictionMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lower_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PhenonautPredictionMetric dataclass to hold metric, name and direction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.__call__" title="Link to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.func">
+<span class="sig-name descname"><span class="pre">func</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.func" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.lower_is_better">
+<span class="sig-name descname"><span class="pre">lower_is_better</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.lower_is_better" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.predict.predictor_dataclasses.</span></span><span class="sig-name descname"><span class="pre">PhenonautPredictor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictor:</span> <span class="pre">~sklearn.base.BaseEstimator</span> <span class="pre">|</span> <span class="pre">~collections.abc.Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna:</span> <span class="pre">~collections.abc.Iterable[~phenonaut.predict.predictor_dataclasses.OptunaHyperparameter]</span> <span class="pre">|</span> <span class="pre">~phenonaut.predict.predictor_dataclasses.OptunaHyperparameter</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_views:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_optuna_trials:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_size_cutoff:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constructor_kwargs:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_classes:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditional_hyperparameter_generator_constructor_keyword:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">(None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditional_hyperparameter_generator:</span> <span class="pre">~collections.abc.Callable</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_in_results:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>PhenonautPredictor dataclass</p>
+<p>The PhenonautPredictor wraps classes with fit and predict methods,
+augmenting them with additional information like name, the number of views
+it may operate on at once, and hyperparameter lists which may be optimised
+using Optuna.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.conditional_hyperparameter_generator">
+<span class="sig-name descname"><span class="pre">conditional_hyperparameter_generator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.conditional_hyperparameter_generator" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.conditional_hyperparameter_generator_constructor_keyword">
+<span class="sig-name descname"><span class="pre">conditional_hyperparameter_generator_constructor_keyword</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(None,)</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.conditional_hyperparameter_generator_constructor_keyword" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.constructor_kwargs">
+<span class="sig-name descname"><span class="pre">constructor_kwargs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.constructor_kwargs" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.dataset_size_cutoff">
+<span class="sig-name descname"><span class="pre">dataset_size_cutoff</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.dataset_size_cutoff" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.embed_in_results">
+<span class="sig-name descname"><span class="pre">embed_in_results</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.embed_in_results" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.max_classes">
+<span class="sig-name descname"><span class="pre">max_classes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.max_classes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.max_optuna_trials">
+<span class="sig-name descname"><span class="pre">max_optuna_trials</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.max_optuna_trials" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.num_views">
+<span class="sig-name descname"><span class="pre">num_views</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.num_views" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.optuna">
+<span class="sig-name descname"><span class="pre">optuna</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter"><span class="pre">OptunaHyperparameter</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.OptunaHyperparameter" title="phenonaut.predict.predictor_dataclasses.OptunaHyperparameter"><span class="pre">OptunaHyperparameter</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.optuna" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.predict.predictor_dataclasses.PhenonautPredictor.predictor">
+<span class="sig-name descname"><span class="pre">predictor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">BaseEstimator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></em><a class="headerlink" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor.predictor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.predict.profile">
+<span id="phenonaut-predict-profile-module"></span><h2>phenonaut.predict.profile module<a class="headerlink" href="#module-phenonaut.predict.profile" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.predict.profile.profile">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.predict.profile.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_combinations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Series</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><span class="pre">PhenonautPredictor</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><span class="pre">PredictionType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_db_protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sqlite:///'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_optuna_trials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><span class="pre">PhenonautPredictionMetric</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_pptx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optuna_merge_folds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_set_fraction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.predict.profile.profile" title="Link to this definition"></a></dt>
+<dd><p>Profile predictors in their ability to predict a given target.</p>
+<p>This predict.profile function operates on a Phenonaut object (optionally
+containing multiple Datasets) and a given or indicated prediction target.
+The data within the prediction target is examined and the prediction type
+determined from classification, regression, and multiregression/view
+prediction (prediction of 1 omics view from another). In the case of
+Example 1 in the Phenonaut paper, on TCGA, with the prediction target of
+“survives_1_year”, the data types within the metadata are examined and only
+two values found 0 (no) or 1 (yes). Classification is chosen. With no
+classifiers explicitly given as arguments to the profile function,
+Phenonaut selects all default classifiers. User supplied classifiers and
+predictors may be passed, including PyTorch neural networks and similar
+objects through wrapping in PhenonautPredictor dataclasses of any class that
+implements the fit and predict methods. See PhenonautPredictor API
+documentation for further information on including user defined and packaged
+predictors. With no views explicitly listed, all possible view combinations
+are selected. For TCGA, the four omics views allow 15 view combinations
+(4x singular, 6x double, 4x triple and 1x quad). For each unique view
+combination and predictor, perform the following:</p>
+<ul class="simple">
+<li><p>Merge views and remove samples which do not have features across currently needed views.</p></li>
+<li><p>Shuffle the samples.</p></li>
+<li><p>Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.</p></li>
+<li><p>Split the data using 5-fold cross validation into train and validation sets.</p></li>
+<li><p>For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phe</strong> (<a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>phenonaut.Phenonaut</em></a>) – A Phenonaut object containing Datasets for prediction on</p></li>
+<li><p><strong>output_directory</strong> (<em>str</em>) – Directory into which profiling output (boxplots, heatmaps, CSV, JSON
+and PPTX should be written).</p></li>
+<li><p><strong>dataset_combinations</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>None</em><em>, </em><em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If the Phenonaut object contains multiple datasets, then tuples of
+‘views’ may be specified for exploration. If None, then all combinations
+of available views/Datasets are enumerated and used. By default None.</p></li>
+<li><p><strong>target</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>pd.Series</em><em>, </em><em>np.ndarray</em><em>, </em><em>phenonaut.data.Dataset</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The prediction target. May be an array-like structure for prediction
+from aligned views, a string denoting the column in which to find the
+prediction target data within one of the Phenonaut Datasets, or a
+pd.Series, by default None.</p></li>
+<li><p><strong>predictors</strong> (<em>Optional</em><em>[</em><em>list</em><em>[</em><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictor" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictor"><em>PhenonautPredictor</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – A list of PhenonautPredictors may be supplied to the function. If None,
+the all suitable predictors for the type of prediction problem that it
+is are selected (through loading of
+default_classifiers, default_regressors, or default_multiregressors from
+phenonaut/predict/default_predictors/ .
+By default None.,</p></li>
+<li><p><strong>prediction_type</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><a class="reference internal" href="#phenonaut.predict.predict_utils.PredictionType" title="phenonaut.predict.predict_utils.PredictionType"><em>PredictionType</em></a><em>]</em><em>]</em><em>, </em><em>optional</em>) – The type of prediction task like “classification”, “regression” and
+“view”, or the proper PredictionType enum. If None, then the prediction
+task is assigned through inspection of the target data types and values
+present.  By default, None.</p></li>
+<li><p><strong>n_splits</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of splits to use in the N-fold cross validation, by default 5.</p></li>
+<li><p><strong>random_state</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>np.random.Generator</em><em>]</em><em>, </em><em>optional</em>) – If an int, then use this to seed a np.random.Generator for reproducibility of
+random operations (like shuffling etc). If a numpy.random.Generator, then this
+is used as the source of randomness. Can also be None, in which case a random
+seed is used. By default, None.</p></li>
+<li><p><strong>optuna_db_path</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Path to Optuna sqlite3 database file. If None, then a default filename
+will be assigned by Phenonaut. By default None.</p></li>
+<li><p><strong>optuna_db_protocol</strong> (<em>_type_</em><em>, </em><em>optional</em>) – Protocol that Optuna should use for accessing its required persistent
+storage. By default “sqlite:///”</p></li>
+<li><p><strong>n_optuna_trials</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of Optuna trials for hyperparameter optimisation, by default 20</p></li>
+<li><p><strong>metric</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="#phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric" title="phenonaut.predict.predictor_dataclasses.PhenonautPredictionMetric"><em>PhenonautPredictionMetric</em></a><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Metric used for scoring, currently understands the shortcut strings:
+accuracy, accuracy_score
+mse, MSE, mean_squared_error
+rmse, RMSE, root_mean_squared_error
+AUROC, auroc, area_under_roc_curveby default None</p></li>
+<li><p><strong>no_output</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then no output is writen to disk. Hyperparameter optimisation
+is performed and the (usually) sqlite3 file written, without writing
+boxplot and heatmap images, CSVs, JSONS, and PPTX files
+By default False.</p></li>
+<li><p><strong>write_pptx</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then the output boxplots and heatmaps are written to a PPTX
+file for presentation/sharing of data. By default True.</p></li>
+<li><p><strong>optuna_merge_folds</strong> (<em>bool</em><em>, </em><em>optional</em>) – By default, each fold has hyperparameters optimised and the trained
+predictor with parameters reported.  If this optuna_merge_folds is true,
+then each fold is trained on and and hyperparameters optimised across
+folds (not per-fold). Setting this to False may be useful depending on
+the intended use of the predictor. It is believed that when False, and
+parameters are not optimised across folds, then more accurate prediction
+variance/accuracy estimates are produced. By default False.</p></li>
+<li><p><strong>test_set_fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – When optimising a predictor, by default a fraction of the total data is
+held back for testing, separate from the train-validation splits. This
+test_set_fraction controls the size of this split. By default 0.2.</p></li>
+<li><p><strong>save_models</strong> (<em>bool</em><em>, </em><em>optional</em>) – Save the trained models to pickle files for later use. By default False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.predict">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.predict" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.packaged_datasets.html" class="btn btn-neutral float-left" title="phenonaut.packaged_datasets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.predict.default_predictors.html" class="btn btn-neutral float-right" title="phenonaut.predict.default_predictors package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

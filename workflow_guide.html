@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflow mode &mdash; Phenonaut 2.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=664ffad9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Publication examples" href="publication_examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.html">API documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow mode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#i-o">I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load">load</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-csv">write_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-multiple-csvs">write_multiple_csvs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transforms">Transforms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-well-id">add_well_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-column">copy_column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rename-column-and-rename-columns">rename_column and rename_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering">Filtering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filter-columns">filter_columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-rows">filter_rows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-correlated-features">filter_correlated_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vif-filter-features">VIF_filter_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filter-correlated-and-vif-features">filter_correlated_and_VIF_features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#if-blank-also-blank">if_blank_also_blank</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dimensionality-reduction">Dimensionality reduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pca">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tnse">tnse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#umap">umap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#measurements">Measurements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-projection">scalar projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#euclidean-distance">euclidean_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manhattan-distance">manhattan_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cityblock-distance">cityblock_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mahalanobis-distance">mahalanobis_distance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-perturbation-column">set_perturbation_column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scatter">scatter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#prediction">Prediction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#predict">predict</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Workflow mode</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/workflow_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="workflow-mode">
+<h1>Workflow mode<a class="headerlink" href="#workflow-mode" title="Link to this heading"></a></h1>
+<p>Phenonaut may be used in a workflow mode, removing the requirement for users to be able to use Python.</p>
+<p>With the definition of workflows in simple YAML files (<a class="reference external" href="https://en.wikipedia.org/wiki/YAML/">https://en.wikipedia.org/wiki/YAML/</a>),
+standardised workflows can be created that have access to all Phenonuat functionality.
+Whilst YAML files are a simple and convenient format, JSON dictionaries respresented as text files in
+the .json format may also be passed. For the purposes of this documentation, the YAML format is used
+to exemplify Phenonaut capabilities. Phenonaut will determine if it is working with YAML or JSON files
+through the workflow filename extension.</p>
+<p>The example YAML file for prediction of 1 year survival rates is as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example_1_predict_survival</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">predict</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">survives_1_yr</span>
+</pre></div>
+</div>
+<p>Here, we see the YAML file begin with 3 dashes - as is customary in the YAML file format
+and then a dictionary begins, with a key denoting the name of the job ‘Example_1_predict_survival’.
+The value/item under this dictionary key is a list of key:value pairs, denoting workflow functions
+being called. The first item is the load key, with a dictionary of arguments and their values
+for the load function given as values for the key.</p>
+<p>The second item in the ‘Example_1_predict_survival’ task is a dictionary with the key ‘predict’, denoting
+that Phenonaut will be calling its prediction capabilities, and under this as values is another key:value
+pair denoting the target column/feature within the dataset.</p>
+<p>This page documents all workflow enabled functions such as ‘load’ and ‘predict’ as given above.</p>
+<p>The publication SI material contains a worked example using workflow mode which can also be found here:
+<a class="reference internal" href="tcga_example.html"><span class="doc">Example 1 - TCGA</span></a>.</p>
+<p>Documentation on the Python API is useful for understanding the implementation details of
+<a class="reference internal" href="phenonaut.html"><span class="doc">workflow mode</span></a>.</p>
+<section id="i-o">
+<h2>I/O<a class="headerlink" href="#i-o" title="Link to this heading"></a></h2>
+<section id="load">
+<h3>load<a class="headerlink" href="#load" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Load a dataset in the format denoted by a given file extension, or a PakcagedDataset known to Phenonaut.
+There are 2 main routes to loading a dataset in workflow mode.</p>
+<ol class="arabic simple">
+<li><p>Loading a packaged dataset (using the dataset key)</p></li>
+<li><p>Loading a user supplied file (using the file key) - normally a CSV file, but can be any file format given below, with filetype inferred through the filename extension.</p></li>
+</ol>
+<dl>
+<dt><em>dataset</em></dt><dd><p>The name of the packaged dataset known to Phenonaut that should be loaded. The currently available datasets are listed below:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Available packaged datasets (case insensitive)</span><a class="headerlink" href="#id1" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TCGA</p></td>
+<td><p>The Cancer Genome Atlas (Weinstein 2013) prepared using methods described by Lee (Lee 2021).</p></td>
+</tr>
+<tr class="row-odd"><td><p>CMAP</p></td>
+<td><p>Connectivity Map (Lamb 2006).</p></td>
+</tr>
+<tr class="row-even"><td><p>iris</p></td>
+<td><p>The Iris dataset (Yann).</p></td>
+</tr>
+<tr class="row-odd"><td><p>BreastCancer</p></td>
+<td><p>The Breast cancer Wisconsin (diagnostic) dataset (Wisconsin).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="simple">
+<dt>References:</dt><dd><ul class="simple">
+<li><p>Weinstein, John N., et al. “The cancer genome atlas pan-cancer analysis project.” Nature genetics 45.10 (2013): 1113-1120.</p></li>
+<li><p>Lee, Changhee, and Mihaela van der Schaar. “A variational information bottleneck approach to multi-omics data integration.” International Conference on Artificial Intelligence and Statistics. PMLR, 2021.</p></li>
+<li><p>Lamb, Justin, et al. “The Connectivity Map: using gene-expression signatures to connect small molecules, genes, and disease.” science 313.5795 (2006): 1929-1935.</p></li>
+<li><p>Yann, <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">http://yann.lecun.com/exdb/mnist/</a>, (visited 27/4/2022)</p></li>
+<li><p>Wisconsin, <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic">https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic</a>), (visited 27/4/2022) *</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example dataset load usage</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span>
+</pre></div>
+</div>
+</dd>
+<dt><em>file</em></dt><dd><p>The path to the file should be supplied using the <em>file</em> key. This is not required if loading a packaged dataset known to
+Phenonaut which is loaded using the dataset key described above</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Workflow file formats (* can be &lt;ext&gt;.gz indicating gzip compression is applied)</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Extension</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>csv*</p></td>
+<td><p>Standard CSV (Comma separated values) file</p></td>
+</tr>
+<tr class="row-odd"><td><p>tsv*</p></td>
+<td><p>Tab separated values file</p></td>
+</tr>
+<tr class="row-even"><td><p>h5</p></td>
+<td><p>H5 data.  A ‘key’ argument must also be passed in conjunction with this file format,</p>
+<p>denoting the key within the H5 file that the (normally, pd.DataFrame resides under)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Filetype is inferred from the file name extension. Note that .csv and .tsv files may be gzipped (.csv.gz and .tsv.gz).</p>
+</dd>
+<dt><em>metadata</em></dt><dd><p>In addition to specifying the file location, a <em>metadata</em> dictionary may also be given, allowing special keywords for the reading of data in different formats.
+Special keys for the metadata dictionary are listed below (See Pandas documentation for read_csv for more in-depth information):</p>
+<ul class="simple">
+<li><p>‘sep’: define separator for fields within the file (by default ‘,’, but if none is supplied and a TAB character is found in the first line of the file, then it is assumed sep should be a tab character)</p></li>
+<li><p>‘skiprows’: define a number of rows to skip at the beginning of a file</p></li>
+<li><p>‘header_row_number’ : may be a single number, or list of numbers denoting header rows.</p></li>
+<li><p>‘transpose’ : In the case of some transcriptomics raw data, transposition is required to have samples row-wise. Therefore the table must be transposed. Set to True to transpose.</p></li>
+<li><p>‘index_col’ : Column to use as the row labels of the CSV given as either the column names or as numerical indexes. Note: index_col=False can be used to force pandas to not use the first column as the index, e.g. when you have a malformed file with delimiters at the end of each line.</p></li>
+<li><p>‘key’ : If an h5 file is specified, then this is the key under which the pandas dataframe representing the dataset resides.</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example load usage</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+<section id="write-csv">
+<h3>write_csv<a class="headerlink" href="#write-csv" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Writes a dataset to a CSV file. As well as the keys defined below, additional keys may be supplied
+which are passed to Pandas.DataFrame.to_csv as kwargs, allowing fully flexible output.</p>
+<p>See <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv</a> for a full listing of additional arguments.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should be writen to the file. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>file</em></dt><dd><p>The path to the file where output should be writen.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example write_csv usage</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">-write_csv</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pca_cell_paint.csv</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="write-multiple-csvs">
+<h3>write_multiple_csvs<a class="headerlink" href="#write-multiple-csvs" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Often it is useful to write a CSV file per plate within the dataset, or group the data by some other
+identifier. This write_multiple_csvs workflow function provides this functionality.</p>
+<p>Additional keys may be supplied which are passed to Pandas.DataFrame.to_csv as kwargs, allowing fully
+flexible output. See <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html#pandas.DataFrame.to_csv</a>
+for a full listing of additional arguments.</p>
+<dl class="simple">
+<dt><em>split_by_column</em></dt><dd><p>the name of the column to be split on</p>
+</dd>
+<dt><em>output_dir</em></dt><dd><p>the target output directory</p>
+</dd>
+<dt><em>file_prefix</em></dt><dd><p>optional prefix for each file.</p>
+</dd>
+<dt>file suffix: str</dt><dd><p>optional suffix for each file.</p>
+</dd>
+<dt>file_extension: str</dt><dd><p>optional file extension, by default ‘.csv’</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example write_multiple_csvs usage</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="nt">-write_multiple_csvs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">split_by_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plate_id</span>
+<span class="w">    </span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split_output</span>
+<span class="w">    </span><span class="nt">file_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="transforms">
+<h2>Transforms<a class="headerlink" href="#transforms" title="Link to this heading"></a></h2>
+<section id="add-well-id">
+<h3>add_well_id<a class="headerlink" href="#add-well-id" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Often, we would like to use well and column numbers to resolve a more traditional alpha-numeric WellID notation, such as A1, A2, etc. This can be achieved through calling this workflow function.</p>
+<p>If a dataset contains numerical row and column names, then they may be translated into standard letter-number well IDs. The arguments dictionary may contain the following keys, with their values denoted as bellow:</p>
+<dl class="simple">
+<dt><em>numerical_column_name</em></dt><dd><p>Name of column containing numeric column number, if not supplied, then behaves as if “COLUMN”.</p>
+</dd>
+<dt><em>numerical_row_name</em></dt><dd><p>Name of column containing numeric column number, if not supplied, then behaves as if “ROW”.</p>
+</dd>
+<dt><em>plate_type</em></dt><dd><p>Plate type - note, at present, only 384 well plate format is supported, if not supplied, then behaves as if 384.</p>
+</dd>
+<dt><em>new_well_column_name</em></dt><dd><p>Name of new column containing letter-number well ID, if not supplied, then behaves as if default “Well”.</p>
+</dd>
+<dt><em>add_empty_wells</em></dt><dd><p>Should all wells from a plate be inserted, even when missing from the data, if not supplied, then behaves as if False.</p>
+</dd>
+<dt><em>plate_barcode_column</em></dt><dd><p>Multiple plates may be in a dataset, this column contains their unique ID, if not supplied, then bahaves as if None.</p>
+</dd>
+<dt><em>no_sort</em></dt><dd><p>Do not resort the dataset by well ID, if not supplied, then behaves as if False</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example add_well_id</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">add_well_id</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">numerical_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">COLUMN_X</span>
+<span class="w">    </span><span class="nt">numerical_row_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ROW_Y</span>
+<span class="w">    </span><span class="nt">plate_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">384</span>
+<span class="w">    </span><span class="nt">add_empty_wells</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="copy-column">
+<h3>copy_column<a class="headerlink" href="#copy-column" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Copys the values of one column within a dataset to another.</p>
+<p>Supply either ‘to’ and ‘from’ keys, or alternatively, simply from:to key-value
+pairs denoting how to perform the copy operation.</p>
+<p>Argument details</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example copying a column</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">copy_column</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new_feat_1</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">copy_column</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feat_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new_feat_2</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="rename-column-and-rename-columns">
+<h3>rename_column and rename_columns<a class="headerlink" href="#rename-column-and-rename-columns" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Renames a single, or multiple columns. The arguments dictionary should contain key:value pairs, where the key is the old column name and the value is the new column name.</p>
+<p>Supply either ‘name_from’ and ‘name_to’ keys, or alternatively, simply from:to key-value pairs denoting how to perform the rename operation. Multiple columns can be renamed in a single call, using multiple dictionary entries.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example rename columns</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">rename_column</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feat_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new_feat_1</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">feat_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new_feat_2</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name_from</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new_feat_3</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Link to this heading"></a></h2>
+<section id="filter-columns">
+<h3>filter_columns<a class="headerlink" href="#filter-columns" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Datasets may have columns defined for keeping or removal. This function also provides a convenient way to reorder dataframe columns.</p>
+<dl class="simple">
+<dt><em>keep</em></dt><dd><p>Only matching columns are kept if true. If false, they are removed. By default, True.</p>
+</dd>
+<dt><em>column_names</em></dt><dd><p>Can be a string, or list of strings to match (or regular expressions). Can be used interchangably with column_name.</p>
+</dd>
+<dt><em>column_name</em></dt><dd><p>Singular column to keep (or regular expression to match).  Can be used interchangably with column_names.</p>
+</dd>
+<dt><em>regex</em></dt><dd><p>If true, perform regular expression matching. By default false.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example filtering coiumns</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">filter_columns</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+</pre></div>
+</div>
+<p>The above example removes all metadata, keeping only feature (or columns beginning with feat_).</p>
+</div></blockquote>
+</section>
+<section id="filter-rows">
+<h3>filter_rows<a class="headerlink" href="#filter-rows" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Alows keeping of only rows with a certain value in a certain column. Takes as arguments a dictionary
+containing query_column key:value pair and one of query_value, query_values or values key:value pairs.</p>
+<dl class="simple">
+<dt><em>query_column</em></dt><dd><p>Name of the column that should match the value below</p>
+</dd>
+<dt><em>query_value</em></dt><dd><p>Value to match. Note: query_value, query_values and values can be used interchangably.</p>
+</dd>
+<dt><em>query_values</em></dt><dd><p>values to match (as a list). Note: query_value, query_values and values can be used interchangably.</p>
+</dd>
+<dt><em>values</em></dt><dd><p>values to match (as a list.) Note: query_value, query_values and values can be used interchangably.</p>
+</dd>
+<dt><em>keep</em></dt><dd><p>If True then rows matching the query are kept, if False, then rows matching are discarded, and non-matching rows kept.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example filtering rows</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">filter_rows</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">query_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">valid_well</span>
+<span class="w">    </span><span class="nt">query_value</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span>
+</pre></div>
+</div>
+<p>The above example only keeps rows where the value in the valid_well column is 1, true, or yes.</p>
+</div></blockquote>
+</section>
+<section id="filter-correlated-features">
+<h3>filter_correlated_features<a class="headerlink" href="#filter-correlated-features" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Perform filter of highly correlated features (as calculated by Pearson correlation coefficient) by either by removal
+of features correlated above a given theshold, or uses the iterative removal of features with the highest R^2 against
+another feature. The arguments dictionary should contain a threshold or n key:value pair, not both. A key of threshold
+and float value defines the correlation above which, features should be removed. If the n key is present, then features
+are iteratively removeduntil n features remain.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>threshold</em></dt><dd><p>If this key is present, then it activates threshold mode, where by calculated correlations, above which should be removed. A good value for this threshold is 0.9.</p>
+</dd>
+<dt><em>n</em></dt><dd><p>If this key is present, then the number of features to keep is defined this way. The process works through iteratively removing features ordered by the most correlated
+until the number of features is equal to n. If threshold is also present, then n acts as a minimum number of features and feature removal will stop,
+no matter the correlations present in the dataset.</p>
+</dd>
+<dt><em>drop_columns</em></dt><dd><p>If drop columns is True, then not only will features be removed from the dataset features list, but the columns for these features will
+be removed from the dataframe. If absent, then the behaviour is as if False was supplied as a value to this key:value pair.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example filtering correlated features</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">filter_correlated_features</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">n</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="vif-filter-features">
+<h3>VIF_filter_features<a class="headerlink" href="#vif-filter-features" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Performs variance inflation factor (VIF) filtering on a dataset, removing features which are not detrimental to capturing variance. More information available: <a class="reference external" href="https://en.wikipedia.org/wiki/Variance_inflation_factor">https://en.wikipedia.org/wiki/Variance_inflation_factor</a></p>
+<p>This can be a computationally expensive process as the number of linear regressions required to be run is almost N^2 with features.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>vif_cutoff</em></dt><dd><p>The VIF cutoff value, above which features are removed. Features with VIF scores above 5.0 are considered highly correlated. If not supplied, then behaviour is as if a value of 5.0 was supplied.</p>
+</dd>
+<dt><em>min_features</em></dt><dd><p>Removal of too many features can be detrimental. Setting this value sets a lower limit on the number of features which must remain. If absent, then behaviour is as if a value of 2 was given.</p>
+</dd>
+<dt><em>drop_columns</em></dt><dd><p>If drop columns is True, then not only will features be removed from the dataset features list, but the columns for these features will be removed from the dataframe. If absent, then behaviour is as if False was supplied.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example VIF filtering</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="nt">-VIF_filter_features</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">min_features</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="filter-correlated-and-vif-features">
+<h3>filter_correlated_and_VIF_features<a class="headerlink" href="#filter-correlated-and-vif-features" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Ideally, Variance Infation Factor (VIF) filtering would be applied to very large datasets. Due to the almost n^2
+number of linear regression required as features increase, this is not possible on datasets with a large
+number of features - such as methylation datasets. We therefore must use other methods to reduce the features
+to a comfortable level allowing VIF to be performed. This class calculates correlations between all features
+and iteratively (Pearson correlation coefficient), removing features with the highest R^2 against another feature.
+Once the number of featurs is reduced to a level suitable for VIF, VIF is performed.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>n_before_vif</em></dt><dd><p>Number of features to remove before applying VIF. This is required when dealing with large datasets which would be too time consuming to process entirely with VIF. Features are removed iteratively, selecting the most correlated features and removing them. If this key:value pair is absent, then it is as if the value of 1000 has been supplied.</p>
+</dd>
+<dt><em>vif_cutoff</em></dt><dd><p>The VIF cutoff value, above which features are removed. Features with VIF scores above 5.0 are considered highly correlated. If not supplied, then behaviour is as if a value of 5.0 was supplied.</p>
+</dd>
+<dt><em>drop_columns</em></dt><dd><p>If drop columns is True, then not only will features be removed from the dataset features list, but the columns for these features will be removed from the dataframe. If absent, then behaviour is as if False was supplied.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example filtering correlated features and then VIF filtering</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="nt">-filter_correlated_and_VIF_features</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">n_before_vif</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="if-blank-also-blank">
+<h3>if_blank_also_blank<a class="headerlink" href="#if-blank-also-blank" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Often it is required to clean or remove rows not needed for inclusion into further established pipelines/ workflows. This workflow function allows the ability to remove values from a column on the condition that onther column is empty.</p>
+<dl class="simple">
+<dt><em>query_column</em></dt><dd><p>Value is the name of the column to perform the query on.</p>
+</dd>
+<dt><em>regex_query</em></dt><dd><p>Value is a boolean denoting if the query column value should be matched using a regular expression. If omitted, then behaves as if present and False.</p>
+</dd>
+<dt><em>target_column</em></dt><dd><p>Value is a string, denoting the name of the column which should be blanked.</p>
+</dd>
+<dt><em>target_columns</em></dt><dd><p>Value is a list of strings, denoting the names of columns which should be blanked.</p>
+</dd>
+<dt><em>regex_targets</em></dt><dd><p>Value is a boolean denoting if the target column or multiple target columns defined in target_columns should be matched using a regular expression. If absent, then behaves as if False was supplied.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example conditionally removing columns</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">if_blank_also_blank</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">query_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dispense_volume</span>
+<span class="w">    </span><span class="nt">target_column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">valid_well</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="dimensionality-reduction">
+<h2>Dimensionality reduction<a class="headerlink" href="#dimensionality-reduction" title="Link to this heading"></a></h2>
+<section id="pca">
+<h3>pca<a class="headerlink" href="#pca" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Perform PCA dimensionality reduction technique. If no arguments are given then 2D PCA is applied to the dataset with
+the highest index which is usually the last inserted dataset.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have the dimensionality reduction applied. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>ndims</em></dt><dd><p>Number of dimensions to which the PCA should reduce the features. If absent, then defaults to 2.</p>
+</dd>
+<dt><em>center_on_perturbation_id</em></dt><dd><p>PCA should be recentered on the perturbation with ID. If absent, then defaults to None, and no centering is performed.</p>
+</dd>
+<dt><em>center_by_median</em></dt><dd><p>If true, then median of center_on_perturbation is used, if False, then the mean is used.</p>
+</dd>
+<dt><em>fit_perturbation</em></dt><dd><p>PCA may be fit to only the included IDs, before the transform is applied to the whole dataset.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example PCA</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="tnse">
+<h3>tnse<a class="headerlink" href="#tnse" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Perform the t-SNE dimensionality reduction technique. If no arguments are given then 2D t-SNE is applied to the dataset with
+the highest index which is usually the last inserted dataset.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have the dimensionality reduction applied. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>ndims</em></dt><dd><p>Number of dimensions to which the t-SNE should reduce the features. If absent, then defaults to 2.</p>
+</dd>
+<dt><em>center_on_perturbation_id</em></dt><dd><p>t-SNE should be recentered on the perturbation with ID. If absent, then defaults to None, and no centering is performed.</p>
+</dd>
+<dt><em>center_by_median</em></dt><dd><p>If true, then median of center_on_perturbation is used, if False, then the mean is used.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example t-SNE</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">tsne</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="umap">
+<h3>umap<a class="headerlink" href="#umap" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Perform the UMAP dimensionality reduction technique. If no arguments are given then 2D UMAP is applied to the dataset with
+the highest index which is usually the last inserted dataset.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have the dimensionality reduction applied. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>ndims</em></dt><dd><p>Number of dimensions to which the UMAP should reduce the features. If absent, then defaults to 2.</p>
+</dd>
+<dt><em>center_on_perturbation_id</em></dt><dd><p>UMAP should be recentered on the perturbation with ID. If absent, then defaults to None, and no centering is performed.</p>
+</dd>
+<dt><em>center_by_median</em></dt><dd><p>If true, then median of center_on_perturbation is used, if False, then the mean is used.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example UMAP</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">umap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="measurements">
+<h2>Measurements<a class="headerlink" href="#measurements" title="Link to this heading"></a></h2>
+<section id="scalar-projection">
+<h3>scalar projection<a class="headerlink" href="#scalar-projection" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Add a column for the scalar projection. Calculates the scalar projection and scalar rejection, quantifying on and off
+target phenotypes, as used in: Heiser, Katie, et al. “Identification of potential treatments for COVID-19 through
+artificial intelligence-enabled phenomic analysis of human cells infected with SARS-CoV-2.” BioRxiv (2020).</p>
+<dl>
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>target_perturbation_column_name</em></dt><dd><p>Column name to match the target_perturbation_column value defined below, usually a column capturing control names.</p>
+</dd>
+<dt><em>target_perturbation_column_value</em></dt><dd><p>value to be found in the column defined in target_perturbation_column_name</p>
+</dd>
+<dt><em>output_column_label</em></dt><dd><dl>
+<dt>Output from the scalar projection will have the form:</dt><dd><p>on_target_&lt;output_column_label&gt;</p>
+<p>off_target_&lt;output_column_label&gt;</p>
+</dd>
+</dl>
+<p>if this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scalar projection</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">scalar_projection</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control_name</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">positive_control</span>
+<span class="w">    </span><span class="nt">output_column_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sproj</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="euclidean-distance">
+<h3>euclidean_distance<a class="headerlink" href="#euclidean-distance" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Add a column for the euclidean distance between all perturbations and a target perturbation.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>target_perturbation_column_name</em></dt><dd><p>Column name to match the target_perturbation_column value defined below, usually a column capturing control names.</p>
+</dd>
+<dt><em>target_perturbation_column_value</em></dt><dd><p>value to be found in the column defined in target_perturbation_column_name</p>
+</dd>
+<dt><em>output_column_label</em></dt><dd><p>Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scalar projection</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">euclidean_distance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control_name</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">positive_control</span>
+<span class="w">    </span><span class="nt">output_column_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="manhattan-distance">
+<h3>manhattan_distance<a class="headerlink" href="#manhattan-distance" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Add a column for the manhattan distance between all perturbations and a target perturbation (also known as the cityblock distance).</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>target_perturbation_column_name</em></dt><dd><p>Column name to match the target_perturbation_column value defined below, usually a column capturing control names.</p>
+</dd>
+<dt><em>target_perturbation_column_value</em></dt><dd><p>value to be found in the column defined in target_perturbation_column_name</p>
+</dd>
+<dt><em>output_column_label</em></dt><dd><p>Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scalar projection</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">manhattan_distance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control_name</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">positive_control</span>
+<span class="w">    </span><span class="nt">output_column_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="cityblock-distance">
+<h3>cityblock_distance<a class="headerlink" href="#cityblock-distance" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Add a column for the cityblock distance between all perturbations and a target perturbation (also known as the manhattan distance).</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>target_perturbation_column_name</em></dt><dd><p>Column name to match the target_perturbation_column value defined below, usually a column capturing control names.</p>
+</dd>
+<dt><em>target_perturbation_column_value</em></dt><dd><p>value to be found in the column defined in target_perturbation_column_name</p>
+</dd>
+<dt><em>output_column_label</em></dt><dd><p>Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scalar projection</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">cityblock_distance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control_name</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">positive_control</span>
+<span class="w">    </span><span class="nt">output_column_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="mahalanobis-distance">
+<h3>mahalanobis_distance<a class="headerlink" href="#mahalanobis-distance" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Add a column for the mahalanobis distance between all perturbations and a target perturbations.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features filtered. If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>target_perturbation_column_name</em></dt><dd><p>Column name to match the target_perturbation_column value defined below, usually a column capturing control names.</p>
+</dd>
+<dt><em>target_perturbation_column_value</em></dt><dd><p>value to be found in the column defined in target_perturbation_column_name</p>
+</dd>
+<dt><em>output_column_label</em></dt><dd><p>Output column name for the distance measurements. If this is missing, then it is set to target_perturbation_column_value</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scalar projection</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mahalanobis_distance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">control_name</span>
+<span class="w">    </span><span class="nt">target_perturbation_column_value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">positive_control</span>
+<span class="w">    </span><span class="nt">output_column_label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dist</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h2>
+<section id="set-perturbation-column">
+<h3>set_perturbation_column<a class="headerlink" href="#set-perturbation-column" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Within a dataset, a special flag on a column may be set indicating that this is the
+perturbation column. This is useful in plotting whereby similar perturbations/repeats
+should be the same colour etc.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset within which we wish to set the perturbation column.
+If absent, then behaviour is as if -1 is supplied, indicating the last added dataset.</p>
+</dd>
+<dt><em>column</em></dt><dd><p>column name to mark as containing perturbations ids.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example set_perturbation_column</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">set_perturbation_column</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compound_id</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="scatter">
+<h3>scatter<a class="headerlink" href="#scatter" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>produce a scatter plot from a dataset. Used in conjunction with set_perturbation_column,
+similar pertubations will be grouped together.</p>
+<dl class="simple">
+<dt><em>target_dataset</em></dt><dd><p>Index or name of dataset which should have features plotted. If absent, then behaviour is as if -1 is supplied,
+indicating the last added dataset.</p>
+</dd>
+<dt><em>figsize</em></dt><dd><p>A tuple denoting the target output size in inches (!), if
+absent, then the default of (8,6) is used.</p>
+</dd>
+<dt><em>title</em></dt><dd><p>Title for the plot, if absent, then the default “2D scatter”
+is used.</p>
+</dd>
+<dt><em>peturbations</em></dt><dd><p>Can be a list of peturbations - as denoted in the
+perturbations column of the dataframe to include in the plot.
+If absent, then all perturbations are included.</p>
+</dd>
+<dt><em>destination</em></dt><dd><p>Output location for the PNG - required field.  An error will be thrown if omitted.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example scatter</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cell_paint.csv</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">sep</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;,&#39;</span>
+<span class="w">        </span><span class="nt">transpose</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">features_prefix</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">feat_</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pca</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ndims</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">set_perturbation_column</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">column</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compound_id</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">scatter</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scatter_pca_cell_paint.png</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="prediction">
+<h2>Prediction<a class="headerlink" href="#prediction" title="Link to this heading"></a></h2>
+<section id="predict">
+<h3>predict<a class="headerlink" href="#predict" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Profile predictors in their ability to predict a given target.</p>
+<p>Phenonaut provides functionality to profile the performance of multiple predictors against multiple views of data.
+This is exemplified in the TCGA example used in the Phenonaut paper - see
+<a class="reference internal" href="tcga_example.html#tcga-example"><span class="std std-ref">Example 1 - TCGA</span></a> for a full walkthrough of applying this functionality to The Cancer Genome Atlas. With a given ‘target’
+for prediction which is in the dataset, predict selects all appropriate predictors (classifiers for classification, regressors
+for regression and multiregressors for multi regression/view targets).  Then, enumerating all views of the data and all predictors,
+hyperparameter optimisation coupled with 5-fold cross validation using Optuna is employed, before finally testing the best hyperparameter
+sets with retained test sets. This process is automatic and requires the data, and a prediction target.  Output from this process is
+extensive and it may take a long time to complete, depending on the characteristics of your input data.  Writen output from the profiling
+process consists of performance heatmaps highlighting best view/predictor combinations in bold, boxplots for each view combination and
+a PPTX presentation file allowing easy sharing of data, along with machine readable CSV and JSON results.</p>
+<p>For each unique view combination and predictor, perform the following:</p>
+<ul class="simple">
+<li><p>Merge views and remove samples which do not have features across currently needed views.</p></li>
+<li><p>Shuffle the samples.</p></li>
+<li><p>Withhold 20% of the data as a test set, to be tested against the trained and hyperparameter optimised predictor.</p></li>
+<li><p>Split the data using 5-fold cross validation into train and validation sets.</p></li>
+<li><p>For each fold, perform Optuna hyperparameter optimisation for the given predictor using the train sets, using hyperparameters described by the default predictors for classification, regression and multiregression.</p></li>
+</ul>
+<dl class="simple">
+<dt><em>output_directory</em></dt><dd><p>Directory into which profiling output (boxplots, heatmaps, CSV, JSON
+and PPTX should be written).</p>
+</dd>
+<dt><em>dataset_combinations</em></dt><dd><p>If multiple datasets are already loaded, then lists of
+‘views’ may be specified for exploration. If None, or this argument is absent, then all combinations
+of available views/Datasets are enumerated and used.</p>
+</dd>
+<dt><em>target</em></dt><dd><p>The prediction target, denoted by a column name given here which exists in loaded datasets.</p>
+</dd>
+<dt><em>n_splits</em></dt><dd><p>Number of splits to use in the N-fold cross validation, if absent, then the default of 5 is used.</p>
+</dd>
+<dt><em>n_optuna_trials</em></dt><dd><p>Number of Optuna trials for hyperparameter optimisation, by default 20. This drastically impacts
+runtime, so if things are taking too long, you may wish to lower this number.  For a more thorough
+exploration of hyperparameter space, increase this number.</p>
+</dd>
+<dt><em>optuna_merge_folds</em></dt><dd><p>By default, each fold has hyperparameters optimised and the trained
+predictor with parameters reported.  If this optuna_merge_folds is true,
+then each fold is trained on and and hyperparameters optimised across
+folds (not per-fold). Setting this to False may be useful depending on
+the intended use of the predictor. It is believed that when False, and
+parameters are not optimised across folds, then more accurate prediction
+variance/accuracy estimates are produced. If absent, behaves as if false.</p>
+</dd>
+<dt><em>test_set_fraction</em></dt><dd><p>When optimising a predictor, by default a fraction of the total data is
+held back for testing, separate from the train-validation splits. This
+test_set_fraction controls the size of this split. If absent, then the
+default value of 0.2 is used.</p>
+</dd>
+</dl>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="nt">Example_1_predict_survival</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">load</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dataset</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCGA</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">predict</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">survives_1_yr</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="publication_examples.html" class="btn btn-neutral float-left" title="Publication examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

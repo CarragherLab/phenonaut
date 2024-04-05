@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.packaged_datasets package &mdash; Phenonaut 2.0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=664ffad9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.predict package" href="phenonaut.predict.html" />
+    <link rel="prev" title="phenonaut.output package" href="phenonaut.output.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">phenonaut.packaged_datasets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.base">phenonaut.packaged_datasets.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.breast_cancer">phenonaut.packaged_datasets.breast_cancer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.cmap">phenonaut.packaged_datasets.cmap module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.iris">phenonaut.packaged_datasets.iris module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.lincs">phenonaut.packaged_datasets.lincs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.metadata_moa">phenonaut.packaged_datasets.metadata_moa module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets.tcga">phenonaut.packaged_datasets.tcga module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.packaged_datasets">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.errors">phenonaut.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.html">phenonaut package</a></li>
+      <li class="breadcrumb-item active">phenonaut.packaged_datasets package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.packaged_datasets.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-packaged-datasets-package">
+<h1>phenonaut.packaged_datasets package<a class="headerlink" href="#phenonaut-packaged-datasets-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-phenonaut.packaged_datasets.base">
+<span id="phenonaut-packaged-datasets-base-module"></span><h2>phenonaut.packaged_datasets.base module<a class="headerlink" href="#module-phenonaut.packaged_datasets.base" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.base.</span></span><span class="sig-name descname"><span class="pre">PackagedDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir_relative_to_root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>PackagedDataset base class for all downloaded Datasets</p>
+<p>Inherited by Phenonaut classes which supply public datasets in the same
+way that pytorch allows easy access to MNIST and FashionMNIST etc,
+Phenonaut offers classes which download and preprocess datasets like
+TCGA (The Cancer Genome Atlas and the Connectivity Map), which may
+include many different ‘views’ or omics-based measurements of the
+underlying cells.</p>
+<p>Inheriting from this class allows easy access to commonly used functions
+for checking datasets exist in directories and downloading them if not,
+in addition to more small helpful functions. Inheriting grants the
+following:</p>
+<ul class="simple">
+<li><p>Getters and setters for root and raw_data_dir, properly handling the expected location of dataset files, listing available Phenonaut Dataset objects via the .keys() or ds_keys() methods, listing supporting dataframes via the df_keys() methods.</p></li>
+<li><p>download and batch_download functions which simplify the download of remote public datasets.</p></li>
+<li><p>processed_dataset_exists and raw_dataset_exists, which check for the presence of the processed dataset and the raw dataset, respectively.</p></li>
+</ul>
+<p>Inheriting classes should do the following:</p>
+<ul class="simple">
+<li><p>Call super().__init__() on initialisation</p></li>
+<li><p>Check if they find a saved/processed version of the packaged dataset. The CMAP and TCGA classes which inherit from this PackagedDataset process and save the datasets in an h5 file. This is optional, and any store may be used.</p></li>
+<li><p>If it does not exist, download the data storing it in .raw_data_dir, process the data and store in a convenient format.</p></li>
+<li><p>Register the available Phenonaut Datasets associated with this PackagedDataset.  By convention, the default/main dataset should be named ‘ds’. Registration is completed by calling self.register_ds_key(‘ds_name’). Available Phenonaut Datasets are available by calling self.keys(), or self.ds_keys(). Phenonaut datasets may be accessed by calling get_ds, or with the [‘ds_name’] notation on the PackagedDataset instance.</p></li>
+<li><p>Register the available supporting dataframes associated with this PackagedDataset. Supporting dataframe names can be listed by calling df_keys() and accessed by calling get_df(‘df_name’).</p></li>
+<li><p>Classes should provide their own get_df and get_ds methods. This is enforced by this base class specifying required methods to be present through inheritance of the AbstractBaseClass.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Root directory for the dataset. The root directory should contain
+processed files, usable by Phenonaut, this means that the data has
+been downloaded and usually transformed in some manner prior to
+being put here. By convention, processed files will be put into
+this directory, but there will exist a subdirectory called
+“raw_data”, within which downloaded files (possibly compressed)
+will be placed prior to preprocessing.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Directory in which the raw, downloaded files should be saved, also
+the location of intermediate files generated in the processing step.
+By convention, this directory lies within the root directory and has
+the default name “raw_data”. It can be an absolute path in a
+different directory or filesystem by setting
+raw_data_dir_relative_to_root argument to False.
+By default Path(“raw_data”).</p></li>
+<li><p><strong>raw_data_dir_relative_to_root</strong> (<em>bool</em><em>, </em><em>optional</em>) – As described for the raw_data_dir argument, by the “raw_data”
+directory is usually within the root directory for the dataset.
+If this argument is True, then the full path of the raw_data_dir is
+generated with root as the parent directory.  If this value is
+False, then it is taken to be an absolute path, possibly existing
+on another filesystem. By default True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.df_keys">
+<span class="sig-name descname"><span class="pre">df_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.df_keys" title="Link to this definition"></a></dt>
+<dd><p>Get a list of available DataFrames.</p>
+<p>PackagedDatasets may include DataFrames, useful in the capture of
+metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of keys which allow accessing metadata (typically)
+pd.DataFrames belonging to this PackagedDataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.ds_keys">
+<span class="sig-name descname"><span class="pre">ds_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.ds_keys" title="Link to this definition"></a></dt>
+<dd><p>Get a list of Datasets contained within this PackagedDataset.</p>
+<p>Returns a list of Dataset names contained within this PackagedDataset
+and allows access to them via pds.[‘dataset_name’] - dictionary-like
+notation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of keys which allow accessing pd.DataFrames belonging to this
+PackagedDataset</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.get_df">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.get_df" title="Link to this definition"></a></dt>
+<dd><p>Abstract method - Get DataFrame</p>
+<p>Abstract method which all inheriting classes are required to implement
+for retrieval of DataFrames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Name of DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.get_ds">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Abstract method - Get Dataset</p>
+<p>Abstract method which all inheriting classes are required to implement
+for retrieval of Datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Name of Dataset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.keys" title="Link to this definition"></a></dt>
+<dd><p>Get a list of Datasets contained within this PackagedDataset.</p>
+<p>Returns a list of Dataset names contained within this PackagedDataset
+and allows access to them via pds.[‘dataset_name’] - dictionary-like
+notation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of keys which allow accessing pd.DataFrames belonging to this
+PackagedDataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.raw_data_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">raw_data_dir</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.raw_data_dir" title="Link to this definition"></a></dt>
+<dd><p>Getthe raw unprocessed data directory of the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Directory of the raw, unprocessed dataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.register_df_key">
+<span class="sig-name descname"><span class="pre">register_df_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.register_df_key" title="Link to this definition"></a></dt>
+<dd><p>Register a dataframe key with the PackagedDataset</p>
+<p>Packaged datasets may contain or have access to multiple pd.DataFrames
+which accompany the main dataset. In the case of the CMAP dataset, the
+main Phenonaut Dataset contains the L1000 values, along with features
+and metadata. The supporting dataframes contain information on the
+perturbation type, compound information, etc. Keys are typically the
+same as their HDF5 store key values, although this is up to the specific
+PackagedDataset implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Short string which may be used to access the pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – [description]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.register_ds_key">
+<span class="sig-name descname"><span class="pre">register_ds_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.register_ds_key" title="Link to this definition"></a></dt>
+<dd><p>Register a Phenonaut Dataset key with the PackagedDataset</p>
+<p>Packaged datasets may contain or have access to multiple pd.DataFrames
+from which Phenonaut Datasets can be created. These Datasets contain not
+only the pd.DataFrame containing data, but also features and additional
+metadata such as history and origin. The main Phenonaut Dataset should
+be called, by convention “ds” and additional Phenonaut Datasets given a
+descriptive name. In the case of the CMAP dataset, the main DataSet (ds)
+contains the L1000 values, feature and metadata. Supporting dataframes
+are accessible using the .get_df(“name”) method and contain information
+on things like the perturbation type, compound information, etc. Keys
+are typically the same as their HDF5 store key values, although this is
+up to the specific PackagedDataset implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Short string which may be used to access the pd.DataFrame.
+When given, to the function, the name will be registered. After
+which the inheriting class should allow access to a Phenonaut
+Dataset via the __getitem__ method, allowing access to the
+Phenonaut Dataset via pdf[‘ds’].</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – Given key must be a str or list of str.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.base.PackagedDataset.root">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#phenonaut.packaged_datasets.base.PackagedDataset.root" title="Link to this definition"></a></dt>
+<dd><p>Get the root directory of the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Root directory within which the processed dataset and raw dataset
+data can be found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.breast_cancer">
+<span id="phenonaut-packaged-datasets-breast-cancer-module"></span><h2>phenonaut.packaged_datasets.breast_cancer module<a class="headerlink" href="#module-phenonaut.packaged_datasets.breast_cancer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.breast_cancer.BreastCancer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.breast_cancer.</span></span><span class="sig-name descname"><span class="pre">BreastCancer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.breast_cancer.BreastCancer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>Breast Cancer Dataset from scikit-learn</p>
+<p>This PackagedDataset provides the Breast Cancer dataset from
+scikit-learn. This is also known as the Breast cancer Wisconsin
+(diagnostic) dataset.
+See the scikit-learn user guide for more information:
+<a class="reference external" href="https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset">https://scikit-learn.org/stable/datasets/toy_dataset.html#breast-cancer-dataset</a>
+Original dataset information available at:
+<a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic">https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic</a>)</p>
+<p>Contains 569 unique samples breast cancer fine needle aspirates, each
+with 30 features, and one target of 0 or 1, denoting benign or
+malignant respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory,
+then it is created as a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given,
+then it is created in a subdirectory of the root directory
+specified as the first argument. Absolute paths may be used to
+place raw datafiles and intermediates in another location, such as
+scratch disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.breast_cancer.BreastCancer.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.cmap">
+<span id="phenonaut-packaged-datasets-cmap-module"></span><h2>phenonaut.packaged_datasets.cmap module<a class="headerlink" href="#module-phenonaut.packaged_datasets.cmap" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.cmap.</span></span><span class="sig-name descname"><span class="pre">CMAP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landmark_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>CMAP (Level 5)- ConnectivityMap dataset - <a class="reference external" href="https://clue.io/">https://clue.io/</a></p>
+<p>CMAP is a repository of L1000 profiles measured from small molecule and
+crisper perturbations. This CMAP packaged dataset supplies an interface
+to querying this data and allows access to the data through a Phenonaut
+dataset object. This PackagedDataset is for level 5 data (merged
+profiles).</p>
+<p>Data supplied by CMAP is in their own GCTX format files which are HDF5
+files with data residing in specific paths. Rather than have Phenonaut
+rely on their supplied library, we simply read the file with standard
+HDF5 tools. Additionally, we merge sig_info data, assigning
+perturbation information, bringing in the following columns:
+‘pert_id’, ‘pert_iname’, ‘pert_type’, ‘cell_id’, ‘pert_idose’,
+‘pert_itime’, and ‘distil_id’.</p>
+<p>in the pert_type column, and taking the following values:</p>
+<p>ctl_vehicle : DMSO</p>
+<p>trt_cp      : compound treatment</p>
+<p>trt_xpr     : crisper treatment</p>
+<p>If the pert_type is trt_cp, then pert_idose gives the compound
+concentration.  In the supplied cmap data, the field is a string
+containing for example, “3.33 um”. This dataloader changes this to a
+float field without the µM (um as written) prefix - units are µM. If
+the pert_type is ctl_vehicle or trt_xpr, then CMAP supplied data with
+-666 in the pert_idose field. This is changed to np.nan.</p>
+<p>Further field information can be found here:
+<a class="reference external" href="https://clue.io/connectopedia/glossary">https://clue.io/connectopedia/glossary</a></p>
+<p>This PackagedDataset provides supplies the following pd.DataFrames
+(queryable by calling the inherited “.keys” method):</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>creation_date</dt><dd><p>the date on which the h5 file was written.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>df</dt><dd><p>the main dataframe containing L1000 data, merged with sig_info to give a more complete view of the dataset.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gene_info</dt><dd><p>Information on the genes - allows translation of L1000 gene number in df to gene name and more.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pert_info</dt><dd><p>Perturbation info.  Using the df, which contains the merged sig_info data, compound ids can be used to query this dataframe and molecule smiles etc returned.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>sig_metrics</dt><dd><p>Additional metrics on the profiles recorded in df.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>inst_info</dt><dd><p>Information on plate barcodes etc from which profiles derived.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given,
+then it is created in a subdirectory of the root directory specified
+as the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc.  Only has an effect if downloading and rebuilding the
+PackagedDataset.by default Path(“raw_data”).</p></li>
+<li><p><strong>landmark_only</strong> (<em>bool</em>) – If True, then only return landmark genes, essentially removing all
+inferred gene abundances. This is likely the most useful for the
+majority of tasks ashighly correlated abundances simply adds to
+colinearity.  Only has an effect if rebuilding the PackagedDataset.
+By default, True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP_Level4">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.cmap.</span></span><span class="sig-name descname"><span class="pre">CMAP_Level4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">landmark_only</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_treatment_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['trt_cp',</span> <span class="pre">'ctl_vehicle']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_treatment_times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'24</span> <span class="pre">h'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP_Level4" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>CMAP (Level4) - ConnectivityMap dataset - <a class="reference external" href="https://clue.io/">https://clue.io/</a></p>
+<p>CMAP is a repository of L1000 profiles measured from small molecule and
+crisper perturbations. This CMAP packaged dataset supplies an interface
+to querying this data and allows access to the data through a Phenonaut
+dataset object.</p>
+<p>Data supplied by CMAP is in their own GCTX format files which are HDF5
+files with data residing in specific paths. Rather than have Phenonaut
+rely on their supplied library, we simply read the file with standard
+HDF5 tools. Additionally, we merge sig_info data, assigning
+perturbation information, bringing in the following columns:
+‘pert_id’, ‘pert_iname’, ‘pert_type’, ‘cell_id’, ‘pert_idose’,
+‘pert_itime’, and ‘distil_id’.</p>
+<p>in the pert_type column, and taking the following values:</p>
+<p>ctl_vehicle : DMSO</p>
+<p>trt_cp      : compound treatment</p>
+<p>trt_xpr     : crisper treatment</p>
+<p>If the pert_type is trt_cp, then pert_idose gives the compound
+concentration.  In the supplied cmap data, the field is a string
+containing for example, “3.33 um”. This dataloader changes this to a
+float field without the µM (um as written) prefix - units are µM. If
+the pert_type is ctl_vehicle or trt_xpr, then CMAP supplied data with
+-666 in the pert_idose field. This is changed to np.nan.</p>
+<p>Further field information can be found here:
+<a class="reference external" href="https://clue.io/connectopedia/glossary">https://clue.io/connectopedia/glossary</a></p>
+<p>This PackagedDataset provides supplies the following pd.DataFrames
+(queryable by calling the inherited “.keys” method):</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>creation_date</dt><dd><p>the date on which the h5 file was written.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>df</dt><dd><p>the main dataframe containing L1000 data, merged with sig_info to give a more complete view of the dataset.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>gene_info</dt><dd><p>Information on the genes - allows translation of L1000 gene number in df to gene name and more.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>pert_info</dt><dd><p>Perturbation info.  Using the df, which contains the merged sig_info data, compound ids can be used to query this dataframe and molecule smiles etc returned.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>sig_metrics</dt><dd><p>Additional metrics on the profiles recorded in df.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>inst_info</dt><dd><p>Information on plate barcodes etc from which profiles derived.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given,
+then it is created in a subdirectory of the root directory specified
+as the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc. Only has an effect if downloading and rebuilding the
+PackagedDataset. By default Path(“raw_data”).</p></li>
+<li><p><strong>landmark_only</strong> (<em>bool</em>) – If True, then only return landmark genes, essentially removing all
+inferred gene abundances. This is likely the most useful for the
+majority of tasks ashighly correlated abundances simply adds to
+colinearity. Only has an effect if rebuilding the PackagedDataset.
+By default, True.</p></li>
+<li><p><strong>allowed_treatment_types</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Often, only compound treatments are needed for analysis, and so we
+include only treatments with pert_type of trt_cp or ctl_vehicle to
+allow compounds and DMSO vehicle only. This can be expanded to
+include crispr treatments with the inclusion of “trt_xpr”, see
+<a class="reference external" href="https://clue.io/connectopedia/perturbagen_types_and_controls">https://clue.io/connectopedia/perturbagen_types_and_controls</a> for
+further information on treatment types and possible values.
+Only has an effect if rebuilding the PackagedDataset.
+By default [‘trt_cp’,’ctl_vehicle’]</p></li>
+<li><p><strong>allowed_treatment_times</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Often, we are only interested in examining compound treatments
+after 24hrs, as there is an abundance of these measurements in the
+CMAP database. 24 hr treatments commonly have the pert_itime value
+‘24 h’. Only has an effect if rebuilding the PackagedDataset. By
+default ‘24 h’.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP_Level4.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP_Level4.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.cmap.CMAP_Level4.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.cmap.CMAP_Level4.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.iris">
+<span id="phenonaut-packaged-datasets-iris-module"></span><h2>phenonaut.packaged_datasets.iris module<a class="headerlink" href="#module-phenonaut.packaged_datasets.iris" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.iris.</span></span><span class="sig-name descname"><span class="pre">Iris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>IRIS dataset Scikit learn</p>
+<p>This PackagedDataset provides the Iris dataset from scikit-learn, with
+unique iris entries, each with four features each, and finally a target
+column denoting class. Further information is available via scikit-lean
+here:</p>
+<p><a class="reference external" href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html</a></p>
+<p>or wikipedia:</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Iris_flower_data_set">https://en.wikipedia.org/wiki/Iris_flower_data_set</a></p>
+<p>or from:</p>
+<p><a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Iris">https://archive.ics.uci.edu/ml/datasets/Iris</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given, then
+it is created in a subdirectory of the root directory specified as
+the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris_2_views">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.iris.</span></span><span class="sig-name descname"><span class="pre">Iris_2_views</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris_2_views" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris_2_views.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris_2_views.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.iris.Iris_2_views.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.iris.Iris_2_views.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.lincs">
+<span id="phenonaut-packaged-datasets-lincs-module"></span><h2>phenonaut.packaged_datasets.lincs module<a class="headerlink" href="#module-phenonaut.packaged_datasets.lincs" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.lincs.</span></span><span class="sig-name descname"><span class="pre">LINCS_Cell_Painting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>LINCS Cell Painting Dataset - <a class="reference external" href="https://clue.io/">https://clue.io/</a></p>
+<p>This PackagedDataset provides supplies the following pd.DataFrames
+(queryable by calling the inherited “.keys” method):</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given,
+then it is created in a subdirectory of the root directory specified
+as the first argument. Absolute paths may be used to place raw data
+files and intermediates in another location, such as scratch disks
+etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.lincs.LINCS_Cell_Painting.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.metadata_moa">
+<span id="phenonaut-packaged-datasets-metadata-moa-module"></span><h2>phenonaut.packaged_datasets.metadata_moa module<a class="headerlink" href="#module-phenonaut.packaged_datasets.metadata_moa" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.metadata_moa.</span></span><span class="sig-name descname"><span class="pre">MetadataBROADLincsCellPaintingMOAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>DataFrame supplier for BROAD Lincs Cell Painting assigned MOAs</p>
+<p>This PackagedDataset provides access to a pd.DataFrame containing information
+on the BROAD institutes LINCS Cell Paiting compound MOA assignment.</p>
+<p>This data is located in the broadinstitute/lincs-cell-painting GitHub repository
+under metadata/moa/repurposing_simple.tsv.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/broadinstitute/lincs-cell-painting/master/metadata/moa/repurposing_simple.tsv">https://raw.githubusercontent.com/broadinstitute/lincs-cell-painting/master/metadata/moa/repurposing_simple.tsv</a></p>
+<p>Commentary on creation of this resource which may be useful is also available
+here:
+<a class="reference external" href="https://github.com/broadinstitute/lincs-cell-painting/issues/5">https://github.com/broadinstitute/lincs-cell-painting/issues/5</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given, then
+it is created in a subdirectory of the root directory specified as
+the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.__call__" title="Link to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataBROADLincsCellPaintingMOAs.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.metadata_moa.</span></span><span class="sig-name descname"><span class="pre">MetadataJUMPMOACompounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>DataFrame supplier for JUMP consortium MOA compound set</p>
+<p>This PackagedDataset provides access to a pd.DataFrame containing information
+on the JUMP MOA compound selection. Further information is available here:</p>
+<p><a class="reference external" href="https://github.com/jump-cellpainting/JUMP-MOA">https://github.com/jump-cellpainting/JUMP-MOA</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is created as
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given, then
+it is created in a subdirectory of the root directory specified as
+the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.__call__" title="Link to this definition"></a></dt>
+<dd><p>Call self as a function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.metadata_moa.MetadataJUMPMOACompounds.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get supporting dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets.tcga">
+<span id="phenonaut-packaged-datasets-tcga-module"></span><h2>phenonaut.packaged_datasets.tcga module<a class="headerlink" href="#module-phenonaut.packaged_datasets.tcga" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenonaut.packaged_datasets.tcga.</span></span><span class="sig-name descname"><span class="pre">TCGA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">PosixPath('raw_data')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_downloaded_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rm_intermediates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_pca_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vif_filter_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_transformation_func_and_name_tuple</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenonaut.packaged_datasets.base.PackagedDataset" title="phenonaut.packaged_datasets.base.PackagedDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">PackagedDataset</span></code></a></p>
+<p>TCGA - The Cancer Genome Atlas, packaged dataset</p>
+<p>The TCGA dataset captures a snapshot of The Cancer Genome Atlas, from
+the TCGA website:</p>
+<p><a class="reference external" href="https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga">https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga</a></p>
+<blockquote>
+<div><p>“The Cancer Genome Atlas (TCGA), a landmark cancer genomics program,
+molecularly characterized over 20,000 primary cancer and matched
+normal samples spanning 33 cancer types. This joint effort between
+NCI and the National Human Genome Research Institute began in 2006,
+bringing together researchers from diverse disciplines and multiple
+institutions.”</p>
+</div></blockquote>
+<p>Processing of the dataset occurs in a manner the same as that described
+by Lee in:</p>
+<blockquote>
+<div><p>Lee, Changhee, and Mihaela Schaar. “A Variational Information
+Bottleneck Approach to Multi-Omics Data Integration.” International
+Conference on Artificial Intelligence and Statistics. PMLR, 2021.</p>
+</div></blockquote>
+<p>Although we have taken the decision to process the dataset into 10 PCA
+dimensions using linear PCA, although the number of PCA dimensions can
+be changed using the num_pca_dims argument to this constructor.</p>
+<p>Additionally no PCA can be applied and custom transformation in the form of a callable used by passing it to custom_transformation_func_and_name_tuple.</p>
+<p>Datasets representing clinical_decision, RPPA, miRNA, methylation,
+and mRNA are generated. These datasets are processed and saved in the
+HDF5 file format, writing files of the format
+“tcga_pca{num_pca_dims}_phenonaut.h5” and
+“tcga_pca{num_pca_dims}_metadata_phenonaut.h5” where {num_pca_dims} is
+the requested number of PCA dimensions.</p>
+<p>Steps undertaken in dataset preparation are as follows:</p>
+<ol class="arabic simple">
+<li><p>Download the dataset. This downloads 186 .tar.gz files totalling ~20 GB. These are then extracted, taking ~32 GB.</p></li>
+<li><p>Files representing different tumour types for each view are merged, and empty columns removed. These files are then saved as intermediates.</p></li>
+</ol>
+<p>On modest 2020 hardware, processing:</p>
+<ul class="simple">
+<li><p>clinical_decisions takes ~2 secs, generating 2.5 MB intermediate</p></li>
+<li><p>RPPA takes ~4 secs, generating 29 MB intermediate</p></li>
+<li><p>miRNA takes ~ 5 secs, generating 102 B intermediate</p></li>
+<li><p>methylation takes ~12.5 mins, generating 3.6GB intermediate</p></li>
+<li><p>mRNA takes 10 mins, generating 4 MB intermediate files</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em>) – Local directory containing the prepared dataset. If the dataset is
+not found here and the argument download=True is not given, then an
+error is raised. If download=True and the processed dataset is
+absent, then it is downloaded the directory pointed at by the
+‘raw_data’ argument detailed below. If raw_data_dir is a
+non-absolute path, such as a single directory, then it is createdas
+a subdirectory of this root directory.</p></li>
+<li><p><strong>download</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true and the processed dataset is not found in the root
+directory, then the dataset is downloaded and processed.
+By default False.</p></li>
+<li><p><strong>raw_data_dir</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>Path</em><em>, </em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – If downloading and preparing the dataset, then a directory for the
+raw data may be specified. If a non-absolute location is given,
+then it is created in a subdirectory of the root directory specified
+as the first argument. Absolute paths may be used to place raw
+datafiles and intermediates in another location, such as scratch
+disks etc, by default Path(“raw_data”).</p></li>
+<li><p><strong>rm_downloaded_data</strong> (<em>bool</em>) – If creating the dataset, and this is True, then downloaded data raw
+TCGA data (archives) will be deleted, by default True.</p></li>
+<li><p><strong>rm_intermediates</strong> (<em>bool</em>) – If creating the dataset, and this is True, then intermediate data
+generated from the extraction of TCGA archives will be deleted,
+by default True.</p></li>
+<li><p><strong>prediction_target</strong> (<em>str</em><em>, </em><em>optional</em>) – Often we are want to make predictions on datasets using labels or
+targets captured by TCGA and placed in the clinical_decisions
+dataframe, an example is the commonly used days_to_death column.
+This argument may be any column within that DataFrame (queryable by
+calling get_clinical_decisions_columns)
+such as days_to_death, tumor_tissue_site, gender etc additionally
+to these column names, the string ‘years_to_death’ can also be used,
+which will operate on days_to_death divided by 365.25,
+by default None.</p></li>
+<li><p><strong>num_pca_dims</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of linear principal components to use in dimensionality
+reduction. By default 10.</p></li>
+<li><p><strong>vif_filter_cutoff</strong> (<em>float</em><em>, </em><em>optional</em>) – Apply a VIF (variance inflation factor) cutoff, removing features
+with a VIF score greater than this value. This has the effect or
+removing features which have a high degree of colinearity. If
+vif_filter_cutoff is None, then no vif filter is applied. A good
+default choice for this value is 5.0. If a
+custom_transformation_func_and_name_tuple as defined below is given,
+then the vif filter is ignored, to include it, you may combine ZIF
+filtering in the custom function.</p></li>
+<li><p><strong>custom_transformation_func_and_name_tuple</strong> (<em>Optional</em><em>[</em><em>tuple</em><em>[</em><em>Callable</em><em>, </em><em>str</em><em>]</em><em>]</em>) – If PCA is not the preferred transformation to be applied to the data,
+then the user may provide their own in a tuple. The first tuple
+element should be the callable function, and the second a unique
+name/identifier which will be used to uniquely identify the saved
+dataset. Whereas datasets using the default PCA dimensionality
+reduction technique are named:
+“tcga_pca{num_pca_dims}_phenonaut.h5
+Datasets named by custom callables will be named:
+“tcga_{custom_callable_id}_phenonaut.h5
+where custom_callable_id is the second element of the
+custom_transformation_func_and_name_tuple tuple. If None, then no
+customtransformation or dimensionality reduction is performed,
+instead using the standard scalar, followed by PCA approach as
+described above. If a custom_transformation_func_and_name_tuple,
+then vif_filter_cutoff has no effect, and it is as if it is set to
+None. By default None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TCGA_MetadataTuple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_csv_kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treatment_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">treatment_lambda</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.files">
+<span class="sig-name descname"><span class="pre">files</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.files" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.header_offset">
+<span class="sig-name descname"><span class="pre">header_offset</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.header_offset" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.load_csv_kwargs">
+<span class="sig-name descname"><span class="pre">load_csv_kwargs</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.load_csv_kwargs" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.output_file_name">
+<span class="sig-name descname"><span class="pre">output_file_name</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.output_file_name" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.treatment_id">
+<span class="sig-name descname"><span class="pre">treatment_id</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.treatment_id" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.treatment_lambda">
+<span class="sig-name descname"><span class="pre">treatment_lambda</span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.TCGA_MetadataTuple.treatment_lambda" title="Link to this definition"></a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.add_clinical_decision_data_to_df">
+<span class="sig-name descname"><span class="pre">add_clinical_decision_data_to_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">df:</span> <span class="pre">~pandas.core.frame.DataFrame,</span> <span class="pre">clinical_decision_column:</span> <span class="pre">str,</span> <span class="pre">new_df_column_name:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">custom_func:</span> <span class="pre">~collections.abc.Callable[[~pandas.core.series.Series],</span> <span class="pre">~pandas.core.series.Series]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">remove_incomplete_rows:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">dtype:</span> <span class="pre">~typing.Type</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.add_clinical_decision_data_to_df" title="Link to this definition"></a></dt>
+<dd><p>Merge a field from TCGA clinical_decisions.</p>
+<p>The TCGA dataset comes with a clinical_decisions DataFrame specifying
+things like patient age, days to death etc. As years to death can be a
+prediction target, we need a way to add this to our multiomics
+DataSets/DataFrames. This function merges the clinical_decisions
+information based on the “Hybridization REF” index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame to which the information will be added</p></li>
+<li><p><strong>clinical_decision_column</strong> (<em>str</em>) – Column in clinical_decitions that will be added</p></li>
+<li><p><strong>new_df_column_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – The new column may have a new name. If None, then the clinical_decision_column
+is used, by default None.</p></li>
+<li><p><strong>custom_func</strong> (<em>Optional</em><em>[</em><em>Callable</em><em>[</em><em>[</em><em>pd.Series</em><em>]</em><em>, </em><em>pd.Series</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – Optionally apply a transformation to the newly added data. It can
+be useful to pass a lambda here, which can enable a simple way to
+convert days to years, such as : ‘lambda x: x/365.’. If None, then
+no transformation is applied to the new column, by default None.</p></li>
+<li><p><strong>remove_incomplete_rows</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, rows containing missing data in the new column (by virtue
+of a pd.na being present) are removed, by default True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame containing the new column.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.get_df">
+<span class="sig-name descname"><span class="pre">get_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.get_df" title="Link to this definition"></a></dt>
+<dd><p>Get supporting DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of pd.DataFrame.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested pd.DataFrame from h5 store</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.packaged_datasets.tcga.TCGA.get_ds">
+<span class="sig-name descname"><span class="pre">get_ds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a></span></span><a class="headerlink" href="#phenonaut.packaged_datasets.tcga.TCGA.get_ds" title="Link to this definition"></a></dt>
+<dd><p>Get Dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – Key of Phenonaut Dataset.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Requested Phenonaut Dataset from h5 store, with the correctly set
+features and metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset">Dataset</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.packaged_datasets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.packaged_datasets" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.output.html" class="btn btn-neutral float-left" title="phenonaut.output package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.predict.html" class="btn btn-neutral float-right" title="phenonaut.predict package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
