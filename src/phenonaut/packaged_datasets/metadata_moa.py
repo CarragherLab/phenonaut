@@ -2,18 +2,10 @@
 # Development has been supported by GSK.
 
 import datetime
-import gzip
-import pathlib
-import shutil
-import tarfile
-from collections import namedtuple
 from pathlib import Path
-from typing import List, NamedTuple, Optional, Union
+from typing import Optional, Union
 
-import h5py
-import numpy as np
 import pandas as pd
-from sklearn.datasets import load_iris
 
 from ..data import Dataset
 from .base import PackagedDataset

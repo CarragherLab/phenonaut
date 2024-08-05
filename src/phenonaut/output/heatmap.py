@@ -10,7 +10,6 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 from matplotlib.colors import Colormap
-from matplotlib.ticker import StrMethodFormatter
 
 
 def write_heatmap_from_df(
@@ -156,9 +155,11 @@ def write_heatmap_from_df(
         negated_mask = ~mask
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
-            if sns_colour_palette is None
-            else sns_colour_palette,
+            cmap=(
+                sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+                if sns_colour_palette is None
+                else sns_colour_palette
+            ),
             mask=mask,
             annot=annot,
             linewidths=0.02,
@@ -171,9 +172,11 @@ def write_heatmap_from_df(
         )
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
-            if sns_colour_palette is None
-            else sns_colour_palette,
+            cmap=(
+                sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+                if sns_colour_palette is None
+                else sns_colour_palette
+            ),
             mask=negated_mask,
             annot=annot,
             linewidths=0.02,
@@ -192,9 +195,11 @@ def write_heatmap_from_df(
     else:
         sns.heatmap(
             df,
-            cmap=sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
-            if sns_colour_palette is None
-            else sns_colour_palette,
+            cmap=(
+                sns.light_palette(pallet_name, as_cmap=True, reverse=lower_is_better)
+                if sns_colour_palette is None
+                else sns_colour_palette
+            ),
             annot=annot,
             linewidths=0.02,
             ax=ax,

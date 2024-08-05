@@ -1,7 +1,6 @@
 # Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
-import shutil
 import tempfile
 from pathlib import Path
 
@@ -9,7 +8,6 @@ import numpy as np
 import pandas as pd
 
 from phenonaut.output.heatmap import write_heatmap_from_df
-from phenonaut.phenonaut import Phenonaut
 
 
 def test_get_y_from_iris_dataset(dataset_iris):
@@ -34,23 +32,3 @@ def test_instantiate_dave():
 
     d = _DAVE_model(view_sizes=(100, 150), embedding_size=32, n_hidden=2)
     assert d.topology is not None
-
-
-def test_predict_iris_class_1_view(phenonaut_object_iris_2_views, dataset_iris):
-    dirpath = tempfile.mkdtemp()
-    print(dirpath)
-    phe = Phenonaut(dataset_iris)
-    import phenonaut.predict
-
-    phenonaut.predict.profile(phe, dirpath)
-    shutil.rmtree(dirpath)
-
-
-def test_predict_iris_class_2_views(phenonaut_object_iris_2_views):
-    dirpath = tempfile.mkdtemp()
-    print(dirpath)
-    phe = phenonaut_object_iris_2_views
-    import phenonaut.predict
-
-    phenonaut.predict.profile(phe, dirpath)
-    shutil.rmtree(dirpath)

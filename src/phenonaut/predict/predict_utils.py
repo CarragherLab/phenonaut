@@ -4,7 +4,7 @@
 from enum import Enum, auto
 from functools import reduce
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -70,12 +70,12 @@ def get_y_from_target(
     ValueError
         Given target string (column title) was a feature of the dataset.
     ValueError
-        Object should be phenonaut.Dataset or pd.DataFrame.
+        Object should be phenonaut.data.Dataset or pd.DataFrame.
     ValueError
         Given target string (column title) was not found in any supplied
         Datasets/Dataframes.
     ValueError
-        Target was not set, trying to guess it from a phenonaut.Dataset, but
+        Target was not set, trying to guess it from a phenonaut.data.Dataset, but
         did not find this type.
     ValueError
         Could not guess the target from supplied Dataset(s). Pass target as
@@ -110,7 +110,7 @@ def get_y_from_target(
                         return d.df[target]
                 else:
                     raise ValueError(
-                        f"Object of type {type(d)} found, should be phenonaut.Dataset or pd.DataFrame"
+                        f"Object of type {type(d)} found, should be phenonaut.data.Dataset or pd.DataFrame"
                     )
             raise ValueError(
                 f"Given target string (column title) was {target}, but this was not found in any supplied Datasets/Dataframes"
@@ -120,7 +120,7 @@ def get_y_from_target(
     for d in data:
         if not isinstance(d, phenonaut.data.Dataset):
             raise ValueError(
-                f"Target was not set, trying to guess it from a phenonaut.Dataset, but found {type(d)}"
+                f"Target was not set, trying to guess it from a phenonaut.data.Dataset, but found {type(d)}"
             )
         if "prediction_target" in d._metadata.keys():
             return d.df[d._metadata["prediction_target"]]
@@ -132,7 +132,9 @@ def get_y_from_target(
     )
 
 
-def get_prediction_type_from_y(y):
+def get_prediction_type_from_y(
+    y: np.ndarray | pd.DataFrame | pd.Series | list | Dataset,
+) -> PredictionType:
     """For a given target y - get prediction type
 
     Looking at the data in y, return prediction type from classification,
@@ -140,18 +142,19 @@ def get_prediction_type_from_y(y):
 
     Parameters
     ----------
-    y : _type_
-        _description_
+    y : np.ndarray|pd.DataFrame|pd.Series
+        Target
 
     Returns
     -------
-    _type_
-        _description_
+    PredictionType
+        PreditionType enum of PredictionType.classification or PredictionType.regression
 
     Raises
     ------
     ValueError
-        _description_
+        y was not of type pd.Series, list, np.ndarray, pd.DataFrame, or
+        phenonaut.data.Dataset
     """
     if isinstance(y, pd.Series):
         if y.values.dtype in [int, np.int64]:
@@ -159,7 +162,7 @@ def get_prediction_type_from_y(y):
         else:
             return PredictionType.regression
     if isinstance(y, list):
-        if type(y[0]) == int:
+        if isinstance(y[0], int):
             return PredictionType.classification
         else:
             return PredictionType.regression
@@ -302,7 +305,7 @@ def get_df_from_optuna_db(
     df = pd.DataFrame(df_dict_list)
     columns_for_the_end = ["test_score", "parameters"]
     df = df[
-        [colname for colname in df if not colname in columns_for_the_end]
+        [colname for colname in df if colname not in columns_for_the_end]
         + [endcol for endcol in columns_for_the_end if endcol in df]
     ]
     if csv_output_filename is not None:
@@ -454,7 +457,6 @@ def get_X_y(
     tuple
         X, y tuple for training of predictor.
     """
-    X = None
     y = get_y_from_target(phe[dataset_combination], target=target)
     common_indices = None
     if isinstance(y, (pd.DataFrame, pd.Series)):

@@ -14,7 +14,6 @@ import numpy as np
 import optuna
 from sklearn.model_selection import KFold
 
-import phenonaut
 from phenonaut.predict.predict_utils import PredictionType
 from phenonaut.predict.predictor_dataclasses import (
     PhenonautPredictionMetric,

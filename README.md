@@ -14,7 +14,7 @@ Phenonaut operates in 2 modes:
 
 - As a Python package, importable and callable within custom scripts.
 - Operating on a workflow defined in either YAML, or JSON, allowing integration of complex chains of Phenonaut instructions to be integrated into existing workflows and pipelines. When built as a package and installed, workflows can be executed with:
-```python -m phenonaut workflow.yml``` .
+    ```python -m phenonaut workflow.yml``` .
 
 After installing phenonaut into a kernel, dont forget to register it with Jupyter:
 ```python -m ipykernel install --user --name=<ENVIRONMENT NAME>```
@@ -26,8 +26,18 @@ Datasets are read into the dataset class, aided by a yaml file describing the un
 2) perturbation_column, optional column which gives a unique ID to the treatment performed on the well/vial/data.
 3) Metadata, optional dictionary containing metadata for the dataset.
 
-Example usage in Python programs, and in workflow/scripted modes coming soon.
 
+## Installation
+Phenonaut can be easily pip installed:
+```bash
+pip install phenonaut
+```
+
+Remember to add the new environment to jupyter ipykernels (replacing phenonaut_env with the name of your python environment):
+```bash
+python -m ipykernel install --user --name=phenonaut_env
+```
+-----------
 
 Copyright © The University of Edinburgh, 2024.
 

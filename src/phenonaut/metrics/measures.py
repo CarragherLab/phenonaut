@@ -54,7 +54,8 @@ def _scalar_projection_and_rejection(a: np.ndarray, b: np.ndarray):
 
     # We need a unit vector of B - strange that nympy does not have a single
     # function to do this.
-    unit_vec = lambda x: x / np.linalg.norm(x)
+    def unit_vec(x):
+        return x / np.linalg.norm(x)
 
     for i, row in enumerate(a):
         scalar_projection_values[i] = np.dot(row, unit_vec(b))
@@ -341,8 +342,6 @@ def feature_correlation_to_target(
     TypeError
         Supplied dataset was not of type Phenonaut, Dataset, or pd.DataFrame
     """
-
-    import pandas as pd
 
     # If Phenonaut object supplied, change it to the dataset
     if isinstance(dataset, Phenonaut):

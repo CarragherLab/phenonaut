@@ -4,11 +4,9 @@
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from functools import reduce
-from typing import Any, Optional, Type, Union
+from typing import Any, Optional, Union
 
 from sklearn.base import BaseEstimator
-from sklearn.metrics import accuracy_score, mean_absolute_error
-from dataclasses import field
 
 
 @dataclass

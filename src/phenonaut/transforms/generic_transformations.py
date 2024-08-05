@@ -3,7 +3,6 @@
 
 import numpy as np
 
-from phenonaut.data import Dataset
 from phenonaut.transforms.transformer import Transformer
 
 # Inserted as an example of making a custom transformer from a simple function

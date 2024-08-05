@@ -1,7 +1,6 @@
 # Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 import pandas as pd
-import numpy as np
 import phenonaut
 import phenonaut.transforms
 

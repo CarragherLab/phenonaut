@@ -1,14 +1,11 @@
 # Copyright © The University of Edinburgh, 2024.
 # Development has been supported by GSK.
 
-from pathlib import Path
 
 import numpy as np
-import pandas as pd
 import pytest
 
 from phenonaut import Phenonaut
-from phenonaut.data import Dataset
 from phenonaut.transforms.preparative import (
     VIF,
     RemoveHighestCorrelatedThenVIF,

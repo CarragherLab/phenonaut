@@ -1,14 +1,14 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from typing import List, Optional, Tuple, Union
+__all__ = ["treatment_spread_euclidean", "mahalanobis", "euclidean", "manhattan"]
+
+from typing import List, Optional, Union
 
 import numpy as np
 import pandas as pd
 from pandas.errors import DataError
-from scipy.linalg import inv
-from scipy.spatial import distance
-from scipy.spatial.distance import cdist, cityblock, pdist
+from scipy.spatial.distance import cityblock, pdist
 from sklearn.covariance import EmpiricalCovariance, MinCovDet
 
 from phenonaut.data import Dataset, dataset

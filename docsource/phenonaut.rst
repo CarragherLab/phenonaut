@@ -1,5 +1,5 @@
 phenonaut package
-====================
+=================
 
 Subpackages
 -----------
@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    phenonaut.data
+   phenonaut.integration
    phenonaut.metrics
    phenonaut.output
    phenonaut.packaged_datasets
@@ -18,7 +19,7 @@ Submodules
 ----------
 
 phenonaut.errors module
---------------------------
+-----------------------
 
 .. automodule:: phenonaut.errors
    :members:
@@ -26,7 +27,7 @@ phenonaut.errors module
    :show-inheritance:
 
 phenonaut.phenonaut module
------------------------------
+--------------------------
 
 .. automodule:: phenonaut.phenonaut
    :members:
@@ -34,7 +35,7 @@ phenonaut.phenonaut module
    :show-inheritance:
 
 phenonaut.utils module
--------------------------
+----------------------
 
 .. automodule:: phenonaut.utils
    :members:
@@ -42,7 +43,7 @@ phenonaut.utils module
    :show-inheritance:
 
 phenonaut.workflow module
-----------------------------
+-------------------------
 
 .. automodule:: phenonaut.workflow
    :members:

@@ -2,20 +2,15 @@
 # Development has been supported by GSK.
 
 from typing import Optional, Union
-from scipy.linalg import eigh as _scipy_eigh
 
 import numpy as np
-import pandas as pd
-from typing import List
 from scipy.linalg import svd
 from sklearn.linear_model import LinearRegression as SklearnLinreg
 from sklearn.preprocessing import StandardScaler as SK_StandardScaler
 
-from phenonaut import Phenonaut
 from phenonaut.data import Dataset
 from phenonaut.transforms.transformer import (
     Transformer,
-    PheTransformerFitQueryMatchedNoRows,
 )
 
 """This module contains functionality to remove highly correlated features from phenonaut datasets"""

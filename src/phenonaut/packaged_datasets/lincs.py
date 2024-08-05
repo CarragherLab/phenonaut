@@ -2,13 +2,9 @@
 # Development has been supported by GSK.
 
 import datetime
-import gzip
-import pathlib
-import shutil
-import tarfile
 from collections import namedtuple
 from pathlib import Path
-from typing import List, NamedTuple, Optional, Union
+from typing import Optional, Union
 
 import h5py
 import numpy as np

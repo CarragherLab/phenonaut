@@ -1,7 +1,6 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from pathlib import Path
 from typing import Optional, Union
 
 import numpy as np
@@ -216,7 +215,6 @@ class DAVE:
         # optimizer = optim.SGD(self.model.parameters(), lr=learning_rate, momentum=0.9)
         optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
 
-        criterion = nn.MSELoss()
         self.model.train()
         for epoch in range(self.epochs):  # loop over the dataset multiple times
             epoch_loss = 0

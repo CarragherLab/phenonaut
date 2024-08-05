@@ -1,11 +1,9 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-import json
 from pathlib import Path
 from typing import Optional, Union
 
-import yaml
 
 from phenonaut.utils import load_dict
 
@@ -28,7 +26,6 @@ class PhenonautVisualisation:
     """
 
     def __init__(self, plot_config: Optional[Union[Path, str, dict]] = None):
-        markers = {}
         self.config = load_dict(plot_config, cast_none_to_dict=True)
         for k, v in self.config.get("plot_markers", {}).items():
             self.markers[k] = v

@@ -1,14 +1,10 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from collections.abc import Callable
-from copy import deepcopy
-from optparse import Option
 from pathlib import Path
 from typing import Optional, Union
 
 import numpy as np
-import optuna
 import pandas as pd
 
 import phenonaut
@@ -463,12 +459,14 @@ def profile(
         from phenonaut.output.pptx import PhenonautPPTX
 
         ppt = PhenonautPPTX(cover_subtitle=phe.name)
+
         # Make dataset name from the path (2 options here, ends with _best or _all)
-        dfromp = (
-            lambda f: str(f.stem).replace("_best", "").replace("boxplot_", "")
-            if str(f.stem).endswith("_best")
-            else str(f.stem).replace("_all", "").replace("boxplot_", "")
-        )
+        def dfromp(f):
+            (
+                str(f.stem).replace("_best", "").replace("boxplot_", "")
+                if str(f.stem).endswith("_best")
+                else str(f.stem).replace("_all", "").replace("boxplot_", "")
+            )
 
         # Sort filenames first by alphabetical, then by length then iterate
         # Unneded: for f in sorted(boxplot_image_filenames, key=lambda x: (len(x.name), x.name)):
@@ -480,4 +478,4 @@ def profile(
         )
         for f in boxplot_best_paths:
             ppt.add_image_slide(f"{dfromp(f)}", f)
-        ppt.save(output_directory / f"prediction_performance.pptx")
+        ppt.save(output_directory / "prediction_performance.pptx")

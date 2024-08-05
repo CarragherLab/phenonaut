@@ -1,9 +1,6 @@
 from typing import Optional, Union
 
 from sklearn.ensemble import RandomForestRegressor as _SKLearnRandomForestRegressor
-from sklearn.experimental import (  # although it looks unused, it must be present to import iterative_imputer into sklearn.impute
-    enable_iterative_imputer,
-)
 from sklearn.impute import IterativeImputer as _SKLearnIterativeImputer
 from sklearn.impute import KNNImputer as _SKLearnKNNImputer
 from sklearn.impute import SimpleImputer as _SKLearnSimpleImputer

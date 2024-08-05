@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file under headings Added, Changed, and Fixed
 
+## [2.0.5] - 2024-06-26
+
+### Added
+- Added filter_on_identifiers method to phenonaut.data.Datasets, allowing easy filtering of train/val/test sets
+- Added filter_datasets_on_identifiers method to phenonaut objects to filter all datasets
+- Added ContrastiveEncoder
+- Added the shrink method to phenonaut objects and datasets
+- Added calculation of type2 errors for permutation testing distinctness
+- Added get_unique_treatments, and num_features properties of datasets
+- Added ability to iterate Phenonaut objects, returning their datasets
+- Added ability to call len on Phenonaut objects, returning the number of datasets they contain
+
+### Changed
+- Refactored phenonaut.metrics
+- Applied ruff checks/fixes
+
+
 ## [2.0.3] - 2024-03-26
 
 ### Fixed

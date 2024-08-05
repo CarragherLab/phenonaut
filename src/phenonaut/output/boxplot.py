@@ -5,10 +5,8 @@ from pathlib import Path
 from typing import Optional, Union
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
-from matplotlib import pyplot as plt
 
 
 def write_boxplot_to_file(

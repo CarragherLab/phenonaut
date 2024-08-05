@@ -4,11 +4,11 @@
 import re
 from pathlib import Path
 from typing import Union
+from phenonaut.transforms.preparative import RemoveHighlyCorrelated
 
 from pandas.errors import DataError
 
 import phenonaut
-from phenonaut.transforms.preparative import RemoveHighlyCorrelated
 from phenonaut.utils import load_dict
 
 
@@ -135,7 +135,7 @@ class Workflow:
                 print(f"Performing : {command}")
                 try:
                     getattr(self, command)(arguments)
-                except AttributeError as error:
+                except AttributeError:
                     raise AttributeError(
                         f"{command} not implemented in Phenonaut Workflow"
                     )
@@ -615,7 +615,7 @@ class Workflow:
             'arguments' was not a dictionary of type: str:str
         """
         if isinstance(arguments, str):
-            message = f"The argument to rename_column/rename_columns was a string, not a dictionary, if using a YAML workflow to define the job, make sure there is a space after the key - eg. 'oldkey: newkey', rather than 'oldkey:newkey'"
+            message = "The argument to rename_column/rename_columns was a string, not a dictionary, if using a YAML workflow to define the job, make sure there is a space after the key - eg. 'oldkey: newkey', rather than 'oldkey:newkey'"
             raise ValueError(message)
         if len(arguments.keys()) > 0:
             self.phe.ds.rename_columns(arguments)
@@ -766,7 +766,7 @@ class Workflow:
 
         query_column = arguments.pop("query_column", None)
         if query_column is None:
-            message = f"if_blank_also_blank needs a 'query_column' argument"
+            message = "if_blank_also_blank needs a 'query_column' argument"
             raise KeyError(message)
         if arguments.pop("regex_query", False):
             query_column = list(
@@ -1045,7 +1045,6 @@ class Workflow:
                 key:value pair.
 
         """
-        from phenonaut.transforms.preparative import RemoveHighlyCorrelated
 
         rhc = RemoveHighlyCorrelated()
         ds_id = arguments.pop("target_dataset", -1)
@@ -1210,6 +1209,5 @@ def predict(self, arguments: dict):
         raise KeyError(
             "The key 'destination' with a location to write the output PNG must be present within the arguments dictionary"
         )
-    from phenonaut.predict import profile
 
     predict(**arguments)

@@ -1,6 +1,5 @@
 from collections.abc import Callable
-from dataclasses import dataclass
-from typing import Optional, Tuple, Union
+from typing import Tuple, Union
 
 import numpy as np
 from scipy.spatial.distance import cityblock, cosine, euclidean

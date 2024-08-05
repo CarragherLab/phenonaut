@@ -1,18 +1,14 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
 from copy import deepcopy
 from inspect import isclass
-from multiprocessing.sharedctypes import Value
-from typing import List, Optional, Type, Union
+from typing import Optional, Union
 
 import numpy as np
 import pandas as pd
-from numpy import array
-from sklearn import decomposition
 
-from phenonaut import data
 from phenonaut.data.dataset import Dataset
 from phenonaut.phenonaut import Phenonaut
 
@@ -210,7 +206,7 @@ class Transformer:
             )
         if not isinstance(dataset, (Phenonaut, Dataset)):
             raise TypeError(
-                "Supplied data must be of type phenonaut.Dataset, or a Phenonaut object, "
+                "Supplied data must be of type phenonaut.data.Dataset, or a Phenonaut object, "
                 "in which case behavior is as if .ds was called to return the dataset with"
                 f" the highest index (last added), found type was {type(dataset)}"
             )
@@ -320,7 +316,7 @@ class Transformer:
             transform_kwargs = self._transform_kwargs
         if not isinstance(dataset, (Phenonaut, Dataset)):
             raise TypeError(
-                "Supplied data must be of type phenonaut.Dataset, or a Phenonaut object, "
+                "Supplied data must be of type phenonaut.data.Dataset, or a Phenonaut object, "
                 "in which case behavior is as if .ds was called to return the dataset with"
                 f" the highest index (last added), found type was {type(dataset)}"
             )
@@ -426,11 +422,15 @@ class Transformer:
         new_feature_names,
         centering_function,
     ):
+        if not center_on_perturbation_id:
+            return df
         if center_on_perturbation_id is not None:
             if isinstance(center_on_perturbation_id, str):
                 center_on_coords = centering_function(
                     df.query(
                         f"{dataset.perturbation_column} =='{center_on_perturbation_id}'"
+                        if center_on_perturbation_id in df.columns
+                        else center_on_perturbation_id
                     )[new_feature_names],
                     axis=0,
                 )
@@ -520,7 +520,7 @@ class Transformer:
         """
         if not isinstance(dataset, (Phenonaut, Dataset)):
             raise TypeError(
-                f"Dataset should be a Phenonaut object, or phenonaut.Dataset object, it was {type(dataset)}"
+                f"Dataset should be a Phenonaut object, or phenonaut.data.Dataset object, it was {type(dataset)}"
             )
         if isinstance(dataset, Phenonaut):
             dataset = dataset.ds
@@ -551,7 +551,7 @@ class Transformer:
         else:
             if fit_perturbation_ids is not None or fit_query is not None:
                 raise ValueError(
-                    f"fit_perturbation_ids and fit_query cannot be used when the transformation has a native fit_transform method.  Call fit, then transform on the transformer"
+                    "fit_perturbation_ids and fit_query cannot be used when the transformation has a native fit_transform method.  Call fit, then transform on the transformer"
                 )
             if groupby is None:
                 # Below we check if fit_transform_kwargs has anythin in it. This is not needed
@@ -804,7 +804,7 @@ class Transformer:
         """
         if not isinstance(dataset, (Phenonaut, Dataset)):
             raise TypeError(
-                f"Dataset should be a Phenonaut object, or phenonaut.Dataset object, it was {type(dataset)}"
+                f"Dataset should be a Phenonaut object, or phenonaut.data.Dataset object, it was {type(dataset)}"
             )
         if isinstance(dataset, Phenonaut):
             dataset = dataset.ds

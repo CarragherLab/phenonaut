@@ -10,20 +10,19 @@ from inspect import signature
 from itertools import product as itertools_product
 from pathlib import Path
 from typing import List, Optional, Union
-
+from typing_extensions import Self
 import numpy as np
 import pandas as pd
 from pandas.errors import DataError
 from scipy.spatial.distance import cdist
+import json
 
-from phenonaut import data
 from phenonaut.utils import load_dict
 
 TransformationHistory = namedtuple("TransformationHistory", ["features", "description"])
 
 
 class Dataset:
-
     """Dataset constructor
 
     Dataset holds source agnostic datasets, read in using
@@ -97,6 +96,11 @@ class Dataset:
         metadata = deepcopy(metadata)
         features_can_be_an_empty_list = False
 
+        if not isinstance(dataset_name, str):
+            raise ValueError(
+                "First argument to Dataset constructor was not a string, a name (as a string) should be given as the first argument to the constructor, then dataframe or path etc."
+            )
+
         if features is not None:
             if metadata is None:
                 metadata = {}
@@ -108,10 +112,12 @@ class Dataset:
             metadata["features"] = features.copy()
 
         if metadata is not None:
-            metadata_features=metadata.get("features", None)
+            metadata_features = metadata.get("features", None)
             if metadata_features is not None:
                 if not isinstance(metadata_features, list):
-                    raise ValueError(f"metadata features should be of type list, it was of type: {type(metadata_features)}")
+                    raise ValueError(
+                        f"metadata features should be of type list, it was of type: {type(metadata_features)}"
+                    )
                 if metadata_features == []:
                     features_can_be_an_empty_list = True
 
@@ -124,7 +130,7 @@ class Dataset:
                 self.sha256 = sha256(init_hash.encode("utf-8"))
             else:
                 raise ValueError(
-                    f"The given argument init_hash was not a bytes array or a string"
+                    "The given argument init_hash was not a bytes array or a string"
                 )
         # If file path is a string, make it a Path
         if isinstance(input_file_path_or_df, str):
@@ -392,6 +398,17 @@ class Dataset:
         """
         return deepcopy(self._features)
 
+    @property
+    def num_features(self) -> int:
+        """Return number of features
+
+        Returns
+        -------
+        int
+            The number of features in the dataset
+        """
+        return len(self.features)
+
     @features.setter
     def features(self, features_and_message_tuple: tuple):
         """Assign new set of feature columns and record a history message
@@ -478,12 +495,6 @@ class Dataset:
             )
         return perturbation_column
 
-    def __str__(self):
-        return f"Phenonaut.Dataset:'{self.name}', shape={self.df.shape}, n_features={len(self.features)}"
-
-    def __repr__(self):
-        return f"Phenonaut.Dataset:'{self.name}', shape={self.df.shape}, n_features={len(self.features)}"
-
     @perturbation_column.setter
     def perturbation_column(self, perturbation_column: str):
         """Assign new treatment column name
@@ -503,7 +514,52 @@ class Dataset:
             f"Updated perturbation column, perturbation column is now {perturbation_column}",
         )
 
-    def get_unique_perturbations(self):
+    @property
+    def pcol(self):
+        """Return the name of the treatment column (short form of .perturbation_column)
+
+        A treatement is an identifier relating to the peturbation. In many
+        cases, it is the unique compound name or identifier.  Many replicates
+        may be present, with identifiers like 'DMSO' etc.
+
+        Returns
+        -------
+        String
+            Column name of dataframe containing the treatment.
+        """
+        return self.perturbation_column
+
+    @pcol.setter
+    def pcol(self, perturbation_column: str):
+        """Assign new treatment column name (short form of .perturbation_column)
+
+        A treatement is an identifier relating to the peturbation. In many
+        cases, it is the unique compound name or identifier.  Many replicates
+        may be present, with identifiers like 'DMSO' etc.
+
+        Parameters
+        ----------
+        perturbation_column : str
+            New column name which contains the peturbation IDs.
+        """
+        self.perturbation_column = perturbation_column
+
+    def __str__(self):
+        return f"Phenonaut.data.Dataset:'{self.name}', shape={self.df.shape}, n_features={len(self.features)}, perturbation_column={self._metadata.get('perturbation_column', None)}"
+
+    def __repr__(self):
+        return f"Phenonaut.data.Dataset:'{self.name}', shape={self.df.shape}, n_features={len(self.features)}, perturbation_column={self._metadata.get('perturbation_column', None)}"
+
+    def get_unique_perturbations(self) -> list[str]:
+        """Return a list of unique perturbations
+
+        Return a uniquified list of perturbations from the perturbation_colum field
+
+        Returns
+        -------
+        list[str]
+            _description_
+        """
         if self.perturbation_column is None:
             return None
         return [
@@ -511,6 +567,19 @@ class Dataset:
             for t in self.df[self.perturbation_column].unique()
             if not pd.isna(t) and t != ""
         ]
+
+    def get_unique_treatments(self) -> list[str]:
+        """Return a list of unique perturbations/treatments
+
+        Return a uniquified list of perturbations from the perturbation_colum field. Acts as a
+        shortcut/alternative to get_unique_perturbations
+
+        Returns
+        -------
+        list[str]
+            List of unique treatments/perturbations
+        """
+        return self.get_unique_perturbations()
 
     def get_feature_ranges(self, pad_by_percent: Union[float, int]) -> tuple:
         """Get the ranges of feature columns
@@ -944,8 +1013,14 @@ class Dataset:
         new_ds._metadata = self._metadata
         return new_ds
 
-    def copy(self):
+    def copy(self, name: str | None = None):
         """Return a deep copy of the Dataset object
+
+        Parameters
+        ----------
+        name : str | None
+            Name to be given to the new dataset, if None, then the name is taken from
+            the dataset being copied. By default None
 
         Returns
         -------
@@ -957,6 +1032,8 @@ class Dataset:
         new_ds = deepcopy(self)
         self.sha256 = tmp_hash_object
         new_ds.sha256 = self.sha256.copy()
+        if name is not None:
+            new_ds.name = name
         return new_ds
 
     def filter_columns_with_prefix(
@@ -1045,7 +1122,7 @@ class Dataset:
         if not isinstance(values, list):
             values = [values]
 
-        if not query_column in self.df.columns:
+        if query_column not in self.df.columns:
             raise KeyError(
                 f"Could not find {query_column} in dataframe columns, columns are: {self.df.columns.values}"
             )
@@ -1459,8 +1536,8 @@ class Dataset:
 
         Returns
         -------
-        List[phenonaut.Dataset]
-            A list of new phenonaut.Dataset objects split on the value(s) of the by
+        List[phenonaut.data.Dataset]
+            A list of new phenonaut.data.Dataset objects split on the value(s) of the by
             argument
         """
         metadata = self._metadata
@@ -1889,14 +1966,21 @@ class Dataset:
             for 'median' and 'mean', whereby pd.median and pd.mean are applied.
             If None, then no action is taken. By default 'median'.
         """
-
         if impute_fn is None:
             return
+
+        def _impute_with_mean(df):
+            return df.fillna(df.mean())
+
         if impute_fn == "median":
-            impute_fn = lambda df: df.fillna(df.median())
+
+            def _impute_with_median(df):
+                return df.fillna(df.median())
+
+            impute_fn = _impute_with_median
 
         elif impute_fn == "mean":
-            impute_fn = lambda df: df.fillna(df.mean())
+            impute_fn = _impute_with_mean
 
         if groupby_col is None:
             group = self.df[self.features]
@@ -1953,7 +2037,120 @@ class Dataset:
         return (
             self.df,
             self.features,
-            self._metadata.get("perturbation_column", None)
-            if quiet
-            else self.perturbation_column,
+            (
+                self._metadata.get("perturbation_column", None)
+                if quiet
+                else self.perturbation_column
+            ),
         )
+
+    def filter_on_identifiers(
+        self,
+        filter_field: str,
+        filter_data: list[str] | dict | Path,
+        dict_path: str | None = None,
+        inplace: bool = True,
+        additional_items: list[str] | None = None,
+    ) -> None | Self:
+        """Filter dataframe rows on identifiers
+
+        When training and evaluating AI/ML models, it is useful to define training validation and
+        test sets, as well as folds and filter datasets to include only those rows which match
+        some criteria.  For example, in a set of splits defined on compound MOAs, where each row
+        has an associated Metadata_moa field, we can use a dictionary to define a set of test
+        splits. The dictionary may be stored in a JSON file which will be read if filter_data is
+        an instance of the pathlib.Path object. If a dictionary is given, then the dict_path can be
+        used to traverse the dictionary and find the appropriate list of identifiers. Multiple
+        dictionary levels can be traversed by separating them with forwardslash characters, such as
+        'train_val/2/train'. A list of filtering identifiers may also be passed as an alternative to
+        a dictionary.
+
+        Parameters
+        ----------
+        filter_field : str
+            Dataset DataFrame field which contains the identifiers which must match those in
+            filter_data
+        filter_data : list[str] | dict | Path
+            Identifiers for use in the filtering of rows. Can be a simple list of strings, a
+            dictionary which may then be traversed (using the keys in the dict_path argument) to
+            arive at a list of identifiers, or if a pathlib.Path object, then JSON.load is used to
+            read the file, which can contain a list or dictionary.
+        dict_path : str | None, optional
+            _description_, by default None
+        inplace : bool
+            Perform the action in place. If True, then None is returned from the function and the
+            underlying dataset is modified. If False, then the underlying dataset is untouched and
+            a copy with the requested filtering returned, by default True.
+        additional_items : list[str] | None
+            List of additional items to add to the filter_data list. This is useful when for
+            example, DMSO is required to be in each dataset for downstream processing but is absent
+            from splits/test sets.  Here, DMSO can be added by passing it as a list or string using
+            this parameter. If None, then nothing is added, by default None
+        """
+        if isinstance(filter_data, Path):
+            filter_data = json.load(open(filter_data))
+            if dict_path is not None and isinstance(filter_data, dict):
+                for p in dict_path.split("/"):
+                    filter_data = filter_data[p]
+        if additional_items is not None:
+            if isinstance(additional_items, str):
+                additional_items = [additional_items]
+            filter_data.extend(additional_items)
+
+        if inplace:
+            self.df = self.df.query(f"`{filter_field}` in @filter_data")
+        else:
+            ds = self.copy()
+            ds.df = ds.df.query(f"`{filter_field}` in @filter_data")
+            return ds
+
+    def shrink(self, keep_prefix: str | list[str] | None = "Metadata_"):
+        """Reduce the size of a dataset by removing unused columns from the internal DataFrame
+
+        Often datasets contain intermediate features or unused columns which can be removed. This
+        function removes every column from a Dataset internal DataFrame that is not the
+        perturbation_column, or has a given prefix. By default, this prefix is "Metadata_", however
+        this can be removed, changed, or a new list of prefixes supplied using the keep_prefix
+        argument.
+
+        Parameters
+        ----------
+        keep_prefix : str | list[str] | None, optional
+            Prefix for columns which should be kept during shirinking of the dataset.  This prefix
+            applies to columns which are not features (which are kept automatically).  Can be a list
+            of prefixes, or None, by default "Metadata_"
+        """
+
+        if keep_prefix is None:
+            additional_columns = []
+        else:
+            if isinstance(keep_prefix, str):
+                keep_prefix = [keep_prefix]
+            additional_columns = [
+                c for c in self.df.columns if c.startswith(tuple(keep_prefix))
+            ]
+
+        # Below, we use list(dict.fromkeys) as we need to remove duplicates and keep the supplied
+        # ordering, which is not possible using a standard set
+        if isinstance(self.perturbation_column, list):
+            self.df = self.df[
+                list(
+                    dict.fromkeys(
+                        self.perturbation_column + additional_columns + self.features
+                    )
+                )
+            ]
+        else:
+            self.df = self.df[
+                list(
+                    dict.fromkeys(
+                        [self.perturbation_column] + additional_columns + self.features
+                    )
+                )
+            ]
+
+    def drop_absent_features(self) -> None:
+        """Remove features if they are not present in the internal DataFrame"""
+        self.features = [
+            f for f in self.features if f in self.df.columns
+        ], "Removed absent features"

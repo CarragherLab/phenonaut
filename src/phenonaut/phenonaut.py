@@ -3,21 +3,18 @@
 
 import gzip
 import pickle
-import warnings
 from base64 import b64encode
 from collections.abc import Callable, Iterable
 from copy import deepcopy
 from hashlib import sha256
 from itertools import combinations as itertools_combinations
 from pathlib import Path
-from random import random
 from typing import List, Optional, Union, Literal
 
 import pandas as pd
 from pandas.errors import DataError
 from sklearn.utils import Bunch
 
-from phenonaut import data
 from phenonaut.data import Dataset
 from phenonaut.packaged_datasets.base import PackagedDataset
 from phenonaut.utils import check_path
@@ -129,7 +126,7 @@ class Phenonaut:
                 self.init_hash = init_hash.encode("utf-8")
             else:
                 raise ValueError(
-                    f"The given argument init_hash was not a bytes array or a string"
+                    "The given argument init_hash was not a bytes array or a string"
                 )
         self.datasets = []
         self.name = name
@@ -272,7 +269,7 @@ class Phenonaut:
         Parameters
         ----------
         dataset : Union[str, int]
-            Can be the name of a dataset, or an index within Phenonaut.datasets.
+            Can be the name of a dataset, or an index within Phenonaut.data.datasets.
             It can also be a list of Dataset names or indexes in order to return
             a tuple of requested Datasets.
 
@@ -300,7 +297,7 @@ class Phenonaut:
             return [self[ds] for ds in dataset]
         else:
             raise ValueError(
-                f"Attempting to get dataset, but {type(dataset)} was supplied. It should be str name, int giving the dataset location in the Phenonaut.datasets list, or a list/tuple of names/indexes to return multiple datasets"
+                f"Attempting to get dataset, but {type(dataset)} was supplied. It should be str name, int giving the dataset location in the Phenonaut.data.datasets list, or a list/tuple of names/indexes to return multiple datasets"
             )
 
     def __setitem__(self, name: Union[str, int], dataset: Dataset) -> None:
@@ -356,7 +353,7 @@ class Phenonaut:
             del self.datasets[key]
             return
 
-    def __iter__(self):
+    def __iter__(self) -> tuple[str, ...]:
         """Like a dictionary, iterating a Phenonaut object returns dataset keys
 
         Returns
@@ -366,9 +363,27 @@ class Phenonaut:
         """
         return (k for k in self.keys())
 
+    def __len__(self) -> int:
+        """Return the number of datasets contained within the phenonaut object
+
+        Returns
+        -------
+        int
+            Number of datasets within the Phenonaut object
+        """
+        return len(self.datasets)
+
+    def __iter__(self):
+        """Iterate datasets
+
+        Enables iteration over the datasets within a Phenonaut object
+        """
+
+        return iter(self.datasets)
+
     @property
     def data(self) -> Dataset:
-        """Return the data of the highest index in phenonaut.datasets
+        """Return the data of the highest index in phenonaut.data.datasets
 
         Calling phe.data is the same as calling phe.ds.data
 
@@ -388,7 +403,7 @@ class Phenonaut:
 
     @property
     def ds(self) -> Dataset:
-        """Return the dataset with the highest index in phenonaut.datasets
+        """Return the dataset with the highest index in phenonaut.data.datasets
 
         Returns
         -------
@@ -417,6 +432,16 @@ class Phenonaut:
             _description_
         """
         return self.ds.df
+
+    def append(self, dataset: Dataset) -> None:
+        """Add a dataset to the Phenonaut object
+
+        Parameters
+        ----------
+        dataset : Dataset
+            Dataset to be addded
+        """
+        self.datasets.append(dataset)
 
     def keys(self) -> list[str]:
         """Return a list of all dataset names
@@ -511,7 +536,7 @@ class Phenonaut:
             dataset_name = metadata.pop(
                 "dataset_name", f"Dataset {len(self.datasets)+1}"
             )
-        if features != None:
+        if features is not None:
             metadata["features"] = features
         self.datasets.append(
             Dataset(
@@ -643,7 +668,7 @@ class Phenonaut:
         ----------
         existing_dataset : Union[Dataset, str, int]
             The name or index of an existing Phenonaut Dataset held in the
-            Phenonaut object. Can also be a Phenonaut.Dataset object passed
+            Phenonaut object. Can also be a Phenonaut.data.Dataset object passed
             directly.
         new_dataset_name : str
             A name for the new cloned Dataset.
@@ -658,7 +683,7 @@ class Phenonaut:
             False.
         ValueError
             The existing_dataset argument should be a str, int or
-            Phenonaut.Dataset.
+            Phenonaut.data.Dataset.
         """
         if new_dataset_name in self.keys():
             if not overwrite_existing:
@@ -672,9 +697,9 @@ class Phenonaut:
             new_ds = existing_dataset.copy()
         else:
             raise ValueError(
-                f"The existing_dataset argument should be a string (giving the name of an "
+                "The existing_dataset argument should be a string (giving the name of an "
                 "existing dataset), an int (giving the index of an existing dataset), or "
-                " a phenonaut.Dataset object"
+                " a phenonaut.data.Dataset object"
             )
         new_ds.name = new_dataset_name
 
@@ -702,7 +727,7 @@ class Phenonaut:
         query_dataset_name_or_index : Union[int, str], optional
             The dataset to be queried, can be an int index, or the name of an
             existing dataset. List indexing can also be used, such that -1 uses
-            the last dataset in Phenonaut.datasets list, by default -1.
+            the last dataset in Phenonaut.data.datasets list, by default -1.
         raise_error_on_empty : bool
             Raise a ValueError is the query returns an empty dataset.  By
             default True.
@@ -1006,13 +1031,13 @@ class Phenonaut:
         overwrite_existing : bool, optional
             If True and the file exists, overwrite it. By default False.
         """
-        for ds in self.datasets:
-            ds.sha256 = b64encode(ds.sha256.digest()).decode("utf-8")
         output_filename = check_path(output_filename)
         if output_filename.exists() and not overwrite_existing:
             raise FileExistsError(
                 f"{output_filename} exists, and overwrite_existing was False"
             )
+        for ds in self.datasets:
+            ds.sha256 = b64encode(ds.sha256.digest()).decode("utf-8")
         self.last_saved_pickle_filename = output_filename
         with gzip.open(output_filename, "wb") as f:
             pickle.dump(self, f)
@@ -1109,9 +1134,11 @@ class Phenonaut:
         return (
             self[ds_index].df,
             self[ds_index].features,
-            self[ds_index]._metadata.get("perturbation_column", None)
-            if quiet
-            else self[ds_index].perturbation_column,
+            (
+                self[ds_index]._metadata.get("perturbation_column", None)
+                if quiet
+                else self[ds_index].perturbation_column
+            ),
         )
 
     def groupby_datasets(
@@ -1146,7 +1173,7 @@ class Phenonaut:
     ):
         """Merge datasets
 
-        After performing a groupby operation on Phenonaut.Dataset objects, a list of
+        After performing a groupby operation on Phenonaut.data.Dataset objects, a list of
         datasets may be merged into a single Dataset using this method.
 
         Parameters
@@ -1238,3 +1265,152 @@ class Phenonaut:
 
     def __repr__(self):
         return f"Phenonaut object (name = {self.name}), {len(self.datasets)} datasets, dataset names = {[d.name for d in self.datasets]})"
+
+    def describe(self) -> None:
+        print(
+            f"Phenonaut object (name = {self.name}), {len(self.datasets)} datasets, dataset names = {[d.name for d in self.datasets]})"
+        )
+        for ds_i, ds in enumerate(self):
+            print(f" - Dataset {ds_i}: {ds}")
+
+    def filter_datasets_on_identifiers(
+        self,
+        filter_field: str,
+        filter_data: list[str] | dict | Path,
+        dict_path: str | None = None,
+        additional_items: list[str] | None = None,
+    ) -> None:
+        import json
+
+        """Filter all dataset dataframe rows on identifiers
+
+        When training and evaluating AI/ML models, it is useful to define training validation and
+        test sets, as well as folds and filter datasets to include only those rows which match
+        some criteria.  For example, in a set of splits defined on compound MOAs, where each row
+        has an associated Metadata_moa field, we can use a dictionary to define a set of test
+        splits. The dictionary may be stored in a JSON file which will be read if filter_data is
+        an instance of the pathlib.Path object. If a dictionary is given, then the dict_path can be
+        used to traverse the dictionary and find the appropriate list of identifiers. Multiple
+        dictionary levels can be traversed by separating them with forwardslash characters, such as
+        'train_val/2/train'. A list of filtering identifiers may also be passed as an alternative to
+        a dictionary. This method applies the filter to all datasets.
+
+        Parameters
+        ----------
+        filter_field : str
+            Dataset DataFrame field which contains the identifiers which must match those in
+            filter_data
+        filter_data : list[str] | dict | Path
+            Identifiers for use in the filtering of rows. Can be a simple list of strings, a
+            dictionary which may then be traversed (using the keys in the dict_path argument) to
+            arive at a list of identifiers, or if a pathlib.Path object, then JSON.load is used to
+            read the file, which can contain a list or dictionary.
+        dict_path : str | None, optional
+            _description_, by default None
+        additional_items : list[str] | None
+            List of additional items to add to the filter_data list. This is useful when for
+            example, DMSO is required to be in each dataset for downstream processing but is absent
+            from splits/test sets.  Here, DMSO can be added by passing it as a list or string using
+            this parameter. If None, then nothing is added, by default None
+        """
+        if isinstance(filter_data, Path):
+            filter_data = json.load(open(filter_data))
+            if dict_path is not None and isinstance(filter_data, dict):
+                for p in dict_path.split("/"):
+                    filter_data = filter_data[p]
+        if additional_items is not None:
+            if isinstance(additional_items, str):
+                additional_items = [additional_items]
+            filter_data.extend(additional_items)
+        for ds in self.datasets:
+            ds.df = ds.df.query(f"`{filter_field}` in @filter_data")
+
+    def shrink(self, keep_prefix: str | list[str] | None = "Metadata_"):
+        """Reduce the size of all datasets by removing unused columns from the internal DataFrames
+
+        Often datasets contain intermediate features or unused columns which can be removed. This
+        function removes every column from a Dataset internal DataFrame that is not the
+        perturbation_column, or has a given prefix. By default, this prefix is "Metadata_", however
+        this can be removed, changed, or a new list of prefixes supplied using the keep_prefix
+        argument.
+
+        Parameters
+        ----------
+        keep_prefix : str | list[str] | None, optional
+            Prefix for columns which should be kept during shirinking of the dataset.  This prefix
+            applies to columns which are not features (which are kept automatically).  Can be a list
+            of prefixes, or None, by default "Metadata_"
+        """
+        for ds in self.datasets:
+            ds.shrink(keep_prefix)
+
+
+def load(
+    input_file: Path | str,
+    shrink=False,
+    shrink_keep_prefix: str | list[str] | None = "Metadata_",
+) -> Phenonaut:
+    """Convenience function allowing phenonaut.load
+
+    Allows calling of phenonaut.load() rather than phenonaut.Phenonaut.load()
+
+    Parameters
+    ----------
+    input_file : Path | str
+        Pickle file path of the Phenonaut object which is to be loaded
+    shrink : bool
+        If True then datasets are shrunk after loading to remove unused columns, by default False
+    shrink_keep_prefix : str | list[str] | None, optional
+        Prefix for columns which should be kept during shirinking of the dataset.  This prefix
+        applies to columns which are not features (which are kept automatically).  Can be a list
+        of prefixes, or None, by default "Metadata_"
+
+    Returns
+    -------
+    Phenonaut
+        Loaded Phenonaut object
+    """
+    phe = Phenonaut.load(input_file)
+    if shrink:
+        phe.shrink(shrink_keep_prefix)
+    return phe
+
+
+def match_perturbation_columns(*args) -> None:
+    """Make all dataset perturbation_columns match that of the first supplied dataset
+
+    Two or more datasets supplied as args to this function will have the second dataset (and any
+    subsequent dataset) perturbation_column set to that of the first - also renaming underlying
+    DataFrame columns as appropriate. If Phenonaut objects are given, then everything matches the
+    first Dataset of the first given argument.
+
+    Raises
+    ------
+    ValueError
+        2 or more datasets must be supplied
+    """
+
+    if len(args) < 2:
+        raise ValueError(
+            "2 or more Datasets should be supplied to match perturbation columns"
+        )
+
+    datasets = []
+    if isinstance(args[0], Phenonaut):
+        datasets.extend(args[0].datasets)
+    else:
+        datasets.append(args[0])
+
+    for i in range(1, len(args)):
+        if isinstance(args[i], Phenonaut):
+            datasets.extend(args[i].datasets)
+        else:
+            datasets.append(args[i])
+
+    pcol = datasets[0].perturbation_column
+    for ds_i in range(1, len(datasets)):
+        if datasets[ds_i].perturbation_column != pcol:
+            datasets[ds_i].df = datasets[ds_i].df.rename(
+                columns={datasets[ds_i].perturbation_column: pcol}
+            )
+            datasets[ds_i].perturbation_column = pcol

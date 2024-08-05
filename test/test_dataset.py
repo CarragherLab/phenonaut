@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 
 import phenonaut
-from phenonaut.data.dataset import Dataset
 from phenonaut.phenonaut import Phenonaut
 
 
@@ -49,7 +48,7 @@ def test_iris_packageddataset():
     import tempfile
 
     tmpdir = tempfile.gettempdir()
-    from phenonaut.packaged_datasets import Iris, Iris_2_views
+    from phenonaut.packaged_datasets import Iris
 
     phe = Phenonaut(Iris(tmpdir))
     assert len(phe.keys()) == 1
@@ -170,7 +169,6 @@ def test_dataset_groupby(small_2_plate_df):
     phe = phenonaut.Phenonaut(
         small_2_plate_df, metadata={"features_prefix": "feat_"}
     )
-    new_ds = phe.ds.new_aggregated_dataset(["ROW", "COLUMN", "BARCODE"])
     split_ds = phe.ds.groupby(["FOV", "filename"])
     assert len(split_ds) == 6
     assert split_ds[0].df.FOV.unique()[0] == 1

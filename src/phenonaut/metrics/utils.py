@@ -17,7 +17,7 @@ def percent_replicating_results_dataframe_to_percentile_vs_percent_replicating(
 ) -> tuple[np.ndarray, np.ndarray]:
     """Get x,y arrays for cutoff vs % replicating plots
 
-    Reads a DataFrame from phenonaut.metrics.performance.percent_replicating
+    Reads a DataFrame from phenonaut.performance.percent_replicating
     when run with return_full_performance_df = True, and generates a tuple of
     x and y coordinates, allowing plotting of percentile cutoff vs percent
     replicating.
@@ -25,7 +25,7 @@ def percent_replicating_results_dataframe_to_percentile_vs_percent_replicating(
     Parameters
     ----------
     df : pd.DataFrame
-        DataFrame supplied by phenonaut.metrics.performance.percent_replicating
+        DataFrame supplied by phenonaut.performance.percent_replicating
     percentile_range : tuple[int, int], optional
         The range of percentiles to cover, by default (0, 101)
     percentile_step_size : int, optional
@@ -330,7 +330,7 @@ def percent_replicating_results_dataframe_to_95pct_confidence_interval(
 ) -> Union[list[tuple[float, float]], tuple[float, float]]:
     """Get confidence interval at given percentile cutoff for percent replicating results
 
-    Reads a DataFrame from phenonaut.metrics.performance.percent_replicating
+    Reads a DataFrame from phenonaut.metrics.percent_replicating
     and performs bootstrapping, sampling from the null distribution to assign a
     confidence interval at the given cutoff, or list of cutoffs.  Returns a tuple
     containing upper and lower 95 % confidence interval bounds.  If multiple
@@ -339,7 +339,7 @@ def percent_replicating_results_dataframe_to_95pct_confidence_interval(
     Parameters
     ----------
     df : pd.DataFrame
-        DataFrame supplied by phenonaut.metrics.performance.percent_replicating
+        DataFrame supplied by phenonaut.metrics.percent_replicating
     percentile_cutoff:Union[int, float, list[Union[int, float]]]
         Percentile cutoff at which to calculate the confidence interval.  Can
         also be a list, which results in a list of high and low confidence

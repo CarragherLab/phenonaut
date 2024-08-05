@@ -1,14 +1,11 @@
 # Copyright © The University of Edinburgh, 2022.
 # Development has been supported by GSK.
 
-from pathlib import Path
-from typing import Optional, Union
 
 import numpy as np
 import torch
 import torch.utils.data
 from torch import nn, optim
-from torch.nn import functional as F
 
 
 class _MRegressorNN(nn.Module):
@@ -103,7 +100,6 @@ class MultiRegressorNN:
 
     def predict(self, X):
         self.model.eval()
-        test_loss = 0
         X = torch.tensor(X.astype(np.float32)).to(self.device)
         with torch.no_grad():
             data = X.to(self.device)

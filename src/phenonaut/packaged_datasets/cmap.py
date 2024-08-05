@@ -3,10 +3,9 @@
 
 import datetime
 import gzip
-import json
 from collections import namedtuple
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import h5py
 import numpy as np
@@ -683,15 +682,6 @@ class CMAP_Level4(PackagedDataset):
         if key == "ds":
             key = "df"
         store = pd.HDFStore(self.processed_h5_file)
-        pert_info_columns = [
-            "pert_id",
-            "pert_iname",
-            "pert_type",
-            "cell_id",
-            "pert_idose",
-            "pert_itime",
-            "distil_id",
-        ]
         df = store["/" + key]
         features = store["/features"].tolist()
         ds = Dataset("cmap", df, {"features": features})

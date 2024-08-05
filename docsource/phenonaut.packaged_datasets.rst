@@ -1,11 +1,11 @@
 phenonaut.packaged\_datasets package
-=======================================
+====================================
 
 Submodules
 ----------
 
 phenonaut.packaged\_datasets.base module
--------------------------------------------
+----------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.base
    :members:
@@ -13,7 +13,7 @@ phenonaut.packaged\_datasets.base module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.breast\_cancer module
------------------------------------------------------
+--------------------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.breast_cancer
    :members:
@@ -21,7 +21,7 @@ phenonaut.packaged\_datasets.breast\_cancer module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.cmap module
--------------------------------------------
+----------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.cmap
    :members:
@@ -29,7 +29,7 @@ phenonaut.packaged\_datasets.cmap module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.iris module
--------------------------------------------
+----------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.iris
    :members:
@@ -37,7 +37,7 @@ phenonaut.packaged\_datasets.iris module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.lincs module
---------------------------------------------
+-----------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.lincs
    :members:
@@ -45,7 +45,7 @@ phenonaut.packaged\_datasets.lincs module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.metadata\_moa module
-----------------------------------------------------
+-------------------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.metadata_moa
    :members:
@@ -53,7 +53,7 @@ phenonaut.packaged\_datasets.metadata\_moa module
    :show-inheritance:
 
 phenonaut.packaged\_datasets.tcga module
--------------------------------------------
+----------------------------------------
 
 .. automodule:: phenonaut.packaged_datasets.tcga
    :members:

@@ -1,11 +1,20 @@
 phenonaut.metrics package
-============================
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   phenonaut.metrics.compactness
+   phenonaut.metrics.distinctness
 
 Submodules
 ----------
 
 phenonaut.metrics.distances module
--------------------------------------
+----------------------------------
 
 .. automodule:: phenonaut.metrics.distances
    :members:
@@ -13,7 +22,7 @@ phenonaut.metrics.distances module
    :show-inheritance:
 
 phenonaut.metrics.measures module
-------------------------------------
+---------------------------------
 
 .. automodule:: phenonaut.metrics.measures
    :members:
@@ -21,23 +30,15 @@ phenonaut.metrics.measures module
    :show-inheritance:
 
 phenonaut.metrics.non\_ds\_phenotypic\_metrics module
---------------------------------------------------------
+-----------------------------------------------------
 
 .. automodule:: phenonaut.metrics.non_ds_phenotypic_metrics
    :members:
    :undoc-members:
    :show-inheritance:
 
-phenonaut.metrics.performance module
----------------------------------------
-
-.. automodule:: phenonaut.metrics.performance
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 phenonaut.metrics.utils module
----------------------------------
+------------------------------
 
 .. automodule:: phenonaut.metrics.utils
    :members:

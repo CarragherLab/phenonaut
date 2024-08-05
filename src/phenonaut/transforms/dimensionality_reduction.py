@@ -6,16 +6,13 @@ from pathlib import Path
 from typing import Optional, Union
 
 import numpy as np
-import pandas as pd
 import umap
 from matplotlib import pyplot as plt
-from numpy import isin
 from pandas.errors import DataError
 from sklearn.decomposition import PCA as _SKLearnPCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as sklearn_LDA
 from sklearn.manifold import TSNE as _SKLearn_TSNE
 
-from phenonaut import data
 from phenonaut.data import Dataset
 from phenonaut.phenonaut import Phenonaut
 from phenonaut.transforms.transformer import Transformer
@@ -110,7 +107,7 @@ class PCA(Transformer):
             dimension is included in the new PCA descriptor feature name.
             Overrides new_feature_names. By default False.
         """
-        if ndims == None:
+        if ndims is None:
             ndims = self.ndims
         if self.ndims != ndims:
             super().__init__(
@@ -207,7 +204,7 @@ class PCA(Transformer):
             plt.show()
         else:
             if isinstance(output_filename, str):
-                output_image_path = Path(output_filename)
+                output_filename = Path(output_filename)
             plt.savefig(output_filename)
 
 
@@ -506,7 +503,6 @@ class LDA:
                     "Phenonaut object with more than one dataset passed to fit, please pass the dataframe to apply the transform to it"
                 )
         lda_feature_column_names = [f"LDA{x+1}" for x in range(ndims)]
-        fit_perturbation_ids = list(dataset.df[dataset.perturbation_column].unique())
 
         self.lda = sklearn_LDA(n_components=ndims)
         X, y = (
@@ -544,9 +540,9 @@ class LDA:
             )
 
         if predict_proba:
-            dataset.df[
-                [f"proba_{c}" for c in self.lda.classes_]
-            ] = self.lda.predict_proba(dataset.df[dataset.features])
+            dataset.df[[f"proba_{c}" for c in self.lda.classes_]] = (
+                self.lda.predict_proba(dataset.df[dataset.features])
+            )
             for index, row in dataset.df.iterrows():
                 correct_proba = row[f"proba_{row['Edit']}"]
                 dataset.df.loc[index, "Correct_proba"] = correct_proba
@@ -608,5 +604,5 @@ class LDA:
             plt.show()
         else:
             if isinstance(output_filename, str):
-                output_image_path = Path(output_filename)
+                output_filename = Path(output_filename)
             plt.savefig(output_filename)

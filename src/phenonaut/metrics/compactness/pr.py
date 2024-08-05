@@ -2,24 +2,18 @@ import json
 from collections import namedtuple
 from collections.abc import Callable
 from pathlib import Path
-from random import choice, choices, sample
+from random import choice, choices
 from timeit import default_timer as timer
-from typing import Optional, Union, List
-from scipy.spatial.distance import mahalanobis
+from typing import Optional, Union
 import numpy as np
 import pandas as pd
-from joblib import Parallel, delayed
 import multiprocessing as mp
 from tqdm import tqdm
 from scipy.spatial.distance import pdist
-from sklearn.metrics import silhouette_score as sklearn_silhouette_score
-from scipy import linalg
 from phenonaut import Phenonaut
-from ..errors import NotEnoughRowsError
 from phenonaut.data import Dataset
 from phenonaut.metrics.non_ds_phenotypic_metrics import PhenotypicMetric
-from sklearn.decomposition import PCA
-
+from joblib import Parallel, delayed
 
 _ReplicateData = namedtuple(
     "_ReplicateData",
@@ -32,6 +26,47 @@ _ReplicateData = namedtuple(
     ],
     defaults=[np.nan],
 )
+
+
+def _setup_thread_percent_replicating(
+    data,
+    features,
+    replicate_query,
+    replicate_criteria,
+    replicate_criteria_not,
+    null_query_or_df,
+    null_criteria,
+    null_criteria_not,
+    phenotypic_metric,
+    n_iters,
+    min_cardinality,
+    max_cardinality,
+    return_full_performance_df,
+    include_replicate_pairwise_distances_in_df,
+    percentile_cutoff,
+    random_state,
+    quiet,
+):
+    global _data, _features, _replicate_query, _replicate_criteria, _replicate_criteria_not, _null_query_or_df, _null_criteria, _null_criteria_not, _phenotypic_metric, _n_iters, _min_cardinality, _max_cardinality, _return_full_performance_df, _include_replicate_pairwise_distances_in_df, _percentile_cutoff, _random_state, _quiet
+    _data = data
+    _features = features
+    _replicate_query = replicate_query
+    _replicate_criteria = replicate_criteria
+    _replicate_criteria_not = replicate_criteria_not
+    _null_query_or_df = null_query_or_df
+    _null_criteria = null_criteria
+    _null_criteria_not = null_criteria_not
+    _phenotypic_metric = phenotypic_metric
+    _n_iters = n_iters
+    _min_cardinality = min_cardinality
+    _max_cardinality = max_cardinality
+    _return_full_performance_df = return_full_performance_df
+    _include_replicate_pairwise_distances_in_df = (
+        include_replicate_pairwise_distances_in_df
+    )
+    _percentile_cutoff = percentile_cutoff
+    _random_state = random_state.integers(np.iinfo(np.int32).max)
+    _quiet = quiet
 
 
 def _check_performance_path_and_gen_if_needed(
@@ -108,6 +143,30 @@ def _check_performance_path_and_gen_if_needed(
     return filename
 
 
+def _inspect_replicating_parallel(g_indexes: list[int]):
+    global _data, _features, _replicate_query, _replicate_criteria, _replicate_criteria_not, _null_query_or_df, _null_criteria, _null_criteria_not, _phenotypic_metric, _n_iters, _min_cardinality, _max_cardinality, _return_full_performance_df, _include_replicate_pairwise_distances_in_df, _percentile_cutoff, _random_state, _quiet
+    return _inspect_replicating(
+        df=_data,
+        features=_features,
+        g_indices=g_indexes,
+        replicate_criteria=_replicate_criteria,
+        replicate_criteria_not=_replicate_criteria_not,
+        null_criteria=_null_criteria,
+        null_criteria_not=_null_criteria_not,
+        replicate_query=_replicate_query,
+        null_query_or_df=_null_query_or_df,
+        similarity_metric=_phenotypic_metric,
+        n_iters=_n_iters,
+        min_cardinality=_min_cardinality,
+        max_cardinality=_max_cardinality,
+        return_full_profiles=_return_full_performance_df,
+        include_replicate_pairwise_distances_in_df=_include_replicate_pairwise_distances_in_df,
+        percentile_cutoff=_percentile_cutoff,
+        random_state=_random_state,
+        quiet=_quiet,
+    )
+
+
 def _inspect_replicating(
     df: pd.DataFrame,
     features: list[str],
@@ -126,6 +185,7 @@ def _inspect_replicating(
     include_replicate_pairwise_distances_in_df: bool = False,
     percentile_cutoff: int = 95,
     random_state: Union[int, np.random.Generator] = 42,
+    quiet: bool = False,
 ):
     """Private function to obtain replicating info for a single treatment
 
@@ -188,7 +248,10 @@ def _inspect_replicating(
         Random state which should be used when performing sampling operations. Can be a
         np.random.Generator, or an int (in which case, a np.random.Generator) is
         instantiated with it.  If attempting reproducible results, run without parallelisation by
-        settiung the use_joblib_parallelisation argument to False, by default 42
+        settiung the parallel argument to False, by default 42
+    quiet : bool
+        If True, then do not print warnings, by default False
+
     Returns
     -------
     _ReplicateData
@@ -283,21 +346,25 @@ def _inspect_replicating(
     # generate a dictionary (pert_name_to_idx_dict), allowing mapping from pert_name
     # to indexes (0 -indexed np array)
     null_pert_names = null_df[replicate_criteria[0]]
-    pert_name_to_idx_dict = {pname: [] for pname in null_pert_names.unique()}
+    pert_name_to_idx_dict = {
+        pname: [] for pname in null_pert_names.unique() if not pd.isna(pname)
+    }
     for i, pert_name in enumerate(null_pert_names):
-        pert_name_to_idx_dict[pert_name].append(i)
+        if not pd.isna(pert_name):
+            pert_name_to_idx_dict[pert_name].append(i)
     if len(pert_name_to_idx_dict) < 2 or len(pert_name_to_idx_dict) < min_cardinality:
         return _ReplicateData(
             matching_multiindex, len(matching_indices), np.nan, np.nan
         )
 
     if cardinality > len(pert_name_to_idx_dict):
-        print(
-            f"Number of unique non-matching compounds ({len(pert_name_to_idx_dict)})"
-            f" was less than the number of repeats ({cardinality}) for"
-            f" {matching_multiindex}, running with a reduced cardinality of"
-            f" {len(pert_name_to_idx_dict)}"
-        )
+        if not quiet:
+            print(
+                f"Number of unique non-matching compounds ({len(pert_name_to_idx_dict)})"
+                f" was less than the number of repeats ({cardinality}) for"
+                f" {matching_multiindex}, running with a reduced cardinality of"
+                f" {len(pert_name_to_idx_dict)}"
+            )
         cardinality = len(pert_name_to_idx_dict)
         replicate_frame = replicate_frame.sample(n=cardinality, random_state=np_rng)
 
@@ -352,14 +419,15 @@ def _inspect_replicating(
                 for p in range(n_iters)
             ]
         )
-    # print(include_replicate_pairwise_distances_in_df)
     return _ReplicateData(
         matching_multiindex,
         cardinality,
         matching_median_dist,
-        null_distribution
-        if return_full_profiles
-        else np.percentile(null_distribution, float(percentile_cutoff)),
+        (
+            null_distribution
+            if return_full_profiles
+            else np.percentile(null_distribution, float(percentile_cutoff))
+        ),
         replicate_scores if include_replicate_pairwise_distances_in_df else np.nan,
     )
 
@@ -538,11 +606,6 @@ def _inspect_compact(
         else:
             null_df = df
 
-    # generate a dictionary (pert_name_to_idx_dict), allowing mapping from pert_name
-    # to indexes (0 -indexed np array)
-    null_pert_names = null_df[replicate_criteria[0]]
-    pert_name_to_idx_dict = {pname: [] for pname in null_pert_names.unique()}
-
     # Calculate matched repeat score
     if similarity_metric == "spearman":
         matching_median_dist = np.median(
@@ -593,9 +656,11 @@ def _inspect_compact(
         matching_multiindex,
         cardinality,
         matching_median_dist,
-        null_distribution
-        if return_full_profiles
-        else np.percentile(null_distribution, float(percentile_cutoff)),
+        (
+            null_distribution
+            if return_full_profiles
+            else np.percentile(null_distribution, float(percentile_cutoff))
+        ),
     )
 
 
@@ -659,7 +724,7 @@ def _setup_percent_replicating(
             )
     else:
         raise ValueError(
-            "ds must be a Phenonaut object, a phenonaut.Dataset or a pd.DataFrame, it"
+            "ds must be a Phenonaut object, a phenonaut.data.Dataset or a pd.DataFrame, it"
             f" was {type(ds)}"
         )
     replicate_criteria = [] if replicate_criteria is None else replicate_criteria
@@ -668,11 +733,18 @@ def _setup_percent_replicating(
         if isinstance(replicate_criteria, str)
         else replicate_criteria
     )
-    replicate_criteria = (
-        [perturbation_column] + replicate_criteria
-        if perturbation_column not in replicate_criteria
-        else replicate_criteria
-    )
+    if isinstance(perturbation_column, list) and len(perturbation_column) > 1:
+        replicate_criteria = (
+            perturbation_column + replicate_criteria
+            if not any(p in replicate_criteria for p in perturbation_column)
+            else replicate_criteria
+        )
+    else:
+        replicate_criteria = (
+            [perturbation_column] + replicate_criteria
+            if perturbation_column not in replicate_criteria
+            else replicate_criteria
+        )
 
     null_criteria = [] if null_criteria is None else null_criteria
     null_criteria = [null_criteria] if isinstance(null_criteria, str) else null_criteria
@@ -713,8 +785,8 @@ def percent_replicating(
     restrict_evaluation_query: Optional[str] = None,
     features: Optional[list[str]] = None,
     n_iters: int = 1000,
-    similarity_metric: Union[str, Callable] = "spearman",
-    similarity_metric_higher_is_better: bool = True,
+    phenotypic_metric: Union[str, Callable] = "spearman",
+    phenotypic_metric_higher_is_better: bool = True,
     min_cardinality: int = 2,
     max_cardinality: int = 50,
     include_cardinality_violating_compounds_in_calculation: bool = False,
@@ -724,9 +796,10 @@ def percent_replicating(
     similarity_metric_name: Optional[str] = None,
     performance_df_file: Optional[Union[str, Path]] = None,
     percentile_cutoff: Optional[int] = None,
-    use_joblib_parallelisation: bool = True,
-    n_jobs: int = -1,
+    parallel: bool = True,
+    n_jobs: int = None,
     random_state: Union[int, np.random.Generator] = 42,
+    quiet: bool = False,
 ):
     """Calculate percent replicating
 
@@ -756,8 +829,8 @@ def percent_replicating(
     Null distributions may not contain the matched compound. The percent replicating is calculated
     from the number of matched repeats which were replicating versus the number which were not.
 
-    As the calculation is demanding, the function makes use of the joblib library for parallel
-    calculation of the null distribution.
+    As the calculation is demanding, the function makes use of parallel calculation of the null
+    distribution.
 
     Parameters
     ----------
@@ -833,14 +906,14 @@ def percent_replicating(
         Number of times the non-matching compound replicates should be sampled to compose the null
         distribution. If less than n_iters are available, then take as many as possible. By default
         1000.
-    similarity_metric : Union[str, Callable, PhenotypicMetric], optional
+    phenotypic_metric : Union[str, Callable, PhenotypicMetric], optional
         Callable metric, or string which is passed to pdist. This should be a
         distance metric; that is, lower is better, higher is worse.
         Note, a special case exists, whereby 'spearman' may be supplied here
         if so, then a much faster Numpy method np.corrcoef is used, and then results
         are subtracted from 1 to turn the metric into a distance metric. By default 'spearman'.
-    similarity_metric_higher_is_better : bool
-        If True, then a high value from the supplied similarity metric is better. If False, then
+    phenotypic_metric_higher_is_better : bool
+        If True, then a high value from the supplied phenotypic metric is better. If False, then
         a lower value is better (as is the case for distance metrics like Euclidean/Manhattan etc).
         Note that if lower is better, then the percentile should be changed to the other end of the
         distribution. For example, if keeping with significance at the 5 % level for a metric for
@@ -900,17 +973,19 @@ def percent_replicating(
         be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
         value 95 if similarity_metric_higher_is_better==True, and 5 if
         similarity_metric_higher_is_better==False. By default None.
-    use_joblib_parallelisation : bool
-        If True, then use joblib to parallelise evaluation of compounds. By default True.
+    parallel : bool
+        If True, then use multiprocessing to parallelise evaluation of compounds. By default True.
     n_jobs : int, optional
-        The n_jobs argument is passed to joblib for parallel execution and defines the number of
-        threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
-        By default -1.
+        The n_jobs argument is passed to multiprocessing for parallel execution and defines the number
+        of threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
+        By default None.
     random_state : Union[int, np.random.Generator]
         Random state which should be used when performing sampling operations. Can be a
         np.random.Generator, or an int (in which case, a np.random.Generator) is
         instantiated with it.  If attempting reproducible results, run without parallelisation by
-        settiung the use_joblib_parallelisation argument to False, by default 42
+        settiung the parallel argument to False, by default 42
+    quiet : bool
+        If True, then dont display a progressbar
 
     Returns
     -------
@@ -921,6 +996,10 @@ def percent_replicating(
         null distribution scores in an easy to analyse format.
 
     """
+
+    # Compatibility during transition from joblib to multiprocessing
+    if n_jobs == -1:
+        n_jobs = None
 
     if isinstance(random_state, int):
         random_state = np.random.default_rng(random_state)
@@ -958,7 +1037,7 @@ def percent_replicating(
         null_criteria_not,
     )
 
-    if isinstance(similarity_metric, str):
+    if isinstance(phenotypic_metric, str):
         # Inbuilt fast methods, lookup table for higher_is_better
         special_similarity_metrics_higher_better_lookup = {
             "spearman": True,
@@ -966,33 +1045,33 @@ def percent_replicating(
             "cityblock": False,
             "cosine": False,
         }
-        if similarity_metric in special_similarity_metrics_higher_better_lookup:
+        if phenotypic_metric in special_similarity_metrics_higher_better_lookup:
             if (
-                special_similarity_metrics_higher_better_lookup[similarity_metric]
-                != similarity_metric_higher_is_better
+                special_similarity_metrics_higher_better_lookup[phenotypic_metric]
+                != phenotypic_metric_higher_is_better
             ):
                 print(
                     "Warning, special similarity metric value"
-                    f" {similarity_metric} passed with"
+                    f" {phenotypic_metric} passed with"
                     " similarity_metric_higher_is_better ="
-                    f" {similarity_metric_higher_is_better}, changing"
+                    f" {phenotypic_metric_higher_is_better}, changing"
                     " similarity_metric_higher_is_better to"
-                    f" {special_similarity_metrics_higher_better_lookup[similarity_metric]}"
+                    f" {special_similarity_metrics_higher_better_lookup[phenotypic_metric]}"
                 )
-                similarity_metric_higher_is_better = (
-                    not similarity_metric_higher_is_better
+                phenotypic_metric_higher_is_better = (
+                    not phenotypic_metric_higher_is_better
                 )
         if similarity_metric_name is None:
-            similarity_metric_name = similarity_metric
+            similarity_metric_name = phenotypic_metric
 
-    if isinstance(similarity_metric, PhenotypicMetric):
-        similarity_metric_higher_is_better = similarity_metric.higher_is_better
-        similarity_metric_name = similarity_metric.name
-        if similarity_metric.is_magic_string:
-            similarity_metric = similarity_metric.func
+    if isinstance(phenotypic_metric, PhenotypicMetric):
+        phenotypic_metric_higher_is_better = phenotypic_metric.higher_is_better
+        similarity_metric_name = phenotypic_metric.name
+        if phenotypic_metric.is_magic_string:
+            phenotypic_metric = phenotypic_metric.func
 
     if percentile_cutoff is None:
-        percentile_cutoff = 95 if similarity_metric_higher_is_better else 5
+        percentile_cutoff = 95 if phenotypic_metric_higher_is_better else 5
 
     inspect_replicating_additional_args = {
         "df": df,
@@ -1003,7 +1082,7 @@ def percent_replicating(
         "null_query_or_df": null_query_or_df,
         "null_criteria": null_criteria,
         "null_criteria_not": null_criteria_not,
-        "similarity_metric": similarity_metric,
+        "similarity_metric": phenotypic_metric,
         "n_iters": n_iters,
         "min_cardinality": min_cardinality,
         "max_cardinality": max_cardinality,
@@ -1011,8 +1090,8 @@ def percent_replicating(
         "include_replicate_pairwise_distances_in_df": include_replicate_pairwise_distances_in_df,
         "percentile_cutoff": percentile_cutoff,
         "random_state": random_state,
+        "quiet": quiet,
     }
-
     df_groupby_indices_and_items = (
         df.groupby(replicate_criteria).indices.items()
         if restrict_evaluation_query is None
@@ -1020,26 +1099,43 @@ def percent_replicating(
         .groupby(replicate_criteria)
         .indices.items()
     )
-
+    pr_results = []
     # Run in parallel
-    if use_joblib_parallelisation:
-        pr_results = Parallel(n_jobs=n_jobs)(
-            delayed(_inspect_replicating)(
-                **(inspect_replicating_additional_args), **{"g_indices": g_indices}
+    if parallel:
+        with mp.Pool(
+            None,
+            initializer=_setup_thread_percent_replicating,
+            initargs=(list(inspect_replicating_additional_args.values())),
+        ) as pool:
+            pbar = tqdm(
+                total=len(df_groupby_indices_and_items),
+                desc="Percent replicating",
+                disable=quiet,
             )
-            for g_indices in df_groupby_indices_and_items
-            if (
-                len(g_indices) >= min_cardinality
-                or include_cardinality_violating_compounds_in_calculation
-            )
-        )
+            for res in pool.imap_unordered(
+                _inspect_replicating_parallel,
+                [
+                    g_indices
+                    for g_indices in df_groupby_indices_and_items
+                    if (
+                        len(g_indices) >= min_cardinality
+                        or include_cardinality_violating_compounds_in_calculation
+                    )
+                ],
+            ):
+                pr_results.append(res)
+                pbar.update(1)
+            pbar.close()
+
     # Or not
     else:
         pr_results = [
             _inspect_replicating(
                 **(inspect_replicating_additional_args), **{"g_indices": g_indices}
             )
-            for g_indices in tqdm(df_groupby_indices_and_items)
+            for g_indices in tqdm(
+                df_groupby_indices_and_items, desc="Percent replicating", disable=quiet
+            )
             if (
                 len(g_indices) >= min_cardinality
                 or include_cardinality_violating_compounds_in_calculation
@@ -1082,7 +1178,7 @@ def percent_replicating(
                     _determine_replicating(
                         prd.null_nth_percentile_or_null_distribution,
                         prd.matching_median_dist,
-                        similarity_metric_higher_is_better,
+                        phenotypic_metric_higher_is_better,
                         percentile_cutoff,
                     ),
                     prd.matching_median_dist,
@@ -1102,9 +1198,13 @@ def percent_replicating(
         )
         null_d_df = pd.DataFrame(
             data=[
-                prd.null_nth_percentile_or_null_distribution
-                if isinstance(prd.null_nth_percentile_or_null_distribution, np.ndarray)
-                else np.full(n_iters, np.nan)
+                (
+                    prd.null_nth_percentile_or_null_distribution
+                    if isinstance(
+                        prd.null_nth_percentile_or_null_distribution, np.ndarray
+                    )
+                    else np.full(n_iters, np.nan)
+                )
                 for prd in pr_results
             ],
             columns=[f"null_{ni}" for ni in range(1, n_iters + 1)],
@@ -1136,31 +1236,35 @@ def percent_replicating(
 
             res_df = pd.concat([res_df, replicate_pairwise_scores_df], axis=1)
 
-        if performance_df_file is not None and performance_df_file != False:
+        if performance_df_file is not None and performance_df_file:
             run_parameters_dict = {
                 "ds.df.shape": df.shape,
                 "perturbation_column": perturbation_column,
                 "replicate_query": replicate_query,
                 "replicate_criteria": replicate_criteria,
                 "replicate_criteria_not": replicate_criteria_not,
-                "null_query_or_df": null_query_or_df
-                if not isinstance(null_query_or_df, pd.DataFrame)
-                else null_query_or_df.shape,
+                "null_query_or_df": (
+                    null_query_or_df
+                    if not isinstance(null_query_or_df, pd.DataFrame)
+                    else null_query_or_df.shape
+                ),
                 "null_criteria": null_criteria,
                 "null_criteria_not": null_criteria_not,
                 "features": features,
                 "n_iters": n_iters,
-                "similarity_metric": f"{similarity_metric}",
-                "similarity_metric_higher_is_better": similarity_metric_higher_is_better,
-                "similarity_metric_name": f"{similarity_metric}"
-                if similarity_metric_name is None
-                else similarity_metric_name,
+                "similarity_metric": f"{phenotypic_metric}",
+                "similarity_metric_higher_is_better": phenotypic_metric_higher_is_better,
+                "similarity_metric_name": (
+                    f"{phenotypic_metric}"
+                    if similarity_metric_name is None
+                    else similarity_metric_name
+                ),
                 "min_cardinality": min_cardinality,
                 "max_cardinality": max_cardinality,
                 "include_cardinality_violating_compounds_in_calculation": include_cardinality_violating_compounds_in_calculation,
                 "return_full_performance_df": return_full_performance_df,
                 "percentile_cutoff": percentile_cutoff,
-                "use_joblib_parallelisation": use_joblib_parallelisation,
+                "parallel": parallel,
                 "n_jobs": n_jobs,
                 "additional_captured_params": additional_captured_params,
             }
@@ -1197,7 +1301,7 @@ def percent_replicating(
                     _determine_replicating(
                         prd.null_nth_percentile_or_null_distribution,
                         prd.matching_median_dist,
-                        similarity_metric_higher_is_better,
+                        phenotypic_metric_higher_is_better,
                         percentile_cutoff,
                     )
                     for prd in pr_results
@@ -1229,7 +1333,7 @@ def percent_compact(
     similarity_metric_name: Optional[str] = None,
     performance_df_file: Optional[Union[str, Path]] = None,
     percentile_cutoff: Optional[int] = None,
-    use_joblib_parallelisation: bool = True,
+    parallel: bool = True,
     n_jobs: int = -1,
 ):
     """Calculate percent compact
@@ -1394,7 +1498,7 @@ def percent_compact(
         be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
         value 95 if similarity_metric_higher_is_better==True, and 5 if
         similarity_metric_higher_is_better==False. By default None.
-    use_joblib_parallelisation : bool
+    parallel : bool
         If True, then use joblib to parallelise evaluation of compounds. By default True.
     n_jobs : int, optional
         The n_jobs argument is passed to joblib for parallel execution and defines the number of
@@ -1501,7 +1605,7 @@ def percent_compact(
     )
 
     # Run in parallel
-    if use_joblib_parallelisation:
+    if parallel:
         compactness_results = Parallel(n_jobs=n_jobs)(
             delayed(_inspect_compact)(
                 **inspect_compact_additional_args, **{"g_indices": g_indices}
@@ -1524,7 +1628,6 @@ def percent_compact(
                 or include_cardinality_violating_compounds_in_calculation
             )
         ]
-
     # Remove compounds which did not make it through cardinality filters (as specified through args)
     if not include_cardinality_violating_compounds_in_calculation:
         compactness_results = [
@@ -1583,40 +1686,48 @@ def percent_compact(
         )
         null_d_df = pd.DataFrame(
             data=[
-                prd.null_nth_percentile_or_null_distribution
-                if isinstance(prd.null_nth_percentile_or_null_distribution, np.ndarray)
-                else np.full(n_iters, np.nan)
+                (
+                    prd.null_nth_percentile_or_null_distribution
+                    if isinstance(
+                        prd.null_nth_percentile_or_null_distribution, np.ndarray
+                    )
+                    else np.full(n_iters, np.nan)
+                )
                 for prd in compactness_results
             ],
             columns=[f"null_{ni}" for ni in range(1, n_iters + 1)],
             index=[prd.index for prd in compactness_results],
         )
         res_df = pd.concat([res_df, null_d_df], axis=1)
-        if performance_df_file is not None and performance_df_file != False:
+        if performance_df_file is not None and performance_df_file:
             run_parameters_dict = {
                 "ds.df.shape": df.shape,
                 "perturbation_column": perturbation_column,
                 "replicate_query": replicate_query,
                 "replicate_criteria": replicate_criteria,
                 "replicate_criteria_not": replicate_criteria_not,
-                "null_query_or_df": null_query_or_df
-                if not isinstance(null_query_or_df, pd.DataFrame)
-                else null_query_or_df.shape,
+                "null_query_or_df": (
+                    null_query_or_df
+                    if not isinstance(null_query_or_df, pd.DataFrame)
+                    else null_query_or_df.shape
+                ),
                 "null_criteria": null_criteria,
                 "null_criteria_not": null_criteria_not,
                 "features": features,
                 "n_iters": n_iters,
                 "similarity_metric": f"{similarity_metric}",
                 "similarity_metric_higher_is_better": similarity_metric_higher_is_better,
-                "similarity_metric_name": f"{similarity_metric}"
-                if similarity_metric_name is None
-                else similarity_metric_name,
+                "similarity_metric_name": (
+                    f"{similarity_metric}"
+                    if similarity_metric_name is None
+                    else similarity_metric_name
+                ),
                 "min_cardinality": min_cardinality,
                 "max_cardinality": max_cardinality,
                 "include_cardinality_violating_compounds_in_calculation": include_cardinality_violating_compounds_in_calculation,
                 "return_full_performance_df": return_full_performance_df,
                 "percentile_cutoff": percentile_cutoff,
-                "use_joblib_parallelisation": use_joblib_parallelisation,
+                "parallel": parallel,
                 "n_jobs": n_jobs,
                 "additional_captured_params": additional_captured_params,
             }
@@ -1661,260 +1772,3 @@ def percent_compact(
             )
             / len(compactness_results)
         ) * 100
-
-
-def silhouette_score(
-    ds: Union[Dataset, Phenonaut, pd.DataFrame],
-    perturbation_column: Union[str, None],
-    replicate_criteria: Optional[Union[str, list[str]]] = None,
-    features: Optional[list[str]] = None,
-    similarity_metric: Union[str, Callable] = "euclidean",
-    similarity_metric_higher_is_better: bool = True,
-    return_full_performance_df: bool = False,
-):
-    if isinstance(similarity_metric, str):
-        # Inbuilt fast methods, lookup table for higher_is_better
-        special_similarity_metrics_higher_better_lookup = {
-            "spearman": True,
-            "euclidean": False,
-            "cityblock": False,
-            "cosine": False,
-        }
-        if similarity_metric in special_similarity_metrics_higher_better_lookup:
-            if (
-                special_similarity_metrics_higher_better_lookup[similarity_metric]
-                != similarity_metric_higher_is_better
-            ):
-                print(
-                    "Warning, special similarity metric value"
-                    f" {similarity_metric} passed with"
-                    " similarity_metric_higher_is_better ="
-                    f" {similarity_metric_higher_is_better}, changing"
-                    " similarity_metric_higher_is_better to"
-                    f" {special_similarity_metrics_higher_better_lookup[similarity_metric]}"
-                )
-                similarity_metric_higher_is_better = (
-                    not similarity_metric_higher_is_better
-                )
-
-    if isinstance(similarity_metric, PhenotypicMetric):
-        similarity_metric_higher_is_better = similarity_metric.higher_is_better
-        if similarity_metric.is_magic_string:
-            similarity_metric = similarity_metric.func
-
-    if isinstance(ds, Phenonaut):
-        ds = ds[-1]
-    if isinstance(ds, Dataset):
-        df = ds.df
-        features = ds.features
-
-        if perturbation_column is None:
-            if ds.perturbation_column is None:
-                raise ValueError(
-                    "No pertuabtion column set, and no perturbation_column argument"
-                    " given"
-                )
-            perturbation_column = ds.perturbation_column
-    else:  # Must be df-like
-        if perturbation_column is None:
-            raise ValueError(
-                "Must provide a perturbation_column argument when supplying a DataFrame"
-            )
-        if features is None:
-            raise ValueError(
-                "Must provide features argument when supplying a DataFrame"
-            )
-        df = df
-
-    group_by = [perturbation_column]
-    if replicate_criteria is not None:
-        if isinstance(replicate_criteria, str):
-            replicate_criteria = [replicate_criteria]
-        group_by.extend(replicate_criteria)
-
-    gb = df.groupby(group_by)
-    n_clusters = len(gb)
-
-    scores = np.eye(n_clusters)
-    scores[scores == 1] = np.nan
-
-    for i, (group_name_a, indices_a) in enumerate(gb.indices.items()):
-        for j, (group_name_b, indices_b) in enumerate(gb.indices.items()):
-            if group_name_a == group_name_b:
-                continue
-            X = np.vstack([df.iloc[indices_a][features], df.iloc[indices_b][features]])
-            labels = [
-                *([group_name_a] * len(indices_a)),
-                *([group_name_b] * len(indices_b)),
-            ]
-            scores[i, j] = sklearn_silhouette_score(X, labels, metric=similarity_metric)
-    scores_df = pd.DataFrame(
-        data=scores, index=list(gb.indices.keys()), columns=list(gb.indices.keys())
-    )
-    scores_df["mean_silhouette_score"] = np.nanmean(scores, axis=1)
-    if return_full_performance_df:
-        return scores_df["mean_silhouette_score"].mean(), scores_df
-    else:
-        return scores_df["mean_silhouette_score"].mean()
-
-
-def mp_value_score(
-    ds: Union[Dataset, Phenonaut],
-    ds_groupby: Union[str, List[str]],
-    reference_perturbation_query: str,
-    pca_explained_variance: float = 0.99,
-    std_scaler_columns: bool = True,
-    std_scaler_rows: bool = False,
-    n_iters: int = 1000,
-    random_state: int = 42,
-    raise_error_for_low_count_groups: bool = True,
-):
-    """Get mp-value score performance DataFrame for a dataset
-
-    Implementation of the mp-value score from the paper:
-        Hutz JE, Nelson T, Wu H, et al. The Multidimensional Perturbation Value: A
-        Single Metric to Measure Similarity and Activity of Treatments in
-        High-Throughput Multidimensional Screens. Journal of Biomolecular Screening.
-        2013;18(4):367-377. doi:10.1177/1087057112469257.
-
-    The paper mentions normalising by rows as well as columns. This is not appropriate
-    for some data types like DRUG-seq, and so this is not enabled by default.
-    Additionally, a default fraction explained variance for the PCA operation has been
-    set to 0.99 so that the PCA may explain 99 % of variance.
-
-    This implementation differs somewhat to the one in pycytominer_eval which deviates
-    from the paper definition and does not perform a mixin of the covariance matrices
-    for treatment and control.
-
-    Parameters
-    ----------
-    ds : Union[Dataset, Phenonaut]
-        Phenonaut dataset or Phenonaut object upon which to perform the mp_value_score
-        calculation. If a Phenonaut object is passed, then the dataset at position -1
-        (usually the last added is used)
-    ds_groupby: Pandas style groupby to apply on the ds. Normally this is the column
-        name of a unique compound identifier. Can also be a list, containing the unique
-        compound identifier column name, along with a concentration or timepoint column.
-    reference_perturbation_query : reference_perturbation_query
-        Pandas style query which may be run on ds to extract the reference set of points
-        in phenotypic space, against which all other grouped perturbations are compared.
-    pca_explained_variance: float
-        This argument is passed to scikit's PCA object and specifices the % variance
-        that the returned components should capture. The original paper aims for 90 % ev
-        we aim by default for 99 %. Should be expressed as a float between 0 and 1.
-        By default 0.99
-    std_scaler_columns: bool
-        Apply standard scaler to columns. By default True
-    std_scaler_rows: bool
-        Apply standard scaler to rows. By default False
-    n_iters : int
-        Number of iterations iterations to perform in statistical test to derive
-        p-value, by default 1000
-    n_jobs : int, optional
-        Calculations will be run in parallel by providing the number of processors to
-        use. If n_jobs is None, then this is autodetected by the system. By default None
-    random_state : int
-        Random seed to use for initialisation of rng, enabling reproducible runs
-    raise_error_for_low_count_groups : bool
-        Calculation of mp_value scores requires more than three samples to be in each
-        group. If raise_error_for_low_count_groups is True, then an error is raised upon
-        encountering such a group as no mp_value score can be calculated. If False, then
-        a simple warning is printed and the returned p-value and mahalanobis distance in
-        the results dataframe are both np.nan. By default True
-    """
-
-    if isinstance(ds, Phenonaut):
-        ds = ds[-1]
-    vehicle_data = ds.df.query(reference_perturbation_query)[ds.features].values
-    if len(vehicle_data) < 3:
-        raise NotEnoughRowsError(
-            f"Vehicle had {len(vehicle_data)} rows. 3 or more are required for the"
-            " mp_value_score calculation. It is highly likely that the query string"
-            " passed as reference_perturbation_query does not return any dataframe"
-            " rows. Try running the supplied query on your dataset.df and see if"
-            f" anything is returned.  Query was: {reference_perturbation_query}"
-        )
-    len_veh_data = vehicle_data.shape[0]
-    grouped_df = ds.df.groupby(ds_groupby)
-
-    mp_value_score_results_df = pd.DataFrame()
-
-    for group_identifier, group_df in grouped_df:
-        print("Working on", group_identifier, len(group_df))
-        if len(group_df) < 3:
-            if raise_error_for_low_count_groups:
-                raise NotEnoughRowsError(
-                    f"Group '{group_identifier}' contained only {len(group_df)} rows. 3"
-                    " or more are required for the mp_value_score calculation. To"
-                    " continue processing when small groups like this are encountered,"
-                    " call mp_value_score again with raise_error_for_low_count_groups"
-                    " = False"
-                )
-            print(
-                f"WARNING, Group '{group_identifier}' contained only"
-                f" {len(group_df)} rows. 3 or more are required for the mp_value_score"
-                " calculation. np.nan values will be included in results. Continuing"
-                " as raise_error_for_low_count_groups was False."
-            )
-            mp_value_score_results_df.loc[
-                group_identifier, ["mahalanobis_distance", "mp_value"]
-            ] = (np.nan, np.nan)
-            continue
-        # Reseed RNG for every group otherwise the order of groups would influenc
-        # mp_value scores
-        np_rng = np.random.default_rng(random_state)
-
-        trt_data = group_df[ds.features].values
-        len_trt_data = trt_data.shape[0]
-        X = np.vstack([trt_data, vehicle_data])
-        # Scale data
-        if std_scaler_columns:
-            X = (X - X.mean(axis=0)) / np.std(X, axis=0)
-        if std_scaler_rows:
-            X = (X - X.mean(axis=1)) / np.std(X, axis=1)
-
-        pca = PCA(n_components=pca_explained_variance, svd_solver="full")
-        X = pca.fit_transform(X)
-        X = X * pca.explained_variance_ratio_
-
-        # Compute covariance matrices of the scaled data and add them before inverting for
-        # calculation of mahalanobis distances
-        cov_trt = (np.cov(X[:len_trt_data].T)) * (
-            len_trt_data / (len_trt_data + len_veh_data)
-        )
-        cov_veh = (np.cov(X[len_trt_data:].T)) * (
-            len_veh_data / (len_trt_data + len_veh_data)
-        )
-        inv_cov = linalg.inv(cov_trt + cov_veh)
-
-        veh_pca_mean = np.mean(X[len_trt_data:], axis=0)
-        original_m_dist = mahalanobis(
-            np.mean(X[:len_trt_data], axis=0), veh_pca_mean, inv_cov
-        )
-
-        original_labels = np.array([1] * len_trt_data + [0] * len_veh_data)
-        cur_labels = original_labels.copy()
-        perturbed_distances = np.empty(n_iters)
-        for i in range(n_iters):
-            np_rng.shuffle(cur_labels)
-            while np.all(cur_labels[:len_trt_data]):
-                np_rng.shuffle(cur_labels)
-            not_cur_labels = np.logical_not(cur_labels)
-            pcov_trt = np.cov(X[np.where(cur_labels)].T) * (
-                len_trt_data / (len_trt_data + len_veh_data)
-            )
-            pcov_veh = np.cov(X[np.where(not_cur_labels)].T) * (
-                len_veh_data / (len_trt_data + len_veh_data)
-            )
-            pinv_cov = linalg.inv(pcov_trt + pcov_veh)
-
-            perturbed_distances[i] = mahalanobis(
-                np.mean(X[np.where(cur_labels)], axis=0),
-                np.mean(X[np.where(not_cur_labels)], axis=0),
-                pinv_cov,
-            )
-            mp_value = np.mean([v > original_m_dist for v in perturbed_distances])
-        mp_value_score_results_df.loc[
-            group_identifier, ["mahalanobis_distance", "mp_value"]
-        ] = (original_m_dist, mp_value)
-    return mp_value_score_results_df

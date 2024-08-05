@@ -14,7 +14,6 @@ from sklearn.tree import DecisionTreeRegressor
 
 from phenonaut.predict.predictor_dataclasses import (
     HyperparameterCategorical,
-    HyperparameterFloat,
     HyperparameterInt,
     HyperparameterLog,
     PhenonautPredictor,

@@ -11,7 +11,6 @@ from typing import Optional, Type, Union
 import h5py
 import numpy as np
 import pandas as pd
-from pandas.io.parsers import read_csv
 
 from ..data import Dataset
 from .base import PackagedDataset

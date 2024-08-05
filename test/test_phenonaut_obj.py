@@ -2,15 +2,11 @@
 # Development has been supported by GSK.
 
 import tempfile
-from curses import meta
-from io import StringIO
 
 import numpy as np
 import pandas as pd
-import pytest
 
 import phenonaut
-from phenonaut.data.dataset import Dataset
 from phenonaut.phenonaut import Phenonaut
 
 

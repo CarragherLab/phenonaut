@@ -4,7 +4,6 @@
 from pathlib import Path
 from typing import Union
 
-import numpy as np
 import pandas as pd
 
 
@@ -74,7 +73,7 @@ class PlatemapQuerier:
             plates = [plates]
         for platename, cpd_to_loc_dict in self.plate_to_cpd_to_well_dict.items():
             if plates is not None:
-                if not platename in plates:
+                if platename not in plates:
                     continue
             for location in cpd_to_loc_dict.get(cpd, []):
                 locations.append((platename, location[0], location[1]))

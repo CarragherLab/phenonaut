@@ -13,7 +13,6 @@ from sklearn.tree import DecisionTreeClassifier
 
 from phenonaut.predict.predictor_dataclasses import (
     HyperparameterCategorical,
-    HyperparameterFloat,
     HyperparameterInt,
     HyperparameterLog,
     PhenonautPredictor,

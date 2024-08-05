@@ -4,12 +4,11 @@
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
-import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 from pandas.errors import DataError
 
-from phenonaut import Phenonaut, data, output
+from phenonaut import Phenonaut
 from phenonaut.data import Dataset
 
 from .visualisation_base import PhenonautVisualisation
