@@ -1,11 +1,11 @@
 phenonaut.data package
-=========================
+======================
 
 Submodules
 ----------
 
 phenonaut.data.dataset module
---------------------------------
+-----------------------------
 
 .. automodule:: phenonaut.data.dataset
    :members:
@@ -13,7 +13,7 @@ phenonaut.data.dataset module
    :show-inheritance:
 
 phenonaut.data.platemap\_querier module
-------------------------------------------
+---------------------------------------
 
 .. automodule:: phenonaut.data.platemap_querier
    :members:
@@ -21,7 +21,7 @@ phenonaut.data.platemap\_querier module
    :show-inheritance:
 
 phenonaut.data.recipes module
---------------------------------
+-----------------------------
 
 .. automodule:: phenonaut.data.recipes
    :members:

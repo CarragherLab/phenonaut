@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenonaut.data package &mdash; Phenonaut 2.0.3 documentation</title>
+  <title>phenonaut.data package &mdash; Phenonaut 2.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,13 +15,13 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=664ffad9"></script>
+        <script src="_static/documentation_options.js?v=09beee0d"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="phenonaut.metrics package" href="phenonaut.metrics.html" />
+    <link rel="next" title="phenonaut.integration package" href="phenonaut.integration.html" />
     <link rel="prev" title="phenonaut package" href="phenonaut.html" /> 
 </head>
 
@@ -56,6 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.data">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.html">phenonaut.integration package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
@@ -184,14 +185,18 @@ unique ID, by default None.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.copy" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.copy" title="Link to this definition"></a></dt>
 <dd><p>Return a deep copy of the Dataset object</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Copy of the input object.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>) – Name to be given to the new dataset, if None, then the name is taken from
+the dataset being copied. By default None</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>PhenonautData</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Copy of the input object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PhenonautData</p>
 </dd>
 </dl>
 </dd></dl>
@@ -307,6 +312,12 @@ the top scoring pairs are returned in the form of a nested tuple:
 calculated.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.drop_absent_features">
+<span class="sig-name descname"><span class="pre">drop_absent_features</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.drop_absent_features" title="Link to this definition"></a></dt>
+<dd><p>Remove features if they are not present in the internal DataFrame</p>
 </dd></dl>
 
 <dl class="py method">
@@ -431,6 +442,42 @@ which return True.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.filter_on_identifiers">
+<span class="sig-name descname"><span class="pre">filter_on_identifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Self</span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.filter_on_identifiers" title="Link to this definition"></a></dt>
+<dd><p>Filter dataframe rows on identifiers</p>
+<p>When training and evaluating AI/ML models, it is useful to define training validation and
+test sets, as well as folds and filter datasets to include only those rows which match
+some criteria.  For example, in a set of splits defined on compound MOAs, where each row
+has an associated Metadata_moa field, we can use a dictionary to define a set of test
+splits. The dictionary may be stored in a JSON file which will be read if filter_data is
+an instance of the pathlib.Path object. If a dictionary is given, then the dict_path can be
+used to traverse the dictionary and find the appropriate list of identifiers. Multiple
+dictionary levels can be traversed by separating them with forwardslash characters, such as
+‘train_val/2/train’. A list of filtering identifiers may also be passed as an alternative to
+a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filter_field</strong> (<em>str</em>) – Dataset DataFrame field which contains the identifiers which must match those in
+filter_data</p></li>
+<li><p><strong>filter_data</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>dict</em><em> | </em><em>Path</em>) – Identifiers for use in the filtering of rows. Can be a simple list of strings, a
+dictionary which may then be traversed (using the keys in the dict_path argument) to
+arive at a list of identifiers, or if a pathlib.Path object, then JSON.load is used to
+read the file, which can contain a list or dictionary.</p></li>
+<li><p><strong>dict_path</strong> (<em>str</em><em> | </em><em>None</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – Perform the action in place. If True, then None is returned from the function and the
+underlying dataset is modified. If False, then the underlying dataset is untouched and
+a copy with the requested filtering returned, by default True.</p></li>
+<li><p><strong>additional_items</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – List of additional items to add to the filter_data list. This is useful when for
+example, DMSO is required to be in each dataset for downstream processing but is absent
+from splits/test sets.  Here, DMSO can be added by passing it as a list or string using
+this parameter. If None, then nothing is added, by default None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.filter_rows">
 <span class="sig-name descname"><span class="pre">filter_rows</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.filter_rows" title="Link to this definition"></a></dt>
 <dd><p>Filter dataframe rows</p>
@@ -543,8 +590,34 @@ element.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.get_unique_perturbations">
-<span class="sig-name descname"><span class="pre">get_unique_perturbations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.get_unique_perturbations" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">get_unique_perturbations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.get_unique_perturbations" title="Link to this definition"></a></dt>
+<dd><p>Return a list of unique perturbations</p>
+<p>Return a uniquified list of perturbations from the perturbation_colum field</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.get_unique_treatments">
+<span class="sig-name descname"><span class="pre">get_unique_treatments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.get_unique_treatments" title="Link to this definition"></a></dt>
+<dd><p>Return a list of unique perturbations/treatments</p>
+<p>Return a uniquified list of perturbations from the perturbation_colum field. Acts as a
+shortcut/alternative to get_unique_perturbations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of unique treatments/perturbations</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.groupby">
@@ -561,11 +634,11 @@ is also allowed, enabling grouping of datasets by multiple columns, such as
 [‘timepoint’, ‘concentration’]</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of new phenonaut.Dataset objects split on the value(s) of the by
+<dd class="field-even"><p>A list of new phenonaut.data.Dataset objects split on the value(s) of the by
 argument</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[phenonaut.Dataset]</p>
+<dd class="field-odd"><p>List[phenonaut.data.Dataset]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -764,6 +837,37 @@ By default “mean”.</p></li>
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.num_features">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_features</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#phenonaut.data.dataset.Dataset.num_features" title="Link to this definition"></a></dt>
+<dd><p>Return number of features</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The number of features in the dataset</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.pcol">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pcol</span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.pcol" title="Link to this definition"></a></dt>
+<dd><p>Return the name of the treatment column (short form of .perturbation_column)</p>
+<p>A treatement is an identifier relating to the peturbation. In many
+cases, it is the unique compound name or identifier.  Many replicates
+may be present, with identifiers like ‘DMSO’ etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Column name of dataframe containing the treatment.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.perturbation_column">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">perturbation_column</span></span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.perturbation_column" title="Link to this definition"></a></dt>
 <dd><p>Return the name of the treatment column</p>
@@ -919,6 +1023,24 @@ below this cutoff are removed.</p></li>
 <li><p><strong>pat</strong> (<em>str</em>) – The patter, (non-regex), just query substring to find and replace.</p></li>
 <li><p><strong>repl</strong> (<em>str</em>) – Replacement text for the substring identified in the ‘pat’ argument.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenonaut.data.dataset.Dataset.shrink">
+<span class="sig-name descname"><span class="pre">shrink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Metadata_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.data.dataset.Dataset.shrink" title="Link to this definition"></a></dt>
+<dd><p>Reduce the size of a dataset by removing unused columns from the internal DataFrame</p>
+<p>Often datasets contain intermediate features or unused columns which can be removed. This
+function removes every column from a Dataset internal DataFrame that is not the
+perturbation_column, or has a given prefix. By default, this prefix is “<a href="#id2"><span class="problematic" id="id3">Metadata_</span></a>”, however
+this can be removed, changed, or a new list of prefixes supplied using the keep_prefix
+argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keep_prefix</strong> (<em>str</em><em> | </em><em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em><em>, </em><em>optional</em>) – Prefix for columns which should be kept during shirinking of the dataset.  This prefix
+applies to columns which are not features (which are kept automatically).  Can be a list
+of prefixes, or None, by default “<a href="#id4"><span class="problematic" id="id5">Metadata_</span></a>”</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1169,7 +1291,7 @@ subtracted. By default ‘SMP_’ (for subtracted median perturbation).</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="phenonaut.html" class="btn btn-neutral float-left" title="phenonaut package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="phenonaut.metrics.html" class="btn btn-neutral float-right" title="phenonaut.metrics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="phenonaut.integration.html" class="btn btn-neutral float-right" title="phenonaut.integration package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

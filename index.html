@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to the Phenonaut documentation! &mdash; Phenonaut 2.0.3 documentation</title>
+  <title>Welcome to the Phenonaut documentation! &mdash; Phenonaut 2.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=664ffad9"></script>
+        <script src="_static/documentation_options.js?v=09beee0d"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -105,12 +105,19 @@
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.data.html#module-phenonaut.data">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.html">phenonaut.integration package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.html#phenonaut-integration-integration-control-module">phenonaut.integration.integration_control module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.html#module-phenonaut.integration">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.non_ds_phenotypic_metrics">phenonaut.metrics.non_ds_phenotypic_metrics module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.performance">phenonaut.metrics.performance module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.utils">phenonaut.metrics.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics">Module contents</a></li>
 </ul>
@@ -171,11 +178,14 @@
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut"><code class="docutils literal notranslate"><span class="pre">Phenonaut</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.add_well_id"><code class="docutils literal notranslate"><span class="pre">Phenonaut.add_well_id()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.aggregate_dataset"><code class="docutils literal notranslate"><span class="pre">Phenonaut.aggregate_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.append"><code class="docutils literal notranslate"><span class="pre">Phenonaut.append()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.clone_dataset"><code class="docutils literal notranslate"><span class="pre">Phenonaut.clone_dataset()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.combine_datasets"><code class="docutils literal notranslate"><span class="pre">Phenonaut.combine_datasets()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.data"><code class="docutils literal notranslate"><span class="pre">Phenonaut.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.describe"><code class="docutils literal notranslate"><span class="pre">Phenonaut.describe()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.df"><code class="docutils literal notranslate"><span class="pre">Phenonaut.df</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.ds"><code class="docutils literal notranslate"><span class="pre">Phenonaut.ds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.filter_datasets_on_identifiers"><code class="docutils literal notranslate"><span class="pre">Phenonaut.filter_datasets_on_identifiers()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.get_dataset_combinations"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_combinations()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.get_dataset_index_from_name"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_index_from_name()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.get_dataset_names"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_names()</span></code></a></li>
@@ -189,10 +199,12 @@
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.new_dataset_from_query"><code class="docutils literal notranslate"><span class="pre">Phenonaut.new_dataset_from_query()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.revert"><code class="docutils literal notranslate"><span class="pre">Phenonaut.revert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.save"><code class="docutils literal notranslate"><span class="pre">Phenonaut.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.shrink"><code class="docutils literal notranslate"><span class="pre">Phenonaut.shrink()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut.subtract_median_perturbation"><code class="docutils literal notranslate"><span class="pre">Phenonaut.subtract_median_perturbation()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.random"><code class="docutils literal notranslate"><span class="pre">random()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.match_perturbation_columns"><code class="docutils literal notranslate"><span class="pre">match_perturbation_columns()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a><ul>
@@ -231,7 +243,46 @@
 <li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.workflow.predict"><code class="docutils literal notranslate"><span class="pre">predict()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut"><code class="docutils literal notranslate"><span class="pre">Phenonaut</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.add_well_id"><code class="docutils literal notranslate"><span class="pre">Phenonaut.add_well_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.aggregate_dataset"><code class="docutils literal notranslate"><span class="pre">Phenonaut.aggregate_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.append"><code class="docutils literal notranslate"><span class="pre">Phenonaut.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.clone_dataset"><code class="docutils literal notranslate"><span class="pre">Phenonaut.clone_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.combine_datasets"><code class="docutils literal notranslate"><span class="pre">Phenonaut.combine_datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.data"><code class="docutils literal notranslate"><span class="pre">Phenonaut.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.describe"><code class="docutils literal notranslate"><span class="pre">Phenonaut.describe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.df"><code class="docutils literal notranslate"><span class="pre">Phenonaut.df</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.ds"><code class="docutils literal notranslate"><span class="pre">Phenonaut.ds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.filter_datasets_on_identifiers"><code class="docutils literal notranslate"><span class="pre">Phenonaut.filter_datasets_on_identifiers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.get_dataset_combinations"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_combinations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.get_dataset_index_from_name"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_index_from_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.get_dataset_names"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_dataset_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.get_df_features_perturbation_column"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_df_features_perturbation_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.get_hash_dictionary"><code class="docutils literal notranslate"><span class="pre">Phenonaut.get_hash_dictionary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.groupby_datasets"><code class="docutils literal notranslate"><span class="pre">Phenonaut.groupby_datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.keys"><code class="docutils literal notranslate"><span class="pre">Phenonaut.keys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.load"><code class="docutils literal notranslate"><span class="pre">Phenonaut.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.load_dataset"><code class="docutils literal notranslate"><span class="pre">Phenonaut.load_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.merge_datasets"><code class="docutils literal notranslate"><span class="pre">Phenonaut.merge_datasets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.new_dataset_from_query"><code class="docutils literal notranslate"><span class="pre">Phenonaut.new_dataset_from_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.revert"><code class="docutils literal notranslate"><span class="pre">Phenonaut.revert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.save"><code class="docutils literal notranslate"><span class="pre">Phenonaut.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.shrink"><code class="docutils literal notranslate"><span class="pre">Phenonaut.shrink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.Phenonaut.subtract_median_perturbation"><code class="docutils literal notranslate"><span class="pre">Phenonaut.subtract_median_perturbation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.PlatemapQuerier"><code class="docutils literal notranslate"><span class="pre">PlatemapQuerier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.PlatemapQuerier.get_compound_locations"><code class="docutils literal notranslate"><span class="pre">PlatemapQuerier.get_compound_locations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.PlatemapQuerier.plate_to_cpd_to_well_dict"><code class="docutils literal notranslate"><span class="pre">PlatemapQuerier.plate_to_cpd_to_well_dict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.html#phenonaut.PlatemapQuerier.platemap_files"><code class="docutils literal notranslate"><span class="pre">PlatemapQuerier.platemap_files</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.dataset_intersection"><code class="docutils literal notranslate"><span class="pre">dataset_intersection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.html#phenonaut.match_perturbation_columns"><code class="docutils literal notranslate"><span class="pre">match_perturbation_columns()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a><ul>

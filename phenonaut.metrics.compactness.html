@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.metrics.compactness package &mdash; Phenonaut 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=09beee0d"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.metrics.distinctness package" href="phenonaut.metrics.distinctness.html" />
+    <link rel="prev" title="phenonaut.metrics package" href="phenonaut.metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.html">phenonaut.integration package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="phenonaut.metrics.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.non_ds_phenotypic_metrics">phenonaut.metrics.non_ds_phenotypic_metrics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.utils">phenonaut.metrics.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.errors">phenonaut.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.html">phenonaut package</a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+      <li class="breadcrumb-item active">phenonaut.metrics.compactness package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.metrics.compactness.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-metrics-compactness-package">
+<h1>phenonaut.metrics.compactness package<a class="headerlink" href="#phenonaut-metrics-compactness-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-phenonaut.metrics.compactness.pr">
+<span id="phenonaut-metrics-compactness-pr-module"></span><h2>phenonaut.metrics.compactness.pr module<a class="headerlink" href="#module-phenonaut.metrics.compactness.pr" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.compactness.pr.percent_compact">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.compactness.pr.</span></span><span class="sig-name descname"><span class="pre">percent_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_query_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_evaluation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cardinality_violating_compounds_in_calculation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_captured_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance_df_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.compactness.pr.percent_compact" title="Link to this definition"></a></dt>
+<dd><p>Calculate percent compact</p>
+<p>Compactness is defined by the spread of compound repeats compared to a randomly sampled
+background distribution.  For a given compound, its cardinality (num replicates), reffered
+to as C is determined. Then the median distance of all replicates is determined. This is then
+compared to a randomly sampled background. This background is obtained as follows: select C
+random compounds, calculate their median pairwise distances to each other, and store this.
+Repeat the process 1000 times and build a distribution of matched cardinality to the
+replicating compound.  The replicate treatments are deemed compact if its score is less than
+the 5th percentile of the background distribution (for distance metrics), and greater than
+the 95th percentile for similarity metrics.  Percent compact is simply the percentage of
+compounds which pass this compactness test.</p>
+<p>Matching distributions are created by matching perturbations. In Phenonaut, this is
+typically defined by the perturbation_column field. This function takes this field as an
+argument, although it is unused if found in the passed Dataset/Phenonaut object. Additional
+criterial to match on such as concentration and well position can be added using the
+replicate_criteria argument. Null distributions are composed of a pick of C unique compounds,
+where C is the cardinality of the matched repeats (how many), and their median ‘similarity’.
+By default, this similarity is the spearman correlation coefficient between profiles. This
+process to generate median similarity for non-replicate compounds is repeated n_iters times
+(by default 1000).</p>
+<p>As the calculation is demanding, the function makes use of the joblib library for parallel
+calculation of the null distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>pd.DataFrame</em><em>]</em><em>,</em>) – Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
+containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
+Dataset will be used.</p></li>
+<li><p><strong>perturbation_column</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – This argument sets the column name containing an identifier for the perturbation name (or
+identifier), usually the name of a compound or similar. If a Phenonaut object or Dataset is
+supplied as the ds argument and this perturbation_column argument is None, then this value is
+attempted to be discovered through interrogation of the perturbation_column property of the
+Dataset. In the case of the CMAP_Level4 PackagedDataset, a standard run would be achieved by
+passing ‘pert_iname’as an argument here, or disregarding the value found in this argument by
+providing a dataset with the perturbation_column property already set. By default None.</p></li>
+<li><p><strong>replicate_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – As noted above describing the impact of the perturbation_column argument, matching compounds
+are often defined by their perturbation name/identifier and dose.  Whilst the perturbation
+column matches the compound name/identifier (something which must always be matched), passing
+a string here containing the title of a dose column (for example) also enforces matching on
+this property. A list of strings may also be passed. In the case of the PackagedDataset
+CMAP_Level4, this argument would take the value “pert_idose_uM” and would ensure that
+matched replicates share a common identifier/name (as default and enforced by
+perturbation_column) and concentration. The original perturbation_column may be included
+here but has no effect. By default None.</p></li>
+<li><p><strong>replicate_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the matching replicates, this maybe something
+like ensuring concentration is above a threshold, or that they are taken from certain timepoints.
+Please note, if information in rows is never going to be included in matching or null distributions,
+then it is more efficient to prefilter the dataframe before running compactness on it.
+This parameter should not be used to restrict the compounds on which compactness is run,
+as this is inefficient. Instead, the restrict_evaluation_query should be used.</p></li>
+<li><p><strong>replicate_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – Values in this list enforce that matching replicates do NOT share a common property. This is
+useful for exotic evaluations, like picking replicates from across cell lines and
+concentrations.</p></li>
+<li><p><strong>null_query_or_df</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>pd.DataFrame</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the non-matching replicates comprising the null
+distribution. This can be things like ensuring only a certain plates or cell lines are used in
+construction of the distribution. Alternatively, a pd.DataFrame may be supplied here, from which
+the non-matching compounds are drawn for creation of the null distribution. Note; if
+supplying a query to filter out information in rows that is never going to be included in
+matching or null distributions, then it is more efficient to prefilter the dataframe before
+running compactness on it. This argument does not override null_criteria, or
+null_criteria_not as these have effect after this arguments effects have been applied. Has no
+effect if None. By default, None.</p></li>
+<li><p><strong>null_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Whilst matching compounds are often defined by perturbation and dose, compounds comprising the
+null distribution must sometimes match the well position of the original compound. This
+argument captures the column name defining properties of non-matching replicates which must
+match the orignal query compound. In the case of the CMAP_Level4 PackagedDataset, this
+argument would take the value “well”. A list of strings may also be passed to enforce further
+fields within the matching distribution which must match in the null distribution. If None,
+then no requirements appart from a different name/compound idenfier are enforced. By default
+None.</p></li>
+<li><p><strong>null_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Values in this list enforce that matching non-replicates do NOT share a common property with
+the chosen replicates. The opposite of the above described null_criteria, this
+allows exotic evaluations like picking replicates from different cell lines to the matching
+replicates. Has no effect if None. By default None.</p></li>
+<li><p><strong>restrict_evaluation_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If only a few compounds in a Phenonaut Dataset are to be included in the compactness
+calculation, then this parameter may be used to efficiently select only the required compounds
+using a standard pandas style query which is run on groups defined by replicate_criteria
+Excluded compounds are not removed from the compactness calculation.  If None, then has
+no effect. By default None.</p></li>
+<li><p><strong>features</strong> (<em>features:Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Features list which capture the phenotypic responses to perturbations. Only required and used
+if a pd.DataFrame is supplied in place of the ds argument. By default None.</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the non-matching compound replicates should be sampled to compose the null
+distribution. If less than n_iters are available, then take as many as possible. By default
+1000.</p></li>
+<li><p><strong>similarity_metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>, </em><a class="reference internal" href="phenonaut.metrics.html#phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric" title="phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric"><em>PhenotypicMetric</em></a><em>]</em><em>, </em><em>optional</em>) – Callable metric, or string which is passed to pdist. This should be a
+distance metric; that is, lower is better, higher is worse.
+Note, a special case exists, whereby ‘spearman’ may be supplied here
+if so, then a much faster Numpy method np.corrcoef is used, and then results
+are subtracted from 1 to turn the metric into a distance metric. By default ‘spearman’.</p></li>
+<li><p><strong>similarity_metric_higher_is_better</strong> (<em>bool</em>) – If True, then a high value from the supplied similarity metric is better. If False, then
+a lower value is better (as is the case for distance metrics like Euclidean/Manhattan etc).
+Note that if lower is better, then the percentile should be changed to the other end of the
+distribution. For example, if keeping with significance at the 5 % level for a metric for
+which higher is better, then a metric where lower is better would use the 5th percentile,
+and percentile_cutoff = 5 should be used. By default True.</p></li>
+<li><p><strong>min_cardinality</strong> (<em>int</em>) – Cardinality is the number of times a treatment is repeated (treatment with matching well,
+dose and any other constraints imposed). This arguments sets the minimum number of treatment
+repeats that should be present, if not, then the group is excluded from the calculation.
+Behavior of cytominer-eval includes all single repeat measuments, marking them as non-replicating
+this behaviour is replicated by setting this argument to 2. If 2, then only compounds with 2
+or more repeats are included in the calculation and have the posibility of generating a score
+for comparison to a null distribution and potentially passing the compactness test of being
+greater than the Nth percentile of the null distribution. By default 2.</p></li>
+<li><p><strong>max_cardinality</strong> (<em>int</em>) – If a dataset has thousands of matched repeats, then little is gained in
+finding pairwise all-to-all distances of non-matching compounds, this
+argument allows setting an upper bound cutoff after which, the repeats
+are shuffled and max_cardinality samples drawn to create a synthetic set of
+max_cardinality repeats. This is very useful when using a demanding similarity
+method as it cuts the evaluations dramatically. By default 50.</p></li>
+<li><p><strong>include_cardinality_violating_compounds_in_calculation</strong> (<em>bool</em>) – If True, then compounds for which there are no matching replicates, or not enough as defined
+by min_cardinality (and are therefore deemed not compact) are included in the final
+reported compactness statistics. If False, then they are not included as
+non-compact and simply ignored as if they were not present in the dataset. By default
+False.</p></li>
+<li><p><strong>return_full_performance_df</strong> (<em>bool</em>) – If True, then a tuple is returned with the compactness score in the first position,
+and a pd.DataFrame containing full information on each repeat. By default False</p></li>
+<li><p><strong>performance_df_file</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – If return_full_performance_df is True and a Path or str is given as an argument to this
+parameter, then the performance DataFrame is written out to a CSV file using this filename.
+If True is passed here, then the a filename will be constructed from function arguments,
+attempting to capture the run details. If an auto-generated file with this name exists,
+then an error is raised and no calculations are performed. In addition to the output CSV,
+a json file is also written capturing arguments that the function was called with. So if
+‘compactness_results.csv’ is passed here, then a file named compactness_results.json will
+be written out. If a filename is autogenerated, then the autogenerated filename is adapted
+to have the ‘.json’ file extension. If the argument does not end in ‘.csv’, then .json is appended
+to the end of the filename to define the name of the json file. By Default, None.</p></li>
+<li><p><strong>additional_captured_params</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – If writing out full details, also include this dictionary in the output json file, useful
+to add metadata to runs. By default None.</p></li>
+<li><p><strong>similarity_metric_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – If relying on the function to make a nice performance CSV file name, then a nice succinct
+similarity metric name may be passed here, rather than relying upon calling __repr__ on the
+function, which may return long names such as:
+‘bound method Phenotypic_Metric.similarity of Manhattan’. By default None.</p></li>
+<li><p><strong>percentile_cutoff</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Percentile of the null distribution over which the matching replicates must score to be
+considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+metric where higher is better, but if using a metric where lower is better, then it should
+be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+value 95 if similarity_metric_higher_is_better==True, and 5 if
+similarity_metric_higher_is_better==False. By default None.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em>) – If True, then use joblib to parallelise evaluation of compounds. By default True.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – The n_jobs argument is passed to joblib for parallel execution and defines the number of
+threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
+By default -1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If return_full_performance_df is False, then only the percent compact statistic is returned.
+If True, then a tuple is returned, with percent compact in the first position, and a
+pd.DataFrame in the second position containing the median repeat scores, as well as median
+null distribution scores in an easy to analyse format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, tuple[float, pd.DataFrame]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.compactness.pr.percent_replicating">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.compactness.pr.</span></span><span class="sig-name descname"><span class="pre">percent_replicating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_query_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_evaluation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cardinality_violating_compounds_in_calculation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_replicate_pairwise_distances_in_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_captured_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance_df_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.compactness.pr.percent_replicating" title="Link to this definition"></a></dt>
+<dd><p>Calculate percent replicating</p>
+<p>Percent replicating is defined by Way et. al. in:
+Way, Gregory P., et al. “Morphology and gene expression profiling provide complementary
+information for mapping cell state.” Cell systems 13.11 (2022): 911-923.
+or on bioRxiv:
+<a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2">https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2</a></p>
+<p>Helpful descriptions also exist in
+<a class="reference external" href="https://github.com/cytomining/cytominer-eval/issues/21#issuecomment-902934931">https://github.com/cytomining/cytominer-eval/issues/21#issuecomment-902934931</a></p>
+<p>This implementation is designed to work with a variety of phenotypic similarity methods, not
+just a spearman correlation coefficient between observations.groupby_null</p>
+<p>Matching distributions are created by matching perturbations. In Phenonaut, this is
+typically defined by the perturbation_column field. This function takes this field as an
+argument, although it is unused if found in the passed Dataset/Phenonaut object. Additional
+criterial to match on such as concentration and well position can be added using the
+replicate_criteria argument. Null distributions are composed of a pick of C unique compounds,
+where C is the cardinality of the matched repeats (how many), and their median ‘similarity’.
+By default, this similarity is the spearman correlation coefficient between profiles. This
+process to generate median similarity for non-replicate compounds is repeated n_iters times
+(by default 1000). Once the null distribution has been collected (median pairwise similarities),
+the median similarity of matched replicates is compared to the 95th percentile of this null
+distribution. If it is greater, then the compound (or compound and dose) are deemed replicating.
+Null distributions may not contain the matched compound. The percent replicating is calculated
+from the number of matched repeats which were replicating versus the number which were not.</p>
+<p>As the calculation is demanding, the function makes use of parallel calculation of the null
+distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>pd.DataFrame</em><em>]</em><em>,</em>) – Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
+containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
+Dataset will be used.</p></li>
+<li><p><strong>perturbation_column</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – In the standard % replicating calculation, compounds, are matched by name (or identifier),
+and dose, although this can be relaxed. This argument sets the column name
+containing an identifier for the perturbation name (or identifier), usually the name of a
+compound or similar. If a Phenonaut object or Dataset is supplied as the ds argument and this
+perturbation_column argument is None, then this value is attempted to be discovered through
+interrogation of the perturbation_column property of the Dataset. In the case of the CMAP_Level4
+PackagedDataset, a standard run would be achieved by passing ‘pert_iname’as an argument here,
+or disregarding the value found in this argument by providing a dataset with the
+perturbation_column property already set. By default None.</p></li>
+<li><p><strong>replicate_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the matching replicates, this maybe something
+like ensuring concentration is above a threshold, or that they are taken from certain timepoints.
+Please note, if information in rows is never going to be included in matching or null distributions,
+then it is more efficient to prefilter the dataframe before running percent_replicating on it.
+This parameter should not be used to restrict the compounds on which percent replicating is run,
+as this is inefficient. Instead, the restrict_evaluation_query should be used.</p></li>
+<li><p><strong>replicate_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – As noted above describing the impact of the perturbation_column argument, matching compounds
+are often defined by their perturbation name/identifier and dose.  Whilst the perturbation
+column matches the compound name/identifier (something which must always be matched), passing
+a string here containing the title of a dose column (for example) also enforces matching on
+this property. A list of strings may also be passed. In the case of the PackagedDataset
+CMAP_Level4, this argument would take the value “pert_idose_uM” and would ensure that
+matched replicates share a common identifier/name (as default and enforced by
+perturbation_column) and concentration. The original perturbation_column may be included
+here but has no effect. By default None.</p></li>
+<li><p><strong>replicate_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – Values in this list enforce that matching replicates do NOT share a common property. This is
+useful for exotic evaluations, like picking replicates from across cell lines and
+concentrations.</p></li>
+<li><p><strong>null_query_or_df</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>pd.DataFrame</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the non-matching replicates comprising the null
+distribution. This can be things like ensuring only a certain plates or cell lines are used in
+construction of the distribution. Alternatively, a pd.DataFrame may be supplied here, from which
+the non-matching compounds are drawn for creation of the null distribution. Note; if
+supplying a query to filter out  information in rows that is never going to be included in
+matching or null distributions, then it is more efficient to prefilter the dataframe before
+running percent_replicating on it. This argument does not override null_criteria, or
+null_criteria_not as these have effect after this arguments effects have been applied. Has no
+effect if None. By default, None.</p></li>
+<li><p><strong>null_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Whilst matching compounds are often defined by perturbation and dose, compounds comprising the
+null distribution must sometimes match the well position of the original compound. This
+argument captures the column name defining properties of non-matching replicates which must
+match the orignal query compound. In the case of the CMAP_Level4 PackagedDataset, this
+argument would take the value “well”. A list of strings may also be passed to enforce further
+fields within the matching distribution which must match in the null distribution. If None,
+then no requirements appart from a different name/compound idenfier are enforced. By default
+None.</p></li>
+<li><p><strong>null_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Values in this list enforce that matching non-replicates do NOT share a common property with
+the chosen replicates. The opposite of the above described null_criteria, this
+allows exotic evaluations like picking replicates from different cell lines to the matching
+replicates. Has no effect if None. By default None.</p></li>
+<li><p><strong>restrict_evaluation_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If only a few compounds in a Phenonaut Dataset are to be included in the percent replicating
+calculation, then this parameter may be used to efficiently select only the required compounds
+using a standard pandas style query which is run on groups defined by replicate_criteria
+Excluded compounds are not removed from the percent replicating calculation.  If None, then has
+no effect. By default None.</p></li>
+<li><p><strong>features</strong> (<em>features:Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Features list which capture the phenotypic responses to perturbations. Only required and used
+if a pd.DataFrame is supplied in place of the ds argument. By default None.</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the non-matching compound replicates should be sampled to compose the null
+distribution. If less than n_iters are available, then take as many as possible. By default
+1000.</p></li>
+<li><p><strong>phenotypic_metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>, </em><a class="reference internal" href="phenonaut.metrics.html#phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric" title="phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric"><em>PhenotypicMetric</em></a><em>]</em><em>, </em><em>optional</em>) – Callable metric, or string which is passed to pdist. This should be a
+distance metric; that is, lower is better, higher is worse.
+Note, a special case exists, whereby ‘spearman’ may be supplied here
+if so, then a much faster Numpy method np.corrcoef is used, and then results
+are subtracted from 1 to turn the metric into a distance metric. By default ‘spearman’.</p></li>
+<li><p><strong>phenotypic_metric_higher_is_better</strong> (<em>bool</em>) – If True, then a high value from the supplied phenotypic metric is better. If False, then
+a lower value is better (as is the case for distance metrics like Euclidean/Manhattan etc).
+Note that if lower is better, then the percentile should be changed to the other end of the
+distribution. For example, if keeping with significance at the 5 % level for a metric for
+which higher is better, then a metric where lower is better would use the 5th percentile,
+and percentile_cutoff = 5 should be used. By default True.</p></li>
+<li><p><strong>min_cardinality</strong> (<em>int</em>) – Cardinality is the number of times a treatment is repeated (treatment with matching well,
+dose and any other constraints imposed). This arguments sets the minimum number of treatment
+repeats that should be present, if not, then the group is excluded from the calculation.
+Behavior of cytominer-eval includes all single repeat measuments, marking them as non-replicating
+this behaviour is replicated by setting this argument to 2. If 2, then only compounds with 2
+or more repeats are included in the calculation and have the posibility of generating a score
+for comparison to a null distribution and potentially passing the replicating test of being
+greater than the Nth percentile of the null distribution. By default 2.</p></li>
+<li><p><strong>max_cardinality</strong> (<em>int</em>) – If a dataset has thousands of matched repeats, then little is gained in
+finding pairwise all-to-all distances of non-matching compounds, this
+argument allows setting an upper bound cutoff after which, the repeats
+are shuffled and max_cardinality samples drawn to create a synthetic set of
+max_cardinality repeats. This is very useful when using a demanding similarity
+method as it cuts the evaluations dramatically. By default 50.</p></li>
+<li><p><strong>include_cardinality_violating_compounds_in_calculation</strong> (<em>bool</em>) – If True, then compounds for which there are no matching replicates, or not enough as defined
+by min_cardinality (and are therefore deemed not replicating) are included in the final
+reported percent replicating statistics. If False, then they are not included as
+non-replicating and simply ignored as if they were not present in the dataset. By default
+False.</p></li>
+<li><p><strong>return_full_performance_df</strong> (<em>bool</em>) – If True, then a tuple is returned with the percent replicating score in the first position,
+and a pd.DataFrame containing full information on each repeat. By default False</p></li>
+<li><p><strong>include_replicate_pairwise_distances_in_df</strong> (<em>bool</em>) – If True, then pairwise replicate distances are included in the full performance dataframe.
+Has no effect if return_full_performance_df is False</p></li>
+<li><p><strong>performance_df_file</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – If return_full_performance_df is True and a Path or str is given as an argument to this
+parameter, then the performance DataFrame is written out to a CSV file using this filename.
+If True is passed here, then the a filename will be constructed from function arguments,
+attempting to capture the run details. If an auto-generated file with this name exists,
+then an error is raised and no calculations are performed. In addition to the output CSV,
+a json file is also written capturing arguments that the function was called with. So if
+‘pr_results.csv’ is passed here, then a file named pr_results.json will be written out.
+If a filename is autogenerated, then the autogenerated filename is adapted to have the
+‘.json’ file extension. If the argument does not end in ‘.csv’, then .json is appended
+to the end of the filename to define the name of the json file. By Default, None.</p></li>
+<li><p><strong>additional_captured_params</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – If writing out full details, also include this dictionary in the output json file, useful
+to add metadata to runs. By default None.</p></li>
+<li><p><strong>similarity_metric_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – If relying on the function to make a nice performance CSV file name, then a nice succinct
+similarity metric name may be passed here, rather than relying upon calling __repr__ on the
+function, which may return long names such as:
+‘bound method Phenotypic_Metric.similarity of Manhattan’. By default None.</p></li>
+<li><p><strong>percentile_cutoff</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Percentile of the null distribution over which the matching replicates must score to be
+considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+metric where higher is better, but if using a metric where lower is better, then it should
+be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+value 95 if similarity_metric_higher_is_better==True, and 5 if
+similarity_metric_higher_is_better==False. By default None.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em>) – If True, then use multiprocessing to parallelise evaluation of compounds. By default True.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – The n_jobs argument is passed to multiprocessing for parallel execution and defines the number
+of threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
+By default None.</p></li>
+<li><p><strong>random_state</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>np.random.Generator</em><em>]</em>) – Random state which should be used when performing sampling operations. Can be a
+np.random.Generator, or an int (in which case, a np.random.Generator) is
+instantiated with it.  If attempting reproducible results, run without parallelisation by
+settiung the parallel argument to False, by default 42</p></li>
+<li><p><strong>quiet</strong> (<em>bool</em>) – If True, then dont display a progressbar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If return_full_performance_df is False, then only the percent replicating is returned.
+If True, then a tuple is returned, with percent replicating in the first position, and a
+pd.DataFrame in the second position containing the median repeat scores, as well as median
+null distribution scores in an easy to analyse format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, tuple[float, pd.DataFrame]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-phenonaut.metrics.compactness">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.metrics.compactness" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.compactness.percent_compact">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.compactness.</span></span><span class="sig-name descname"><span class="pre">percent_compact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_query_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_evaluation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cardinality_violating_compounds_in_calculation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_captured_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance_df_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.compactness.percent_compact" title="Link to this definition"></a></dt>
+<dd><p>Calculate percent compact</p>
+<p>Compactness is defined by the spread of compound repeats compared to a randomly sampled
+background distribution.  For a given compound, its cardinality (num replicates), reffered
+to as C is determined. Then the median distance of all replicates is determined. This is then
+compared to a randomly sampled background. This background is obtained as follows: select C
+random compounds, calculate their median pairwise distances to each other, and store this.
+Repeat the process 1000 times and build a distribution of matched cardinality to the
+replicating compound.  The replicate treatments are deemed compact if its score is less than
+the 5th percentile of the background distribution (for distance metrics), and greater than
+the 95th percentile for similarity metrics.  Percent compact is simply the percentage of
+compounds which pass this compactness test.</p>
+<p>Matching distributions are created by matching perturbations. In Phenonaut, this is
+typically defined by the perturbation_column field. This function takes this field as an
+argument, although it is unused if found in the passed Dataset/Phenonaut object. Additional
+criterial to match on such as concentration and well position can be added using the
+replicate_criteria argument. Null distributions are composed of a pick of C unique compounds,
+where C is the cardinality of the matched repeats (how many), and their median ‘similarity’.
+By default, this similarity is the spearman correlation coefficient between profiles. This
+process to generate median similarity for non-replicate compounds is repeated n_iters times
+(by default 1000).</p>
+<p>As the calculation is demanding, the function makes use of the joblib library for parallel
+calculation of the null distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>pd.DataFrame</em><em>]</em><em>,</em>) – Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
+containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
+Dataset will be used.</p></li>
+<li><p><strong>perturbation_column</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – This argument sets the column name containing an identifier for the perturbation name (or
+identifier), usually the name of a compound or similar. If a Phenonaut object or Dataset is
+supplied as the ds argument and this perturbation_column argument is None, then this value is
+attempted to be discovered through interrogation of the perturbation_column property of the
+Dataset. In the case of the CMAP_Level4 PackagedDataset, a standard run would be achieved by
+passing ‘pert_iname’as an argument here, or disregarding the value found in this argument by
+providing a dataset with the perturbation_column property already set. By default None.</p></li>
+<li><p><strong>replicate_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – As noted above describing the impact of the perturbation_column argument, matching compounds
+are often defined by their perturbation name/identifier and dose.  Whilst the perturbation
+column matches the compound name/identifier (something which must always be matched), passing
+a string here containing the title of a dose column (for example) also enforces matching on
+this property. A list of strings may also be passed. In the case of the PackagedDataset
+CMAP_Level4, this argument would take the value “pert_idose_uM” and would ensure that
+matched replicates share a common identifier/name (as default and enforced by
+perturbation_column) and concentration. The original perturbation_column may be included
+here but has no effect. By default None.</p></li>
+<li><p><strong>replicate_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the matching replicates, this maybe something
+like ensuring concentration is above a threshold, or that they are taken from certain timepoints.
+Please note, if information in rows is never going to be included in matching or null distributions,
+then it is more efficient to prefilter the dataframe before running compactness on it.
+This parameter should not be used to restrict the compounds on which compactness is run,
+as this is inefficient. Instead, the restrict_evaluation_query should be used.</p></li>
+<li><p><strong>replicate_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – Values in this list enforce that matching replicates do NOT share a common property. This is
+useful for exotic evaluations, like picking replicates from across cell lines and
+concentrations.</p></li>
+<li><p><strong>null_query_or_df</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>pd.DataFrame</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the non-matching replicates comprising the null
+distribution. This can be things like ensuring only a certain plates or cell lines are used in
+construction of the distribution. Alternatively, a pd.DataFrame may be supplied here, from which
+the non-matching compounds are drawn for creation of the null distribution. Note; if
+supplying a query to filter out information in rows that is never going to be included in
+matching or null distributions, then it is more efficient to prefilter the dataframe before
+running compactness on it. This argument does not override null_criteria, or
+null_criteria_not as these have effect after this arguments effects have been applied. Has no
+effect if None. By default, None.</p></li>
+<li><p><strong>null_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Whilst matching compounds are often defined by perturbation and dose, compounds comprising the
+null distribution must sometimes match the well position of the original compound. This
+argument captures the column name defining properties of non-matching replicates which must
+match the orignal query compound. In the case of the CMAP_Level4 PackagedDataset, this
+argument would take the value “well”. A list of strings may also be passed to enforce further
+fields within the matching distribution which must match in the null distribution. If None,
+then no requirements appart from a different name/compound idenfier are enforced. By default
+None.</p></li>
+<li><p><strong>null_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Values in this list enforce that matching non-replicates do NOT share a common property with
+the chosen replicates. The opposite of the above described null_criteria, this
+allows exotic evaluations like picking replicates from different cell lines to the matching
+replicates. Has no effect if None. By default None.</p></li>
+<li><p><strong>restrict_evaluation_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If only a few compounds in a Phenonaut Dataset are to be included in the compactness
+calculation, then this parameter may be used to efficiently select only the required compounds
+using a standard pandas style query which is run on groups defined by replicate_criteria
+Excluded compounds are not removed from the compactness calculation.  If None, then has
+no effect. By default None.</p></li>
+<li><p><strong>features</strong> (<em>features:Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Features list which capture the phenotypic responses to perturbations. Only required and used
+if a pd.DataFrame is supplied in place of the ds argument. By default None.</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the non-matching compound replicates should be sampled to compose the null
+distribution. If less than n_iters are available, then take as many as possible. By default
+1000.</p></li>
+<li><p><strong>similarity_metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>, </em><a class="reference internal" href="phenonaut.metrics.html#phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric" title="phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric"><em>PhenotypicMetric</em></a><em>]</em><em>, </em><em>optional</em>) – Callable metric, or string which is passed to pdist. This should be a
+distance metric; that is, lower is better, higher is worse.
+Note, a special case exists, whereby ‘spearman’ may be supplied here
+if so, then a much faster Numpy method np.corrcoef is used, and then results
+are subtracted from 1 to turn the metric into a distance metric. By default ‘spearman’.</p></li>
+<li><p><strong>similarity_metric_higher_is_better</strong> (<em>bool</em>) – If True, then a high value from the supplied similarity metric is better. If False, then
+a lower value is better (as is the case for distance metrics like Euclidean/Manhattan etc).
+Note that if lower is better, then the percentile should be changed to the other end of the
+distribution. For example, if keeping with significance at the 5 % level for a metric for
+which higher is better, then a metric where lower is better would use the 5th percentile,
+and percentile_cutoff = 5 should be used. By default True.</p></li>
+<li><p><strong>min_cardinality</strong> (<em>int</em>) – Cardinality is the number of times a treatment is repeated (treatment with matching well,
+dose and any other constraints imposed). This arguments sets the minimum number of treatment
+repeats that should be present, if not, then the group is excluded from the calculation.
+Behavior of cytominer-eval includes all single repeat measuments, marking them as non-replicating
+this behaviour is replicated by setting this argument to 2. If 2, then only compounds with 2
+or more repeats are included in the calculation and have the posibility of generating a score
+for comparison to a null distribution and potentially passing the compactness test of being
+greater than the Nth percentile of the null distribution. By default 2.</p></li>
+<li><p><strong>max_cardinality</strong> (<em>int</em>) – If a dataset has thousands of matched repeats, then little is gained in
+finding pairwise all-to-all distances of non-matching compounds, this
+argument allows setting an upper bound cutoff after which, the repeats
+are shuffled and max_cardinality samples drawn to create a synthetic set of
+max_cardinality repeats. This is very useful when using a demanding similarity
+method as it cuts the evaluations dramatically. By default 50.</p></li>
+<li><p><strong>include_cardinality_violating_compounds_in_calculation</strong> (<em>bool</em>) – If True, then compounds for which there are no matching replicates, or not enough as defined
+by min_cardinality (and are therefore deemed not compact) are included in the final
+reported compactness statistics. If False, then they are not included as
+non-compact and simply ignored as if they were not present in the dataset. By default
+False.</p></li>
+<li><p><strong>return_full_performance_df</strong> (<em>bool</em>) – If True, then a tuple is returned with the compactness score in the first position,
+and a pd.DataFrame containing full information on each repeat. By default False</p></li>
+<li><p><strong>performance_df_file</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – If return_full_performance_df is True and a Path or str is given as an argument to this
+parameter, then the performance DataFrame is written out to a CSV file using this filename.
+If True is passed here, then the a filename will be constructed from function arguments,
+attempting to capture the run details. If an auto-generated file with this name exists,
+then an error is raised and no calculations are performed. In addition to the output CSV,
+a json file is also written capturing arguments that the function was called with. So if
+‘compactness_results.csv’ is passed here, then a file named compactness_results.json will
+be written out. If a filename is autogenerated, then the autogenerated filename is adapted
+to have the ‘.json’ file extension. If the argument does not end in ‘.csv’, then .json is appended
+to the end of the filename to define the name of the json file. By Default, None.</p></li>
+<li><p><strong>additional_captured_params</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – If writing out full details, also include this dictionary in the output json file, useful
+to add metadata to runs. By default None.</p></li>
+<li><p><strong>similarity_metric_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – If relying on the function to make a nice performance CSV file name, then a nice succinct
+similarity metric name may be passed here, rather than relying upon calling __repr__ on the
+function, which may return long names such as:
+‘bound method Phenotypic_Metric.similarity of Manhattan’. By default None.</p></li>
+<li><p><strong>percentile_cutoff</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Percentile of the null distribution over which the matching replicates must score to be
+considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+metric where higher is better, but if using a metric where lower is better, then it should
+be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+value 95 if similarity_metric_higher_is_better==True, and 5 if
+similarity_metric_higher_is_better==False. By default None.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em>) – If True, then use joblib to parallelise evaluation of compounds. By default True.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – The n_jobs argument is passed to joblib for parallel execution and defines the number of
+threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
+By default -1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If return_full_performance_df is False, then only the percent compact statistic is returned.
+If True, then a tuple is returned, with percent compact in the first position, and a
+pd.DataFrame in the second position containing the median repeat scores, as well as median
+null distribution scores in an easy to analyse format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, tuple[float, pd.DataFrame]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.compactness.percent_replicating">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.compactness.</span></span><span class="sig-name descname"><span class="pre">percent_replicating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_query_or_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">null_criteria_not</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_evaluation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'spearman'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cardinality</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_cardinality_violating_compounds_in_calculation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_replicate_pairwise_distances_in_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_captured_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance_df_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile_cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.compactness.percent_replicating" title="Link to this definition"></a></dt>
+<dd><p>Calculate percent replicating</p>
+<p>Percent replicating is defined by Way et. al. in:
+Way, Gregory P., et al. “Morphology and gene expression profiling provide complementary
+information for mapping cell state.” Cell systems 13.11 (2022): 911-923.
+or on bioRxiv:
+<a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2">https://www.biorxiv.org/content/10.1101/2021.10.21.465335v2</a></p>
+<p>Helpful descriptions also exist in
+<a class="reference external" href="https://github.com/cytomining/cytominer-eval/issues/21#issuecomment-902934931">https://github.com/cytomining/cytominer-eval/issues/21#issuecomment-902934931</a></p>
+<p>This implementation is designed to work with a variety of phenotypic similarity methods, not
+just a spearman correlation coefficient between observations.groupby_null</p>
+<p>Matching distributions are created by matching perturbations. In Phenonaut, this is
+typically defined by the perturbation_column field. This function takes this field as an
+argument, although it is unused if found in the passed Dataset/Phenonaut object. Additional
+criterial to match on such as concentration and well position can be added using the
+replicate_criteria argument. Null distributions are composed of a pick of C unique compounds,
+where C is the cardinality of the matched repeats (how many), and their median ‘similarity’.
+By default, this similarity is the spearman correlation coefficient between profiles. This
+process to generate median similarity for non-replicate compounds is repeated n_iters times
+(by default 1000). Once the null distribution has been collected (median pairwise similarities),
+the median similarity of matched replicates is compared to the 95th percentile of this null
+distribution. If it is greater, then the compound (or compound and dose) are deemed replicating.
+Null distributions may not contain the matched compound. The percent replicating is calculated
+from the number of matched repeats which were replicating versus the number which were not.</p>
+<p>As the calculation is demanding, the function makes use of parallel calculation of the null
+distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>, </em><em>pd.DataFrame</em><em>]</em><em>,</em>) – Input data in the form of a Phenonaut dataset, a Phenonaut object, or a pd.DataFrame
+containing profiles of perturbations. If a Phenonaut object is supplied, then the last added
+Dataset will be used.</p></li>
+<li><p><strong>perturbation_column</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – In the standard % replicating calculation, compounds, are matched by name (or identifier),
+and dose, although this can be relaxed. This argument sets the column name
+containing an identifier for the perturbation name (or identifier), usually the name of a
+compound or similar. If a Phenonaut object or Dataset is supplied as the ds argument and this
+perturbation_column argument is None, then this value is attempted to be discovered through
+interrogation of the perturbation_column property of the Dataset. In the case of the CMAP_Level4
+PackagedDataset, a standard run would be achieved by passing ‘pert_iname’as an argument here,
+or disregarding the value found in this argument by providing a dataset with the
+perturbation_column property already set. By default None.</p></li>
+<li><p><strong>replicate_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the matching replicates, this maybe something
+like ensuring concentration is above a threshold, or that they are taken from certain timepoints.
+Please note, if information in rows is never going to be included in matching or null distributions,
+then it is more efficient to prefilter the dataframe before running percent_replicating on it.
+This parameter should not be used to restrict the compounds on which percent replicating is run,
+as this is inefficient. Instead, the restrict_evaluation_query should be used.</p></li>
+<li><p><strong>replicate_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – As noted above describing the impact of the perturbation_column argument, matching compounds
+are often defined by their perturbation name/identifier and dose.  Whilst the perturbation
+column matches the compound name/identifier (something which must always be matched), passing
+a string here containing the title of a dose column (for example) also enforces matching on
+this property. A list of strings may also be passed. In the case of the PackagedDataset
+CMAP_Level4, this argument would take the value “pert_idose_uM” and would ensure that
+matched replicates share a common identifier/name (as default and enforced by
+perturbation_column) and concentration. The original perturbation_column may be included
+here but has no effect. By default None.</p></li>
+<li><p><strong>replicate_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em><em>=None</em>) – Values in this list enforce that matching replicates do NOT share a common property. This is
+useful for exotic evaluations, like picking replicates from across cell lines and
+concentrations.</p></li>
+<li><p><strong>null_query_or_df</strong> (<em>Optional</em><em>[</em><em>str</em><em>, </em><em>pd.DataFrame</em><em>]</em><em>=None</em>) – Optional pandas query to apply in selection of the non-matching replicates comprising the null
+distribution. This can be things like ensuring only a certain plates or cell lines are used in
+construction of the distribution. Alternatively, a pd.DataFrame may be supplied here, from which
+the non-matching compounds are drawn for creation of the null distribution. Note; if
+supplying a query to filter out  information in rows that is never going to be included in
+matching or null distributions, then it is more efficient to prefilter the dataframe before
+running percent_replicating on it. This argument does not override null_criteria, or
+null_criteria_not as these have effect after this arguments effects have been applied. Has no
+effect if None. By default, None.</p></li>
+<li><p><strong>null_criteria</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Whilst matching compounds are often defined by perturbation and dose, compounds comprising the
+null distribution must sometimes match the well position of the original compound. This
+argument captures the column name defining properties of non-matching replicates which must
+match the orignal query compound. In the case of the CMAP_Level4 PackagedDataset, this
+argument would take the value “well”. A list of strings may also be passed to enforce further
+fields within the matching distribution which must match in the null distribution. If None,
+then no requirements appart from a different name/compound idenfier are enforced. By default
+None.</p></li>
+<li><p><strong>null_criteria_not</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em><em>]</em>) – Values in this list enforce that matching non-replicates do NOT share a common property with
+the chosen replicates. The opposite of the above described null_criteria, this
+allows exotic evaluations like picking replicates from different cell lines to the matching
+replicates. Has no effect if None. By default None.</p></li>
+<li><p><strong>restrict_evaluation_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – If only a few compounds in a Phenonaut Dataset are to be included in the percent replicating
+calculation, then this parameter may be used to efficiently select only the required compounds
+using a standard pandas style query which is run on groups defined by replicate_criteria
+Excluded compounds are not removed from the percent replicating calculation.  If None, then has
+no effect. By default None.</p></li>
+<li><p><strong>features</strong> (<em>features:Optional</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Features list which capture the phenotypic responses to perturbations. Only required and used
+if a pd.DataFrame is supplied in place of the ds argument. By default None.</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of times the non-matching compound replicates should be sampled to compose the null
+distribution. If less than n_iters are available, then take as many as possible. By default
+1000.</p></li>
+<li><p><strong>phenotypic_metric</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>Callable</em><em>, </em><a class="reference internal" href="phenonaut.metrics.html#phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric" title="phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric"><em>PhenotypicMetric</em></a><em>]</em><em>, </em><em>optional</em>) – Callable metric, or string which is passed to pdist. This should be a
+distance metric; that is, lower is better, higher is worse.
+Note, a special case exists, whereby ‘spearman’ may be supplied here
+if so, then a much faster Numpy method np.corrcoef is used, and then results
+are subtracted from 1 to turn the metric into a distance metric. By default ‘spearman’.</p></li>
+<li><p><strong>phenotypic_metric_higher_is_better</strong> (<em>bool</em>) – If True, then a high value from the supplied phenotypic metric is better. If False, then
+a lower value is better (as is the case for distance metrics like Euclidean/Manhattan etc).
+Note that if lower is better, then the percentile should be changed to the other end of the
+distribution. For example, if keeping with significance at the 5 % level for a metric for
+which higher is better, then a metric where lower is better would use the 5th percentile,
+and percentile_cutoff = 5 should be used. By default True.</p></li>
+<li><p><strong>min_cardinality</strong> (<em>int</em>) – Cardinality is the number of times a treatment is repeated (treatment with matching well,
+dose and any other constraints imposed). This arguments sets the minimum number of treatment
+repeats that should be present, if not, then the group is excluded from the calculation.
+Behavior of cytominer-eval includes all single repeat measuments, marking them as non-replicating
+this behaviour is replicated by setting this argument to 2. If 2, then only compounds with 2
+or more repeats are included in the calculation and have the posibility of generating a score
+for comparison to a null distribution and potentially passing the replicating test of being
+greater than the Nth percentile of the null distribution. By default 2.</p></li>
+<li><p><strong>max_cardinality</strong> (<em>int</em>) – If a dataset has thousands of matched repeats, then little is gained in
+finding pairwise all-to-all distances of non-matching compounds, this
+argument allows setting an upper bound cutoff after which, the repeats
+are shuffled and max_cardinality samples drawn to create a synthetic set of
+max_cardinality repeats. This is very useful when using a demanding similarity
+method as it cuts the evaluations dramatically. By default 50.</p></li>
+<li><p><strong>include_cardinality_violating_compounds_in_calculation</strong> (<em>bool</em>) – If True, then compounds for which there are no matching replicates, or not enough as defined
+by min_cardinality (and are therefore deemed not replicating) are included in the final
+reported percent replicating statistics. If False, then they are not included as
+non-replicating and simply ignored as if they were not present in the dataset. By default
+False.</p></li>
+<li><p><strong>return_full_performance_df</strong> (<em>bool</em>) – If True, then a tuple is returned with the percent replicating score in the first position,
+and a pd.DataFrame containing full information on each repeat. By default False</p></li>
+<li><p><strong>include_replicate_pairwise_distances_in_df</strong> (<em>bool</em>) – If True, then pairwise replicate distances are included in the full performance dataframe.
+Has no effect if return_full_performance_df is False</p></li>
+<li><p><strong>performance_df_file</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bool</em><em>]</em><em>]</em>) – If return_full_performance_df is True and a Path or str is given as an argument to this
+parameter, then the performance DataFrame is written out to a CSV file using this filename.
+If True is passed here, then the a filename will be constructed from function arguments,
+attempting to capture the run details. If an auto-generated file with this name exists,
+then an error is raised and no calculations are performed. In addition to the output CSV,
+a json file is also written capturing arguments that the function was called with. So if
+‘pr_results.csv’ is passed here, then a file named pr_results.json will be written out.
+If a filename is autogenerated, then the autogenerated filename is adapted to have the
+‘.json’ file extension. If the argument does not end in ‘.csv’, then .json is appended
+to the end of the filename to define the name of the json file. By Default, None.</p></li>
+<li><p><strong>additional_captured_params</strong> (<em>Optional</em><em>[</em><em>dict</em><em>]</em>) – If writing out full details, also include this dictionary in the output json file, useful
+to add metadata to runs. By default None.</p></li>
+<li><p><strong>similarity_metric_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – If relying on the function to make a nice performance CSV file name, then a nice succinct
+similarity metric name may be passed here, rather than relying upon calling __repr__ on the
+function, which may return long names such as:
+‘bound method Phenotypic_Metric.similarity of Manhattan’. By default None.</p></li>
+<li><p><strong>percentile_cutoff</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Percentile of the null distribution over which the matching replicates must score to be
+considered compact. Should range from 0 to 100. Normally, this can be 95 (when using a similarity
+metric where higher is better, but if using a metric where lower is better, then it should
+be set to 5. To make things easier, this parameter defaults to None, in which case it takes the
+value 95 if similarity_metric_higher_is_better==True, and 5 if
+similarity_metric_higher_is_better==False. By default None.</p></li>
+<li><p><strong>parallel</strong> (<em>bool</em>) – If True, then use multiprocessing to parallelise evaluation of compounds. By default True.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – The n_jobs argument is passed to multiprocessing for parallel execution and defines the number
+of threads to use.  A value of -1 denotes that the system should determine how many jobs to run.
+By default None.</p></li>
+<li><p><strong>random_state</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>np.random.Generator</em><em>]</em>) – Random state which should be used when performing sampling operations. Can be a
+np.random.Generator, or an int (in which case, a np.random.Generator) is
+instantiated with it.  If attempting reproducible results, run without parallelisation by
+settiung the parallel argument to False, by default 42</p></li>
+<li><p><strong>quiet</strong> (<em>bool</em>) – If True, then dont display a progressbar</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>If return_full_performance_df is False, then only the percent replicating is returned.
+If True, then a tuple is returned, with percent replicating in the first position, and a
+pd.DataFrame in the second position containing the median repeat scores, as well as median
+null distribution scores in an easy to analyse format.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[float, tuple[float, pd.DataFrame]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.metrics.html" class="btn btn-neutral float-left" title="phenonaut.metrics package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.metrics.distinctness.html" class="btn btn-neutral float-right" title="phenonaut.metrics.distinctness package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,11 +1,11 @@
 phenonaut.output package
-===========================
+========================
 
 Submodules
 ----------
 
 phenonaut.output.boxplot module
-----------------------------------
+-------------------------------
 
 .. automodule:: phenonaut.output.boxplot
    :members:
@@ -13,7 +13,7 @@ phenonaut.output.boxplot module
    :show-inheritance:
 
 phenonaut.output.heatmap module
-----------------------------------
+-------------------------------
 
 .. automodule:: phenonaut.output.heatmap
    :members:
@@ -21,7 +21,7 @@ phenonaut.output.heatmap module
    :show-inheritance:
 
 phenonaut.output.pair\_plot module
--------------------------------------
+----------------------------------
 
 .. automodule:: phenonaut.output.pair_plot
    :members:
@@ -29,7 +29,7 @@ phenonaut.output.pair\_plot module
    :show-inheritance:
 
 phenonaut.output.pptx module
--------------------------------
+----------------------------
 
 .. automodule:: phenonaut.output.pptx
    :members:
@@ -37,7 +37,7 @@ phenonaut.output.pptx module
    :show-inheritance:
 
 phenonaut.output.scatter module
-----------------------------------
+-------------------------------
 
 .. automodule:: phenonaut.output.scatter
    :members:
@@ -45,7 +45,7 @@ phenonaut.output.scatter module
    :show-inheritance:
 
 phenonaut.output.spreadsheet module
---------------------------------------
+-----------------------------------
 
 .. automodule:: phenonaut.output.spreadsheet
    :members:
@@ -53,7 +53,7 @@ phenonaut.output.spreadsheet module
    :show-inheritance:
 
 phenonaut.output.visualisation\_base module
-----------------------------------------------
+-------------------------------------------
 
 .. automodule:: phenonaut.output.visualisation_base
    :members:

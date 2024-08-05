@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.integration package &mdash; Phenonaut 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=09beee0d"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.integration.integrators package" href="phenonaut.integration.integrators.html" />
+    <link rel="prev" title="phenonaut.data package" href="phenonaut.data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">phenonaut.integration package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phenonaut-integration-integration-control-module">phenonaut.integration.integration_control module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-phenonaut.integration">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.errors">phenonaut.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.html">phenonaut package</a></li>
+      <li class="breadcrumb-item active">phenonaut.integration package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-integration-package">
+<h1>phenonaut.integration package<a class="headerlink" href="#phenonaut-integration-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="phenonaut.integration.integrators.html">phenonaut.integration.integrators package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.integration.integrators.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.integration.integrators.html#module-phenonaut.integration.integrators.base">phenonaut.integration.integrators.base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.fit"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.fit_train_test_transform_test"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.fit_train_test_transform_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.fit_transform"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.fit_transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.merge_splits_to_single_views"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.merge_splits_to_single_views()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.multiplex_df"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.multiplex_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.multiplex_df_merge_single_samples"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.multiplex_df_merge_single_samples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.base.ViewIntegrator.transform"><code class="docutils literal notranslate"><span class="pre">ViewIntegrator.transform()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.integration.integrators.html#module-phenonaut.integration.integrators.classic">phenonaut.integration.integrators.classic module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.Concatenate_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">Concatenate_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.Concatenate_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">Concatenate_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.MVMDS_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">MVMDS_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.MVMDS_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">MVMDS_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.SplitAutoencoder_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">SplitAutoencoder_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.classic.SplitAutoencoder_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">SplitAutoencoder_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.integration.integrators.html#module-phenonaut.integration.integrators">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.Concatenate_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">Concatenate_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.Concatenate_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">Concatenate_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.MVMDS_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">MVMDS_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.MVMDS_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">MVMDS_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.SplitAutoencoder_ViewIntegrator"><code class="docutils literal notranslate"><span class="pre">SplitAutoencoder_ViewIntegrator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.integration.integrators.html#phenonaut.integration.integrators.SplitAutoencoder_ViewIntegrator.__call__"><code class="docutils literal notranslate"><span class="pre">SplitAutoencoder_ViewIntegrator.__call__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="phenonaut-integration-integration-control-module">
+<h2>phenonaut.integration.integration_control module<a class="headerlink" href="#phenonaut-integration-integration-control-module" title="Link to this heading"></a></h2>
+</section>
+<section id="module-phenonaut.integration">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.integration" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.integration.concatenate_datasets_horizontally">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.integration.</span></span><span class="sig-name descname"><span class="pre">concatenate_datasets_horizontally</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">merge_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">how</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'PerfectMatch'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_random_right</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.integration.concatenate_datasets_horizontally" title="Link to this definition"></a></dt>
+<dd><p>Concatenate datasets horizontally</p>
+<p>Useful for merging two or more datasets and expanding their features by a factor of the number
+of datesets.  This function expands columns, not rows.</p>
+<p>At present, only one concatenation method is implemented:</p>
+<ul>
+<li><dl>
+<dt>‘EnumerateAll’</dt><dd><ul class="simple">
+<li><ul>
+<li><p>For each treatment, all data combinations are enumerated for the left and right datasets</p></li>
+</ul>
+</li>
+</ul>
+<p>(iterating through a list using left and right if concatenating more than 2). This has the
+effect of massively increasing the number of samples in the final dataset, as merging
+treatments from 2 datasets where replicate cardinalities are 4 in both, results in the
+new dataset having a replicate cardinality of 16 (4x4). Note that all non-essential columns
+in the dataframe will be removed when using this approach. This is a design decision taken
+with the aim of controlling spiraling memory requirements when performing multiple
+concatenations.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>‘EnumerateThenMatchCardinality’</dt><dd><ul class="simple">
+<li><p>For each treatment, all data combinations are enumerated for the left and right datasets</p></li>
+</ul>
+<p>(iterating through a list using left and right if concatenating more than 2).  Then, a
+sample is taken from all of these combinations to bring the cardinality down to that of the
+# left dataset group treatments. Warning, this approach with downsampling causes smoothing of
+the dataset, removing outliers and may result in artificially high benchmark scores.</p>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>‘PerfectMatch’</dt><dd><ul class="simple">
+<li><p>For each treatment group on the left, match with the treatment group on the right. If</p></li>
+</ul>
+<p>group cardinalities are not the same, then drop samples until they match.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> (<em>list</em><em>[</em><em>phenonaut.data.Dataset</em><em>]</em>) – List of phenonaut Datasets which should be merged</p></li>
+<li><p><strong>merge_field</strong> (<em>str</em><em> | </em><em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>) – The column name which is used to match treatments.  If None, then this is taken to be the
+perturbation_column from the first dataset, by default None</p></li>
+<li><p><strong>how</strong> (<em>str</em><em>, </em><em>optional</em>) – Concatenation method, see function description above, by default ‘PerfectMatch’</p></li>
+<li><p><strong>n_random_right</strong> (<em>int</em><em>, </em><em>optional</em>) – Num sampled treatments to merge, see function description above, by default 4</p></li>
+<li><p><strong>random_state</strong> (<em>int</em><em> | </em><em>np.random.Generator</em><em>, </em><em>optional</em>) – Random state as either an int for sampling, can also be a np.random.Generator, by default 7</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataset made of horizontally concatenated datasets</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>phenonaut.data.Dataset</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – Requested concatenation method is not yet implemented</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.data.html" class="btn btn-neutral float-left" title="phenonaut.data package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.integration.integrators.html" class="btn btn-neutral float-right" title="phenonaut.integration.integrators package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 phenonaut.predict package
-============================
+=========================
 
 Subpackages
 -----------
@@ -13,7 +13,7 @@ Submodules
 ----------
 
 phenonaut.predict.optuna\_functions module
----------------------------------------------
+------------------------------------------
 
 .. automodule:: phenonaut.predict.optuna_functions
    :members:
@@ -21,7 +21,7 @@ phenonaut.predict.optuna\_functions module
    :show-inheritance:
 
 phenonaut.predict.predict\_utils module
-------------------------------------------
+---------------------------------------
 
 .. automodule:: phenonaut.predict.predict_utils
    :members:
@@ -29,7 +29,7 @@ phenonaut.predict.predict\_utils module
    :show-inheritance:
 
 phenonaut.predict.predictor\_dataclasses module
---------------------------------------------------
+-----------------------------------------------
 
 .. automodule:: phenonaut.predict.predictor_dataclasses
    :members:
@@ -37,7 +37,7 @@ phenonaut.predict.predictor\_dataclasses module
    :show-inheritance:
 
 phenonaut.predict.profile module
------------------------------------
+--------------------------------
 
 .. automodule:: phenonaut.predict.profile
    :members:

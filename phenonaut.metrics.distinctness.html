@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenonaut.metrics.distinctness package &mdash; Phenonaut 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=09beee0d"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="phenonaut.output package" href="phenonaut.output.html" />
+    <link rel="prev" title="phenonaut.metrics.compactness package" href="phenonaut.metrics.compactness.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Phenonaut
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="phenonaut.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="phenonaut.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.data.html">phenonaut.data package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.integration.html">phenonaut.integration package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="phenonaut.metrics.html">phenonaut.metrics package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="phenonaut.metrics.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.distances">phenonaut.metrics.distances module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.measures">phenonaut.metrics.measures module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.non_ds_phenotypic_metrics">phenonaut.metrics.non_ds_phenotypic_metrics module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics.utils">phenonaut.metrics.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="phenonaut.metrics.html#module-phenonaut.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.output.html">phenonaut.output package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.packaged_datasets.html">phenonaut.packaged_datasets package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.predict.html">phenonaut.predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="phenonaut.transforms.html">phenonaut.transforms package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.errors">phenonaut.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.phenonaut">phenonaut.phenonaut module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.utils">phenonaut.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut.workflow">phenonaut.workflow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="phenonaut.html#module-phenonaut">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publication_examples.html">Publication examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow_guide.html">Workflow mode</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Phenonaut</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.html">phenonaut package</a></li>
+          <li class="breadcrumb-item"><a href="phenonaut.metrics.html">phenonaut.metrics package</a></li>
+      <li class="breadcrumb-item active">phenonaut.metrics.distinctness package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/phenonaut.metrics.distinctness.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="phenonaut-metrics-distinctness-package">
+<h1>phenonaut.metrics.distinctness package<a class="headerlink" href="#phenonaut-metrics-distinctness-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-phenonaut.metrics.distinctness.distinctness_measures">
+<span id="phenonaut-metrics-distinctness-distinctness-measures-module"></span><h2>phenonaut.metrics.distinctness.distinctness_measures module<a class="headerlink" href="#module-phenonaut.metrics.distinctness.distinctness_measures" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distinctness.distinctness_measures.mp_value_score">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distinctness.distinctness_measures.</span></span><span class="sig-name descname"><span class="pre">mp_value_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_perturbation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_explained_variance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_scaler_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_scaler_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error_for_low_count_groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distinctness.distinctness_measures.mp_value_score" title="Link to this definition"></a></dt>
+<dd><p>Get mp-value score performance DataFrame for a dataset</p>
+<dl class="simple">
+<dt>Implementation of the mp-value score from the paper:</dt><dd><p>Hutz JE, Nelson T, Wu H, et al. The Multidimensional Perturbation Value: A
+Single Metric to Measure Similarity and Activity of Treatments in
+High-Throughput Multidimensional Screens. Journal of Biomolecular Screening.
+2013;18(4):367-377. doi:10.1177/1087057112469257.</p>
+</dd>
+</dl>
+<p>The paper mentions normalising by rows as well as columns. This is not appropriate
+for some data types like DRUG-seq, and so this is not enabled by default.
+Additionally, a default fraction explained variance for the PCA operation has been
+set to 0.99 so that the PCA may explain 99 % of variance.</p>
+<p>This implementation differs somewhat to the one in pycytominer_eval which deviates
+from the paper definition and does not perform a mixin of the covariance matrices
+for treatment and control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – Phenonaut dataset or Phenonaut object upon which to perform the mp_value_score
+calculation. If a Phenonaut object is passed, then the dataset at position -1
+(usually the last added is used)</p></li>
+<li><p><strong>ds_groupby</strong> (<em>Pandas style groupby to apply on the ds. Normally this is the column</em>) – name of a unique compound identifier. Can also be a list, containing the unique
+compound identifier column name, along with a concentration or timepoint column.</p></li>
+<li><p><strong>reference_perturbation_query</strong> (<em>reference_perturbation_query</em>) – Pandas style query which may be run on ds to extract the reference set of points
+in phenotypic space, against which all other grouped perturbations are compared.</p></li>
+<li><p><strong>pca_explained_variance</strong> (<em>float</em>) – This argument is passed to scikit’s PCA object and specifices the % variance
+that the returned components should capture. The original paper aims for 90 % ev
+we aim by default for 99 %. Should be expressed as a float between 0 and 1.
+By default 0.99</p></li>
+<li><p><strong>std_scaler_columns</strong> (<em>bool</em>) – Apply standard scaler to columns. By default True</p></li>
+<li><p><strong>std_scaler_rows</strong> (<em>bool</em>) – Apply standard scaler to rows. By default False</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em>) – Number of iterations iterations to perform in statistical test to derive
+p-value, by default 1000</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – Calculations will be run in parallel by providing the number of processors to
+use. If n_jobs is None, then this is autodetected by the system. By default None</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – Random seed to use for initialisation of rng, enabling reproducible runs</p></li>
+<li><p><strong>raise_error_for_low_count_groups</strong> (<em>bool</em>) – Calculation of mp_value scores requires more than three samples to be in each
+group. If raise_error_for_low_count_groups is True, then an error is raised upon
+encountering such a group as no mp_value score can be calculated. If False, then
+a simple warning is printed and the returned p-value and mahalanobis distance in
+the results dataframe are both np.nan. By default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distinctness.distinctness_measures.silhouette_score">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distinctness.distinctness_measures.</span></span><span class="sig-name descname"><span class="pre">silhouette_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distinctness.distinctness_measures.silhouette_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-phenonaut.metrics.distinctness">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-phenonaut.metrics.distinctness" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distinctness.mp_value_score">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distinctness.</span></span><span class="sig-name descname"><span class="pre">mp_value_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_perturbation_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pca_explained_variance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_scaler_columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_scaler_rows</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error_for_low_count_groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distinctness.mp_value_score" title="Link to this definition"></a></dt>
+<dd><p>Get mp-value score performance DataFrame for a dataset</p>
+<dl class="simple">
+<dt>Implementation of the mp-value score from the paper:</dt><dd><p>Hutz JE, Nelson T, Wu H, et al. The Multidimensional Perturbation Value: A
+Single Metric to Measure Similarity and Activity of Treatments in
+High-Throughput Multidimensional Screens. Journal of Biomolecular Screening.
+2013;18(4):367-377. doi:10.1177/1087057112469257.</p>
+</dd>
+</dl>
+<p>The paper mentions normalising by rows as well as columns. This is not appropriate
+for some data types like DRUG-seq, and so this is not enabled by default.
+Additionally, a default fraction explained variance for the PCA operation has been
+set to 0.99 so that the PCA may explain 99 % of variance.</p>
+<p>This implementation differs somewhat to the one in pycytominer_eval which deviates
+from the paper definition and does not perform a mixin of the covariance matrices
+for treatment and control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Union</em><em>[</em><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><em>Dataset</em></a><em>, </em><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><em>Phenonaut</em></a><em>]</em>) – Phenonaut dataset or Phenonaut object upon which to perform the mp_value_score
+calculation. If a Phenonaut object is passed, then the dataset at position -1
+(usually the last added is used)</p></li>
+<li><p><strong>ds_groupby</strong> (<em>Pandas style groupby to apply on the ds. Normally this is the column</em>) – name of a unique compound identifier. Can also be a list, containing the unique
+compound identifier column name, along with a concentration or timepoint column.</p></li>
+<li><p><strong>reference_perturbation_query</strong> (<em>reference_perturbation_query</em>) – Pandas style query which may be run on ds to extract the reference set of points
+in phenotypic space, against which all other grouped perturbations are compared.</p></li>
+<li><p><strong>pca_explained_variance</strong> (<em>float</em>) – This argument is passed to scikit’s PCA object and specifices the % variance
+that the returned components should capture. The original paper aims for 90 % ev
+we aim by default for 99 %. Should be expressed as a float between 0 and 1.
+By default 0.99</p></li>
+<li><p><strong>std_scaler_columns</strong> (<em>bool</em>) – Apply standard scaler to columns. By default True</p></li>
+<li><p><strong>std_scaler_rows</strong> (<em>bool</em>) – Apply standard scaler to rows. By default False</p></li>
+<li><p><strong>n_iters</strong> (<em>int</em>) – Number of iterations iterations to perform in statistical test to derive
+p-value, by default 1000</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em><em>, </em><em>optional</em>) – Calculations will be run in parallel by providing the number of processors to
+use. If n_jobs is None, then this is autodetected by the system. By default None</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – Random seed to use for initialisation of rng, enabling reproducible runs</p></li>
+<li><p><strong>raise_error_for_low_count_groups</strong> (<em>bool</em>) – Calculation of mp_value scores requires more than three samples to be in each
+group. If raise_error_for_low_count_groups is True, then an error is raised upon
+encountering such a group as no mp_value score can be calculated. If False, then
+a simple warning is printed and the returned p-value and mahalanobis distance in
+the results dataframe are both np.nan. By default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distinctness.pertmutation_test_distinct_from_query_group">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distinctness.</span></span><span class="sig-name descname"><span class="pre">pertmutation_test_distinct_from_query_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_group_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotypic_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.metrics.html#phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric" title="phenonaut.metrics.non_ds_phenotypic_metrics.PhenotypicMetric"><span class="pre">PhenotypicMetric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_results_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_samples_in_a_group</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_error_on_empty_query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#phenonaut.metrics.distinctness.pertmutation_test_distinct_from_query_group" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenonaut.metrics.distinctness.silhouette_score">
+<span class="sig-prename descclassname"><span class="pre">phenonaut.metrics.distinctness.</span></span><span class="sig-name descname"><span class="pre">silhouette_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="phenonaut.data.html#phenonaut.data.dataset.Dataset" title="phenonaut.data.dataset.Dataset"><span class="pre">Dataset</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="phenonaut.html#phenonaut.phenonaut.Phenonaut" title="phenonaut.phenonaut.Phenonaut"><span class="pre">Phenonaut</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perturbation_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replicate_criteria</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Callable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'euclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric_higher_is_better</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_full_performance_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenonaut.metrics.distinctness.silhouette_score" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenonaut.metrics.compactness.html" class="btn btn-neutral float-left" title="phenonaut.metrics.compactness package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenonaut.output.html" class="btn btn-neutral float-right" title="phenonaut.output package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Steven Shave.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
